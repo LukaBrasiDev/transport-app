@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<table border="2">
+    <tr>
+        <td>ID</td>
+        <td>NR TURY</td>
+        <td>DATA ZAŁADUNKU</td>
+        <td>MIASTA</td>
+        <td>CENA</td>
+        <td>CENA PRZEWOŹNIKA</td>
+        <td>PRZEWOŹNIK</td>
+        <td>T/S</td>
+
+
+    </tr>
+    <tr th:each="one : ${orders}">
+        <td th:text="${one.id}"></td>
+        <td th:text="${one.orderNumber}"></td>
+        <td th:text="${one.loadDate}"></td>
+
+        <td><span th:each="order,iterStat : ${one.cities}">
+         <span th:text="${order.cityCode}"/><th:block th:if="${!iterStat.last}">, </th:block>
+         </span>
+        </td>
+
+        <td th:text="${one.price}"></td>
+        <td th:text="${one.freighterPrice}"></td>
+        <td th:text="${one.freighter.getFreighterName()}"></td>
+        <td th:text="${one.user.getUserName()}"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>

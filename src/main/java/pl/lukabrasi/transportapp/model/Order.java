@@ -1,6 +1,9 @@
 package pl.lukabrasi.transportapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -11,7 +14,9 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "order")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "orders")
 public class Order {
 
     private @Id
@@ -24,15 +29,12 @@ public class Order {
     BigDecimal price;
     BigDecimal freighterPrice;
 
-
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
+            cascade = CascadeType.ALL
+    )
     @JoinTable(name = "order_city",
-            joinColumns = { @JoinColumn(name = "order_id") },
-            inverseJoinColumns = { @JoinColumn(name = "city_id") })
+            joinColumns = {@JoinColumn(name = "order_id")},
+            inverseJoinColumns = {@JoinColumn(name = "city_id")})
     private Set<City> cities = new HashSet<>();
 
 
@@ -42,7 +44,6 @@ public class Order {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "fk_freighter")
     private Freighter freighter;
-
 
 
 }
