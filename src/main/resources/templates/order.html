@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link th:href="@{css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css"
+          rel="stylesheet" type="text/css" media="screen"/>
+    <script src="../../static/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 
-<table border="2">
-    <tr>
+<table class="table table-striped table-hover" border="1">
+    <tr style="font-weight: bold">
         <td>ID</td>
         <td>NR TURY</td>
         <td>DATA ZAŁADUNKU</td>
         <td>MIASTA</td>
         <td>CENA</td>
         <td>CENA PRZEWOŹNIKA</td>
+        <td>ZYSK</td>
         <td>PRZEWOŹNIK</td>
         <td>T/S</td>
 
@@ -32,6 +37,7 @@
 
         <td th:text="${one.price}"></td>
         <td th:text="${one.freighterPrice}"></td>
+        <td th:text="${one.profit}"></td>
         <td th:text="${one.freighter.getFreighterName()}"></td>
         <td th:text="${one.user.getUserName()}"></td>
     </tr>

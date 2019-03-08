@@ -25,13 +25,8 @@ public class City {
     private @Column(name = "city_code")
     int cityCode;
 
-
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "cities")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "cities")
     private Set<Order> orders = new HashSet<>();
 
     @Override

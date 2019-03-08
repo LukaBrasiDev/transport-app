@@ -1,15 +1,14 @@
 package pl.lukabrasi.transportapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.service.OrderService;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class OrderController {
 
 
@@ -21,10 +20,10 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public String getOrders(Model model) {
+    public List<Order> getOrders() {
 
-        model.addAttribute("orders",orderService.getOrders());
-        return "order";
+
+        return orderService.getOrders();
 
     }
 
