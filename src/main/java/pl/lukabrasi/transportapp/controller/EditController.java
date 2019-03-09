@@ -15,6 +15,7 @@ public class EditController {
 
     final OrderService orderService;
 
+
     @Autowired
     public EditController(OrderService orderService) {
         this.orderService = orderService;
@@ -24,6 +25,7 @@ public class EditController {
     public String edit(@PathVariable Long id,
                        Model model) {
         model.addAttribute("order", orderService.getOrderById(id));
+        model.addAttribute("users", orderService.getUsers());
         model.addAttribute("orderForm", new OrderForm());
         return "edit";
     }

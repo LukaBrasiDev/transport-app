@@ -27,14 +27,10 @@ public class OrderController {
     public String getOrders(Model model) {
 
         model.addAttribute("orders", orderService.getOrders());
+        model.addAttribute("users", orderService.getUsers());
 
         return "order";
     }
-
-   /* @GetMapping("/orders")
-    public List<Order> getOrders(Model model) {
-         return  orderService.getOrders();
-    }*/
 
     @GetMapping("/orders/{id}")
     public String getOrderById(@PathVariable(value = "id") Long id, Model model) {
@@ -44,8 +40,10 @@ public class OrderController {
 
 
     @PostMapping("/orders")
-    public String createOrder(@ModelAttribute OrderForm orderForm) {
+    public String createOrder(@ModelAttribute OrderForm orderForm, Model model) {
         orderService.saveOrder(orderForm);
+        model.addAttribute("orders", orderService.getOrders());
+        model.addAttribute("users", orderService.getUsers());
         return "order";
     }
 

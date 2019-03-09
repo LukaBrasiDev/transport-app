@@ -2,20 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org/" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Transport App</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
 <table th:if="${order != null}" class="table table-hover table-sm" style="font-size: 10pt">
     <thead>
     <tr>
+        <td th:if="${order != null}" th:text="'Nr tury'"></td>
+        <td th:if="${order != null}" th:text="'Data załadunku'"></td>
         <td th:if="${order != null}" th:text="'Cena nasza'"></td>
         <td th:if="${order != null}" th:text="'Cena przeowźnika'"></td>
+        <td th:if="${order != null}" th:text="'T/S'"></td>
 
     </tr>
     </thead>
     <tr>
+        <td th:text="${order.get().orderNumber}"></td>
+        <td th:text="${order.get().loadDate}"></td>
         <td th:text="${order.get().price}"></td>
         <td th:text="${order.get().freighterPrice}"></td>
+        <td th:if="${order.get().getUser()!=null}" th:text="${order.get().user.userName}"></td>
 
         <td></td>
     </tr>
@@ -26,13 +34,23 @@
          <td>       </td>-->
 
         <form method="post" th:action="@{/edit/{id}(id=${order.get().id})}" th:object="${orderForm}">
-            <!--   <label >Time</label>
-               <input th:field="*{queryTime}" name="queryTime"  th:value="${log.getQueryTime()}">
-           --> <label>Cena</label>
-            <input  name="price" th:value="${order.get().price}">
-            <label>Cena przewoźnika</label>
-            <input  name="freighterPrice" th:value="${order.get().freighterPrice}">
+            <label>Nr tury</label>
+            <input name="orderNumber" type="number" th:value="${order.get().orderNumber}">
+            <label>Data załadunku</label>
+            <input name="loadDate" type="date" th:value="${order.get().loadDate}">
 
+           <label>Cena</label>
+            <input name="price" th:value="${order.get().price}">
+            <label>Cena przewoźnika</label>
+            <input name="freighterPrice" th:value="${order.get().freighterPrice}">
+
+            <label>T/S</label>
+            <div class="col-sm-2" th:object="${users}">
+                <select name="user" class="form-control" id="exampleFormControlSelect1">
+                    <option value="">Wybierz osobę:</option>
+                    <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.userName}"></option>
+                </select>
+            </div>
             <button class="btn btn-outline-danger" type="submit">Zapisz</button>
         </form>
     </tr>
