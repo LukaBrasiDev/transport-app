@@ -23,11 +23,10 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-   @GetMapping("/orders")
+    @GetMapping("/orders")
     public String getOrders(Model model) {
 
-        model.addAttribute("orders",orderService.getOrders());
-
+        model.addAttribute("orders", orderService.getOrders());
 
         return "order";
     }
@@ -38,9 +37,9 @@ public class OrderController {
     }*/
 
     @GetMapping("/orders/{id}")
-    public String getOrderById(@PathVariable(value = "id") Long id, Model model){
-model.addAttribute("order",orderService.getOrderById(id));
-       return "order";
+    public String getOrderById(@PathVariable(value = "id") Long id, Model model) {
+        model.addAttribute("orders", orderService.getOrderById(id));
+        return "order";
     }
 
 

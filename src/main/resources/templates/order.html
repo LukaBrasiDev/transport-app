@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <link th:href="@{css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css"
-          rel="stylesheet" type="text/css" media="screen"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
+<nav class="navbar sticky-top navbar-light bg-light" style="background-color: #e3f2fd;">
+    TRANSPORT APP
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="szukaj..." aria-label="Search">
+        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Wyszukaj</button>
+    </form>
+</nav>
 
 
-<table class="table table-hover" border="1" style="empty-cells:show">
-    <thead>
-    <tr style="font-weight: bold">
+
+<table class="table table-bordered table-hover">
+    <thead >
+    <tr  style="font-weight: bold">
         <td>ID</td>
         <td>NR TURY</td>
         <td>DATA ZAŁADUNKU</td>
@@ -49,7 +56,8 @@
         <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
         <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
         <td>
-            <button type="button" class="btn btn-outline-secondary">Edytuj</button>
+
+            <a class="btn btn-outline-secondary" th:href="@{/edit/{id}(id=${one.id})}" role="button">Edytuj</a>
         </td>
     </tr>
 </table>
@@ -82,6 +90,8 @@
                 <input name="freighterPrice" type="number" step="0.01" class="form-control" id="inputEmail6">
             </div>
         </div>
+
+
        <!-- <div class="form-group row">
             <label for="inputEmail7" class="col-sm-2 col-form-label">T/S</label>
             <div class="col-sm-2">
@@ -138,7 +148,7 @@
                 </div>-->
         <div class="form-group row">
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-success"> +</button>
+                <button type="submit" class="btn btn-success"> + </button>
             </div>
         </div>
     </form>

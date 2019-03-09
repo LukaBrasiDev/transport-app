@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.model.City;
 import pl.lukabrasi.transportapp.model.Order;
+import pl.lukabrasi.transportapp.model.User;
 import pl.lukabrasi.transportapp.repository.OrderRepository;
 
 import javax.swing.text.DateFormatter;
@@ -32,6 +33,8 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+
+
     public Optional<Order> getOrderById(Long id) {
         Optional<Order> optionalOrder = orderRepository.findById(id);
         return optionalOrder;
@@ -53,7 +56,18 @@ public class OrderService {
     }
 
 
+    public void updateOrder(Long id, OrderForm orderForm) {
 
+
+        Optional<Order> optionalOrder = orderRepository.findById(id);
+
+        optionalOrder.get().setPrice(orderForm.getPrice());
+        optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
+        //  optionalWeatherLogEntity.get().setQueryTime(weatherForm.getQueryTime());
+        orderRepository.save(optionalOrder.get());
+
+
+    }
 
 
 }

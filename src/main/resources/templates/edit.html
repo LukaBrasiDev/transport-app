@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table th:if="${order != null}" class="table table-hover table-sm" style="font-size: 10pt">
+    <thead>
+    <tr>
+        <td th:if="${order != null}" th:text="'Cena nasza'"></td>
+        <td th:if="${order != null}" th:text="'Cena przeowźnika'"></td>
+
+    </tr>
+    </thead>
+    <tr>
+        <td th:text="${order.get().price}"></td>
+        <td th:text="${order.get().freighterPrice}"></td>
+
+        <td></td>
+    </tr>
+    <tr>
+        <!-- <td><input></td>
+         <td><input></td>
+         <td><input></td>
+         <td>       </td>-->
+
+        <form method="post" th:action="@{/edit/{id}(id=${order.get().id})}" th:object="${orderForm}">
+            <!--   <label >Time</label>
+               <input th:field="*{queryTime}" name="queryTime"  th:value="${log.getQueryTime()}">
+           --> <label>Cena</label>
+            <input  name="price" th:value="${order.get().price}">
+            <label>Cena przewoźnika</label>
+            <input  name="freighterPrice" th:value="${order.get().freighterPrice}">
+
+            <button class="btn btn-outline-danger" type="submit">Zapisz</button>
+        </form>
+    </tr>
+</table>
+</body>
+</html>
