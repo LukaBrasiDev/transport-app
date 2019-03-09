@@ -8,9 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -44,6 +46,19 @@ public class Order {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "fk_freighter")
     private Freighter freighter;
+
+
+    public BigDecimal getProfit(BigDecimal a, BigDecimal b) {
+
+        return (a.subtract(b));
+    }
+
+    public List<City> getOnlyFactories() {
+
+        List<City> citiesAreFactory = cities.stream()
+                .filter(p -> p.isFactory() == true).collect(Collectors.toList());
+        return citiesAreFactory;
+    }
 
 
 }

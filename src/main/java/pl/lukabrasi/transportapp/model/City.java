@@ -24,6 +24,9 @@ public class City {
     String cityName;
     private @Column(name = "city_code")
     int cityCode;
+    private @Column(name = "factory")
+    boolean isFactory;
+    private String country;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "cities")
