@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.service.OrderService;
 
@@ -43,10 +44,10 @@ model.addAttribute("order",orderService.getOrderById(id));
     }
 
 
-    @PostMapping("/users")
-    public String createOrder(@Valid @RequestBody Order order) {
-        orderService.saveOrder(order);
-        return "orders";
+    @PostMapping("/orders")
+    public String createOrder(@ModelAttribute OrderForm orderForm) {
+        orderService.saveOrder(orderForm);
+        return "order";
     }
 
 }

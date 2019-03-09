@@ -2,11 +2,15 @@ package pl.lukabrasi.transportapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.model.City;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.repository.OrderRepository;
 
+import javax.swing.text.DateFormatter;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -33,8 +37,19 @@ public class OrderService {
         return optionalOrder;
     }
 
-    public void saveOrder(Order order) {
-        orderRepository.save(order);
+    public void saveOrder(OrderForm orderForm) {
+
+        Order orderNew = new Order();
+        orderNew.setOrderNumber(orderForm.getOrderNumber());
+
+
+        orderNew.setLoadDate(orderForm.getLoadDate());
+        orderNew.setPrice(orderForm.getPrice());
+        orderNew.setFreighterPrice(orderForm.getFreighterPrice());
+
+
+
+        orderRepository.save(orderNew);
     }
 
 

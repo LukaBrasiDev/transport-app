@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -25,9 +23,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     private @Column(name = "date_load")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate loadDate;
     private @Column(name = "order_number")
-    long orderNumber;
+    Long orderNumber;
     BigDecimal price;
     BigDecimal freighterPrice;
 
@@ -48,10 +47,15 @@ public class Order {
     private Freighter freighter;
 
 
-    public BigDecimal getProfit(BigDecimal a, BigDecimal b) {
+   /* public BigDecimal getProfit(BigDecimal price, BigDecimal freighterPrice) {
 
-        return (a.subtract(b));
-    }
+        if (price.compareTo(BigDecimal.ZERO) > 1 && freighterPrice.compareTo(BigDecimal.ZERO) > 1) {
+            BigDecimal profit = price.subtract(freighterPrice);
+            return profit;
+        }
+
+        return BigDecimal.ONE;
+    }*/
 
     public List<City> getOnlyFactories() {
 
