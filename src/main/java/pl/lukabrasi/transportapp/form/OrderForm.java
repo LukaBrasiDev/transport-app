@@ -2,6 +2,7 @@ package pl.lukabrasi.transportapp.form;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.lukabrasi.transportapp.model.Freighter;
 import pl.lukabrasi.transportapp.model.User;
 
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ public class OrderForm {
    private LocalDate loadDate;
    private BigDecimal price;
    private BigDecimal freighterPrice;
+   private Freighter freighter;
    private User user;
 
 

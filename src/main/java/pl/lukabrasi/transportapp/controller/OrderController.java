@@ -28,6 +28,7 @@ public class OrderController {
 
         model.addAttribute("orders", orderService.getOrders());
         model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
 
         return "order";
     }
@@ -44,6 +45,7 @@ public class OrderController {
         orderService.saveOrder(orderForm);
         model.addAttribute("orders", orderService.getOrders());
         model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
         return "order";
     }
 

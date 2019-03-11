@@ -23,6 +23,7 @@
         <td th:text="${order.get().loadDate}"></td>
         <td th:text="${order.get().price}"></td>
         <td th:text="${order.get().freighterPrice}"></td>
+        <td th:if="${order.get().getFreighter()!=null}" th:text="${order.get().freighter.freighterName}"></td>
         <td th:if="${order.get().getUser()!=null}" th:text="${order.get().user.userName}"></td>
 
         <td></td>
@@ -39,18 +40,36 @@
             <label>Data załadunku</label>
             <input name="loadDate" type="date" th:value="${order.get().loadDate}">
 
-           <label>Cena</label>
+            <label>Cena</label>
             <input name="price" th:value="${order.get().price}">
             <label>Cena przewoźnika</label>
             <input name="freighterPrice" th:value="${order.get().freighterPrice}">
 
-            <label>T/S</label>
-            <div class="col-sm-2" th:object="${users}">
-                <select name="user" class="form-control" id="exampleFormControlSelect1">
-                    <option value="">Wybierz osobę:</option>
-                    <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.userName}"></option>
+            <label>Przewoźnik</label>
+            <div class="col-sm-2" th:object="${freighters}">
+                <select id="freighter" name="freighter" class="form-control">
+                    <option value=" ">Wybierz przewoźnika:</option>
+                    <option th:if="${order.get().getFreighter()}!=null" th:each="f : ${freighters}" th:value="${f.id}"
+                            th:text="${f.freighterName}" th:selected="${f.id== order.get().freighter.id}"></option>
+                    <option th:if="${order.get().getFreighter()}==null" th:each="f : ${freighters}" th:value="${f.id}"
+                            th:text="${f.freighterName}"></option>
+
                 </select>
             </div>
+
+
+            <label>T/S</label>
+            <div class="col-sm-2" th:object="${users}">
+                <select name="user" class="form-control">
+                    <option value=" ">Wybierz osobę:</option>
+                    <option th:if="${order.get().getUser()}!=null" th:each="u : ${users}" th:value="${u.id}"
+                            th:text="${u.userName}" th:selected="${u.id == order.get().user.id}"></option>
+                    <option th:if="${order.get().getUser()}==null" th:each="u : ${users}" th:value="${u.id}"
+                            th:text="${u.userName}"></option>
+                </select>
+            </div>
+
+
             <button class="btn btn-outline-danger" type="submit">Zapisz</button>
         </form>
     </tr>

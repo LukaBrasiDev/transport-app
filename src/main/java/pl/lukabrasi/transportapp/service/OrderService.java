@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.model.City;
+import pl.lukabrasi.transportapp.model.Freighter;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.model.User;
+import pl.lukabrasi.transportapp.repository.CityRepository;
+import pl.lukabrasi.transportapp.repository.FreighterRepository;
 import pl.lukabrasi.transportapp.repository.OrderRepository;
 import pl.lukabrasi.transportapp.repository.UserRepository;
 
@@ -23,12 +26,17 @@ public class OrderService {
 
     final OrderRepository orderRepository;
     final UserRepository userRepository;
+    final FreighterRepository freighterRepository;
+    final CityRepository cityRepository;
 
-    @Autowired
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, FreighterRepository freighterRepository, CityRepository cityRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
+        this.freighterRepository = freighterRepository;
+        this.cityRepository = cityRepository;
     }
+
+    @Autowired
 
 
     public List<Order> getOrders() {
@@ -39,6 +47,12 @@ public class OrderService {
     public List<User> getUsers(){
         return userRepository.findAll();
     }
+
+    public List<Freighter> getFreighters(){
+        return freighterRepository.findAll();
+    }
+
+
 
 
     public Optional<Order> getOrderById(Long id) {
@@ -66,8 +80,9 @@ public class OrderService {
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
         optionalOrder.get().setPrice(orderForm.getPrice());
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
+        optionalOrder.get().setFreighter(orderForm.getFreighter());
         optionalOrder.get().setUser(orderForm.getUser());
-        orderRepository.save(optionalOrder.get());
+        orderRepository.save(optionalOrder.get());//todo if not null
 
     }
 

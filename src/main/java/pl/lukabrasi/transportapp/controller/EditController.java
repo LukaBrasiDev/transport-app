@@ -26,13 +26,14 @@ public class EditController {
                        Model model) {
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
         model.addAttribute("orderForm", new OrderForm());
         return "edit";
     }
 
 
     @PostMapping("/edit/{id}")
-    public String register(
+    public String updateOrder(
             @PathVariable Long id,
             @ModelAttribute OrderForm orderForm) {
 
