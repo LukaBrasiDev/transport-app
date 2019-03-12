@@ -1,17 +1,15 @@
 TRANSPORT APP
-Aplikacja do zarządzania zleceniami
+Aplikacja do zarządzania zleceniami transportu
 
 DONE:
-- tabele z relacjami one-to-many i many-to-many
-- wyświetlanie listy wszystkich zleceń
+- baza danych
+- CRUD zleceń
 
 TODO:
-- dodanie wszystkich wymaganych pól (załadunek, zysk, ...)
-- sprawdzenie czy potrzeba DTO
-- Bootstrap lokalnie
-- HTML układ
-- HTML CSS
-- formularz dodawania zleceń
+- wyszukiwanie i sortowanie zleceń
+- CRUD użytkowników, przwoźników, miast
+- logowanie użytkowników
+- dokończyć front-end
 - ...
 - ...
 - ...
