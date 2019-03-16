@@ -11,13 +11,13 @@ import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.service.OrderService;
 
 @Controller
-public class EditController {
+public class EditOrderController {
 
     final OrderService orderService;
 
 
     @Autowired
-    public EditController(OrderService orderService) {
+    public EditOrderController(OrderService orderService) {
         this.orderService = orderService;
     }
 

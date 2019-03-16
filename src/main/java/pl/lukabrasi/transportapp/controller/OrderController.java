@@ -5,12 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.lukabrasi.transportapp.form.OrderForm;
-import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.service.OrderService;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class OrderController {
@@ -29,15 +25,18 @@ public class OrderController {
         model.addAttribute("orders", orderService.getOrders());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("cities", orderService.getCities());
 
         return "order";
     }
 
+/*
     @GetMapping("/orders/{id}")
     public String getOrderById(@PathVariable(value = "id") Long id, Model model) {
         model.addAttribute("orders", orderService.getOrderById(id));
         return "order";
     }
+*/
 
 
     @PostMapping("/orders")
@@ -46,6 +45,7 @@ public class OrderController {
         model.addAttribute("orders", orderService.getOrders());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("cities", orderService.getCities());
         return "order";
     }
 

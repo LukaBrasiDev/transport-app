@@ -7,18 +7,18 @@ import pl.lukabrasi.transportapp.model.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 public class OrderForm {
 
-   private Long orderNumber;
+    private Long orderNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-   private LocalDate loadDate;
-   private BigDecimal price;
-   private BigDecimal freighterPrice;
-   private Freighter freighter;
-   private User user;
+    private LocalDate loadDate;
+ //   private Set<Code> factoryList; //todo lista
+    private BigDecimal price;
+    private BigDecimal freighterPrice;
+    private Freighter freighter;
+    private User user;
 
 
 }

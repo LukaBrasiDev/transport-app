@@ -14,34 +14,30 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "city")
-public class City {
+@Table(name = "code")
+public class Code {
 
     private @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     Long id;
-    private @Column(name = "city_name")
-    String cityName;
+
     private @Column(name = "city_code")
-    int cityCode;
-    private @Column(name = "factory")
-    boolean isFactory;
-    private String country;
+    String cityCode;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "cities")
+    @ManyToMany(mappedBy = "codes")
     private Set<Order> orders = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof City)) return false;
-        City city = (City) o;
-        return getCityName().equals(city.getCityName());
+        if (!(o instanceof Code)) return false;
+        Code code = (Code) o;
+        return getCityCode().equals(code.getCityCode());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCityName());
+        return Objects.hash(getCityCode());
     }
 }

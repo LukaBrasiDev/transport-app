@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transport App</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!--navbar menu start-->
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<!--navbar menu koniec-->
+<!--poczatek tabeli tura-->
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr style="font-weight: bold">
+        <td>PREFIX</td>
+        <td>FABRYKA</td>
+        <td>MIASTO</td>
+        <td>ADRES</td>
+        <td>AWIZACJE</td>
+        <td>INFO</td>
+
+    </tr>
+    </thead>
+    <tr th:each="f : ${factories}">
+        <!--PREFIX -->
+        <td><span th:text="${f.prefix}"></span></td>
+        <!--FABRYKA -->
+        <td><span th:text="${f.factoryName}"></span></td>
+        <!--MIASTO -->
+        <td><span th:text="${f.factoryCity}"></span></td>
+        <!--ADRES -->
+        <td><span th:text="${f.factoryAddress}"></span></td>
+        <!--AWIZACJE -->
+        <td><span th:text="${f.factoryContact}"></span></td>
+        <!--INFO -->
+        <td><span th:text="${f.factoryInfo}"></span></td>
+            </tr>
+</table>
+<!-- koniec tabelki -->
+
+<!--formularz EDYCJI start-->
+<div class="container-fluid" style="background-color: lightgrey">
+    <div style="padding-top: 25px;padding-bottom: 25px">
+        <p style="font-weight: bold">EDYTUJ:</p>
+        <form  method="post" th:action="@{/editfactory/{id}(id=${factories.id})}" th:object="${factories}">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">PREFIX</label>
+                <div class="col-sm-2">
+                    <input  th:value="${factories.getPrefix()}" name="prefix" type="number" class="form-control" id="inputEmail3"
+                           placeholder="Początek nr załadunku">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail4" class="col-sm-2 col-form-label">FABRYKA</label>
+                <div class="col-sm-2">
+                    <input th:value="${factories.getFactoryName()}" name="factoryName" type="text" class="form-control" id="inputEmail4">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail9" class="col-sm-2 col-form-label">MIASTO</label>
+                <div class="col-sm-2">
+                    <input th:value="${factories.getFactoryCity()}" name="factoryCity" type="text" class="form-control" id="inputEmail9">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleFormControlSelect8" class="col-sm-2 col-form-label">ADRES</label>
+                <div class="col-sm-2">
+                    <textarea th:field="*{factoryAddress}" th:wrap="hard" class="form-control" name="factoryAddress" id="exampleFormControlSelect8"
+                              rows="3"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail6" class="col-sm-2 col-form-label">AWIZACJE</label>
+                <div class="col-sm-2">
+                    <textarea th:field="*{factoryContact}" th:wrap="hard" name="factoryContact" class="form-control" id="inputEmail6" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">INFO</label>
+                <div class="col-sm-2">
+                    <textarea th:field="*{factoryInfo}" th:wrap="hard" name="factoryInfo" class="form-control" id="exampleFormControlSelect2"
+                              rows="3"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
+
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-success">ZAPISZ</button>
+                    <a href="/factory" class="btn btn-danger">ANULUJ</a>
+                </div>
+            </div>
+        </form>
+        <!--formularz end-->
+
+    </div>
+</div>
+</body>
+</html>

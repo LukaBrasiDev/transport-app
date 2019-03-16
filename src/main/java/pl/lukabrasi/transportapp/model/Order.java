@@ -1,6 +1,5 @@
 package pl.lukabrasi.transportapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -22,31 +20,37 @@ public class Order {
     private @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     private @Column(name = "date_load")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate loadDate;
+
     private @Column(name = "order_number")
     Long orderNumber;
+
     BigDecimal price;
+
     BigDecimal freighterPrice;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
-    )
-    @JoinTable(name = "order_city",
-            joinColumns = {@JoinColumn(name = "order_id")},
-            inverseJoinColumns = {@JoinColumn(name = "city_id")})
-    private Set<City> cities = new HashSet<>();
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "fk_factory")
+    private Factory factory;
 
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "fk_user")
     private User user;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "fk_freighter")
     private Freighter freighter;
 
-
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    @JoinTable(name = "order_code",
+            joinColumns = {@JoinColumn(name = "order_id")},
+            inverseJoinColumns = {@JoinColumn(name = "code_id")})
+    private Set<Code> codes = new HashSet<>();
    /* public BigDecimal getProfit(BigDecimal price, BigDecimal freighterPrice) {
 
         if (price.compareTo(BigDecimal.ZERO) > 1 && freighterPrice.compareTo(BigDecimal.ZERO) > 1) {
@@ -57,12 +61,12 @@ public class Order {
         return BigDecimal.ONE;
     }*/
 
-    public List<City> getOnlyFactories() {
+/*    public List<Code> getOnlyFactories() {
 
-        List<City> citiesAreFactory = cities.stream()
+        List<Code> citiesAreFactory = cities.stream()
                 .filter(p -> p.isFactory() == true).collect(Collectors.toList());
         return citiesAreFactory;
-    }
+    }*/
 
 
 }
