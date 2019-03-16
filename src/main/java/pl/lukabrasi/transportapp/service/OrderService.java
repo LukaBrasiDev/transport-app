@@ -1,5 +1,6 @@
 package pl.lukabrasi.transportapp.service;
 
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lukabrasi.transportapp.form.FactoryForm;
@@ -7,8 +8,7 @@ import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class OrderService {
@@ -35,6 +35,10 @@ public class OrderService {
 
     public List<Factory> getFactories() {
         return factoryRepository.findAll();
+    }
+
+    public List<Code> getCodes() {
+        return codeRepository.findAll();
     }
 
     public List<User> getUsers() {
@@ -71,7 +75,27 @@ public class OrderService {
         Order orderNew = new Order();
         orderNew.setOrderNumber(orderForm.getOrderNumber());
         orderNew.setLoadDate(orderForm.getLoadDate());
+        // proba ifa do zaladunku
+        String orderPrefix = orderForm.getOrderNumber().toString().substring(0, 3);
+        Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
+        if (cityPrefix != null) {
+            orderNew.setFactory(cityPrefix.get());
+        }
         //  orderNew.setCities(orderForm.getFactoryList());//todo
+
+        // zapisywanie kodow
+        Set<Code> codes = new HashSet<Code>();
+        String[] stringCodes = orderForm.getCityCode().split(",");
+        for (int i = 0; i < stringCodes.length; i++) {
+            Code code = new Code();
+            code.setCityCode(stringCodes[i]);
+            codes.add(code);
+        }
+
+        orderNew.setCodes(codes);
+        // kody
+
+
         orderNew.setPrice(orderForm.getPrice());
         orderNew.setFreighterPrice(orderForm.getFreighterPrice());
         orderNew.setUser(orderForm.getUser());
@@ -85,7 +109,7 @@ public class OrderService {
 
         factoryNew.setPrefix(factoryForm.getPrefix());
         factoryNew.setFactoryName(factoryForm.getFactoryName());
-        factoryNew.setFactoryCity(factoryForm.getFactoryCity());
+        factoryNew.setFactoryCity(factoryForm.getFactoryCity().toUpperCase());
         factoryNew.setFactoryAddress(factoryForm.getFactoryAddress());
         factoryNew.setFactoryContact(factoryForm.getFactoryContact());
         factoryNew.setFactoryInfo(factoryForm.getFactoryInfo());
@@ -99,6 +123,7 @@ public class OrderService {
         Optional<Order> optionalOrder = orderRepository.findById(id);
         optionalOrder.get().setOrderNumber(orderForm.getOrderNumber());
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
+       // optionalOrder.get().setFactory(orderForm.getFactory());
         optionalOrder.get().setPrice(orderForm.getPrice());
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
         optionalOrder.get().setFreighter(orderForm.getFreighter());
@@ -118,7 +143,6 @@ public class OrderService {
         optionalFactory.get().setFactoryInfo(factoryForm.getFactoryInfo());
 
         factoryRepository.save(optionalFactory.get());//todo if not null
-
 
 
     }

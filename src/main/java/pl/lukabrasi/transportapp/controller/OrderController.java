@@ -46,6 +46,7 @@ public class OrderController {
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
         model.addAttribute("cities", orderService.getCities());
+        model.addAttribute("codes", orderService.getCodes());
         return "order";
     }
 

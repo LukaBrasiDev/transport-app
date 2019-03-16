@@ -35,15 +35,21 @@
         <td><span th:text="${one.loadDate}"></span></td>
         <!--ZAŁADUNEK -->
         <td>
-            <!--<span  th:each="order,iterStat : ${one.getOnlyFactories()}">
-            <span th:if="${order.code}" th:text="${order.cityName}"/>
-            <th:block th:if="${!iterStat.last}"> +</th:block></span>-->
+            <span th:if="${one.factory!=null}"
+                  th:text="${one.factory.factoryCity}+' ('+${one.factory.factoryName}+')'"></span>
         </td>
         <!--ROZŁADUNKI -->
         <td>
-            <!--<span th:each="order,iterStat : ${one.cities}">
-                <span th:if="${!order.code}" th:text="${order.cityCode}"/>
-            <th:block th:if="${!iterStat.last && !iterStat.current.code}">, </th:block></span>-->
+
+
+
+            <span th:each="code,iterStat : ${one.codes}">
+            <span th:text="${code.cityCode}"/>
+            <th:block th:if="${!iterStat.last}">, </th:block></span>
+
+
+
+
         </td>
         <!--CENA NASZA -->
         <td><span th:if="${one.price!=null}" th:text="${one.price}+' €'"></span></td>
@@ -83,19 +89,10 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="exampleFormControlSelect8" class="col-sm-2 col-form-label">ROZŁADUNKI</label>
-                <div class="col-sm-2" th:object="${cities}">
-                    <!--<select name="cities" class="form-control" id="exampleFormControlSelect8">
-                        <option value="" selected>Wybierz rozładunek...</option>
-                        <option th:each="c : ${cities}" th:value="${c.id}" th:text="${c.cityCode}"></option>
-                    </select>-->
-                    <select name="cities" class="custom-select" size="5" id="exampleFormControlSelect8"
-                            multiple="multiple">
-                        <option value="">Wybierz rozładunek...</option>
-                        <option th:each="c : ${cities}" th:value="${c.id}"
-
-                                th:text="${c.cityCode}"></option>
-                    </select>
+                <label class="col-sm-2 col-form-label">ROZŁADUNKI</label>
+                <div class="col-sm-2">
+                    <textarea placeholder="Wpisz kody rozładunków..." name="cityCode" class="form-control"
+                              id="validationTextarea"></textarea>
                 </div>
             </div>
             <!--     <div class="form-group row">

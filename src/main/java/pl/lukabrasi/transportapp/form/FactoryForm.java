@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class FactoryForm {
 
-    private int prefix;
+    private String prefix;
     private String factoryName;
     private String factoryCity;
     private String factoryAddress;

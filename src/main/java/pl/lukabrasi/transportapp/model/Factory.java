@@ -21,7 +21,7 @@ public class Factory {
     Long id;
 
     private @Column(name = "prefix")
-    int prefix;
+    String prefix;
 
     private @Column(name = "factory_name")
     String factoryName;
