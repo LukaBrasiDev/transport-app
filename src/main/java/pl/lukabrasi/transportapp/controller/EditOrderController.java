@@ -36,11 +36,11 @@ public class EditOrderController {
     @PostMapping("/edit/{id}")
     public String updateOrder(
             @PathVariable Long id,
-            @ModelAttribute OrderForm orderForm) {
+            @ModelAttribute OrderForm orderForm, Model model) {
 
         orderService.updateOrder(id, orderForm);
-
-        return "redirect:/orders";
+        model.addAttribute("order", orderService.getOrderById(id));
+        return "edit";
 
     }
 

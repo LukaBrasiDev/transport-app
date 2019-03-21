@@ -28,7 +28,8 @@
         <td><span th:text="${order.id}"></span></td>
         <td><span th:text="${order.loadDate}"></span></td>
         <td><span th:text="${order.orderNumber}"></span></td>
-        <td><span th:if="${order.factory!=null}" th:text="${order.getFactory().factoryCity}+' ('+${order.getFactory().factoryName}+')'"></span></td>
+        <td><span th:if="${order.factory!=null}"
+                  th:text="${order.getFactory().factoryCity}+' ('+${order.getFactory().factoryName}+')'"></span></td>
         <td>  <span th:each="code,iterStat : ${order.codes}">
             <span th:text="${code.cityCode}"/>
             <th:block th:if="${!iterStat.last}">, </th:block></span></td>
@@ -62,16 +63,30 @@
                 </div>
             </div>
             <!--ZAŁADUNKU NIE EDYTUJE SIĘ-->
-           <!-- <div class="form-group row">
-                <label for="inputEmail44" class="col-sm-2 col-form-label">ZAŁADUNEK</label>
-                <div class="col-sm-2" th:object="${factories}">
-                    <select name="factory" class="form-control" id="inputEmail44">
-                        <option value="" selected>Wybierz miasto...</option>
-                        <option th:each="f : ${factories}" th:value="${f.id}" th:text="${f.factoryCity}"></option>
-                    </select>
+            <!-- <div class="form-group row">
+                 <label for="inputEmail44" class="col-sm-2 col-form-label">ZAŁADUNEK</label>
+                 <div class="col-sm-2" th:object="${factories}">
+                     <select name="factory" class="form-control" id="inputEmail44">
+                         <option value="" selected>Wybierz miasto...</option>
+                         <option th:each="f : ${factories}" th:value="${f.id}" th:text="${f.factoryCity}"></option>
+                     </select>
 
+                 </div>
+             </div>-->
+
+            <div class="form-group row">
+                <label for="inputEmail5" class="col-sm-2 col-form-label">ROZŁADUNKI:</label>
+                <div class="col-sm-2">
+                    <div th:each="k,iterStat: ${order.codes}">
+                        <div>
+                            <input name="cityCode" type="text" th:value="${k.cityCode}"/>
+                            <th:block th:if="${!iterStat.last}">,</th:block>
+                        </div>
+                    </div>
                 </div>
-            </div>-->
+            </div>
+
+
             <div class="form-group row">
                 <label for="inputEmail5" class="col-sm-2 col-form-label">CENA NASZA</label>
                 <div class="col-sm-2">
@@ -82,7 +97,7 @@
             <div class="form-group row">
                 <label for="inputEmail6" class="col-sm-2 col-form-label">CENA PRZEWOŹNIKA</label>
                 <div class="col-sm-2">
-                    <input name="freighterPrice" th:value="${order.getFreighter()}" type="number" step="0.01"
+                    <input name="freighterPrice" th:value="${order.getFreighterPrice()}" type="number" step="0.01"
                            class="form-control" id="inputEmail6">
                 </div>
             </div>
