@@ -50,4 +50,10 @@ public class Factory {
             }
     )
     private Set<Order> orders = new HashSet<>();
+
+    public Factory(String factory) {
+        this.factoryCity = factory;
+    }
+
+
 }

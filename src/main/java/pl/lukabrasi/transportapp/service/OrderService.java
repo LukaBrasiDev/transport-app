@@ -85,7 +85,7 @@ public class OrderService {
 
         // zapisywanie kodow
         Set<Code> codes = new HashSet<Code>();
-        String[] stringCodes = orderForm.getCityCode().split(",");
+        String[] stringCodes = orderForm.getCode().split(",");//todo
         for (int i = 0; i < stringCodes.length; i++) {
             Code code = new Code();
             code.setCityCode(stringCodes[i]);
@@ -98,6 +98,7 @@ public class OrderService {
 
         orderNew.setPrice(orderForm.getPrice());
         orderNew.setFreighterPrice(orderForm.getFreighterPrice());
+        orderNew.setFreighter(orderForm.getFreighter());
         orderNew.setUser(orderForm.getUser());
 
         orderRepository.save(orderNew);
@@ -123,15 +124,20 @@ public class OrderService {
         Optional<Order> optionalOrder = orderRepository.findById(id);
         optionalOrder.get().setOrderNumber(orderForm.getOrderNumber());
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
-//update kodow - splitowanie stringa do hashlisty
-        Set<Code> codes = new HashSet<Code>();
-        String[] stringCodes = orderForm.getCityCode().split(",");
-        for (int i = 0; i < stringCodes.length; i++) {
-            Code code = new Code();
-            code.setCityCode(stringCodes[i]);
-            codes.add(code);
+        // optionalOrder.get().setFactory(orderForm.getFactory());
+        //todo
+
+        if (orderForm.getCode()!=null) {
+            Set<Code> codes = new HashSet<Code>();
+            String[] stringCodes = orderForm.getCode().split(",");//todo
+            for (int i = 0; i < stringCodes.length; i++) {
+                Code code = new Code();
+                code.setCityCode(stringCodes[i]);
+                codes.add(code);
+            }
+           optionalOrder.get().setCodes(codes);
         }
-        optionalOrder.get().setCodes(codes);
+
 
 
         optionalOrder.get().setPrice(orderForm.getPrice());

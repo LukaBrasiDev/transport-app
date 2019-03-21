@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +19,10 @@ public class Freighter {
     Long id;
     private @Column(name = "freighter_name")
     String freighterName;
+    private @Column(name = "freighter_person")
+    String freighterPerson;
+    private @Column(name = "freighter_phone")
+    String freighterPhone;
     private @Column(name = "freighter_email")
     String freighterEmail;
     private @Column(name = "freighter_info")

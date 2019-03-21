@@ -21,7 +21,6 @@
         <td th:if="${order != null}" th:text="'Cena przewoźnika'"></td>
         <td th:if="${order != null}" th:text="'Przewoźnik'"></td>
         <td th:if="${order != null}" th:text="'T/S'"></td>
-
     </tr>
 
     <tr>
@@ -30,7 +29,7 @@
         <td><span th:text="${order.orderNumber}"></span></td>
         <td><span th:if="${order.factory!=null}"
                   th:text="${order.getFactory().factoryCity}+' ('+${order.getFactory().factoryName}+')'"></span></td>
-        <td>  <span th:each="code,iterStat : ${order.codes}">
+        <td>  <span  th:if="${order.codes!=null}" th:each="code,iterStat : ${order.codes}">
             <span th:text="${code.cityCode}"/>
             <th:block th:if="${!iterStat.last}">, </th:block></span></td>
         <td><span th:text="${order.price}"></span></td>
@@ -62,27 +61,13 @@
                            id="inputEmail4">
                 </div>
             </div>
-            <!--ZAŁADUNKU NIE EDYTUJE SIĘ-->
-            <!-- <div class="form-group row">
-                 <label for="inputEmail44" class="col-sm-2 col-form-label">ZAŁADUNEK</label>
-                 <div class="col-sm-2" th:object="${factories}">
-                     <select name="factory" class="form-control" id="inputEmail44">
-                         <option value="" selected>Wybierz miasto...</option>
-                         <option th:each="f : ${factories}" th:value="${f.id}" th:text="${f.factoryCity}"></option>
-                     </select>
-
-                 </div>
-             </div>-->
 
             <div class="form-group row">
-                <label for="inputEmail5" class="col-sm-2 col-form-label">ROZŁADUNKI:</label>
-                <div class="col-sm-2">
-                    <div th:each="k,iterStat: ${order.codes}">
-                        <div>
-                            <input name="cityCode" type="text" th:value="${k.cityCode}"/>
-                            <th:block th:if="${!iterStat.last}">,</th:block>
-                        </div>
-                    </div>
+                <label for="exampleFormControlSelect83" class="col-sm-2 col-form-label">ROZŁADUNKI</label>
+
+                   <div class="col-sm-2" >
+                    <textarea   th:wrap="hard" class="form-control" name="cityCode" id="exampleFormControlSelect83"
+                              rows="4"></textarea>
                 </div>
             </div>
 
@@ -102,14 +87,13 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">PRZEWOŹNIK</label>
-                <div class="col-sm-2" th:object="${freighters}">
-                    <select name="freighter" class="form-control" id="exampleFormControlSelect2">
-                        <!--  <select id="freighter" name="freighter" class="form-control">-->
+                <label for="exampleFormControlSelect22" class="col-sm-2 col-form-label">PRZEWOŹNIK</label>
+                <div class="col-sm-2" th:object="${order.freighter}">
+                    <select name="freighter" class="form-control" id="exampleFormControlSelect22">
                         <option value=" ">Wybierz przewoźnika:</option>
-                        <option th:if="${order.getFreighter()}!=null" th:each="f : ${freighters}" th:value="${f.id}"
+                        <option th:if="${order.freighter}!=null" th:each="f : ${freighters}" th:value="${f.id}"
                                 th:text="${f.freighterName}" th:selected="${f.id== order.getFreighter().id}"></option>
-                        <option th:if="${order.freighter}==null" th:each="f : ${freighters}" th:value="${f.id}"
+                        <option th:if="${order.freighter==null}" th:each="f : ${freighters}" th:value="${f.id}"
                                 th:text="${f.freighterName}"></option>
                     </select>
                 </div>
@@ -136,7 +120,7 @@
                 </div>
             </div>
         </form>
-        <!--formularz end-->
+        <!--  formularz end-->
 
 </body>
 </html>
