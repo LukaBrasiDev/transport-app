@@ -17,7 +17,7 @@ public class OrderForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate loadDate;
     private Factory factory; //todo lista
-    private String code;//todo
+    private String cityCode;//todo
     private BigDecimal price;
     private BigDecimal freighterPrice;
     private Freighter freighter;

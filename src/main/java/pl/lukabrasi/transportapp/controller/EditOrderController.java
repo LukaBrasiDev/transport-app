@@ -28,7 +28,6 @@ public class EditOrderController {
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
         model.addAttribute("factories", orderService.getFactories());
-        model.addAttribute("codes", orderService.getCodes());
         model.addAttribute("orderForm", new OrderForm());
         return "edit";
     }
@@ -41,6 +40,8 @@ public class EditOrderController {
 
         orderService.updateOrder(id, orderForm);
         model.addAttribute("order", orderService.getOrderById(id));
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
         return "edit";
 
     }

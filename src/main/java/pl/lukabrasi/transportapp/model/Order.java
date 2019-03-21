@@ -50,7 +50,7 @@ public class Order {
     @JoinTable(name = "order_code",
             joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "code_id")})
-    private Set<Code> codes = new HashSet<>();
+    private Set<Code> codes = new LinkedHashSet<>();
    /* public BigDecimal getProfit(BigDecimal price, BigDecimal freighterPrice) {
 
         if (price.compareTo(BigDecimal.ZERO) > 1 && freighterPrice.compareTo(BigDecimal.ZERO) > 1) {

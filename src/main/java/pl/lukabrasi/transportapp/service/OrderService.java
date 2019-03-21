@@ -84,21 +84,23 @@ public class OrderService {
         //  orderNew.setCities(orderForm.getFactoryList());//todo
 
         // zapisywanie kodow
-        Set<Code> codes = new HashSet<Code>();
-        String[] stringCodes = orderForm.getCode().split(",");//todo
+       // Set myOrderedSet = new LinkedHashSet(mySet);
+
+        Set<Code> codes = new LinkedHashSet<Code>();
+        String[] stringCodes = orderForm.getCityCode().split(",");
+        System.out.println(stringCodes);
         for (int i = 0; i < stringCodes.length; i++) {
             Code code = new Code();
             code.setCityCode(stringCodes[i]);
             codes.add(code);
         }
-
+        System.out.println(codes);
         orderNew.setCodes(codes);
         // kody
 
 
         orderNew.setPrice(orderForm.getPrice());
         orderNew.setFreighterPrice(orderForm.getFreighterPrice());
-        orderNew.setFreighter(orderForm.getFreighter());
         orderNew.setUser(orderForm.getUser());
 
         orderRepository.save(orderNew);
@@ -124,21 +126,18 @@ public class OrderService {
         Optional<Order> optionalOrder = orderRepository.findById(id);
         optionalOrder.get().setOrderNumber(orderForm.getOrderNumber());
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
-        // optionalOrder.get().setFactory(orderForm.getFactory());
-        //todo
+//update kodow - splitowanie stringa do hashlisty
 
-        if (orderForm.getCode()!=null) {
-            Set<Code> codes = new HashSet<Code>();
-            String[] stringCodes = orderForm.getCode().split(",");//todo
-            for (int i = 0; i < stringCodes.length; i++) {
-                Code code = new Code();
-                code.setCityCode(stringCodes[i]);
-                codes.add(code);
-            }
-           optionalOrder.get().setCodes(codes);
+        Set<Code> codes = new LinkedHashSet<Code>();
+        String[] stringCodes = orderForm.getCityCode().split(",");
+        System.out.println(stringCodes);
+        for (int i = 0; i < stringCodes.length; i++) {
+            Code code = new Code();
+            code.setCityCode(stringCodes[i]);
+            codes.add(code);
         }
-
-
+        optionalOrder.get().setCodes(codes);
+        System.out.println(codes);
 
         optionalOrder.get().setPrice(orderForm.getPrice());
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());

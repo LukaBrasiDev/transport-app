@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class Code {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "codes")
-    private Set<Order> orders = new HashSet<>();
+    private Set<Order> orders = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {
