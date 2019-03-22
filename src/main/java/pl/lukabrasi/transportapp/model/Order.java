@@ -50,23 +50,9 @@ public class Order {
     @JoinTable(name = "order_code",
             joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "code_id")})
+    @OrderBy("id asc")
     private Set<Code> codes = new LinkedHashSet<>();
-   /* public BigDecimal getProfit(BigDecimal price, BigDecimal freighterPrice) {
 
-        if (price.compareTo(BigDecimal.ZERO) > 1 && freighterPrice.compareTo(BigDecimal.ZERO) > 1) {
-            BigDecimal profit = price.subtract(freighterPrice);
-            return profit;
-        }
-
-        return BigDecimal.ONE;
-    }*/
-
-/*    public List<Code> getOnlyFactories() {
-
-        List<Code> citiesAreFactory = cities.stream()
-                .filter(p -> p.isFactory() == true).collect(Collectors.toList());
-        return citiesAreFactory;
-    }*/
 
 
 }
