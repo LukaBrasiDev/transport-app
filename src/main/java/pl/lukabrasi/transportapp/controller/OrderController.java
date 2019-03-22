@@ -30,15 +30,6 @@ public class OrderController {
         return "order";
     }
 
-/*
-    @GetMapping("/orders/{id}")
-    public String getOrderById(@PathVariable(value = "id") Long id, Model model) {
-        model.addAttribute("orders", orderService.getOrderById(id));
-        return "order";
-    }
-*/
-
-
     @PostMapping("/orders")
     public String createOrder(@ModelAttribute OrderForm orderForm, Model model) {
         orderService.saveOrder(orderForm);
@@ -47,6 +38,12 @@ public class OrderController {
         model.addAttribute("freighters", orderService.getFreighters());
         model.addAttribute("cities", orderService.getCities());
         model.addAttribute("codes", orderService.getCodes());
+        return "order";
+    }
+
+    @GetMapping("/search")
+    public String showOrdersByOrderNumber(@RequestParam (value = "searchStr", required = false) String searchStr, Model model) {
+        model.addAttribute("orders", orderService.getOrdersFilteredByOrderNumber(searchStr));
         return "order";
     }
 

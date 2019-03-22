@@ -34,6 +34,11 @@ public class OrderService {
         return orderRepository.findAllByOrderByLoadDateDesc();
     }
 
+    public List<Order> getOrdersFilteredByOrderNumber(String searchStr) {
+
+        return orderRepository.findAllByOrderNumberContains(searchStr);
+    }
+
     public List<Factory> getFactories() {
         return factoryRepository.findAll();
     }

@@ -9,4 +9,6 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
 
  List<Order> findAllByOrderByLoadDateDesc ();
+
+ List<Order> findAllByOrderNumberContains(String number);
 }
