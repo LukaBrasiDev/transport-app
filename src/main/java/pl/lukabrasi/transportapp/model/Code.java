@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -27,7 +24,7 @@ public class Code {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "codes")
-    private Set<Order> orders = new LinkedHashSet<>();
+    private List<Order> orders = new LinkedList<>();
 
     @Override
     public boolean equals(Object o) {

@@ -41,8 +41,7 @@
         <!--ROZŁADUNKI -->
         <td>
             <span th:each="code,iterStat : ${one.codes}">
-            <span th:text="${code.cityCode}"/>
-            <th:block th:if="${!iterStat.last}">, </th:block></span>
+            <span th:text="${code.cityCode}"/><th:block th:if="${!iterStat.last}">, </th:block></span>
         </td>
         <!--CENA NASZA -->
         <td><span th:if="${one.price!=null}" th:text="${one.price}+' €'"></span></td>

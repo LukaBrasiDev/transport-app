@@ -31,8 +31,7 @@
         <td><span th:if="${order.factory!=null}"
                   th:text="${order.getFactory().factoryCity}+' ('+${order.getFactory().factoryName}+')'"></span></td>
         <td>  <span th:each="code,iterStat : ${order.codes}">
-            <span th:text="${code.cityCode}"/>
-            <th:block th:if="${!iterStat.last}">, </th:block></span></td>
+            <span th:text="${code.cityCode}"/><th:block th:if="${!iterStat.last}">, </th:block></span></td>
         <td><span th:text="${order.price}"></span></td>
         <td><span th:text="${order.freighterPrice}"></span></td>
         <td><span th:if="${order.freighter!=null}" th:text="${order.getFreighter().freighterName}"></span></td>

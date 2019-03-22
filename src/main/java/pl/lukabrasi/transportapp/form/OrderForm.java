@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Data
 public class OrderForm {
 
-    private Long orderNumber;
+    private String orderNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate loadDate;
     private Factory factory; //todo lista

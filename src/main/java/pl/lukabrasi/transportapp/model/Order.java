@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
@@ -26,7 +28,7 @@ public class Order {
     LocalDate loadDate;
 
     private @Column(name = "order_number")
-    Long orderNumber;
+    String orderNumber;
 
     BigDecimal price;
 
@@ -51,7 +53,7 @@ public class Order {
             joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "code_id")})
     @OrderBy("id asc")
-    private Set<Code> codes = new LinkedHashSet<>();
+    private List<Code> codes = new LinkedList<>();
 
 
 

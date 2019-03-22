@@ -70,13 +70,19 @@ public class OrderService {
         return null;
     }
 
-    public void saveOrder(OrderForm orderForm) {
+    public boolean saveOrder(OrderForm orderForm) {
 
         Order orderNew = new Order();
         orderNew.setOrderNumber(orderForm.getOrderNumber());
         orderNew.setLoadDate(orderForm.getLoadDate());
         // proba ifa do zaladunku
-        String orderPrefix = orderForm.getOrderNumber().toString().substring(0, 3);
+        String orderPrefix = orderForm.getOrderNumber();
+        if (orderPrefix.length() >= 3) {
+            orderPrefix = orderPrefix.substring(0, 3);
+        } else {
+            return false;
+        }
+
         Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
         if (cityPrefix != null) {
             orderNew.setFactory(cityPrefix.get());
@@ -84,9 +90,9 @@ public class OrderService {
         //  orderNew.setCities(orderForm.getFactoryList());//todo
 
         // zapisywanie kodow
-       // Set myOrderedSet = new LinkedHashSet(mySet);
+        // Set myOrderedSet = new LinkedHashSet(mySet);
 
-        Set<Code> codes = new LinkedHashSet<Code>();
+        List<Code> codes = new LinkedList<Code>();
         String[] stringCodes = orderForm.getCityCode().split(",");
         System.out.println(stringCodes);
         for (int i = 0; i < stringCodes.length; i++) {
@@ -94,16 +100,12 @@ public class OrderService {
             code.setCityCode(stringCodes[i]);
             codes.add(code);
         }
-        System.out.println(codes);
         orderNew.setCodes(codes);
-        // kody
-
-
         orderNew.setPrice(orderForm.getPrice());
         orderNew.setFreighterPrice(orderForm.getFreighterPrice());
         orderNew.setUser(orderForm.getUser());
-
         orderRepository.save(orderNew);
+        return true;
     }
 
     public void saveFactory(FactoryForm factoryForm) {
@@ -128,9 +130,8 @@ public class OrderService {
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
 //update kodow - splitowanie stringa do hashlisty
 
-        Set<Code> codes = new LinkedHashSet<Code>();
+        List<Code> codes = new LinkedList<Code>();
         String[] stringCodes = orderForm.getCityCode().split(",");
-        System.out.println(stringCodes);
         for (int i = 0; i < stringCodes.length; i++) {
             Code code = new Code();
             code.setCityCode(stringCodes[i]);
