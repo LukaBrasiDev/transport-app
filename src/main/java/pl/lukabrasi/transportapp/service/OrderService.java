@@ -4,6 +4,7 @@ import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lukabrasi.transportapp.form.FactoryForm;
+import pl.lukabrasi.transportapp.form.FreighterForm;
 import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
@@ -37,7 +38,7 @@ public class OrderService {
         return factoryRepository.findAll();
     }
 
-    public List<Code> getCodes() {
+      public List<Code> getCodes() {
         return codeRepository.findAll();
     }
 
@@ -66,6 +67,14 @@ public class OrderService {
         Optional<Factory> optionalFactory = factoryRepository.findById(id);
         if (optionalFactory.isPresent()) {
             return optionalFactory.get();
+        }
+        return null;
+    }
+
+    public Freighter getFreighterById(Long id) {
+        Optional<Freighter> optionalFreighter = freighterRepository.findById(id);
+        if (optionalFreighter.isPresent()) {
+            return optionalFreighter.get();
         }
         return null;
     }
@@ -121,7 +130,19 @@ public class OrderService {
 
         factoryRepository.save(factoryNew);
     }
+public void saveFreighter(FreighterForm freighterForm){
+        Freighter freighterNew = new Freighter();
+        freighterNew.setFreighterEmail(freighterForm.getFreighterEmail());
+        freighterNew.setFreighterInfo(freighterForm.getFreighterInfo());
+        freighterNew.setFreighterName(freighterForm.getFreighterName());
+        freighterNew.setFreighterPerson(freighterForm.getFreighterPerson());
+        freighterNew.setFreighterPhone(freighterForm.getFreighterPhone());
 
+        freighterRepository.save(freighterNew);
+
+
+
+}
 
     public void updateOrder(Long id, OrderForm orderForm) {
 
@@ -160,12 +181,19 @@ public class OrderService {
 
         factoryRepository.save(optionalFactory.get());//todo if not null
 
+    }
+
+    public void updateFreighter(Long id, FreighterForm freighterForm) {
+
+        Optional<Freighter> optionalFreighter = freighterRepository.findById(id);
+        optionalFreighter.get().setFreighterEmail(freighterForm.getFreighterEmail());
+        optionalFreighter.get().setFreighterInfo(freighterForm.getFreighterInfo());
+        optionalFreighter.get().setFreighterName(freighterForm.getFreighterName());
+        optionalFreighter.get().setFreighterPerson(freighterForm.getFreighterPerson());
+        optionalFreighter.get().setFreighterPhone(freighterForm.getFreighterPhone());
+
+        freighterRepository.save(optionalFreighter.get());//todo if not null
 
     }
-   /* public List<Order> getOrdersBySearchValue(String searchString) {
-
-        return orderRepository.findAll(Sor);
-    }*/
-
 
 }
