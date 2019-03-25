@@ -107,7 +107,6 @@ public class OrderService {
         // splitowanie kodów po przecinku do linked listy
         List<Code> codes = new LinkedList<Code>();
         String[] stringCodes = orderForm.getCityCode().split(",");
-        System.out.println(stringCodes);
         for (int i = 0; i < stringCodes.length; i++) {
             Code code = new Code();
             code.setCityCode(stringCodes[i]);

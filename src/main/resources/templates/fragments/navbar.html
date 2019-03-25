@@ -1,10 +1,27 @@
-<nav class="navbar sticky-top navbar-light bg-light" th:fragment="navbar" style="background-color: #e3f2fd;">
-    TRANSPORT APP
+<nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark" th:fragment="navbar" style="background-color: #e3f2fd;">
 
-    <a class="nav-link" href="/orders">Zlecenia</a>
-    <a class="nav-link" href="/freighter">Baza przewoźników</a>
-    <a class="nav-link" href="/factory">Fabryki</a>
-    <a class="nav-link" href="/user">Użytkownicy</a>
+
+
+    <a class="navbar-brand" href="#">TRANSPORT APP</a>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/orders">ZLECENIA</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/freighter">PRZEWOŹNICY</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/factory">FABRYKI</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user" disabled>Użytkownicy</a>
+            </li>
+        </ul>
+        </ul>
+    </div>
     <div><input id="myInput" class="form-control mr-sm-2" type="text" placeholder="wyszukaj..." aria-label="Search">
     </div>
 
