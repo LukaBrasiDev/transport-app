@@ -43,7 +43,7 @@ public class OrderService {
         return factoryRepository.findAll();
     }
 
-      public List<Code> getCodes() {
+    public List<Code> getCodes() {
         return codeRepository.findAll();
     }
 
@@ -87,25 +87,24 @@ public class OrderService {
     public boolean saveOrder(OrderForm orderForm) {
 
         Order orderNew = new Order();
-        orderNew.setOrderNumber(orderForm.getOrderNumber());
+
         orderNew.setLoadDate(orderForm.getLoadDate());
-        // proba ifa do zaladunku
+        // sprawdanie czy order number ma minimum 3 znaki
         String orderPrefix = orderForm.getOrderNumber();
         if (orderPrefix.length() >= 3) {
             orderPrefix = orderPrefix.substring(0, 3);
         } else {
             return false;
         }
-
+        // sprawdzenie czy istnieje prefix fabryki dla podanego order number
         Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
-        if (cityPrefix != null) {
+        if (cityPrefix.isPresent()) {
             orderNew.setFactory(cityPrefix.get());
+            orderNew.setOrderNumber(orderForm.getOrderNumber());
+        } else {
+            return false;
         }
-        //  orderNew.setCities(orderForm.getFactoryList());//todo
-
-        // zapisywanie kodow
-        // Set myOrderedSet = new LinkedHashSet(mySet);
-
+        // splitowanie kodów po przecinku do linked listy
         List<Code> codes = new LinkedList<Code>();
         String[] stringCodes = orderForm.getCityCode().split(",");
         System.out.println(stringCodes);
@@ -115,6 +114,7 @@ public class OrderService {
             codes.add(code);
         }
         orderNew.setCodes(codes);
+
         orderNew.setPrice(orderForm.getPrice());
         orderNew.setFreighterPrice(orderForm.getFreighterPrice());
         orderNew.setUser(orderForm.getUser());
@@ -135,7 +135,8 @@ public class OrderService {
 
         factoryRepository.save(factoryNew);
     }
-public void saveFreighter(FreighterForm freighterForm){
+
+    public void saveFreighter(FreighterForm freighterForm) {
         Freighter freighterNew = new Freighter();
         freighterNew.setFreighterEmail(freighterForm.getFreighterEmail());
         freighterNew.setFreighterInfo(freighterForm.getFreighterInfo());
@@ -144,18 +145,14 @@ public void saveFreighter(FreighterForm freighterForm){
         freighterNew.setFreighterPhone(freighterForm.getFreighterPhone());
 
         freighterRepository.save(freighterNew);
-
-
-
-}
+    }
 
     public void updateOrder(Long id, OrderForm orderForm) {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
         optionalOrder.get().setOrderNumber(orderForm.getOrderNumber());
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
-//update kodow - splitowanie stringa do hashlisty
-
+        //update kodow - splitowanie stringa do linked listy
         List<Code> codes = new LinkedList<Code>();
         String[] stringCodes = orderForm.getCityCode().split(",");
         for (int i = 0; i < stringCodes.length; i++) {
@@ -164,14 +161,13 @@ public void saveFreighter(FreighterForm freighterForm){
             codes.add(code);
         }
         optionalOrder.get().setCodes(codes);
-        System.out.println(codes);
 
         optionalOrder.get().setPrice(orderForm.getPrice());
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
         optionalOrder.get().setFreighter(orderForm.getFreighter());
         optionalOrder.get().setUser(orderForm.getUser());
-        orderRepository.save(optionalOrder.get());//todo if not null
 
+        orderRepository.save(optionalOrder.get());
     }
 
     public void updateFactory(Long id, FactoryForm factoryForm) {
@@ -184,8 +180,7 @@ public void saveFreighter(FreighterForm freighterForm){
         optionalFactory.get().setFactoryContact(factoryForm.getFactoryContact());
         optionalFactory.get().setFactoryInfo(factoryForm.getFactoryInfo());
 
-        factoryRepository.save(optionalFactory.get());//todo if not null
-
+        factoryRepository.save(optionalFactory.get());
     }
 
     public void updateFreighter(Long id, FreighterForm freighterForm) {
@@ -197,8 +192,7 @@ public void saveFreighter(FreighterForm freighterForm){
         optionalFreighter.get().setFreighterPerson(freighterForm.getFreighterPerson());
         optionalFreighter.get().setFreighterPhone(freighterForm.getFreighterPhone());
 
-        freighterRepository.save(optionalFreighter.get());//todo if not null
-
+        freighterRepository.save(optionalFreighter.get());
     }
 
 }
