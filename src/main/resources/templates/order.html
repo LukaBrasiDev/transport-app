@@ -4,65 +4,47 @@
     <meta charset="UTF-8">
     <title>Transport App</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script>$(document).ready(function(){
+    $("#myInput").on('keyup',function(){
+        var searchTerm = $(this).val().toLowerCase();
+        $('#userTbl tbody tr').each(function(){
+            var lineStr = $(this).text().toLowerCase();
+            if(lineStr.indexOf(searchTerm) === -1){
+                $(this).hide();
+            }else{
+                $(this).show();
+            }
+        });
+    });
+});
+
+
+
+    </script>
 </head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
-
 <!--poczatek tabeli tura-->
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover" id="userTbl">
     <thead>
     <tr style="font-weight: bold">
         <td>ID</td>
-        <td>
-            <div>NR TURY</div>
-            <form class="form-inline" method="get" action="/search">
-                <input size="8" class="form-control mr-sm-2" name="searchStr" type="search" aria-label="Search">
-            </form>
-        </td>
-        <td>DATA ZAŁADUNKU
-            <form class="form-inline" method="get" action="/search">
-                <input size="8" class="form-control mr-sm-2" name="searchStr" type="search" aria-label="Search">
-            </form>
-        </td>
-        <td>ZAŁADUNEK
-            <form class="form-inline" method="get" action="/search">
-                <input size="8" class="form-control mr-sm-2" name="searchStr" type="search" aria-label="Search">
-            </form>
-        </td>
-        <td>ROZŁADUNKI
-            <form class="form-inline" method="get" action="/search">
-                <input size="8" class="form-control mr-sm-2" name="searchStr" type="search" aria-label="Search">
-            </form>
-        </td>
-        <td>CENA NASZA
-            <form class="form-inline" method="get" action="/search">
-                <input size="8" class="form-control mr-sm-2" name="searchStr" type="search" aria-label="Search">
-            </form>
-        </td>
-        <td>CENA PRZEWOŹNIKA
-            <form  class="form-inline" method="get" action="/search">
-                <input size="8" class="form-control mr-sm-2" name="searchStr" type="search" aria-label="Search">
-            </form>
-        </td>
-        <td>ZYSK
-            <form class="form-inline" method="get" action="/search">
-                <input size="8" class="form-control mr-sm-2" name="searchStr" type="search" aria-label="Search">
-            </form>
-        </td>
-        <td>PRZEWOŹNIK
-            <form class="form-inline" method="get" action="/search">
-                <input size="8" class="form-control mr-sm-2" name="searchStr" type="search" aria-label="Search">
-            </form>
-        </td>
-        <td>T/S
-            <form class="form-inline" method="get" action="/search">
-                <input size="8" class="form-control mr-sm-2" name="searchStr" type="search" aria-label="Search">
-            </form>
-        </td>
+        <td>NR TURY</td>
+        <td>DATA ZAŁADUNKU</td>
+        <td>ZAŁADUNEK</td>
+        <td>ROZŁADUNKI</td>
+        <td>CENA NASZA</td>
+        <td>CENA PRZEWOŹNIKA</td>
+        <td>ZYSK</td>
+        <td>PRZEWOŹNIK</td>
+        <td>T/S</td>
         <td></td>
     </tr>
     </thead>
+    <tbody>
     <tr th:each="one : ${orders}">
         <!--ID -->
         <td><span th:text="${one.id}"></span></td>
@@ -96,6 +78,7 @@
             <a class="btn btn-outline-secondary" th:href="@{/edit/{id}(id=${one.id})}" role="button">Edytuj</a>
         </td>
     </tr>
+    </tbody>
 </table>
 <!-- koniec tabelki -->
 

@@ -42,7 +42,7 @@ public class EditOrderController {
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
-        return "edit";
+        return "redirect:/orders";
 
     }
 
