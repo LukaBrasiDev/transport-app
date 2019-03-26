@@ -20,6 +20,8 @@
         });
     });
 });
+
+
     </script>
 </head>
 <body style="background-color:lightyellow;">
@@ -78,25 +80,26 @@
     </tbody>
 </table>
 <!-- koniec tabelki -->
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
+<!--paginacja-->
+<div th:fragment='paginationbar'>
+    <ul>
+        <li th:class="${page.first} ? 'disabled':''" style="display:inline">
+            <span th:if="${page.first}">← Początek</span>
+            <a th:if="${not page.first}" th:href="@{${url}(page=0)}">← Początek</a>
+        </li>
+        <li th:each='i : ${#numbers.sequence(0, page.totalPages-1)}' th:class="(${i}==${page.number})? 'active' : ''" style="display:inline">
+            <span th:if='${i}==${page.number}' th:text='${i+1}'>1</span>
+            <a th:if='${i}!=${page.number}' th:href="@{${url}(page=${i})}">
+                <span th:text='${i+1}'>1</span>
             </a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-            </a>
+        <li th:class="${page.last} ? 'disabled':''" style="display:inline">
+            <span th:if="${page.last}">Koniec ➝</span>
+            <a th:if="${not page.last}" th:href="@{${url}(page=(${page.totalPages}-1))}">Koniec ➝</a>
         </li>
     </ul>
-</nav>
+</div>
+<!--koniec paginacji-->
 <!--formularz dodania tury start-->
 <div class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">

@@ -2,6 +2,8 @@ package pl.lukabrasi.transportapp.service;
 
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.lukabrasi.transportapp.form.FactoryForm;
 import pl.lukabrasi.transportapp.form.FreighterForm;
@@ -29,15 +31,15 @@ public class OrderService {
         this.factoryRepository = factoryRepository;
     }
 
-    public List<Order> getOrders() {
+    public Page<Order> getOrders(Pageable pageable) {
 
-        return orderRepository.findAllByOrderByLoadDateDesc();
+        return orderRepository.findAllByOrderByLoadDateDesc(pageable);
     }
 
-    public List<Order> getOrdersFilteredByOrderNumber(String searchStr) {
+/*    public List<Order> getOrdersFilteredByOrderNumber(String searchStr) {
 
         return orderRepository.findAllByOrderNumberContains(searchStr);
-    }
+    }*/
 
     public List<Factory> getFactories() {
         return factoryRepository.findAll();
