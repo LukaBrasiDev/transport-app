@@ -12,6 +12,7 @@ import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -108,7 +109,8 @@ public class OrderService {
         }
         // splitowanie kodów po przecinku do linked listy
         List<Code> codes = new LinkedList<Code>();
-        String[] stringCodes = orderForm.getCityCode().split(",");
+        //String[] sstringCodes = orderForm.getCityCode().split("\\s*,\\s*");
+        String[] stringCodes = Arrays.asList(orderForm.getCityCode().split("[,]")).stream().filter(str -> !str.isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
         for (int i = 0; i < stringCodes.length; i++) {
             Code code = new Code();
             code.setCityCode(stringCodes[i]);
@@ -155,7 +157,8 @@ public class OrderService {
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
         //update kodow - splitowanie stringa do linked listy
         List<Code> codes = new LinkedList<Code>();
-        String[] stringCodes = orderForm.getCityCode().split(",");
+       // String[] stringCodes = orderForm.getCityCode().split("\\s*,\\s*");
+        String[] stringCodes = Arrays.asList(orderForm.getCityCode().split("[,]")).stream().filter(str -> !str.isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
         for (int i = 0; i < stringCodes.length; i++) {
             Code code = new Code();
             code.setCityCode(stringCodes[i]);

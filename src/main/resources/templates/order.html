@@ -97,6 +97,9 @@
             <span th:if="${page.last}">Koniec ➝</span>
             <a th:if="${not page.last}" th:href="@{${url}(page=(${page.totalPages}-1))}">Koniec ➝</a>
         </li>
+        <li>
+        <span th:text="${size}+'/'+${totalElements}"></span></li>
+        <li> <a  th:href="@{${url}(page=0, size=${totalElements})}">ALL</a></li>
     </ul>
 </div>
 <!--koniec paginacji-->
