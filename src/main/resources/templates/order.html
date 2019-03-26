@@ -7,19 +7,19 @@
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script>$(document).ready(function(){
-    $("#myInput").on('keyup',function(){
-        var searchTerm = $(this).val().toLowerCase();
-        $('#userTbl tbody tr').each(function(){
-            var lineStr = $(this).text().toLowerCase();
-            if(lineStr.indexOf(searchTerm) === -1){
-                $(this).hide();
-            }else{
-                $(this).show();
-            }
+    <script>$(document).ready(function () {
+        $("#myInput").on('keyup', function () {
+            var searchTerm = $(this).val().toLowerCase();
+            $('#userTbl tbody tr').each(function () {
+                var lineStr = $(this).text().toLowerCase();
+                if (lineStr.indexOf(searchTerm) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
         });
     });
-});
 
 
     </script>
@@ -45,34 +45,23 @@
     </thead>
     <tbody>
     <tr th:each="one : ${orders}">
-        <!--ID -->
         <td><span th:text="${one.id}"></span></td>
-        <!--NR TURY -->
         <td><span th:text="${one.orderNumber}"></span></td>
-        <!--DATA ZAŁADUNKU -->
         <td><span th:text="${one.loadDate}"></span></td>
-        <!--ZAŁADUNEK -->
         <td>
             <span th:if="${one.factory!=null}"
                   th:text="${one.factory.factoryCity}+' ('+${one.factory.factoryName}+')'"></span>
         </td>
-        <!--ROZŁADUNKI -->
         <td>
             <span th:each="code,iterStat : ${one.codes}">
             <span th:text="${code.cityCode}"/><th:block th:if="${!iterStat.last}">, </th:block></span>
         </td>
-        <!--CENA NASZA -->
         <td><span th:if="${one.price!=null}" th:text="${one.price}+' €'"></span></td>
-        <!--CENA PRZEWOŹNIKA -->
         <td><span th:if="${one.freighterPrice!=null}" th:text="${one.freighterPrice}+' €'"></span></td>
-        <!--ZYSK -->
         <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"
                   th:text="${one.price}-${one.freighterPrice}+' €'"></span></td>
-        <!--PRZEWOŹNIK -->
         <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
-        <!--T/S -->
         <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
-        <!--BUTTON EDYCJI -->
         <td>
             <a class="btn btn-outline-secondary" th:href="@{/edit/{id}(id=${one.id})}" role="button">Edytuj</a>
         </td>
@@ -81,27 +70,7 @@
 </table>
 <!-- koniec tabelki -->
 <!--paginacja-->
-<div th:fragment='paginationbar'>
-    <ul>
-        <li th:class="${page.first} ? 'disabled':''" style="display:inline">
-            <span th:if="${page.first}">← Początek</span>
-            <a th:if="${not page.first}" th:href="@{${url}(page=0)}">← Początek</a>
-        </li>
-        <li th:each='i : ${#numbers.sequence(0, page.totalPages-1)}' th:class="(${i}==${page.number})? 'active' : ''" style="display:inline">
-            <span th:if='${i}==${page.number}' th:text='${i+1}'>1</span>
-            <a th:if='${i}!=${page.number}' th:href="@{${url}(page=${i})}">
-                <span th:text='${i+1}'>1</span>
-            </a>
-        </li>
-        <li th:class="${page.last} ? 'disabled':''" style="display:inline">
-            <span th:if="${page.last}">Koniec ➝</span>
-            <a th:if="${not page.last}" th:href="@{${url}(page=(${page.totalPages}-1))}">Koniec ➝</a>
-        </li>
-        <li>
-        <span th:text="${size}+'/'+${totalElements}"></span></li>
-        <li> <a  th:href="@{${url}(page=0, size=${totalElements})}">ALL</a></li>
-    </ul>
-</div>
+<nav th:replace="fragments/pagination :: pagination"></nav>
 <!--koniec paginacji-->
 <!--formularz dodania tury start-->
 <div class="container-fluid" style="background-color: lightgrey">
