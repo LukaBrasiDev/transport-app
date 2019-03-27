@@ -44,4 +44,24 @@ public class FreighterController {
         model.addAttribute("freighters", orderService.getFreighterById(id));
         return "freighter";
     }
+
+    @GetMapping("/editfreighter/{id}")
+    public String edit(@PathVariable Long id,
+                       Model model) {
+        model.addAttribute("freighters", orderService.getFreighterById(id));
+        model.addAttribute("freighterForm", new FreighterForm());
+        return "editfreighter";
+    }
+
+
+    @PostMapping("/editfreighter/{id}")
+    public String updateFreighter(
+            @PathVariable Long id,
+            @ModelAttribute FreighterForm freighterForm) {
+
+        orderService.updateFreighter(id, freighterForm);
+
+        return "redirect:/freighter";
+
+    }
 }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<!--navbar menu start-->
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<!--navbar menu koniec-->
+<!--poczatek tabeli tura-->
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr style="font-weight: bold">
+
+        <td>IMIĘ</td>
+        <td>EMAIL</td>
+        <td>TELEFON</td>
+
+    </tr>
+    </thead>
+    <tr th:each="f : ${users}">
+        <td><span th:text="${f.userName}"></span></td>
+        <td><span th:text="${f.email}"></span></td>
+        <td><span th:text="${f.telephone}"></span></td>
+    </tr>
+</table>
+<!-- koniec tabelki -->
+
+<!--formularz EDYCJI start-->
+<div class="container-fluid" style="background-color: lightgrey">
+    <div style="padding-top: 25px;padding-bottom: 25px">
+        <p style="font-weight: bold">EDYTUJ:</p>
+        <form  method="post" th:action="@{/edituser/{id}(id=${users.id})}" th:object="${users}">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">IMIĘ</label>
+                <div class="col-sm-2">
+                    <input  th:value="${users.getUserName()}" name="userName" type="text" class="form-control" id="inputEmail3"
+                    >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail4" class="col-sm-2 col-form-label">EMIAL</label>
+                <div class="col-sm-2">
+                    <input th:value="${users.getEmail()}" name="email" type="text" class="form-control" id="inputEmail4">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail9" class="col-sm-2 col-form-label">TELEFON</label>
+                <div class="col-sm-2">
+                    <input th:value="${users.getTelephone()}" name="telephone" type="number" class="form-control" id="inputEmail9">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-success">ZAPISZ</button>
+                    <a href="/freighter" class="btn btn-danger">ANULUJ</a>
+                </div>
+            </div>
+        </form>
+        <!--formularz end-->
+
+    </div>
+</div>
+</body>
+</html>

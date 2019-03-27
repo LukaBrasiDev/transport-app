@@ -65,4 +65,29 @@ public class OrderController {
         return "order";
     }*/
 
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id,
+                       Model model) {
+        model.addAttribute("order", orderService.getOrderById(id));
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("factories", orderService.getFactories());
+        model.addAttribute("orderForm", new OrderForm());
+        return "edit";
+    }
+
+
+    @PostMapping("/edit/{id}")
+    public String updateOrder(
+            @PathVariable Long id,
+            @ModelAttribute OrderForm orderForm, Model model) {
+
+        orderService.updateOrder(id, orderForm);
+        model.addAttribute("order", orderService.getOrderById(id));
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        return "redirect:/orders";
+
+    }
+
 }

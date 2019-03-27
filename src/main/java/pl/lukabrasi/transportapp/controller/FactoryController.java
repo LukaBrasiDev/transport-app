@@ -44,4 +44,25 @@ public class FactoryController {
         model.addAttribute("factories", orderService.getFactoryById(id));
         return "factory";
     }
+
+    @GetMapping("/editfactory/{id}")
+    public String edit(@PathVariable Long id,
+                       Model model) {
+        model.addAttribute("factories", orderService.getFactoryById(id));
+        model.addAttribute("factoryForm", new FactoryForm());
+        return "editfactory";
+    }
+
+
+    @PostMapping("/editfactory/{id}")
+    public String updateFactory(
+            @PathVariable Long id,
+            @ModelAttribute FactoryForm factoryForm) {
+
+        orderService.updateFactory(id, factoryForm);
+
+        return "redirect:/factory";
+
+    }
+
 }
