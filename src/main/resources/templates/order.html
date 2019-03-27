@@ -24,7 +24,7 @@
     <tbody>
     <tr th:each="one : ${orders}">
         <td><span th:text="${one.id}"></span></td>
-        <td><span th:text="${one.orderNumber}"></span></td>
+        <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
         <td><span th:text="${one.loadDate}"></span></td>
         <td>
             <span th:if="${one.factory!=null}"
@@ -41,10 +41,11 @@
         <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
         <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
         <td>
-            <span th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#spad#</span>
-            <span th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') &le; #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#nowa#</span>
-            <span th:if="${one.user!=null} and ${one.user.userName!='STORNO'}">#sprzedana#</span>
-            <span th:if="${one.user!=null} and ${one.user.userName=='STORNO'}">#storno#</span>
+            <span style="background-color:#d9534f" th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#spad#</span>
+            <span style="background-color:#5bc0de" th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') < #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#nowa#</span>
+            <span style="background-color:#5bc0de" th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') == #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#nowa#</span>
+            <span style="background-color:#5cb85c" th:if="${one.user!=null} and ${one.user.userName!='STORNO'}">#sprzedana#</span>
+            <span style="background-color:gray" th:if="${one.user!=null} and ${one.user.userName=='STORNO'}">#storno#</span>
         </td>
 
         <td>
