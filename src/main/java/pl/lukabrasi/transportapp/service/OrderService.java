@@ -1,6 +1,5 @@
 package pl.lukabrasi.transportapp.service;
 
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -135,9 +134,7 @@ public class OrderService {
     }
 
     public void saveFactory(FactoryForm factoryForm) {
-
         Factory factoryNew = new Factory();
-
         factoryNew.setPrefix(factoryForm.getPrefix());
         factoryNew.setFactoryName(factoryForm.getFactoryName());
         factoryNew.setFactoryCity(factoryForm.getFactoryCity().toUpperCase());
@@ -179,7 +176,6 @@ public class OrderService {
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
         //update kodow - splitowanie stringa do linked listy
         List<Code> codes = new LinkedList<Code>();
-        // String[] stringCodes = orderForm.getCityCode().split("\\s*,\\s*");
         String[] stringCodes = Arrays.asList(orderForm.getCityCode().split("[,]")).stream().filter(str -> !str.isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
         for (int i = 0; i < stringCodes.length; i++) {
             Code code = new Code();

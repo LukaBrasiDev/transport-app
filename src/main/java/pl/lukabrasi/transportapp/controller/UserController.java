@@ -22,9 +22,7 @@ public class UserController {
 
     @GetMapping("/user")
     public String getFreighters(Model model) {
-
         model.addAttribute("users", orderService.getUsers());
-
         return "user";
     }
 
@@ -34,7 +32,6 @@ public class UserController {
         model.addAttribute("users", orderService.getUsers());
         return "user";
     }
-
 
     @GetMapping("/user/{id}")
     public String getUserById(@PathVariable(value = "id") Long id, Model model) {
@@ -50,18 +47,13 @@ public class UserController {
         return "edituser";
     }
 
-
     @PostMapping("/edituser/{id}")
     public String updateUser(
             @PathVariable Long id,
             @ModelAttribute UserForm userForm) {
-
         orderService.updateUser(id, userForm);
-
         return "redirect:/user";
-
     }
-
 
 
 }

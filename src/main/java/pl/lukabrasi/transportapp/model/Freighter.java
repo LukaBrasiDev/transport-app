@@ -34,8 +34,8 @@ public class Freighter {
                     CascadeType.MERGE,  // aktualizacja encji
                     CascadeType.PERSIST,// włączanie nowej encji do kontekstu
                     CascadeType.REFRESH // odświeżanie stanu encji
-                    // CascadeType.REMOVE // usuwanie encji - nie dodajemy, gdyż nie chcemy usuwać kontaktów
-                    // w przypadku usunięcia kategorii.
+                    // CascadeType.REMOVE // usuwanie encji - nie dodajemy, gdyż nie chcemy usuwać zleceń
+                    // w przypadku usunięcia przewoźnika.
             }
     )
     private Set<Order> orders = new HashSet<>();

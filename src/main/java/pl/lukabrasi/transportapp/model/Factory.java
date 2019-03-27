@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,8 +44,8 @@ public class Factory {
                     CascadeType.MERGE,  // aktualizacja encji
                     CascadeType.PERSIST,// włączanie nowej encji do kontekstu
                     CascadeType.REFRESH // odświeżanie stanu encji
-                    // CascadeType.REMOVE // usuwanie encji - nie dodajemy, gdyż nie chcemy usuwać kontaktów
-                    // w przypadku usunięcia kategorii.
+                    // CascadeType.REMOVE // usuwanie encji - nie dodajemy, gdyż nie chcemy usuwać zleceń
+                    // w przypadku usunięcia fabryki.
             }
     )
     private Set<Order> orders = new HashSet<>();

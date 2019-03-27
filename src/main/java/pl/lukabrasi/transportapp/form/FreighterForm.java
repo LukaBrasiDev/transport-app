@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class FreighterForm {
 
-    String freighterName;
-    String freighterPerson;
-    String freighterPhone;
-    String freighterEmail;
-    String freighterInfo;
+    private String freighterName;
+    private String freighterPerson;
+    private String freighterPhone;
+    private String freighterEmail;
+    private String freighterInfo;
 }

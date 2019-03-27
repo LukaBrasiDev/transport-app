@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.lukabrasi.transportapp.form.FactoryForm;
-import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.service.OrderService;
 
 @Controller
@@ -24,9 +23,7 @@ public class FactoryController {
 
     @GetMapping("/factory")
     public String getFactories(Model model) {
-
         model.addAttribute("factories", orderService.getFactories());
-
         return "factory";
     }
 
@@ -34,7 +31,6 @@ public class FactoryController {
     public String createOrder(@ModelAttribute FactoryForm factoryForm, Model model) {
         orderService.saveFactory(factoryForm);
         model.addAttribute("factories", orderService.getFactories());
-
         return "factory";
     }
 
@@ -58,9 +54,7 @@ public class FactoryController {
     public String updateFactory(
             @PathVariable Long id,
             @ModelAttribute FactoryForm factoryForm) {
-
         orderService.updateFactory(id, factoryForm);
-
         return "redirect:/factory";
 
     }

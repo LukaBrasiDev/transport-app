@@ -35,7 +35,6 @@ public class OrderController {
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
         model.addAttribute("cities", orderService.getCities());
-
         return "order";
     }
 
@@ -45,7 +44,6 @@ public class OrderController {
                               Pageable pageable) {
         orderService.saveOrder(orderForm);
         Page<Order> orderPage = orderService.getOrders(pageable);
-
         model.addAttribute("page", orderPage);
         model.addAttribute("number", orderPage.getNumber());
         model.addAttribute("totalPages", orderPage.getTotalPages());
@@ -81,13 +79,11 @@ public class OrderController {
     public String updateOrder(
             @PathVariable Long id,
             @ModelAttribute OrderForm orderForm, Model model) {
-
         orderService.updateOrder(id, orderForm);
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
         return "redirect:/orders";
-
     }
 
 }

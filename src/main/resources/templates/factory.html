@@ -18,26 +18,18 @@
     </tr>
     </thead>
     <tr th:each="f : ${factories}">
-        <!--PREFIX -->
         <td><span th:text="${f.prefix}"></span></td>
-        <!--FABRYKA -->
         <td><span th:text="${f.factoryName}"></span></td>
-        <!--MIASTO -->
         <td><span th:text="${f.factoryCity}"></span></td>
-        <!--ADRES -->
         <td><span th:text="${f.factoryAddress}"></span></td>
-        <!--AWIZACJE -->
         <td><span th:text="${f.factoryContact}"></span></td>
-        <!--INFO -->
         <td><span th:text="${f.factoryInfo}"></span></td>
-        <!--BUTTON EDYCJI -->
         <td>
             <a class="btn btn-outline-success" th:href="@{/editfactory/{id}(id=${f.id})}" role="button">Edytuj</a>
         </td>
     </tr>
 </table>
 <!-- koniec tabelki -->
-
 <!--formularz start-->
 <div class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">
@@ -72,7 +64,8 @@
             <div class="form-group row">
                 <label for="inputEmail6" class="col-sm-2 col-form-label">AWIZACJE</label>
                 <div class="col-sm-2">
-                    <textarea name="factoryContact" th:wrap="hard" class="form-control" id="inputEmail6" rows="3"></textarea>
+                    <textarea name="factoryContact" th:wrap="hard" class="form-control" id="inputEmail6"
+                              rows="3"></textarea>
                 </div>
             </div>
             <div class="form-group row">

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.lukabrasi.transportapp.form.FactoryForm;
 import pl.lukabrasi.transportapp.form.FreighterForm;
 import pl.lukabrasi.transportapp.service.OrderService;
 
@@ -24,9 +23,7 @@ public class FreighterController {
 
     @GetMapping("/freighter")
     public String getFreighters(Model model) {
-
         model.addAttribute("freighters", orderService.getFreighters());
-
         return "freighter";
     }
 
@@ -34,7 +31,6 @@ public class FreighterController {
     public String createFreighter(@ModelAttribute FreighterForm freighterForm, Model model) {
         orderService.saveFreighter(freighterForm);
         model.addAttribute("freighters", orderService.getFreighters());
-
         return "freighter";
     }
 
@@ -46,22 +42,17 @@ public class FreighterController {
     }
 
     @GetMapping("/editfreighter/{id}")
-    public String edit(@PathVariable Long id,
-                       Model model) {
+    public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("freighters", orderService.getFreighterById(id));
         model.addAttribute("freighterForm", new FreighterForm());
         return "editfreighter";
     }
 
-
     @PostMapping("/editfreighter/{id}")
     public String updateFreighter(
             @PathVariable Long id,
             @ModelAttribute FreighterForm freighterForm) {
-
         orderService.updateFreighter(id, freighterForm);
-
         return "redirect:/freighter";
-
     }
 }

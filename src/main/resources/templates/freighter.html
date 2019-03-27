@@ -17,26 +17,18 @@
     </tr>
     </thead>
     <tr th:each="f : ${freighters}">
-        <!--id -->
         <td><span th:text="${f.id}"></span></td>
-        <!--nazwa -->
         <td><span th:text="${f.freighterName}"></span></td>
-        <!--osoba -->
         <td><span th:text="${f.freighterPerson}"></span></td>
-        <!--telefon -->
         <td><span th:text="${f.freighterPhone}"></span></td>
-        <!--e-mail -->
         <td><span th:text="${f.freighterEmail}"></span></td>
-        <!--INFO -->
         <td><span th:text="${f.freighterInfo}"></span></td>
-        <!--BUTTON EDYCJI -->
         <td>
             <a class="btn btn-outline-success" th:href="@{/editfreighter/{id}(id=${f.id})}" role="button">Edytuj</a>
         </td>
     </tr>
 </table>
 <!-- koniec tabelki -->
-
 <!--formularz start-->
 <div class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">
@@ -46,7 +38,7 @@
                 <label for="inputEmail3" class="col-sm-2 col-form-label">NAZWA</label>
                 <div class="col-sm-2">
                     <input name="freighterName" type="text" class="form-control" id="inputEmail3"
-                          >
+                    >
                 </div>
             </div>
             <div class="form-group row">
@@ -70,7 +62,8 @@
             <div class="form-group row">
                 <label for="inputEmail6" class="col-sm-2 col-form-label">INFO</label>
                 <div class="col-sm-2">
-                    <textarea name="freighterInfo" th:wrap="hard" class="form-control" id="inputEmail6" rows="4"></textarea>
+                    <textarea name="freighterInfo" th:wrap="hard" class="form-control" id="inputEmail6"
+                              rows="4"></textarea>
                 </div>
             </div>
 
@@ -81,7 +74,6 @@
             </div>
         </form>
         <!--formularz end-->
-
     </div>
 </div>
 </body>

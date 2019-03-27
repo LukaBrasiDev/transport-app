@@ -5,7 +5,6 @@
 
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <table th:if="${order != null}" class="table table-bordered">
-
     <tr style="font-weight: bold">
         <td th:if="${order != null}" th:text="'Id'"></td>
         <td th:if="${order != null}" th:text="'Data załadunku'"></td>
@@ -16,9 +15,7 @@
         <td th:if="${order != null}" th:text="'Cena przewoźnika'"></td>
         <td th:if="${order != null}" th:text="'Przewoźnik'"></td>
         <td th:if="${order != null}" th:text="'T/S'"></td>
-
     </tr>
-
     <tr>
         <td><span th:text="${order.id}"></span></td>
         <td><span th:text="${order.loadDate}"></span></td>
@@ -31,11 +28,8 @@
         <td><span th:text="${order.freighterPrice}"></span></td>
         <td><span th:if="${order.freighter!=null}" th:text="${order.getFreighter().freighterName}"></span></td>
         <td><span th:if="${order.user!=null}" th:text="${order.getUser().userName}"></span></td>
-
     </tr>
-
 </table>
-
 
 <!--formularz start-->
 <div class="container-fluid" style="background-color: lightgrey">
@@ -45,7 +39,7 @@
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">NR TURY</label>
                 <div class="col-sm-2">
-                    <input class="form-control" id="inputEmail3" name="orderNumber" type="number"
+                    <input class="form-control" id="inputEmail3" name="orderNumber" type="text"
                            th:value="${order.getOrderNumber()}">
                 </div>
             </div>
@@ -56,18 +50,6 @@
                            id="inputEmail4">
                 </div>
             </div>
-            <!--ZAŁADUNKU NIE EDYTUJE SIĘ-->
-            <!-- <div class="form-group row">
-                 <label for="inputEmail44" class="col-sm-2 col-form-label">ZAŁADUNEK</label>
-                 <div class="col-sm-2" th:object="${factories}">
-                     <select name="factory" class="form-control" id="inputEmail44">
-                         <option value="" selected>Wybierz miasto...</option>
-                         <option th:each="f : ${factories}" th:value="${f.id}" th:text="${f.factoryCity}"></option>
-                     </select>
-
-                 </div>
-             </div>-->
-
             <div class="form-group row">
                 <label for="inputEmail5" class="col-sm-2 col-form-label">ROZŁADUNKI:</label>
                 <div class="col-sm-2">
@@ -85,8 +67,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="form-group row">
                 <label for="inputEmail5" class="col-sm-2 col-form-label">CENA NASZA</label>
                 <div class="col-sm-2">

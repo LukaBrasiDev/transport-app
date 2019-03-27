@@ -19,20 +19,14 @@
     </tr>
     </thead>
     <tr th:each="f : ${freighters}">
-        <!--nazwa -->
         <td><span th:text="${f.freighterName}"></span></td>
-        <!--osoba -->
         <td><span th:text="${f.freighterPerson}"></span></td>
-        <!--telefon -->
         <td><span th:text="${f.freighterPhone}"></span></td>
-        <!--email -->
         <td><span th:text="${f.freighterEmail}"></span></td>
-        <!--info -->
         <td><span th:text="${f.freighterInfo}"></span></td>
       </tr>
 </table>
 <!-- koniec tabelki -->
-
 <!--formularz EDYCJI start-->
 <div class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">
