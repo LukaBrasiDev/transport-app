@@ -1,0 +1,39 @@
+body {
+  background-color: lightyellow;
+}
+
+table{
+ font-family: courier;
+}
+
+thead{
+    background-color:#5cb85c;
+    text-align:center
+}
+
+/*paginacja*/
+.page-link {
+  display: block;
+  color: #5cb85c;
+  background-color: lightyellow;
+  border: 1px solid #5cb85c;
+}
+
+.page-item.disabled .page-link {
+  color: #5cb85c;
+  background-color: lightyellow;
+  border-color: #5cb85c;
+}
+
+.page-item.active .page-link {
+  color: lightyellow;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+}
+
+.page-link:focus, .page-link:hover {
+  color: lightyellow;
+  background-color: #5cb85c;
+  border-color:#5cb85c;
+
+}

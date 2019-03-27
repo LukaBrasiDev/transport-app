@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet" type="text/css" media="screen"/>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-</head>
+<head th:replace="fragments/header :: header"></head>
 <body>
 <table id="example" class="display" style="width:100%">
     <thead>

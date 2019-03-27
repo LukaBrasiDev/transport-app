@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Transport App</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <script src="/js/bootstrap.min.js"></script>
-</head>
+<head th:replace="fragments/header :: header"></head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 
@@ -37,7 +32,7 @@
         <td><span th:text="${f.factoryInfo}"></span></td>
         <!--BUTTON EDYCJI -->
         <td>
-            <a class="btn btn-outline-secondary" th:href="@{/editfactory/{id}(id=${f.id})}" role="button">Edytuj</a>
+            <a class="btn btn-outline-success" th:href="@{/editfactory/{id}(id=${f.id})}" role="button">Edytuj</a>
         </td>
     </tr>
 </table>

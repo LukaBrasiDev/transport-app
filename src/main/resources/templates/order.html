@@ -1,34 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Transport App</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script>$(document).ready(function () {
-        $("#myInput").on('keyup', function () {
-            var searchTerm = $(this).val().toLowerCase();
-            $('#userTbl tbody tr').each(function () {
-                var lineStr = $(this).text().toLowerCase();
-                if (lineStr.indexOf(searchTerm) === -1) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
-                }
-            });
-        });
-    });
-
-
-    </script>
-</head>
-<body style="background-color:lightyellow;">
+<head th:replace="fragments/header :: header"></head>
+<body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <!--poczatek tabeli tura-->
 <table class="table table-bordered table-hover" id="userTbl">
-    <thead style="background-color:#5cb85c;text-align:center">
+    <thead>
     <tr style="font-weight: bold">
         <td>ID</td>
         <td>NR TURY</td>
@@ -63,7 +40,7 @@
         <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
         <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
         <td>
-            <a class="btn btn-outline-secondary" th:href="@{/edit/{id}(id=${one.id})}" role="button">Edytuj</a>
+            <a class="btn btn-outline-success" th:href="@{/edit/{id}(id=${one.id})}" role="button">Edytuj</a>
         </td>
     </tr>
     </tbody>
@@ -80,7 +57,7 @@
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">NR TURY</label>
                 <div class="col-sm-2">
-                    <input name="orderNumber" type="number" class="form-control" id="inputEmail3"
+                    <input name="orderNumber" type="text" class="form-control" id="inputEmail3"
                            placeholder="Numer tury">
                 </div>
             </div>
@@ -93,7 +70,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">ROZŁADUNKI</label>
                 <div class="col-sm-2">
-                    <textarea placeholder="Wpisz kody rozładunków rozdzielone przecinkami..." name="cityCode"
+                    <textarea placeholder="Wpisz kody rozładunków oddzielone przecinkami..." name="cityCode"
                               class="form-control"
                               id="validationTextarea" rows="5"></textarea>
                 </div>

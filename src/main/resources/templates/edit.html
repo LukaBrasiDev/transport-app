@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Transport App</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <script src="/js/bootstrap.min.js"></script>
-</head>
+<head th:replace="fragments/header :: header"></head>
 <body>
 
 <nav th:replace="fragments/navbar :: navbar"></nav>
@@ -83,7 +78,7 @@
                     </div>
                     <div th:if="${order.codes.isEmpty()}">
                         <div>
-                            <textarea placeholder="Wpisz kody rozładunków rozdzielone przecinkami..." name="cityCode"
+                            <textarea placeholder="Wpisz kody rozładunków odzdzielone przecinkami..." name="cityCode"
                                       class="form-control"
                                       id="validationTextarea" rows="5"></textarea>
                         </div>
