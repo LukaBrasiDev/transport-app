@@ -14,8 +14,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
-        //liczba rekordów na stronę - docelowo 100
-        resolver.setFallbackPageable(new PageRequest(0, 5));
+        //liczba rekordów na stronę - 100
+        resolver.setFallbackPageable(new PageRequest(0, 100));
         argumentResolvers.add(resolver);
         super.addArgumentResolvers(argumentResolvers);
     }

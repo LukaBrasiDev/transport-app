@@ -27,8 +27,8 @@ public class Order {
 
     private @Column(name = "order_number")
     String orderNumber;
-    BigDecimal price;
-    BigDecimal freighterPrice;
+    private BigDecimal price;
+    private BigDecimal freighterPrice;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "fk_factory")

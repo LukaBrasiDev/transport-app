@@ -9,14 +9,15 @@
     <tr style="font-weight: bold">
         <td>ID</td>
         <td>NR TURY</td>
-        <td>DATA ZAŁADUNKU</td>
+        <td>DATA ZAŁ.</td>
         <td>ZAŁADUNEK</td>
         <td>ROZŁADUNKI</td>
         <td>CENA NASZA</td>
-        <td>CENA PRZEWOŹNIKA</td>
+        <td>CENA PRZEW.</td>
         <td>ZYSK</td>
         <td>PRZEWOŹNIK</td>
         <td>T/S</td>
+        <td>STATUS</td>
         <td></td>
     </tr>
     </thead>
@@ -39,6 +40,13 @@
                   th:text="${one.price}-${one.freighterPrice}+' €'"></span></td>
         <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
         <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
+        <td>
+            <span th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#spad#</span>
+            <span th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') &le; #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#nowa#</span>
+            <span th:if="${one.user!=null} and ${one.user.userName!='STORNO'}">#sprzedana#</span>
+            <span th:if="${one.user!=null} and ${one.user.userName=='STORNO'}">#storno#</span>
+        </td>
+
         <td>
             <a class="btn btn-outline-success" th:href="@{/edit/{id}(id=${one.id})}" role="button">Edytuj</a>
         </td>
