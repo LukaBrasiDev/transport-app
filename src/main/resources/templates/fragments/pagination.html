@@ -3,36 +3,36 @@
 
         <li th:class="${page.first} ? 'page-item disabled':'page-item'">
             <span th:class="'page-link'" th:if="${page.first}">← Początek</span>
-            <a th:class="'page-link'" th:if="${not page.first}" th:href="@{${url}(page=0)}">← Początek</a>
+            <a th:class="'page-link'" th:if="${not page.first}" th:href="@{/orders/(page=0)}">← Początek</a>
         </li>
 
         <li th:each='i : ${#numbers.sequence(0, page.totalPages-1)}'
             th:class="(${i}==${page.number})? 'page-item active' : 'page-item'">
             <span th:class="'page-link'" th:if='${i}==${page.number}' th:text='${i+1}'>1</span>
-            <a th:class="'page-link'" th:if='${i}!=${page.number}' th:href="@{${url}(page=${i})}">
+            <a th:class="'page-link'" th:if='${i}!=${page.number}' th:href="@{/orders/(page=${i})}">
                 <span th:text='${i+1}'>1</span>
             </a>
         </li>
 
         <li th:class="${page.last} ? 'page-item disabled':'page-item'">
             <span th:class="'page-link'" th:if="${page.last}">Koniec ➝</span>
-            <a th:class="'page-link'" th:if="${not page.last}" th:href="@{${url}(page=(${page.totalPages}-1))}">Koniec
+            <a th:class="'page-link'" th:if="${not page.last}" th:href="@{/orders/(page=(${page.totalPages}-1))}">Koniec
                 ➝</a>
         </li>
         <li class="page-item disabled"><a th:class="'page-link'" th:href="'#'">
             <span  th:if="${totalElements>0}" th:text="${size}*${page.number+1}+'/'+${totalElements}"></span></a>
         </li>
-        <li class="page-item"><a th:class="'page-link'" th:href="@{${url}(page=0, size=200)}">200</a>
+        <li class="page-item"><a th:class="'page-link'" th:href="@{/orders/(page=0, size=200)}">200</a>
         </li>
         </li>
-        <li class="page-item"><a th:class="'page-link'" th:href="@{${url}(page=0, size=500)}">500</a>
+        <li class="page-item"><a th:class="'page-link'" th:href="@{/orders/(page=0, size=500)}">500</a>
         </li>
         </li>
-        <li class="page-item"><a th:class="'page-link'" th:href="@{${url}(page=0, size=${totalElements})}">WSZYSTKO</a>
+        <li class="page-item"><a th:class="'page-link'" th:href="@{/orders/(page=0, size=${totalElements})}">WSZYSTKO</a>
         </li>
-        <li>
+      <!--  <li>
             <input type="button" value="EXPORT" onClick ="$('#userTbl').tableExport({type:'csv',escape:'true',ignoreColumn: [2,6,7,8,9,10,11]});" id="buttonExportData" href="#" class="btn btn-success" />
 
-        </li>
+        </li>-->
     </ul>
 </nav>
