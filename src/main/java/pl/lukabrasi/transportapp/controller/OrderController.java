@@ -35,7 +35,6 @@ public class OrderController {
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
-        model.addAttribute("cities", orderService.getCities());
         return "order";
     }
 
@@ -53,8 +52,6 @@ public class OrderController {
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
-        model.addAttribute("cities", orderService.getCities());
-        model.addAttribute("codes", orderService.getCodes());
         return "order";
     }
 
@@ -73,8 +70,6 @@ public class OrderController {
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
-        model.addAttribute("cities", orderService.getCities());
-        model.addAttribute("codes", orderService.getCodes());
         return "order";
     }
 

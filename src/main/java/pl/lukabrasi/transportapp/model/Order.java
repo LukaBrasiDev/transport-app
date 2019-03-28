@@ -27,8 +27,13 @@ public class Order {
 
     private @Column(name = "order_number")
     String orderNumber;
+    private @Column(name = "our_number")
+    String ourNumber;
     private BigDecimal price;
     private BigDecimal freighterPrice;
+
+    @JoinColumn(name = "city_code")
+    private String cityCodes;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "fk_factory")
@@ -41,15 +46,6 @@ public class Order {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "fk_freighter")
     private Freighter freighter;
-
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    @JoinTable(name = "order_code",
-            joinColumns = {@JoinColumn(name = "order_id")},
-            inverseJoinColumns = {@JoinColumn(name = "code_id")})
-    @OrderBy("id asc")
-    private List<Code> codes = new LinkedList<>();
-
 
 
 }
