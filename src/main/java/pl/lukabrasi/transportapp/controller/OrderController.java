@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.lukabrasi.transportapp.form.OrderForm;
+import pl.lukabrasi.transportapp.form.RangeForm;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.service.OrderService;
 
@@ -37,6 +38,26 @@ public class OrderController {
         model.addAttribute("cities", orderService.getCities());
         return "order";
     }
+
+    @PostMapping("/orders/range")
+    public String findOrdersBetweenDates(@ModelAttribute RangeForm rangeForm,
+                              Model model,
+                              Pageable pageable) {
+
+        Page<Order> orderPage =  orderService.getOrdersInRange(rangeForm.getDate1(),rangeForm.getDate2(),pageable);
+        model.addAttribute("page", orderPage);
+        model.addAttribute("number", orderPage.getNumber());
+        model.addAttribute("totalPages", orderPage.getTotalPages());
+        model.addAttribute("totalElements", orderPage.getTotalElements());
+        model.addAttribute("size", orderPage.getSize());
+        model.addAttribute("orders", orderPage.getContent());
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("cities", orderService.getCities());
+        model.addAttribute("codes", orderService.getCodes());
+        return "order";
+    }
+
 
     @PostMapping("/orders")
     public String createOrder(@ModelAttribute OrderForm orderForm,

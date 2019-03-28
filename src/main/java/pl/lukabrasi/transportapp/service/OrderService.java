@@ -11,6 +11,7 @@ import pl.lukabrasi.transportapp.form.UserForm;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,13 @@ public class OrderService {
     public Page<Order> getOrders(Pageable pageable) {
 
         return orderRepository.findAllByOrderByLoadDateDesc(pageable);
+    }
+
+
+
+    public Page<Order> getOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable) {
+
+        return orderRepository.findByLoadDateBetweenOrderByLoadDateDesc(date1,date2,pageable);
     }
 
 /*    public List<Order> getOrdersFilteredByOrderNumber(String searchStr) {
