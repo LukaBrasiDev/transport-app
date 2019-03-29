@@ -3,115 +3,37 @@
 <head th:replace="fragments/header :: header"></head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
-<!--poczatek tabeli tura-->
-<table class="table table-bordered table-hover" id="userTbl">
-    <thead>
-    <tr style="font-weight: bold">
-        <!--<td>ID</td>-->
-        <td>TURA</td>
-        <td>DATA ZAŁ.</td>
-        <td>NR</td>
-        <td>ZAŁADUNEK</td>
-        <td>ROZŁADUNKI</td>
-        <td>CENA NASZA</td>
-        <td>CENA PRZEW.</td>
-        <td>ZYSK</td>
-        <td>PRZEWOŹNIK</td>
-        <td>T/S</td>
-        <td>STATUS</td>
-        <td></td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="one : ${orders}">
-       <!-- <td><span th:text="${one.id}"></span></td>-->
-        <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
-        <td><span th:text="${one.loadDate}"></span></td>
-        <td><span th:text="${one.ourNumber}"></span></td>
-        <td>
-            <span th:if="${one.factory!=null}"
-                  th:text="${one.factory.factoryCity}+' ('+${one.factory.factoryName}+')'"></span>
-        </td>
-        <td>
-            <span th:if="${one.cityCodes!=null}" th:text="${one.cityCodes}"></span>
-        </td>
-        <td><span th:if="${one.price!=null}" th:text="${one.price}+' €'"></span></td>
-        <td><span th:if="${one.freighterPrice!=null}" th:text="${one.freighterPrice}+' €'"></span></td>
-        <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"
-                  th:text="${one.price}-${one.freighterPrice}+' €'"></span></td>
-        <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
-        <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
-        <td>
-            <span style="background-color:#d9534f" th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#nowa#spad</span>
-            <span style="background-color:#5bc0de" th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') < #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#nowa</span>
-            <span style="background-color:#5bc0de" th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') == #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#nowa</span>
-            <span style="background-color:#5cb85c" th:if="${one.user!=null} and ${one.user.userName!='STORNO'}">#sprzedana</span>
-            <span style="background-color:gray" th:if="${one.user!=null} and ${one.user.userName=='STORNO'}">#storno</span>
-            <span style="background-color:lightgreen" th:if="${one.freighter!=null} and ${one.freighter.freighterName=='MTW'}">#nasze</span>
-        </td>
-
-        <td>
-            <a class="btn btn-outline-success" th:href="@{/edit/{id}(id=${one.id})}" role="button">Edytuj</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<!-- koniec tabelki -->
-<div style="padding-top: 25px;padding-bottom: 25px">
-<form th:replace="fragments/formrange :: formrange"></form>
-</div>
-<!--paginacja-->
-<nav th:replace="fragments/pagination :: pagination"></nav>
-<!--koniec paginacji-->
-<!--formularz dodania tury start-->
-<div class="container-fluid" style="background-color: lightgrey">
-    <div style="padding-top: 25px;padding-bottom: 25px">
-        <p style="font-weight: bold">NOWA TURA:</p>
-        <form th:action="@{/orders}" th:object="${orders}" method="post">
-            <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">TURA</label>
-                <div class="col-sm-2">
-                    <input name="orderNumber" type="text" class="form-control" id="inputEmail3"
-                           placeholder="Numer tury">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputEmail34" class="col-sm-2 col-form-label">NR</label>
-                <div class="col-sm-2">
-                    <input name="ourNumber" type="text" class="form-control" id="inputEmail34"
-                           placeholder="numer zlecenia">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="inputEmail4" class="col-sm-2 col-form-label">DATA ZAŁADUNKU</label>
-                <div class="col-sm-2">
-                    <input name="loadDate" type="date" class="form-control" id="inputEmail4" placeholder="wybierz datę">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">ROZŁADUNKI</label>
-                <div class="col-sm-2">
-                    <textarea placeholder="Wpisz kody rozładunków oddzielone przecinkami..." name="cityCodes"
-                              class="form-control"
-                              id="validationTextarea" rows="5"></textarea>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-10">
-                    <button type="submit" class="btn btn-success">+ DODAJ TURĘ</button>
-                </div>
-            </div>
-        </form>
-        <!--formularz end-->
-
+<div class="container-fluid" style="background-color: lightgreen">
+    <div style="padding-top: 25px;padding-bottom: 5px">
+        <form th:replace="fragments/formrange :: formrange"></form>
     </div>
 </div>
-<script src="/js/FileSaver.min.js"></script>
-<!--<script src="/js/Blob.min.js"></script>
-<script src="/js/xls.core.min.js"></script>-->
-<script src="dist/js/tableexport.js"></script>
+<!--paginacja-->
+<div class="container-fluid" style="background-color: lightgreen">
+    <div style="padding-top: 5px;padding-bottom: 15px">
+        <nav th:replace="fragments/pagination :: pagination"></nav>
+    </div>
+</div>
+<!--poczatek tabeli tura-->
+<table th:replace="fragments/tables/table_orders :: tableorders"></table>
+<!-- koniec tabelki -->
+<div class="container-fluid" style="background-color: lightgreen">
+    <div style="padding-top: 25px;padding-bottom: 5px">
+        <form th:replace="fragments/formrange :: formrange"></form>
+    </div>
+</div>
+<!--paginacja-->
+<div class="container-fluid" style="background-color: lightgreen">
+    <div style="padding-top: 5px;padding-bottom: 15px">
+        <nav th:replace="fragments/pagination :: pagination"></nav>
+    </div>
+</div>
+<!--koniec paginacji-->
+<!--formularz dodania tury start-->
+<div th:replace="fragments/forms/form_ordernew :: ordernew"></div>
+<!--formularz dodania tury koniec-->
 <script>
-$("table").tableExport({formats:["csv", "txt"],trimWhitespace:true,ignoreCols:[0,1,5,6,7,8,9,10,11]});
+    $("table").tableExport({formats: ["csv", "txt"], trimWhitespace: true, ignoreCols: [0, 1, 5, 6, 7, 8, 9, 10, 11]});
 </script>
 </body>
 </html>

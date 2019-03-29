@@ -14,6 +14,34 @@ thead{
 /*paginacja*/
 .page-link {
   display: block;
+  color: white;
+  background-color: #5cb85c;
+  border: 1px solid #dddddd;
+}
+
+.page-item.disabled .page-link {
+  color: white;
+  background-color: #5cb85c;
+  border-color: #dddddd;
+}
+
+.page-item.active .page-link {
+  color: white;
+  background-color: darkgreen;
+  border-color: #dddddd;
+}
+
+.page-link:focus, .page-link:hover {
+  color: white;
+  background-color: darkgreen;
+  border-color:#dddddd;
+
+}
+
+/*
+!*paginacja*!
+.page-link {
+  display: block;
   color: #5cb85c;
   background-color: lightyellow;
   border: 1px solid #5cb85c;
@@ -36,4 +64,4 @@ thead{
   background-color: #5cb85c;
   border-color:#5cb85c;
 
-}
+}*/
