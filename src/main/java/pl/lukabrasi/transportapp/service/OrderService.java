@@ -96,6 +96,7 @@ public class OrderService {
         Order orderNew = new Order();
 
         orderNew.setLoadDate(orderForm.getLoadDate());
+        orderNew.setOrderNumber(orderForm.getOrderNumber());
         // sprawdanie czy order number ma minimum 3 znaki
         String orderPrefix = orderForm.getOrderNumber();
         if (orderPrefix.length() >= 3) {
@@ -107,7 +108,6 @@ public class OrderService {
         Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
         if (cityPrefix.isPresent()) {
             orderNew.setFactory(cityPrefix.get());
-            orderNew.setOrderNumber(orderForm.getOrderNumber());
         } else {
             return false;
         }
@@ -120,8 +120,8 @@ public class OrderService {
         orderNew.setCityCodes(codes.toString()
                 .replace("[", "")  //remove the right bracket
                 .replace("]", "")  //remove the left bracket
-                .replace(" ","")
-                .replace(",",", ")
+                .replace(" ", "")
+                .replace(",", ", ")
                 .trim());
         orderNew.setOurNumber(orderForm.getOurNumber());
         orderNew.setPrice(orderForm.getPrice());
@@ -171,6 +171,17 @@ public class OrderService {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
         optionalOrder.get().setOrderNumber(orderForm.getOrderNumber());
+
+        String orderPrefix = orderForm.getOrderNumber();
+        if (orderPrefix.length() >= 3) {
+            orderPrefix = orderPrefix.substring(0, 3);
+
+            // sprawdzenie czy istnieje prefix fabryki dla podanego order number
+            Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
+            if (cityPrefix.isPresent()) {
+                optionalOrder.get().setFactory(cityPrefix.get());
+            }
+        }
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
         //update kodow - splitowanie stringa do linked listy
         List<String> codes = new LinkedList<>();
@@ -181,8 +192,8 @@ public class OrderService {
         optionalOrder.get().setCityCodes(codes.toString()
                 .replace("[", "")  //remove the right bracket
                 .replace("]", "")  //remove the left bracket
-                .replace(" ","")
-                .replace(",",", ")
+                .replace(" ", "")
+                .replace(",", ", ")
                 .trim());
         optionalOrder.get().setOurNumber(orderForm.getOurNumber());
         optionalOrder.get().setPrice(orderForm.getPrice());
