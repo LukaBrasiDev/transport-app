@@ -184,7 +184,7 @@ public class OrderService {
                 optionalOrder.get().setFactory(cityPrefix.get());
             }
             //uzupelnianie zaladunku jezeli jest pusty miastem fabryki z tury
-            if (cityPrefix.isPresent() && optionalOrder.get().getLoadingCity().isEmpty()) {
+            if (cityPrefix.isPresent() && optionalOrder.get().getLoadingCity()==null) {
                 optionalOrder.get().setLoadingCity(cityPrefix.get().getFactoryCity());
             } else {
 
