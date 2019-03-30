@@ -13,7 +13,7 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
  Page<Order> findAllByOrderByLoadDateDesc (Pageable pageable);
 
- Page<Order> findByLoadDateBetweenOrderByLoadDateDesc(LocalDate date1,LocalDate date2,Pageable pageable);
+ Page<Order> findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(LocalDate date1,LocalDate date2,Pageable pageable);
 
 // List<Order> findAllByOrderNumberContains(String number);
 }

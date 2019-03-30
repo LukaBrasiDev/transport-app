@@ -39,7 +39,7 @@ public class OrderService {
 
     public Page<Order> getOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable) {
 
-        return orderRepository.findByLoadDateBetweenOrderByLoadDateDesc(date1, date2, pageable);
+        return orderRepository.findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(date1, date2, pageable);
     }
 
 /*    public List<Order> getOrdersFilteredByOrderNumber(String searchStr) {
