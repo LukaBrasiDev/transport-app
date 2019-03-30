@@ -1,6 +1,8 @@
 package pl.lukabrasi.transportapp.form;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.lukabrasi.transportapp.model.Factory;
 import pl.lukabrasi.transportapp.model.Freighter;
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderForm {
 
     private String orderNumber;

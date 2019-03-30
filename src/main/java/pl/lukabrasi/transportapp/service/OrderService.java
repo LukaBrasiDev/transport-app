@@ -173,7 +173,7 @@ public class OrderService {
         Optional<Order> optionalOrder = orderRepository.findById(id);
         optionalOrder.get().setOrderNumber(orderForm.getOrderNumber());
 
-        String orderPrefix = orderForm.getOrderNumber().trim();
+        String orderPrefix = orderForm.getOrderNumber();
         if (orderPrefix.length() >= 3) {
             orderPrefix = orderPrefix.substring(0, 3);
 
@@ -184,14 +184,19 @@ public class OrderService {
                 optionalOrder.get().setFactory(cityPrefix.get());
             }
             //uzupelnianie zaladunku jezeli jest pusty miastem fabryki z tury
-            if (cityPrefix.isPresent() && optionalOrder.get().getLoadingCity().trim().isEmpty() && orderForm.getLoadingCity().isEmpty()) {
+            if (cityPrefix.isPresent() && optionalOrder.get().getLoadingCity().isEmpty()) {
                 optionalOrder.get().setLoadingCity(cityPrefix.get().getFactoryCity());
+            } else {
+
+                //tura inna niz z factory - nadpisz miasto
+                optionalOrder.get().setLoadingCity(orderForm.getLoadingCity().toUpperCase());
             }
+        } else {
 
-        }
+            //brak tury
 
-        if (!orderForm.getLoadingCity().trim().isEmpty()){
-        optionalOrder.get().setLoadingCity(orderForm.getLoadingCity().toUpperCase());
+            optionalOrder.get().setLoadingCity(orderForm.getLoadingCity().toUpperCase());
+
         }
 
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
