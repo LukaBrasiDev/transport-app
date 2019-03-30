@@ -8,8 +8,9 @@
     <thead>
     <tr style="font-weight: bold">
         <!--<td th:if="${order != null}" th:text="'Id'"></td>-->
-        <td th:if="${order != null}" th:text="'DATA ZAŁ.'"></td>
         <td th:if="${order != null}" th:text="'TURA'"></td>
+        <td th:if="${order != null}" th:text="'FABRYKA'"></td>
+        <td th:if="${order != null}" th:text="'DATA ZAŁ.'"></td>
         <td th:if="${order != null}" th:text="'NR'"></td>
         <td th:if="${order != null}" th:text="'ZAŁADUNEK'"></td>
         <td th:if="${order != null}" th:text="'ROZŁADUNKI'"></td>
@@ -21,11 +22,12 @@
     </thead>
     <tr>
       <!--  <td><span th:text="${order.id}"></span></td>-->
-        <td><span th:text="${order.loadDate}"></span></td>
         <td><span th:text="${order.orderNumber}"></span></td>
-        <td><span th:text="${order.ourNumber}"></span></td>
         <td><span th:if="${order.factory!=null}"
-                  th:text="${order.getFactory().factoryCity}+' ('+${order.getFactory().factoryName}+')'"></span></td>
+                  th:text="${order.getFactory().factoryName}"></span></td>
+        <td><span th:text="${order.loadDate}"></span></td>
+        <td><span th:text="${order.ourNumber}"></span></td>
+        <td><span th:text="${order.loadingCity}"></span></td>
         <td><span th:if="${order.cityCodes!=null}" th:text="${order.cityCodes}"></span></td>
         <td><span th:text="${order.price}"></span></td>
         <td><span th:text="${order.freighterPrice}"></span></td>
@@ -57,6 +59,13 @@
                 <div class="col-sm-2">
                     <input name="loadDate" type="date" th:value="${order.getLoadDate()}" class="form-control"
                            id="inputEmail4">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail343" class="col-sm-2 col-form-label">ZAŁADUNEK</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail343" name="loadingCity" type="text"
+                           th:value="${order.getLoadingCity()}">
                 </div>
             </div>
             <div class="form-group row">

@@ -3,6 +3,7 @@
     <tr style="font-weight: bold">
         <!--<td>ID</td>-->
         <td>TURA</td>
+        <td>FABRYKA</td>
         <td>DATA ZAŁ.</td>
         <td>NR</td>
         <td>ZAŁADUNEK</td>
@@ -20,11 +21,12 @@
     <tr th:each="one : ${orders}">
         <!-- <td><span th:text="${one.id}"></span></td>-->
         <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
+        <td><span th:if="${one.factory!=null}"
+                  th:text="${one.factory.factoryName}"></span></td>
         <td><span th:text="${one.loadDate}"></span></td>
         <td><span th:text="${one.ourNumber}"></span></td>
         <td>
-            <span th:if="${one.factory!=null}"
-                  th:text="${one.factory.factoryCity}+' ('+${one.factory.factoryName}+')'"></span>
+            <span th:text="${one.loadingCity}"></span>
         </td>
         <td>
             <span th:if="${one.cityCodes!=null}" th:text="${one.cityCodes}"></span>

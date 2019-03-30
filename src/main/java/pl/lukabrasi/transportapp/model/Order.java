@@ -27,12 +27,19 @@ public class Order {
 
     private @Column(name = "order_number")
     String orderNumber;
+
     private @Column(name = "our_number")
     String ourNumber;
-    private BigDecimal price;
-    private BigDecimal freighterPrice;
 
-    @JoinColumn(name = "city_code")
+    private BigDecimal price;
+
+    private @Column(name = "freighter_price")
+    BigDecimal freighterPrice;
+
+    private @Column(name = "loading_city")
+    String loadingCity;
+
+    @JoinColumn(name = "city_codes")
     private String cityCodes;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})

@@ -108,6 +108,7 @@ public class OrderService {
         Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
         if (cityPrefix.isPresent()) {
             orderNew.setFactory(cityPrefix.get());
+            orderNew.setLoadingCity(cityPrefix.get().getFactoryCity());
         } else {
             return false;
         }
@@ -172,7 +173,7 @@ public class OrderService {
         Optional<Order> optionalOrder = orderRepository.findById(id);
         optionalOrder.get().setOrderNumber(orderForm.getOrderNumber());
 
-        String orderPrefix = orderForm.getOrderNumber();
+        String orderPrefix = orderForm.getOrderNumber().trim();
         if (orderPrefix.length() >= 3) {
             orderPrefix = orderPrefix.substring(0, 3);
 
@@ -182,6 +183,7 @@ public class OrderService {
                 optionalOrder.get().setFactory(cityPrefix.get());
             }
         }
+        optionalOrder.get().setLoadingCity(orderForm.getLoadingCity().toUpperCase());
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
         //update kodow - splitowanie stringa do linked listy
         List<String> codes = new LinkedList<>();
