@@ -179,11 +179,21 @@ public class OrderService {
 
             // sprawdzenie czy istnieje prefix fabryki dla podanego order number
             Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
+            //uzupelnianie fabryki na podstawie prefixu tury
             if (cityPrefix.isPresent()) {
                 optionalOrder.get().setFactory(cityPrefix.get());
             }
+            //uzupelnianie zaladunku jezeli jest pusty miastem fabryki z tury
+            if (cityPrefix.isPresent() && optionalOrder.get().getLoadingCity().trim().isEmpty() && orderForm.getLoadingCity().isEmpty()) {
+                optionalOrder.get().setLoadingCity(cityPrefix.get().getFactoryCity());
+            }
+
         }
+
+        if (!orderForm.getLoadingCity().trim().isEmpty()){
         optionalOrder.get().setLoadingCity(orderForm.getLoadingCity().toUpperCase());
+        }
+
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
         //update kodow - splitowanie stringa do linked listy
         List<String> codes = new LinkedList<>();
