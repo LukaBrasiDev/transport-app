@@ -40,19 +40,33 @@ public class OrderController {
 
     @PostMapping("/orders/range")
     public String findOrdersBetweenDates(@ModelAttribute RangeForm rangeForm,
-                              Model model,
-                              Pageable pageable) {
+                                         Model model,
+                                         Pageable pageable) {
+       String selection=  rangeForm.getRadioSelect();
+        if (selection.equals("allorders")) {
+            Page<Order> orderPage = orderService.getOrdersInRange(rangeForm.getDate1(), rangeForm.getDate2(), pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            return "order";
+        } else {
+            Page<Order> orderPage = orderService.getOrdersInRangeNotSold(rangeForm.getDate1(), rangeForm.getDate2(), pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            return "order";
+        }
 
-        Page<Order> orderPage =  orderService.getOrdersInRange(rangeForm.getDate1(),rangeForm.getDate2(),pageable);
-        model.addAttribute("page", orderPage);
-        model.addAttribute("number", orderPage.getNumber());
-        model.addAttribute("totalPages", orderPage.getTotalPages());
-        model.addAttribute("totalElements", orderPage.getTotalElements());
-        model.addAttribute("size", orderPage.getSize());
-        model.addAttribute("orders", orderPage.getContent());
-        model.addAttribute("users", orderService.getUsers());
-        model.addAttribute("freighters", orderService.getFreighters());
-        return "order";
     }
 
 

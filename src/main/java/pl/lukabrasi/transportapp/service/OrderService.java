@@ -33,13 +33,18 @@ public class OrderService {
 
     public Page<Order> getOrders(Pageable pageable) {
 
-        return orderRepository.findAllByOrderByLoadDateDesc(pageable);
+        return orderRepository.findAllByOrderByLoadDateDescLoadingCityAsc(pageable);
     }
 
 
     public Page<Order> getOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable) {
 
         return orderRepository.findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(date1, date2, pageable);
+    }
+
+    public Page<Order> getOrdersInRangeNotSold(LocalDate date1, LocalDate date2, Pageable pageable){
+
+        return orderRepository.findNotSoldOrdersInRange(date1, date2, pageable);
     }
 
 /*    public List<Order> getOrdersFilteredByOrderNumber(String searchStr) {

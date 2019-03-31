@@ -18,7 +18,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="one : ${orders}">
+    <tr th:each="one : ${orders}"  th:style="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null} ? 'color:red' : ''">
         <!-- <td><span th:text="${one.id}"></span></td>-->
         <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
         <td><span th:if="${one.factory!=null}"
