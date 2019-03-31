@@ -6,7 +6,7 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">DATA OD:</div>
                 </div>
-                <input required  name="date1" type="date" class="form-control" id="inlineFormInputGroup2">
+                <input required name="date1" type="date" class="form-control" id="inlineFormInputGroup2">
             </div>
         </div>
         <div class="col-auto">
@@ -15,12 +15,21 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">DATA DO:</div>
                 </div>
-                <input required  name="date2" type="date" class="form-control" id="inlineFormInputGroup">
+                <input required name="date2" type="date" class="form-control" id="inlineFormInputGroup">
             </div>
         </div>
-
         <div class="col-auto">
-            <button type="submit" class="btn btn-success mb-2">ZNAJDŹ</button>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio1">wszystkie tury</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio2">tury do sprzedania</label>
+            </div>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-danger mb-2">ZNAJDŹ TURY</button>
         </div>
     </div>
 </form>

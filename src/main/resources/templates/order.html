@@ -3,28 +3,39 @@
 <head th:replace="fragments/header :: header"></head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
-<div class="container-fluid" style="background-color: lightgreen">
-    <div style="padding-top: 25px;padding-bottom: 5px">
-        <form th:replace="fragments/formrange :: formrange"></form>
+<div class="container-fluid" style="background-color: #17a2b8">
+    <div style="padding-top: 25px;padding-bottom: 20px">
+        <div class="container-fluid">
+            <div class="row" style="padding-top: 5px;padding-bottom: 15px">
+                <div class="col-11">
+                    <form th:replace="fragments/formrange :: formrange"></form>
+                </div>
+                <div class="col-1">
+                    <a href="/orders" class="btn btn-primary btn-lg">
+                        <span class="glyphicon glyphicon-refresh"></span> Odśwież
+                    </a></div>
+            </div>
+            <div class="row" style="padding-top: 5px;padding-bottom: 0px"><div class="col-11">
+                <!--paginacja-->
+                <nav th:replace="fragments/pagination :: pagination"></nav>
+            </div>
+            </div>
+        </div>
     </div>
 </div>
-<!--paginacja-->
-<div class="container-fluid" style="background-color: lightgreen">
-    <div style="padding-top: 5px;padding-bottom: 15px">
-        <nav th:replace="fragments/pagination :: pagination"></nav>
-    </div>
-</div>
+
 <!--poczatek tabeli tura-->
 <table th:replace="fragments/tables/table_orders :: tableorders"></table>
 <!-- koniec tabelki -->
-<div class="container-fluid" style="background-color: lightgreen">
+<div class="container-fluid" style="background-color: #17a2b8">
     <div style="padding-top: 25px;padding-bottom: 5px">
         <form th:replace="fragments/formrange :: formrange"></form>
     </div>
+
 </div>
 <!--paginacja-->
-<div class="container-fluid" style="background-color: lightgreen">
-    <div style="padding-top: 5px;padding-bottom: 15px">
+<div class="container-fluid" style="background-color: #17a2b8">
+    <div style="padding-top: 5px;padding-bottom: 20px">
         <nav th:replace="fragments/pagination :: pagination"></nav>
     </div>
 </div>
@@ -33,7 +44,11 @@
 <div th:replace="fragments/forms/form_ordernew :: ordernew"></div>
 <!--formularz dodania tury koniec-->
 <script>
-    $("table").tableExport({formats: ["csv", "txt"], trimWhitespace: true, ignoreCols: [0, 1,2,6, 7, 8, 9, 10, 11,12]});
+    $("table").tableExport({
+        formats: ["csv", "txt"],
+        trimWhitespace: true,
+        ignoreCols: [0, 1, 2, 6, 7, 8, 9, 10, 11, 12]
+    });
 </script>
 </body>
 </html>
