@@ -36,6 +36,13 @@ public class OrderService {
         return orderRepository.findAllByOrderByLoadDateDescLoadingCityAsc(pageable);
     }
 
+    public Page<Order> findCurrentWeekNotSold(Pageable pageable){
+        return orderRepository.findCurrentWeekNotSold(pageable);
+    }
+
+    public Page<Order> findCurrentWeekAll(Pageable pageable){
+        return orderRepository.findCurrentWeekAll(pageable);
+    }
 
     public Page<Order> getOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable) {
 

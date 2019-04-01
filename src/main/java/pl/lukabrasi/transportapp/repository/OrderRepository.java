@@ -19,6 +19,18 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "select * from orders where (date_load between ?1 and ?2) and (fk_user is null ) order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNotSoldOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);
 
+    @Query(value = "SELECT * FROM orders where (YEARWEEK(date_load)<=YEARWEEK(NOW())) and (fk_user is null)\n" +
+            "            order by date_load asc, loading_city asc", nativeQuery = true)
+    Page<Order> findCurrentWeekNotSold(Pageable pageable);
+
+    @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=YEARWEEK(NOW())\n" +
+            "UNION  select * from orders where (YEARWEEK(date_load)<YEARWEEK(NOW())) and fk_user is null\n" +
+            "           \n" +
+            "                   order by date_load asc, loading_city asc", nativeQuery = true)
+    Page<Order> findCurrentWeekAll(Pageable pageable);
+
+
+
 
 // List<Order> findAllByOrderNumberContains(String number);
 }

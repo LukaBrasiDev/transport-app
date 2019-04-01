@@ -300,7 +300,7 @@
        */
       csv: {
         defaultClass: "csv",
-        buttonContent: "Export to csv",
+        buttonContent: "Export do pliku .csv",
         separator: ",",
         mimeType: "text/csv",
         fileExtension: ".csv",
@@ -312,7 +312,7 @@
        */
       txt: {
         defaultClass: "txt",
-        buttonContent: "Export to txt",
+        buttonContent: "Export do pliku .txt",
         separator: "  ",
         mimeType: "text/plain",
         fileExtension: ".txt",
