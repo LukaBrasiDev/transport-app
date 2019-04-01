@@ -30,7 +30,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findCurrentWeekAll(Pageable pageable);
 
 
-
+boolean existsByOrderNumber (String orderNumber);
 
 // List<Order> findAllByOrderNumberContains(String number);
 }

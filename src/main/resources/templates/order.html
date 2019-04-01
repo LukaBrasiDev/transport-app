@@ -20,19 +20,30 @@
                 </div>
                 <div class="col-1">
                     <a href="/orders" class="btn btn-primary">
-                         Odśwież
+                        Odśwież
                     </a>
                 </div>
             </div>
-            <div class="row" style="padding-top: 5px;padding-bottom: 0px"><div class="col-11">
-                <!--paginacja-->
-                <nav th:replace="fragments/pagination :: pagination"></nav>
-            </div>
+            <div class="row" style="padding-top: 5px;padding-bottom: 0px">
+                <div class="col-11">
+                    <!--paginacja-->
+                    <nav th:replace="fragments/pagination :: pagination"></nav>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
+<div style="display:flex;justify-content:center;align-items:center;background-color: #17a2b8">
+    <div>
+        <th:block th:if="${info!=null}" th:switch="${info}">
+<span th:case="*{info.ERROR}" th:text="#{Order.info.error}"
+      th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.DUPLICAT}" th:text="#{Order.info.duplicat}" th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.SUCCESS}" th:text="#{Order.info.success}"
+                  th:class="${'alert alert-success'}"></span>
+        </th:block>
+    </div>
+</div>
 <!--poczatek tabeli tura-->
 <table th:replace="fragments/tables/table_orders :: tableorders"></table>
 <!-- koniec tabelki -->
@@ -57,10 +68,11 @@
                     </a>
                 </div>
             </div>
-            <div class="row" style="padding-top: 5px;padding-bottom: 0px"><div class="col-11">
-                <!--paginacja-->
-                <nav th:replace="fragments/pagination :: pagination"></nav>
-            </div>
+            <div class="row" style="padding-top: 5px;padding-bottom: 0px">
+                <div class="col-11">
+                    <!--paginacja-->
+                    <nav th:replace="fragments/pagination :: pagination"></nav>
+                </div>
             </div>
         </div>
     </div>
