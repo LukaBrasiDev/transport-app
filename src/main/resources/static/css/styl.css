@@ -1,5 +1,5 @@
 body {
-  background-color: lightyellow;
+  /*background-color: lightyellow;*/
 }
 
 table{
@@ -7,33 +7,62 @@ table{
 }
 
 thead{
-    background-color:#5cb85c;
+  color:white;
+  background-color:#dc3545;
     text-align:center
 }
 
 /*paginacja*/
 .page-link {
   display: block;
-  color: #5cb85c;
-  background-color: lightyellow;
-  border: 1px solid #5cb85c;
+  color: white;
+  background-color: #007bff;
+  border: 1px solid #dddddd;
 }
 
 .page-item.disabled .page-link {
-  color: #5cb85c;
-  background-color: lightyellow;
-  border-color: #5cb85c;
+  color: white;
+  background-color: #007bff;
+  border-color: #dddddd;
 }
 
 .page-item.active .page-link {
   color: white;
-  background-color: #5cb85c;
-  border-color: #5cb85c;
+  background-color: #dc3545;
+  border-color: #dddddd;
 }
 
 .page-link:focus, .page-link:hover {
   color: white;
-  background-color: #5cb85c;
-  border-color:#5cb85c;
+  background-color: #dc3545;
+  border-color:#dddddd;
 
 }
+
+/*
+!*paginacja*!
+.page-link {
+    display: block;
+    color: white;
+    background-color: #5cb85c;
+    border: 1px solid #dddddd;
+}
+
+.page-item.disabled .page-link {
+    color: white;
+    background-color: #5cb85c;
+    border-color: #dddddd;
+}
+
+.page-item.active .page-link {
+    color: white;
+    background-color: darkgreen;
+    border-color: #dddddd;
+}
+
+.page-link:focus, .page-link:hover {
+    color: white;
+    background-color: darkgreen;
+    border-color:#dddddd;
+
+}*/

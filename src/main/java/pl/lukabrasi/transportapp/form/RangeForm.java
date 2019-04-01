@@ -10,4 +10,6 @@ public class RangeForm {
     private LocalDate date1;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date2;
+    private String radioSelect;
+
 }

@@ -1,0 +1,48 @@
+<div th:fragment="ordernew" class="container-fluid" style="background-color: lightgrey">
+    <div style="padding-top: 25px;padding-bottom: 25px">
+        <p style="font-weight: bold">NOWA TURA:</p>
+        <form th:action="@{/orders}" th:object="${orders}" method="post">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">TURA</label>
+                <div class="col-sm-2">
+                    <input name="orderNumber" type="text" class="form-control" id="inputEmail3"
+                           placeholder="Numer tury">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail34" class="col-sm-2 col-form-label">NR</label>
+                <div class="col-sm-2">
+                    <input name="ourNumber" type="text" class="form-control" id="inputEmail34"
+                           placeholder="numer zlecenia">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail4" class="col-sm-2 col-form-label">DATA ZAŁADUNKU</label>
+                <div class="col-sm-2">
+                    <input name="loadDate" type="date" class="form-control" id="inputEmail4" placeholder="wybierz datę">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">ROZŁADUNKI</label>
+                <div class="col-sm-2">
+                    <textarea placeholder="Wpisz kody rozładunków oddzielone przecinkami..." name="cityCodes"
+                              class="form-control"
+                              id="validationTextarea" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail30" class="col-sm-2 col-form-label">CENA NASZA</label>
+                <div class="col-sm-2">
+                    <input name="price" type="number" class="form-control" id="inputEmail30">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-success">+ DODAJ TURĘ</button>
+                </div>
+            </div>
+        </form>
+        <!--formularz end-->
+
+    </div>
+</div>

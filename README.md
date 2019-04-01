@@ -1,15 +1,8 @@
 TRANSPORT APP
-Aplikacja do zarządzania zleceniami transportu
 
-DONE:
-- baza danych
-- CRUD zleceń
+Aplikacja dla spedytorów do zarządzania zleceniami transportu ładunków
 
-TODO:
-- wyszukiwanie i sortowanie zleceń
-- CRUD użytkowników, przwoźników, miast
-- logowanie użytkowników
-- dokończyć front-end
-- ...
-- ...
-- ...
++ baza zleceń (numery, daty, załadunki, rozładunki, ceny, status)
++ baza przewoźników
++ baza fabryk
++ baza użytkowników

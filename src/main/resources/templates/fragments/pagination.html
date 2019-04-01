@@ -20,19 +20,19 @@
                 ➝</a>
         </li>
         <li class="page-item disabled"><a th:class="'page-link'" th:href="'#'">
-            <span  th:if="${totalElements>0}" th:text="${size}*${page.number+1}+'/'+${totalElements}"></span></a>
+            <span th:if="${totalElements>0}" th:text="${size}*${page.number+1}+'/'+${totalElements}"></span></a>
         </li>
-        <li class="page-item"><a th:class="'page-link'" th:href="@{/orders/(page=0, size=200)}">200</a>
+      <!--  <li class="page-item"><a th:class="'page-link'" th:href="@{/orders/(page=0, size=200)}">200</a>
         </li>
         </li>
         <li class="page-item"><a th:class="'page-link'" th:href="@{/orders/(page=0, size=500)}">500</a>
-        </li>
-        </li>
-        <li class="page-item"><a th:class="'page-link'" th:href="@{/orders/(page=0, size=${totalElements})}">WSZYSTKO</a>
-        </li>
-      <!--  <li>
-            <input type="button" value="EXPORT" onClick ="$('#userTbl').tableExport({type:'csv',escape:'true',ignoreColumn: [2,6,7,8,9,10,11]});" id="buttonExportData" href="#" class="btn btn-success" />
-
         </li>-->
+        <li class="page-item"><a th:class="'page-link'"
+                                 th:href="@{/orders/(page=0, size=${totalElements})}">WSZYSTKO</a>
+        </li>
+        <!--  <li>
+              <input type="button" value="EXPORT" onClick ="$('#userTbl').tableExport({type:'csv',escape:'true',ignoreColumn: [2,6,7,8,9,10,11]});" id="buttonExportData" href="#" class="btn btn-success" />
+
+          </li>-->
     </ul>
 </nav>

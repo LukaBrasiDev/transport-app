@@ -5,42 +5,53 @@
 
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <table th:if="${order != null}" class="table table-bordered">
+    <thead>
     <tr style="font-weight: bold">
-        <td th:if="${order != null}" th:text="'Id'"></td>
-        <td th:if="${order != null}" th:text="'Data zał.'"></td>
-        <td th:if="${order != null}" th:text="'Nr tury'"></td>
-        <td th:if="${order != null}" th:text="'Załadunek'"></td>
-        <td th:if="${order != null}" th:text="'Rozładunki'"></td>
-        <td th:if="${order != null}" th:text="'Cena nasza'"></td>
-        <td th:if="${order != null}" th:text="'Cena przew.'"></td>
-        <td th:if="${order != null}" th:text="'Przewoźnik'"></td>
+        <!--<td th:if="${order != null}" th:text="'Id'"></td>-->
+        <td th:if="${order != null}" th:text="'TURA'"></td>
+        <td th:if="${order != null}" th:text="'FABRYKA'"></td>
+        <td th:if="${order != null}" th:text="'DATA ZAŁ.'"></td>
+        <td th:if="${order != null}" th:text="'NR'"></td>
+        <td th:if="${order != null}" th:text="'ZAŁADUNEK'"></td>
+        <td th:if="${order != null}" th:text="'ROZŁADUNKI'"></td>
+        <td th:if="${order != null}" th:text="'CENA NASZA'"></td>
+        <td th:if="${order != null}" th:text="'CENA PRZEW.'"></td>
+        <td th:if="${order != null}" th:text="'PRZEWOŹNIK'"></td>
         <td th:if="${order != null}" th:text="'T/S'"></td>
     </tr>
+    </thead>
     <tr>
-        <td><span th:text="${order.id}"></span></td>
-        <td><span th:text="${order.loadDate}"></span></td>
+        <!--  <td><span th:text="${order.id}"></span></td>-->
         <td><span th:text="${order.orderNumber}"></span></td>
         <td><span th:if="${order.factory!=null}"
-                  th:text="${order.getFactory().factoryCity}+' ('+${order.getFactory().factoryName}+')'"></span></td>
-        <td>  <span th:each="code,iterStat : ${order.codes}">
-            <span th:text="${code.cityCode}"/><th:block th:if="${!iterStat.last}">, </th:block></span></td>
+                  th:text="${order.getFactory().factoryName}"></span></td>
+        <td><span th:text="${order.loadDate}"></span></td>
+        <td><span th:text="${order.ourNumber}"></span></td>
+        <td><span th:text="${order.loadingCity}"></span></td>
+        <td><span th:if="${order.cityCodes!=null}" th:text="${order.cityCodes}"></span></td>
         <td><span th:text="${order.price}"></span></td>
         <td><span th:text="${order.freighterPrice}"></span></td>
         <td><span th:if="${order.freighter!=null}" th:text="${order.getFreighter().freighterName}"></span></td>
         <td><span th:if="${order.user!=null}" th:text="${order.getUser().userName}"></span></td>
     </tr>
 </table>
-
 <!--formularz start-->
 <div class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">
         <p style="font-weight: bold">EDYTUJ:</p>
         <form method="post" th:action="@{/edit/{id}(id=${order.id})}" th:object="${order}">
             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">NR TURY</label>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">TURA</label>
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail3" name="orderNumber" type="text"
                            th:value="${order.getOrderNumber()}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail34" class="col-sm-2 col-form-label">NR</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail34" name="ourNumber" type="text"
+                           th:value="${order.getOurNumber()}">
                 </div>
             </div>
             <div class="form-group row">
@@ -51,20 +62,18 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputEmail5" class="col-sm-2 col-form-label">ROZŁADUNKI:</label>
+                <label for="inputEmail343" class="col-sm-2 col-form-label">ZAŁADUNEK</label>
                 <div class="col-sm-2">
-                    <div th:each="k : ${order.codes}">
-                        <div>
-                            <input name="cityCode" type="text" class="form-control" th:value="${k.cityCode}"/>
-                        </div>
-                    </div>
-                    <div th:if="${order.codes.isEmpty()}">
-                        <div>
-                            <textarea placeholder="Wpisz kody rozładunków odzdzielone przecinkami..." name="cityCode"
-                                      class="form-control"
-                                      id="validationTextarea" rows="5"></textarea>
-                        </div>
-                    </div>
+                    <input class="form-control" id="inputEmail343" name="loadingCity" type="text"
+                           th:value="${order.getLoadingCity()}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleFormControlSelect22" class="col-sm-2 col-form-label">ROZŁADUNKI</label>
+                <div class="col-sm-2">
+                    <textarea th:field="*{cityCodes}" th:wrap="hard" name="cityCodes" class="form-control"
+                              id="exampleFormControlSelect22"
+                              rows="3"></textarea>
                 </div>
             </div>
             <div class="form-group row">

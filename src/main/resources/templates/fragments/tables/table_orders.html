@@ -1,0 +1,59 @@
+<table th:fragment="tableorders" class="table-sm table-striped table-bordered table-hover" id="export">
+    <thead>
+    <tr style="font-weight: bold">
+        <!--<td>ID</td>-->
+        <td>TURA</td>
+        <td>FABRYKA</td>
+        <td>DATA ZAŁ.</td>
+        <td>NR</td>
+        <td>ZAŁADUNEK</td>
+        <td>ROZŁADUNKI</td>
+        <td>CENA NASZA</td>
+        <td>CENA PRZEW.</td>
+        <td>ZYSK</td>
+        <td>PRZEWOŹNIK</td>
+        <td>T/S</td>
+        <td>STATUS</td>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="one : ${orders}"  th:style="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null} ? 'color:red' : ''">
+        <!-- <td><span th:text="${one.id}"></span></td>-->
+        <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
+        <td><span th:if="${one.factory!=null}"
+                  th:text="${one.factory.factoryName}"></span></td>
+        <td><span th:text="${one.loadDate}"></span></td>
+        <td><span th:text="${one.ourNumber}"></span></td>
+        <td>
+            <span th:text="${one.loadingCity}"></span>
+        </td>
+        <td>
+            <span th:if="${one.cityCodes!=null}" th:text="${one.cityCodes}"></span>
+        </td>
+        <td><span th:if="${one.price!=null}" th:text="${one.price}+' €'"></span></td>
+        <td><span th:if="${one.freighterPrice!=null}" th:text="${one.freighterPrice}+' €'"></span></td>
+        <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"
+                  th:text="${one.price}-${one.freighterPrice}+' €'"></span></td>
+        <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
+        <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
+        <td>
+            <span style="background-color:#d9534f"
+                  th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#nowa#spad</span>
+            <span style="background-color:#5bc0de"
+                  th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') < #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#nowa</span>
+            <span style="background-color:#5bc0de"
+                  th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') == #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#nowa</span>
+            <span style="background-color:#5cb85c" th:if="${one.user!=null} and ${one.user.userName!='STORNO'}">#sprzedana</span>
+            <span style="background-color:gray"
+                  th:if="${one.user!=null} and ${one.user.userName=='STORNO'}">#storno</span>
+            <span style="background-color:lightgreen"
+                  th:if="${one.freighter!=null} and ${one.freighter.freighterName=='MTW'}">#nasze</span>
+        </td>
+
+        <td>
+            <a class="btn btn-outline-danger btn-sm" th:href="@{/edit/{id}(id=${one.id})}" role="button">Edytuj</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
