@@ -11,5 +11,6 @@ public class RangeForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date2;
     private String radioSelect;
+    private String weekSelect;
 
 }

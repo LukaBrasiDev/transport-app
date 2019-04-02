@@ -31,18 +31,31 @@ public class OrderService {
         this.factoryRepository = factoryRepository;
     }
 
+    public enum ActionResponse {
+        SUCCESS,
+        ERROR,
+        DUPLICAT
+    }
+
     public Page<Order> getOrders(Pageable pageable) {
 
         return orderRepository.findAllByOrderByLoadDateDescLoadingCityAsc(pageable);
     }
 
+    public Page<Order> findCurrentWeekNotSold(Pageable pageable) {
+        return orderRepository.findCurrentWeekNotSold(pageable);
+    }
+
+    public Page<Order> findCurrentWeekAll(Pageable pageable) {
+        return orderRepository.findCurrentWeekAll(pageable);
+    }
 
     public Page<Order> getOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable) {
 
         return orderRepository.findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(date1, date2, pageable);
     }
 
-    public Page<Order> getOrdersInRangeNotSold(LocalDate date1, LocalDate date2, Pageable pageable){
+    public Page<Order> getOrdersInRangeNotSold(LocalDate date1, LocalDate date2, Pageable pageable) {
 
         return orderRepository.findNotSoldOrdersInRange(date1, date2, pageable);
     }
@@ -96,7 +109,7 @@ public class OrderService {
         return null;
     }
 
-    public boolean saveOrder(OrderForm orderForm) {
+    /*public boolean saveOrder(OrderForm orderForm) {
 
         Order orderNew = new Order();
 
@@ -135,7 +148,53 @@ public class OrderService {
         orderNew.setUser(orderForm.getUser());
         orderRepository.save(orderNew);
         return true;
+    }*/
+
+    public ActionResponse saveOrder(OrderForm orderForm) {
+
+        Order orderNew = new Order();
+
+        if (orderRepository.existsByOrderNumber(orderForm.getOrderNumber())) {
+            return ActionResponse.DUPLICAT;
+        }
+        orderNew.setLoadDate(orderForm.getLoadDate());
+        orderNew.setOrderNumber(orderForm.getOrderNumber());
+        // sprawdanie czy order number ma minimum 3 znaki
+        String orderPrefix = orderForm.getOrderNumber();
+        if (orderPrefix.length() >= 3) {
+            orderPrefix = orderPrefix.substring(0, 3);
+        } else {
+            return ActionResponse.ERROR;
+        }
+        // sprawdzenie czy istnieje prefix fabryki dla podanego order number
+        Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
+        if (cityPrefix.isPresent()) {
+            orderNew.setFactory(cityPrefix.get());
+            orderNew.setLoadingCity(cityPrefix.get().getFactoryCity());
+        } else {
+            return ActionResponse.ERROR;
+        }
+        // splitowanie kodów po przecinku do linked listy
+        List<String> codes = new LinkedList<>();
+        String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
+        for (int i = 0; i < stringCodes.length; i++) {
+            codes.add(stringCodes[i]);
+        }
+        orderNew.setCityCodes(codes.toString()
+                .replace("[", "")  //remove the right bracket
+                .replace("]", "")  //remove the left bracket
+                .replace(" ", "")
+                .replace(",", ", ")
+                .trim());
+        orderNew.setOurNumber(orderForm.getOurNumber());
+        orderNew.setPrice(orderForm.getPrice());
+        orderNew.setFreighterPrice(orderForm.getFreighterPrice());
+        orderNew.setUser(orderForm.getUser());
+
+        orderRepository.save(orderNew);
+        return ActionResponse.SUCCESS;
     }
+
 
     public void saveFactory(FactoryForm factoryForm) {
         Factory factoryNew = new Factory();
@@ -189,7 +248,7 @@ public class OrderService {
                 optionalOrder.get().setFactory(cityPrefix.get());
             }
             //uzupelnianie zaladunku jezeli jest pusty miastem fabryki z tury
-            if (cityPrefix.isPresent() && optionalOrder.get().getLoadingCity()==null) {
+            if (cityPrefix.isPresent() && optionalOrder.get().getLoadingCity() == null) {
                 optionalOrder.get().setLoadingCity(cityPrefix.get().getFactoryCity());
             } else {
 

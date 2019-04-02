@@ -38,11 +38,41 @@ public class OrderController {
         return "order";
     }
 
+    @PostMapping("/orders/week")
+    public String getOrdersInWeek(@ModelAttribute RangeForm rangeForm,
+                                  Model model,
+                                  Pageable pageable) {
+        String selection = rangeForm.getRadioSelect();
+        if (selection.equals("allweek")) {
+            Page<Order> orderPage = orderService.findCurrentWeekAll(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            return "order";
+        } else {
+            Page<Order> orderPage = orderService.findCurrentWeekNotSold(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            return "order";
+        }
+    }
+
     @PostMapping("/orders/range")
     public String findOrdersBetweenDates(@ModelAttribute RangeForm rangeForm,
                                          Model model,
                                          Pageable pageable) {
-       String selection=  rangeForm.getRadioSelect();
+        String selection = rangeForm.getRadioSelect();
         if (selection.equals("allorders")) {
             Page<Order> orderPage = orderService.getOrdersInRange(rangeForm.getDate1(), rangeForm.getDate2(), pageable);
             model.addAttribute("page", orderPage);
@@ -69,13 +99,26 @@ public class OrderController {
 
     }
 
-
     @PostMapping("/orders")
     public String createOrder(@ModelAttribute OrderForm orderForm,
                               Model model,
                               Pageable pageable) {
-        orderService.saveOrder(orderForm);
+        OrderService.ActionResponse actionResponse = orderService.saveOrder(orderForm);
+        if (actionResponse == OrderService.ActionResponse.SUCCESS) {
+            Page<Order> orderPage = orderService.getOrders(pageable);
+            model.addAttribute("info", actionResponse);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            return "order";
+        }
         Page<Order> orderPage = orderService.getOrders(pageable);
+        model.addAttribute("info", actionResponse);
         model.addAttribute("page", orderPage);
         model.addAttribute("number", orderPage.getNumber());
         model.addAttribute("totalPages", orderPage.getTotalPages());
@@ -103,7 +146,6 @@ public class OrderController {
         model.addAttribute("orderForm", new OrderForm());
         return "edit";
     }
-
 
     @PostMapping("/edit/{id}")
     public String updateOrder(
