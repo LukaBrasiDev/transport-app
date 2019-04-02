@@ -34,7 +34,8 @@ public class OrderService {
     public enum ActionResponse {
         SUCCESS,
         ERROR,
-        DUPLICAT
+        DUPLICAT,
+        EDIT
     }
 
     public Page<Order> getOrders(Pageable pageable) {
@@ -109,47 +110,6 @@ public class OrderService {
         return null;
     }
 
-    /*public boolean saveOrder(OrderForm orderForm) {
-
-        Order orderNew = new Order();
-
-        orderNew.setLoadDate(orderForm.getLoadDate());
-        orderNew.setOrderNumber(orderForm.getOrderNumber());
-        // sprawdanie czy order number ma minimum 3 znaki
-        String orderPrefix = orderForm.getOrderNumber();
-        if (orderPrefix.length() >= 3) {
-            orderPrefix = orderPrefix.substring(0, 3);
-        } else {
-            return false;
-        }
-        // sprawdzenie czy istnieje prefix fabryki dla podanego order number
-        Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
-        if (cityPrefix.isPresent()) {
-            orderNew.setFactory(cityPrefix.get());
-            orderNew.setLoadingCity(cityPrefix.get().getFactoryCity());
-        } else {
-            return false;
-        }
-        // splitowanie kodów po przecinku do linked listy
-        List<String> codes = new LinkedList<>();
-        String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
-        for (int i = 0; i < stringCodes.length; i++) {
-            codes.add(stringCodes[i]);
-        }
-        orderNew.setCityCodes(codes.toString()
-                .replace("[", "")  //remove the right bracket
-                .replace("]", "")  //remove the left bracket
-                .replace(" ", "")
-                .replace(",", ", ")
-                .trim());
-        orderNew.setOurNumber(orderForm.getOurNumber());
-        orderNew.setPrice(orderForm.getPrice());
-        orderNew.setFreighterPrice(orderForm.getFreighterPrice());
-        orderNew.setUser(orderForm.getUser());
-        orderRepository.save(orderNew);
-        return true;
-    }*/
-
     public ActionResponse saveOrder(OrderForm orderForm) {
 
         Order orderNew = new Order();
@@ -176,7 +136,7 @@ public class OrderService {
         }
         // splitowanie kodów po przecinku do linked listy
         List<String> codes = new LinkedList<>();
-        String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
+        String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.trim().isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
         for (int i = 0; i < stringCodes.length; i++) {
             codes.add(stringCodes[i]);
         }
@@ -185,6 +145,7 @@ public class OrderService {
                 .replace("]", "")  //remove the left bracket
                 .replace(" ", "")
                 .replace(",", ", ")
+                .replaceAll("[^\\x00-\\x7F]", "")
                 .trim());
         orderNew.setOurNumber(orderForm.getOurNumber());
         orderNew.setPrice(orderForm.getPrice());
@@ -232,15 +193,15 @@ public class OrderService {
         }
     }
 
-    public void updateOrder(Long id, OrderForm orderForm) {
+    public ActionResponse updateOrder(Long id, OrderForm orderForm) {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
+
         optionalOrder.get().setOrderNumber(orderForm.getOrderNumber());
 
         String orderPrefix = orderForm.getOrderNumber();
         if (orderPrefix.length() >= 3) {
             orderPrefix = orderPrefix.substring(0, 3);
-
             // sprawdzenie czy istnieje prefix fabryki dla podanego order number
             Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
             //uzupelnianie fabryki na podstawie prefixu tury
@@ -251,22 +212,18 @@ public class OrderService {
             if (cityPrefix.isPresent() && optionalOrder.get().getLoadingCity() == null) {
                 optionalOrder.get().setLoadingCity(cityPrefix.get().getFactoryCity());
             } else {
-
                 //tura inna niz z factory - nadpisz miasto
                 optionalOrder.get().setLoadingCity(orderForm.getLoadingCity().toUpperCase());
             }
         } else {
-
             //brak tury
-
             optionalOrder.get().setLoadingCity(orderForm.getLoadingCity().toUpperCase());
-
         }
 
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
         //update kodow - splitowanie stringa do linked listy
         List<String> codes = new LinkedList<>();
-        String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
+        String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.trim().isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
         for (int i = 0; i < stringCodes.length; i++) {
             codes.add(stringCodes[i]);
         }
@@ -275,6 +232,7 @@ public class OrderService {
                 .replace("]", "")  //remove the left bracket
                 .replace(" ", "")
                 .replace(",", ", ")
+                .replaceAll("[^\\x00-\\x7F]", "")
                 .trim());
         optionalOrder.get().setOurNumber(orderForm.getOurNumber());
         optionalOrder.get().setPrice(orderForm.getPrice());
@@ -283,6 +241,7 @@ public class OrderService {
         optionalOrder.get().setUser(orderForm.getUser());
 
         orderRepository.save(optionalOrder.get());
+        return ActionResponse.EDIT;
     }
 
     public void updateFactory(Long id, FactoryForm factoryForm) {
@@ -294,7 +253,6 @@ public class OrderService {
         optionalFactory.get().setFactoryAddress(factoryForm.getFactoryAddress());
         optionalFactory.get().setFactoryContact(factoryForm.getFactoryContact());
         optionalFactory.get().setFactoryInfo(factoryForm.getFactoryInfo());
-
         factoryRepository.save(optionalFactory.get());
     }
 

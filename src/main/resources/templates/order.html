@@ -15,7 +15,7 @@
 
                 </div>
                 <div class="col-4">
-                    <p>Wyszukiwanie tur w aktualnym tygodniu:</p>
+                    <p>Wyszukiwanie tur w aktualnym tygodniu + spady:</p>
                     <form th:replace="fragments/formweek :: formweek"></form>
                 </div>
                 <div class="col-1">
@@ -34,7 +34,7 @@
     </div>
 </div>
 <div style="display:flex;justify-content:center;align-items:center;background-color: #17a2b8">
-    <div>
+    <div class="alert">
         <th:block th:if="${info!=null}" th:switch="${info}">
 <span th:case="*{info.ERROR}" th:text="#{Order.info.error}"
       th:class="${'alert alert-danger'}"></span>

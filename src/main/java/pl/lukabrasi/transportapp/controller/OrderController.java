@@ -115,7 +115,8 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
-            return "order";
+            return "order";//todo widok tylko dodanej tury
+
         }
         Page<Order> orderPage = orderService.getOrders(pageable);
         model.addAttribute("info", actionResponse);
@@ -151,11 +152,17 @@ public class OrderController {
     public String updateOrder(
             @PathVariable Long id,
             @ModelAttribute OrderForm orderForm, Model model) {
-        orderService.updateOrder(id, orderForm);
+        OrderService.ActionResponse actionResponse = orderService.updateOrder(id, orderForm);
+        if (actionResponse == OrderService.ActionResponse.EDIT) {
+            model.addAttribute("info", actionResponse);
+            model.addAttribute("order", orderService.getOrderById(id));
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            return "edit";
+        }
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
-        return "redirect:/orders";
+        return "edit";
     }
-
 }
