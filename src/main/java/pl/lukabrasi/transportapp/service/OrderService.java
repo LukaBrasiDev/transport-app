@@ -144,8 +144,9 @@ public class OrderService {
                 .replace("[", "")  //remove the right bracket
                 .replace("]", "")  //remove the left bracket
                 .replace(" ", "")
+                .replaceAll("\\s{2,}", "")
                 .replace(",", ", ")
-                .replaceAll("[^\\x00-\\x7F]", "")
+                //.replaceAll("[^\\x00-\\x7F]", "")
                 .trim());
         orderNew.setOurNumber(orderForm.getOurNumber());
         orderNew.setPrice(orderForm.getPrice());
@@ -231,8 +232,9 @@ public class OrderService {
                 .replace("[", "")  //remove the right bracket
                 .replace("]", "")  //remove the left bracket
                 .replace(" ", "")
+                .replaceAll("\\s{2,}", "")
                 .replace(",", ", ")
-                .replaceAll("[^\\x00-\\x7F]", "")
+               // .replaceAll("[^\\x00-\\x7F]", "")
                 .trim());
         optionalOrder.get().setOurNumber(orderForm.getOurNumber());
         optionalOrder.get().setPrice(orderForm.getPrice());
