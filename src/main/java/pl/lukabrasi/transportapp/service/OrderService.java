@@ -113,14 +113,17 @@ public class OrderService {
     public ActionResponse saveOrder(OrderForm orderForm) {
 
         Order orderNew = new Order();
-
-        if (orderRepository.existsByOrderNumber(orderForm.getOrderNumber())) {
+        String orderNb = orderForm.getOrderNumber()
+                .toUpperCase()
+                .trim()
+                .replace(" ", "");
+        if (orderRepository.existsByOrderNumber(orderNb)) {
             return ActionResponse.DUPLICAT;
         }
         orderNew.setLoadDate(orderForm.getLoadDate());
-        orderNew.setOrderNumber(orderForm.getOrderNumber());
+        orderNew.setOrderNumber(orderNb);
         // sprawdanie czy order number ma minimum 3 znaki
-        String orderPrefix = orderForm.getOrderNumber();
+        String orderPrefix = orderNb;
         if (orderPrefix.length() >= 3) {
             orderPrefix = orderPrefix.substring(0, 3);
         } else {
@@ -234,7 +237,7 @@ public class OrderService {
                 .replace(" ", "")
                 .replaceAll("\\s{2,}", "")
                 .replace(",", ", ")
-               // .replaceAll("[^\\x00-\\x7F]", "")
+                // .replaceAll("[^\\x00-\\x7F]", "")
                 .trim());
         optionalOrder.get().setOurNumber(orderForm.getOurNumber());
         optionalOrder.get().setPrice(orderForm.getPrice());
