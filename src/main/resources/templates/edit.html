@@ -35,6 +35,17 @@
         <td><span th:if="${order.user!=null}" th:text="${order.getUser().userName}"></span></td>
     </tr>
 </table>
+<div style="display:flex;justify-content:center;align-items:center;background-color: #17a2b8">
+    <div class="alert">
+        <th:block th:if="${info!=null}" th:switch="${info}">
+<span th:case="*{info.ERROR}" th:text="#{Order.info.error}"
+      th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.DUPLICAT}" th:text="#{Order.info.duplicat}" th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.EDIT}" th:text="#{Edit.info.edited}"
+                  th:class="${'alert alert-success'}"></span>
+        </th:block>
+    </div>
+</div>
 <!--formularz start-->
 <div class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">
@@ -120,8 +131,8 @@
 
                 </div>
                 <div class="col-sm-2">
-                    <button type="submit" class="btn btn-success">ZAPISZ</button>
-                    <a href="/orders" class="btn btn-danger">ANULUJ</a>
+                    <button type="submit" class="btn btn-success btn-lg">ZAPISZ</button>
+                    <a href="/orders" class="btn btn-secondary btn-lg">WYJDŹ</a>
                 </div>
             </div>
         </form>

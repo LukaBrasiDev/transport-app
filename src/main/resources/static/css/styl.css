@@ -10,11 +10,42 @@ table{
   font-family: "Courier New";
 }
 
+
+.alert{
+    font-size: 1.5em;
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label::before,
+.custom-radio .custom-control-input:checked~.custom-control-label::after {
+    background-color: #dc3545;  /* green */
+    /* this bg image SVG is just a white circle, you can replace it with any valid SVG code */
+  /*  background-image: url(data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E);*/
+    border-radius: 50%;
+}
+
+/* active state i.e. displayed while the mouse is being pressed down */
+.custom-radio .custom-control-input:active ~ .custom-control-label::before {
+    color: #dc3545;
+    background-color: #dc3545; /* red */
+}
 thead{
   color:white;
   background-color:#dc3545;
     text-align:center
 }
+/*radiobutton active*/
+
+/* This is the default state
+.custom-radio .custom-control-label::before {
+    background-color: #dc3545;;  !* orange *!
+}
+*/
+/* This is the checked state */
+
+/*!* the shadow; displayed while the element is in focus *!
+.custom-radio .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(255, 123, 255, 0.25); !* pink, 25% opacity *!
+}*/
 
 /*paginacja*/
 .page-link {
@@ -43,30 +74,3 @@ thead{
 
 }
 
-/*
-!*paginacja*!
-.page-link {
-    display: block;
-    color: white;
-    background-color: #5cb85c;
-    border: 1px solid #dddddd;
-}
-
-.page-item.disabled .page-link {
-    color: white;
-    background-color: #5cb85c;
-    border-color: #dddddd;
-}
-
-.page-item.active .page-link {
-    color: white;
-    background-color: darkgreen;
-    border-color: #dddddd;
-}
-
-.page-link:focus, .page-link:hover {
-    color: white;
-    background-color: darkgreen;
-    border-color:#dddddd;
-
-}*/
