@@ -21,13 +21,13 @@ public class FreighterController {
     }
 
 
-    @GetMapping("/freighter")
+    @GetMapping("/przewoznicy")
     public String getFreighters(Model model) {
         model.addAttribute("freighters", orderService.getFreighters());
         return "freighter";
     }
 
-    @PostMapping("/freighter")
+    @PostMapping("/przewoznicy")
     public String createFreighter(@ModelAttribute FreighterForm freighterForm, Model model) {
         orderService.saveFreighter(freighterForm);
         model.addAttribute("freighters", orderService.getFreighters());
@@ -35,24 +35,24 @@ public class FreighterController {
     }
 
 
-    @GetMapping("/freighter/{id}")
+    @GetMapping("/przewoznik/{id}")
     public String getFreighterById(@PathVariable(value = "id") Long id, Model model) {
         model.addAttribute("freighters", orderService.getFreighterById(id));
         return "freighter";
     }
 
-    @GetMapping("/editfreighter/{id}")
+    @GetMapping("/edycjaprzewoznik/{id}")
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("freighters", orderService.getFreighterById(id));
         model.addAttribute("freighterForm", new FreighterForm());
         return "editfreighter";
     }
 
-    @PostMapping("/editfreighter/{id}")
+    @PostMapping("/edycjaprzewoznik/{id}")
     public String updateFreighter(
             @PathVariable Long id,
             @ModelAttribute FreighterForm freighterForm) {
         orderService.updateFreighter(id, freighterForm);
-        return "redirect:/freighter";
+        return "redirect:/przewoznicy";
     }
 }

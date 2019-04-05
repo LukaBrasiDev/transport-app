@@ -35,7 +35,8 @@ public class OrderService {
         SUCCESS,
         ERROR,
         DUPLICAT,
-        EDIT
+        EDIT,
+        NOFACTORY
     }
 
     public Page<Order> getOrders(Pageable pageable) {
@@ -135,7 +136,7 @@ public class OrderService {
             orderNew.setFactory(cityPrefix.get());
             orderNew.setLoadingCity(cityPrefix.get().getFactoryCity());
         } else {
-            return ActionResponse.ERROR;
+            return ActionResponse.NOFACTORY;
         }
         // splitowanie kodów po przecinku do linked listy
         List<String> codes = new LinkedList<>();

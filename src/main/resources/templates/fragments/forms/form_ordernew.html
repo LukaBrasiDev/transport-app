@@ -1,7 +1,7 @@
 <div th:fragment="ordernew" class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">
         <p style="font-weight: bold">NOWA TURA:</p>
-        <form th:action="@{/orders}" th:object="${orders}" method="post">
+        <form th:action="@{/zlecenia}" th:object="${orders}" method="post">
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">TURA</label>
                 <div class="col-sm-2">

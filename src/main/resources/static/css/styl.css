@@ -3,13 +3,8 @@ body {
 }
 
 table{
- font-family: "Courier New";
+ font-family: "Verdana";
 }
-
-table{
-  font-family: "Courier New";
-}
-
 
 .alert{
     font-size: 1.5em;

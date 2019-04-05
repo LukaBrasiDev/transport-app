@@ -20,26 +20,26 @@ public class UserController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/user")
+    @GetMapping("/uzytkownicy")
     public String getFreighters(Model model) {
         model.addAttribute("users", orderService.getUsers());
         return "user";
     }
 
-    @PostMapping("/user")
+    @PostMapping("/uzytkownicy")
     public String createFreighter(@ModelAttribute UserForm userForm, Model model) {
         orderService.saveUser(userForm);
         model.addAttribute("users", orderService.getUsers());
         return "user";
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/uzytkownik/{id}")
     public String getUserById(@PathVariable(value = "id") Long id, Model model) {
         model.addAttribute("users", orderService.getUserById(id));
         return "user";
     }
 
-    @GetMapping("/edituser/{id}")
+    @GetMapping("/edycjauzytkownik/{id}")
     public String edit(@PathVariable Long id,
                        Model model) {
         model.addAttribute("users", orderService.getUserById(id));
@@ -47,12 +47,12 @@ public class UserController {
         return "edituser";
     }
 
-    @PostMapping("/edituser/{id}")
+    @PostMapping("/edycjauzytkownik/{id}")
     public String updateUser(
             @PathVariable Long id,
             @ModelAttribute UserForm userForm) {
         orderService.updateUser(id, userForm);
-        return "redirect:/user";
+        return "redirect:/uzytkownicy";
     }
 
 

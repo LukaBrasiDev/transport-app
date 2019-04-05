@@ -31,7 +31,7 @@
 <div class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">
         <p style="font-weight: bold">EDYTUJ:</p>
-        <form  method="post" th:action="@{/editfreighter/{id}(id=${freighters.id})}" th:object="${freighters}">
+        <form  method="post" th:action="@{/edycjaprzewoznik/{id}(id=${freighters.id})}" th:object="${freighters}">
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">NAZWA</label>
                 <div class="col-sm-2">
@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-sm-2">
                     <button type="submit" class="btn btn-success">ZAPISZ</button>
-                    <a href="/freighter" class="btn btn-danger">ANULUJ</a>
+                    <a href="/przewoznicy" class="btn btn-danger">ANULUJ</a>
                 </div>
             </div>
         </form>
