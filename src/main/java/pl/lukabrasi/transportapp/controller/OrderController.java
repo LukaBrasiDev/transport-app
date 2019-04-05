@@ -83,6 +83,8 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("range1", rangeForm.getDate1());
+            model.addAttribute("range2", rangeForm.getDate2());
             return "order";
         } else {
             Page<Order> orderPage = orderService.getOrdersInRangeNotSold(rangeForm.getDate1(), rangeForm.getDate2(), pageable);
@@ -94,6 +96,8 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("range1", rangeForm.getDate1());
+            model.addAttribute("range2", rangeForm.getDate2());
             return "order";
         }
 
