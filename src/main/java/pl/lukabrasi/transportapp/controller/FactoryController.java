@@ -41,7 +41,7 @@ public class FactoryController {
         return "factory";
     }
 
-    @GetMapping("/edycjafabryki/{id}")
+    @GetMapping("/edycjafabryka/{id}")
     public String edit(@PathVariable Long id,
                        Model model) {
         model.addAttribute("factories", orderService.getFactoryById(id));
@@ -50,7 +50,7 @@ public class FactoryController {
     }
 
 
-    @PostMapping("/edycjafabryki/{id}")
+    @PostMapping("/edycjafabryka/{id}")
     public String updateFactory(
             @PathVariable Long id,
             @ModelAttribute FactoryForm factoryForm) {
