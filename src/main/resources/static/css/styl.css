@@ -1,5 +1,9 @@
 body {
-  /*background-color: lightyellow;*/
+  background-color: ghostwhite;
+}
+
+body.calc{
+    background-color: ghostwhite;
 }
 
 table{

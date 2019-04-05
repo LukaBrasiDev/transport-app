@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head th:replace="fragments/header :: header"></head>
+<body class="calc">
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container">
+    <div class="row justify-content-md-center"><h4>Kalkulator tras - NIEMCY</h4>
+    </div>
+
+
+    <div>
+        <div>
+            <ul>
+                <li>Wprowadź nazwy niemieckich miast oddzielone znakiem "/"</li>
+                <li>Trasy oddziel znakiem "*"</li>
+            </ul>
+        </div>
+        <div style="text-align: right">
+            <form th:action="@{/ustawienia}" th:object="${settings}" method="post">
+            <button href="submit" class="btn btn-secondary btn-sm">ustawienia</button></form>
+        </div>
+    </div>
+    <form th:action="@{/kalkulator}" th:object="${route}" method="post">
+
+        <div class="form-group">
+
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+        </div>
+        <!--<div class="row justify-content-md-center">-->
+        <button type="submit" class="btn btn-info btn-lg">OBLICZ</button>
+        <!--</div>-->
+    </form>
+    <div style="height:50px; width:100%; clear:both;"></div>
+    <table class="table table-striped table-hover" index="export">
+        <thead class="thead-dark">
+        <tr>
+            <td>#</td>
+            <td>Ilość miast</td>
+            <td>Kody miast</td>
+            <td>CENA</td>
+        </tr>
+        </thead>
+        <tr>
+            <td>1</td>
+            <td>6</td>
+            <td>12345, 12345, 12345, 12345, 12345</td>
+            <td>1450.00 €</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>8</td>
+            <td>12345, 12345, 12345, 12345, 12345, 12345, 12345</td>
+            <td>1250.00 €</td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>
