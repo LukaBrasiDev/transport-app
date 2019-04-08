@@ -22,8 +22,8 @@ public class Route {
     private @Column(name = "distance")
     int distance;
 
-    private @Column(name = "route_price")
-    BigDecimal routePrice;
+    private @Column(name = "route_rate")
+    BigDecimal routeRate;
 
     private @Column(name = "country")
     String country;
