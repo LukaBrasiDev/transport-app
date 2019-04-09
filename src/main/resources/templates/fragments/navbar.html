@@ -2,36 +2,35 @@
 
 
 
-    <a class="navbar-brand" href="#"><img th:src="@{/images/logo.png}" /></a> v.0.0.5
+    <a class="navbar-brand" href="#"><img th:src="@{/images/logo.png}" /></a> v.0.1.0
 
     <!-- Navbar links -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/orders">ZLECENIA</a>
+                <a class="nav-link" href="/zlecenia">ZLECENIA</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/freighter">PRZEWOŹNICY</a>
+                <a class="nav-link" href="/przewoznicy">PRZEWOŹNICY</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/factory">FABRYKI</a>
+                <a class="nav-link" href="/fabryki">FABRYKI</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/user">OSOBY</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" style="text-decoration: line-through">RAPORTY</a>
-            </li>
-         <!--   <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ustawienia
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/user">Użytkownicy</a>
-                    <a class="dropdown-item disabled" href="">Logowanie</a>
-                    <a class="dropdown-item disabled" href="">Informacje</a>
-                </div>
-            </li>-->
+                <a class="nav-link" href="/uzytkownicy">OSOBY</a>
+            </li><!--
+             <li class="nav-item">
+                 <a class="nav-link" style="text-decoration: line-through">RAPORTY</a>
+             </li>-->
+             <li class="nav-item dropdown">
+                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Narzędzia
+                 </a>
+                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                     <a class="dropdown-item" href="/kalkulator">Kalkulator tras</a>
+
+                 </div>
+             </li>
         </ul>
     </div>
     <div><input id="myInput" class="form-control mr-sm-2" type="text" placeholder="filtruj..." aria-label="Search">

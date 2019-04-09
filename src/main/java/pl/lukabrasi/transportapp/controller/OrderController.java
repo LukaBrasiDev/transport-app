@@ -23,7 +23,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/orders")
+    @GetMapping("/zlecenia")
     public String getOrders(Model model,
                             Pageable pageable) {
         Page<Order> orderPage = orderService.getOrders(pageable);
@@ -38,7 +38,7 @@ public class OrderController {
         return "order";
     }
 
-    @PostMapping("/orders/week")
+    @PostMapping("/zlecenia/tydzien")
     public String getOrdersInWeek(@ModelAttribute RangeForm rangeForm,
                                   Model model,
                                   Pageable pageable) {
@@ -68,7 +68,7 @@ public class OrderController {
         }
     }
 
-    @PostMapping("/orders/range")
+    @PostMapping("/zlecenia/zakres")
     public String findOrdersBetweenDates(@ModelAttribute RangeForm rangeForm,
                                          Model model,
                                          Pageable pageable) {
@@ -83,6 +83,8 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("range1", rangeForm.getDate1());
+            model.addAttribute("range2", rangeForm.getDate2());
             return "order";
         } else {
             Page<Order> orderPage = orderService.getOrdersInRangeNotSold(rangeForm.getDate1(), rangeForm.getDate2(), pageable);
@@ -94,12 +96,14 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("range1", rangeForm.getDate1());
+            model.addAttribute("range2", rangeForm.getDate2());
             return "order";
         }
 
     }
 
-    @PostMapping("/orders")
+    @PostMapping("/zlecenia")
     public String createOrder(@ModelAttribute OrderForm orderForm,
                               Model model,
                               Pageable pageable) {
@@ -137,7 +141,7 @@ public class OrderController {
         return "order";
     }*/
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/edycjazlecenie/{id}")
     public String edit(@PathVariable Long id,
                        Model model) {
         model.addAttribute("order", orderService.getOrderById(id));
@@ -148,7 +152,7 @@ public class OrderController {
         return "edit";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/edycjazlecenie/{id}")
     public String updateOrder(
             @PathVariable Long id,
             @ModelAttribute OrderForm orderForm, Model model) {

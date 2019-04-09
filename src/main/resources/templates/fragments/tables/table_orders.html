@@ -1,4 +1,4 @@
-<table th:fragment="tableorders" class="table-sm table-striped table-bordered table-hover" id="export">
+<table th:fragment="tableorders" class="table-sm table-bordered table-hover" id="export">
     <thead>
     <tr style="font-weight: bold">
         <!--<td>ID</td>-->
@@ -52,7 +52,7 @@
         </td>
 
         <td>
-            <a class="btn btn-outline-danger btn-sm" th:href="@{/edit/{id}(id=${one.id})}" role="button">Edytuj</a>
+            <a class="btn btn-outline-danger btn-sm" th:href="@{/edycjazlecenie/{id}(id=${one.id})}" role="button">Edytuj</a>
         </td>
     </tr>
     </tbody>

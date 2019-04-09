@@ -19,7 +19,7 @@
                     <form th:replace="fragments/formweek :: formweek"></form>
                 </div>
                 <div class="col-1">
-                    <a href="/orders" class="btn btn-primary">
+                    <a href="/zlecenia" class="btn btn-primary">
                         Odśwież
                     </a>
                 </div>
@@ -39,6 +39,7 @@
 <span th:case="*{info.ERROR}" th:text="#{Order.info.error}"
       th:class="${'alert alert-danger'}"></span>
             <span th:case="*{info.DUPLICAT}" th:text="#{Order.info.duplicat}" th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.NOFACTORY}" th:text="#{Order.info.nofactory}" th:class="${'alert alert-danger'}"></span>
             <span th:case="*{info.SUCCESS}" th:text="#{Order.info.success}"
                   th:class="${'alert alert-success'}"></span>
         </th:block>
@@ -59,7 +60,7 @@
 
                 </div>
                 <div class="col-4">
-                    <p>Wyszukiwanie tur w aktualnym tygodniu:</p>
+                    <p>Wyszukiwanie tur w aktualnym tygodniu + spady:</p>
                     <form th:replace="fragments/formweek :: formweek"></form>
                 </div>
                 <div class="col-1">

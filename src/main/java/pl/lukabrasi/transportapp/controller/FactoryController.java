@@ -21,13 +21,13 @@ public class FactoryController {
     }
 
 
-    @GetMapping("/factory")
+    @GetMapping("/fabryki")
     public String getFactories(Model model) {
         model.addAttribute("factories", orderService.getFactories());
         return "factory";
     }
 
-    @PostMapping("/factory")
+    @PostMapping("/fabryki")
     public String createOrder(@ModelAttribute FactoryForm factoryForm, Model model) {
         orderService.saveFactory(factoryForm);
         model.addAttribute("factories", orderService.getFactories());
@@ -35,13 +35,13 @@ public class FactoryController {
     }
 
 
-    @GetMapping("/factory/{id}")
+    @GetMapping("/fabryka/{id}")
     public String getFactoryById(@PathVariable(value = "id") Long id, Model model) {
         model.addAttribute("factories", orderService.getFactoryById(id));
         return "factory";
     }
 
-    @GetMapping("/editfactory/{id}")
+    @GetMapping("/edycjafabryka/{id}")
     public String edit(@PathVariable Long id,
                        Model model) {
         model.addAttribute("factories", orderService.getFactoryById(id));
@@ -50,12 +50,12 @@ public class FactoryController {
     }
 
 
-    @PostMapping("/editfactory/{id}")
+    @PostMapping("/edycjafabryka/{id}")
     public String updateFactory(
             @PathVariable Long id,
             @ModelAttribute FactoryForm factoryForm) {
         orderService.updateFactory(id, factoryForm);
-        return "redirect:/factory";
+        return "redirect:/fabryki";
 
     }
 

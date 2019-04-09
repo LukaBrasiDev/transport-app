@@ -25,7 +25,7 @@
 <div class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">
         <p style="font-weight: bold">EDYTUJ:</p>
-        <form  method="post" th:action="@{/edituser/{id}(id=${users.id})}" th:object="${users}">
+        <form  method="post" th:action="@{/edycjauzytkownik/{id}(id=${users.id})}" th:object="${users}">
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">IMIĘ</label>
                 <div class="col-sm-2">
@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-sm-2">
                     <button type="submit" class="btn btn-success">ZAPISZ</button>
-                    <a href="/user" class="btn btn-danger">ANULUJ</a>
+                    <a href="/uzytkownicy" class="btn btn-danger">ANULUJ</a>
                 </div>
             </div>
         </form>

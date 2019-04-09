@@ -1,15 +1,14 @@
 body {
-  /*background-color: lightyellow;*/
+  background-color: ghostwhite;
+}
+
+body.calc{
+    background-color: ghostwhite;
 }
 
 table{
  font-family: "Courier New";
 }
-
-table{
-  font-family: "Courier New";
-}
-
 
 .alert{
     font-size: 1.5em;

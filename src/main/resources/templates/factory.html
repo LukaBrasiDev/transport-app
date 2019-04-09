@@ -5,11 +5,11 @@
 <nav th:replace="fragments/navbar :: navbar"></nav>
 
 <!--poczatek tabeli tura-->
-<table id="export" class="table table-bordered table-hover">
+<table id="export" class="table table-bordered table-hover table-striped" style="font-family: Verdana">
     <thead>
     <tr style="font-weight: bold">
         <td>ID</td>
-        <td>PREFIX</td>
+        <td>KOD</td>
         <td>FABRYKA</td>
         <td>MIASTO</td>
         <td>ADRES</td>
@@ -27,7 +27,7 @@
         <td><span th:text="${f.factoryContact}"></span></td>
         <td><span th:text="${f.factoryInfo}"></span></td>
         <td>
-            <a class="btn btn-outline-success btn-sm" th:href="@{/editfactory/{id}(id=${f.id})}" role="button">Edytuj</a>
+            <a class="btn btn-outline-success btn-sm" th:href="@{/edycjafabryka/{id}(id=${f.id})}" role="button">Edytuj</a>
         </td>
     </tr>
 </table>
@@ -35,8 +35,8 @@
 <!--formularz start-->
 <div class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">
-        <p style="font-weight: bold">NOWA FABRYKA (nowy prefix):</p>
-        <form th:action="@{/factory}" th:object="${factories}" method="post">
+        <p style="font-weight: bold">NOWA FABRYKA (nowy kod):</p>
+        <form th:action="@{/fabryki}" th:object="${factories}" method="post">
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">PREFIX</label>
                 <div class="col-sm-2">

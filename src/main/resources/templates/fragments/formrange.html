@@ -1,4 +1,4 @@
-<form th:action="@{/orders/range}" th:object="${orders}" method="post" th:fragment="formrange">
+<form th:action="@{/zlecenia/zakres}" th:object="${orders}" method="post" th:fragment="formrange">
     <div class="form-row align-items-center">
         <div class="col-auto">
             <label class="sr-only" for="inlineFormInputGroup2">DATA OD:</label>
@@ -6,7 +6,7 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">DATA OD:</div>
                 </div>
-                <input required name="date1" type="date" class="form-control" id="inlineFormInputGroup2">
+                <input required name="date1" type="date" th:value="${range1}" class="form-control" id="inlineFormInputGroup2">
             </div>
         </div>
         <div class="col-auto">
@@ -15,7 +15,7 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text">DATA DO:</div>
                 </div>
-                <input required name="date2" type="date" class="form-control" id="inlineFormInputGroup">
+                <input required name="date2" type="date" th:value="${range2}" class="form-control" id="inlineFormInputGroup">
             </div>
         </div>
         <div class="col-auto">
