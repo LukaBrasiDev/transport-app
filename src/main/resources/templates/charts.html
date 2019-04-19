@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head th:replace="fragments/header :: header"></head>
+<body class="calc">
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container">
+    <div class="row justify-content-md-center"><h4>Raporty</h4>
+    </div>
+
+    <table class="highchart" data-graph-container-before="1" data-graph-type="column">
+        <thead>
+        <tr>
+            <th>Month</th>
+            <th>MTW</th>
+            <th>Sprzedane</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><span th:text="${#dates.format(#dates.createNow(), 'MMM yyyy')}"></span> </td>
+            <td><span>56</span></td>
+            <td>80</td>
+        </tr>
+        <tr>
+            <td><span th:text="${month1.getMonth()}"></span> </td>
+            <td><span>45</span></td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td><span th:text="${month2.getMonth()}"></span> </td>
+            <td><span></span></td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td><span th:text="${month3.getMonth()}"></span> </td>
+            <td><span>78</span></td>
+            <td>40</td>
+        </tr>
+        <tr>
+            <td><span th:text="${month4.getMonth()}"></span> </td>
+            <td><span>45</span></td>
+            <td>80</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+</div>
+<script>
+    $(document).ready(function() {
+        $('table.highchart').highchartTable();
+    });
+</script>
+</body>
+</html>
