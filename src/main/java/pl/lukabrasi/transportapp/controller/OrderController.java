@@ -177,14 +177,13 @@ public class OrderController {
     @GetMapping("/raporty")
     public String getCharts(Model model) {
         Date dt = new Date();
-        System.out.println(dt);
-        LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-1);
 
         model.addAttribute("month1", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-1));
         model.addAttribute("month2", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-2));
         model.addAttribute("month3", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-3));
         model.addAttribute("month4", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-4));
         model.addAttribute("orders", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-5));
+        model.addAttribute("mtw", orderService.soldByMtwInCurrentMonth());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
         return "charts";

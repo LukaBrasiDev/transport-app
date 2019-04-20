@@ -284,4 +284,8 @@ public class OrderService {
         userRepository.save(optionalUser.get());
     }
 
+    public int soldByMtwInCurrentMonth(){
+        return orderRepository.soldByMtwCurrentMonth();
+    }
+
 }

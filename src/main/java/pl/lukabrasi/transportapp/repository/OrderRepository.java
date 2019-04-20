@@ -30,7 +30,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findCurrentWeekAll(Pageable pageable);
 
 
-boolean existsByOrderNumber (String orderNumber);
+    boolean existsByOrderNumber(String orderNumber);
+
+    @Query(value = "SELECT count(id) as MTW from orders where month(date_load) = month(now()) and fk_freighter =1", nativeQuery = true)
+    int soldByMtwCurrentMonth ();
+
+
 
 // List<Order> findAllByOrderNumberContains(String number);
 }
