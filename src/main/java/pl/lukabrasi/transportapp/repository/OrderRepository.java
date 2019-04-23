@@ -34,11 +34,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "SELECT count(id) as Sprzedane \n" +
             "from orders \n" +
-            "where month(date_load) = month(?1) and fk_freighter >1\n" +
+            "where year(date_load)=year(?1) and month(date_load) = month(?1) and fk_freighter >1\n" +
             "union all\n" +
             "SELECT count(id) as MTW \n" +
             "from orders \n" +
-            "where month(date_load) = month(?1) and fk_freighter =1", nativeQuery = true)
+            "where year(date_load)=year(?1) and month(date_load) = month(?1) and fk_freighter =1", nativeQuery = true)
     List<Integer> soldByMtwCurrentMonth (LocalDate date1);
 
 /*    @Query(value = "SELECT count(id) as Sprzedane from orders where month(date_load) = month(?1) and fk_freighter >1", nativeQuery = true)

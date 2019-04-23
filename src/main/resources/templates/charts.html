@@ -26,52 +26,52 @@
             <td><span th:text="${sold.get(3)}"></span></td>
             <td><span th:text="${sold.get(2)}"></span></td>
         </tr>
-        <tr>
+        <tr  th:if="${sold.get(4)>0}">
             <td><span th:text="${#temporals.format(dt.get(2), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(5)}"></span></td>
             <td><span th:text="${sold.get(4)}"></span></td>
         </tr>
-        <tr>
+        <tr  th:if="${sold.get(6)>0}">
             <td><span th:text="${#temporals.format(dt.get(3), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(7)}"></span></td>
             <td><span th:text="${sold.get(6)}"></span></td>
         </tr>
-        <tr>
+        <tr  th:if="${sold.get(8)>0}">
             <td><span th:text="${#temporals.format(dt.get(4), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(9)}"></span></td>
             <td><span th:text="${sold.get(8)}"></span></td>
         </tr>
-        <tr>
+        <tr  th:if="${sold.get(10)>0}">
             <td><span th:text="${#temporals.format(dt.get(5), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(11)}"></span></td>
             <td><span th:text="${sold.get(10)}"></span></td>
         </tr>
-        <tr>
+        <tr  th:if="${sold.get(12)>0}">
             <td><span th:text="${#temporals.format(dt.get(6), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(13)}"></span></td>
             <td><span th:text="${sold.get(12)}"></span></td>
         </tr>
-        <tr>
+        <tr  th:if="${sold.get(14)>0}">
             <td><span th:text="${#temporals.format(dt.get(7), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(15)}"></span></td>
             <td><span th:text="${sold.get(14)}"></span></td>
         </tr>
-        <tr>
+        <tr  th:if="${sold.get(16)>0}">
             <td><span th:text="${#temporals.format(dt.get(8), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(17)}"></span></td>
             <td><span th:text="${sold.get(16)}"></span></td>
         </tr>
-        <tr>
+        <tr  th:if="${sold.get(18)>0}">
             <td><span th:text="${#temporals.format(dt.get(9), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(19)}"></span></td>
             <td><span th:text="${sold.get(18)}"></span></td>
         </tr>
-        <tr>
+        <tr  th:if="${sold.get(20)>0}">
             <td><span th:text="${#temporals.format(dt.get(10), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(21)}"></span></td>
             <td><span th:text="${sold.get(20)}"></span></td>
         </tr>
-        <tr>
+        <tr th:if="${sold.get(22)>0}">
             <td><span th:text="${#temporals.format(dt.get(11), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(23)}"></span></td>
             <td><span th:text="${sold.get(22)}"></span></td>
