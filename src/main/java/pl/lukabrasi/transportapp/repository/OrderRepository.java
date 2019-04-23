@@ -14,6 +14,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     Page<Order> findAllByOrderByLoadDateDescLoadingCityAsc(Pageable pageable);
 
+    Page<Order> findAllByOrderByIdDesc(Pageable pageable);
+
     Page<Order> findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(LocalDate date1, LocalDate date2, Pageable pageable);
 
     @Query(value = "select * from orders where (date_load between ?1 and ?2) and (fk_user is null ) order by date_load asc, loading_city asc", nativeQuery = true)

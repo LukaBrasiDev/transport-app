@@ -119,7 +119,7 @@ public class OrderController {
 
         OrderService.ActionResponse actionResponse = orderService.saveOrder(orderForm);
         if (actionResponse == OrderService.ActionResponse.SUCCESS) {
-            Page<Order> orderPage = orderService.getOrders(pageable);
+            Page<Order> orderPage = orderService.getOrderById(pageable);
             model.addAttribute("info", actionResponse);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -130,7 +130,7 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("orders", orderService.getOrderById(orderPage.getContent().get(0).getId()));
-            return "order";//todo widok tylko dodanej tury
+            return "order";
 
         }
         Page<Order> orderPage = orderService.getOrders(pageable);

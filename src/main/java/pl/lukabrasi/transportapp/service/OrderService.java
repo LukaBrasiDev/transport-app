@@ -44,6 +44,11 @@ public class OrderService {
         return orderRepository.findAllByOrderByLoadDateDescLoadingCityAsc(pageable);
     }
 
+    public Page<Order> getOrderById(Pageable pageable) {
+
+        return orderRepository.findAllByOrderByIdDesc(pageable);
+    }
+
     public Page<Order> findCurrentWeekNotSold(Pageable pageable) {
         return orderRepository.findCurrentWeekNotSold(pageable);
     }
@@ -240,7 +245,9 @@ public class OrderService {
                 .replace(",", ", ")
                 // .replaceAll("[^\\x00-\\x7F]", "")
                 .trim());
-       // optionalOrder.get().setOurNumber(orderForm.getOurNumber());
+        if (!orderForm.getOurNumber().isEmpty()){
+        optionalOrder.get().setOurNumber(orderForm.getOurNumber());
+        }
         optionalOrder.get().setPrice(orderForm.getPrice());
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
         optionalOrder.get().setFreighter(orderForm.getFreighter());
