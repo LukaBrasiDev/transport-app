@@ -184,39 +184,18 @@ public class OrderController {
 
         List<List<Integer>> soldList = new LinkedList<>();
         for (int i = 0; i > -12; i--) {
-                     soldList.add(orderService.soldByMtwInCurrentMonth(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i)));
+            soldList.add(orderService.soldByMtwInCurrentMonth(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i)));
         }
-
-
         List<Object> lst = soldList.stream()
                 .flatMap(x -> x.stream())
                 .collect(Collectors.toList());
-
-        System.out.println(soldList);
-
 
         List<LocalDate> datyRok = new LinkedList<>();
         for (int i = 0; i > -12; i--) {
             datyRok.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i));
         }
-
-        System.out.println(datyRok);
-        // model.addAttribute("mtw", orderService.soldByMtwInCurrentMonth(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(0)));
-        // model.addAttribute("sold", orderService.soldInCurrentMonth());
         model.addAttribute("sold", lst);
         model.addAttribute("dt", datyRok);
-/*        model.addAttribute("month2", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-2));
-        model.addAttribute("month3", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-3));
-        model.addAttribute("month4", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-4));
-        model.addAttribute("month5", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-5));
-        model.addAttribute("month6", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-6));
-        model.addAttribute("month7", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-7));
-        model.addAttribute("month8", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-8));
-        model.addAttribute("month9", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-9));
-        model.addAttribute("month10", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-10));
-        model.addAttribute("month11", LocalDateTime.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(-11));*/
-
-
         return "charts";
     }
 

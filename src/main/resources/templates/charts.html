@@ -6,81 +6,80 @@
 <div class="container">
     <div class="row justify-content-md-center"><h4>Raporty</h4>
     </div>
-        <table class="highchart" data-graph-container-before="1" data-graph-type="column">
-            <thead>
-            <tr>
-                <th>Month</th>
-                <th>MTW</th>
-                <th>Sprzedane</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><span th:text="${#dates.format(#dates.createNow(), 'MMM yyyy')}"></span> </td>
-                <td><span th:text="${sold.get(1)}"></span></td>
-                <td><span th:text="${sold.get(0)}"></span></td>
-            </tr>
-            <tr>
-                <td><span th:text="${{#temporals.format(dt.get(1), 'MMM yyyy')}}"></span> </td>
-                <td><span th:text="${sold.get(3)}"></span></td>
-                <td><span th:text="${sold.get(2)}"></span></td>
-            </tr>
-            <tr>
-                <td><span th:text="${#temporals.format(dt.get(2), 'MMM yyyy')}"></span> </td>
-                <td><span th:text="${sold.get(5)}"></span></td>
-                <td><span th:text="${sold.get(4)}"></span></td>
-            </tr>
-            <tr>
-                <td><span th:text="${#temporals.format(dt.get(3), 'MMM yyyy')}"></span> </td>
-                <td><span th:text="${sold.get(7)}"></span></td>
-                <td><span th:text="${sold.get(6)}"></span></td>
-            </tr>
-            <tr>
-                <td><span th:text="${#temporals.format(dt.get(4), 'MMM yyyy')}"></span> </td>
-                <td><span th:text="${sold.get(9)}"></span></td>
-                <td><span th:text="${sold.get(8)}"></span></td>
-            </tr>
-            <tr>
-                <td><span th:text="${#temporals.format(dt.get(5), 'MMM yyyy')}"></span> </td>
-                <td><span th:text="${sold.get(11)}"></span></td>
-                <td><span th:text="${sold.get(10)}"></span></td>
-            </tr>
-            <tr>
-                <td><span th:text="${#temporals.format(dt.get(6), 'MMM yyyy')}"></span> </td>
-                <td><span th:text="${sold.get(13)}"></span></td>
-                <td><span th:text="${sold.get(12)}"></span></td>
-            </tr>
-            <tr>
-                <td><span th:text="${#temporals.format(dt.get(7), 'MMM yyyy')}"></span> </td>
-                <td><span th:text="${sold.get(15)}"></span></td>
-                <td><span th:text="${sold.get(14)}"></span></td>
-            </tr>
-            <tr>
-                <td><span th:text="${#temporals.format(dt.get(8), 'MMM yyyy')}"></span> </td>
-                <td><span th:text="${sold.get(17)}"></span></td>
-                <td><span th:text="${sold.get(16)}"></span></td>
-            </tr>
-            <tr>
-                <td><span th:text="${#temporals.format(dt.get(9), 'MMM yyyy')}"></span> </td>
-                <td><span th:text="${sold.get(19)}"></span></td>
-                <td><span th:text="${sold.get(18)}"></span></td>
-            </tr>
-            <tr>
-                <td><span th:text="${#temporals.format(dt.get(10), 'MMM yyyy')}"></span> </td>
-                <td><span th:text="${sold.get(21)}"></span></td>
-                <td><span th:text="${sold.get(20)}"></span></td>
-            </tr>
-            <tr>
-                <td><span th:text="${#temporals.format(dt.get(11), 'MMM yyyy')}"></span> </td>
-                <td><span th:text="${sold.get(23)}"></span></td>
-                <td><span th:text="${sold.get(22)}"></span></td>
-            </tr>
+    <table class="highchart" data-graph-container-before="1" data-graph-type="column">
+        <thead>
+        <tr>
+            <th>Data</th>
+            <th>MTW</th>
+            <th>Sprzedane</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><span th:text="${#dates.format(#dates.createNow(), 'MMM yyyy')}"></span></td>
+            <td><span th:text="${sold.get(1)}"></span></td>
+            <td><span th:text="${sold.get(0)}"></span></td>
+        </tr>
+        <tr>
+            <td><span th:text="${{#temporals.format(dt.get(1), 'MMM yyyy')}}"></span></td>
+            <td><span th:text="${sold.get(3)}"></span></td>
+            <td><span th:text="${sold.get(2)}"></span></td>
+        </tr>
+        <tr>
+            <td><span th:text="${#temporals.format(dt.get(2), 'MMM yyyy')}"></span></td>
+            <td><span th:text="${sold.get(5)}"></span></td>
+            <td><span th:text="${sold.get(4)}"></span></td>
+        </tr>
+        <tr>
+            <td><span th:text="${#temporals.format(dt.get(3), 'MMM yyyy')}"></span></td>
+            <td><span th:text="${sold.get(7)}"></span></td>
+            <td><span th:text="${sold.get(6)}"></span></td>
+        </tr>
+        <tr>
+            <td><span th:text="${#temporals.format(dt.get(4), 'MMM yyyy')}"></span></td>
+            <td><span th:text="${sold.get(9)}"></span></td>
+            <td><span th:text="${sold.get(8)}"></span></td>
+        </tr>
+        <tr>
+            <td><span th:text="${#temporals.format(dt.get(5), 'MMM yyyy')}"></span></td>
+            <td><span th:text="${sold.get(11)}"></span></td>
+            <td><span th:text="${sold.get(10)}"></span></td>
+        </tr>
+        <tr>
+            <td><span th:text="${#temporals.format(dt.get(6), 'MMM yyyy')}"></span></td>
+            <td><span th:text="${sold.get(13)}"></span></td>
+            <td><span th:text="${sold.get(12)}"></span></td>
+        </tr>
+        <tr>
+            <td><span th:text="${#temporals.format(dt.get(7), 'MMM yyyy')}"></span></td>
+            <td><span th:text="${sold.get(15)}"></span></td>
+            <td><span th:text="${sold.get(14)}"></span></td>
+        </tr>
+        <tr>
+            <td><span th:text="${#temporals.format(dt.get(8), 'MMM yyyy')}"></span></td>
+            <td><span th:text="${sold.get(17)}"></span></td>
+            <td><span th:text="${sold.get(16)}"></span></td>
+        </tr>
+        <tr>
+            <td><span th:text="${#temporals.format(dt.get(9), 'MMM yyyy')}"></span></td>
+            <td><span th:text="${sold.get(19)}"></span></td>
+            <td><span th:text="${sold.get(18)}"></span></td>
+        </tr>
+        <tr>
+            <td><span th:text="${#temporals.format(dt.get(10), 'MMM yyyy')}"></span></td>
+            <td><span th:text="${sold.get(21)}"></span></td>
+            <td><span th:text="${sold.get(20)}"></span></td>
+        </tr>
+        <tr>
+            <td><span th:text="${#temporals.format(dt.get(11), 'MMM yyyy')}"></span></td>
+            <td><span th:text="${sold.get(23)}"></span></td>
+            <td><span th:text="${sold.get(22)}"></span></td>
+        </tr>
         </tbody>
     </table>
-
 </div>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('table.highchart').highchartTable();
     });
 </script>
