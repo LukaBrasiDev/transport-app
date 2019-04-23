@@ -284,8 +284,14 @@ public class OrderService {
         userRepository.save(optionalUser.get());
     }
 
-    public int soldByMtwInCurrentMonth(){
-        return orderRepository.soldByMtwCurrentMonth();
+    public List<Integer> soldByMtwInCurrentMonth(LocalDate date1){
+
+        return orderRepository.soldByMtwCurrentMonth(date1);
     }
+
+  /*  public int soldInCurrentMonth(LocalDate date1){
+
+        return orderRepository.soldInCurrentMonth(date1);
+    }*/
 
 }
