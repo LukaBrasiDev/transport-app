@@ -11,6 +11,7 @@ import pl.lukabrasi.transportapp.form.RangeForm;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.service.OrderService;
 
+import java.sql.Driver;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -115,6 +116,7 @@ public class OrderController {
     public String createOrder(@ModelAttribute OrderForm orderForm,
                               Model model,
                               Pageable pageable) {
+
         OrderService.ActionResponse actionResponse = orderService.saveOrder(orderForm);
         if (actionResponse == OrderService.ActionResponse.SUCCESS) {
             Page<Order> orderPage = orderService.getOrders(pageable);
@@ -124,9 +126,10 @@ public class OrderController {
             model.addAttribute("totalPages", orderPage.getTotalPages());
             model.addAttribute("totalElements", orderPage.getTotalElements());
             model.addAttribute("size", orderPage.getSize());
-            model.addAttribute("orders", orderPage.getContent());
+           // model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("orders", orderService.getOrderById(orderPage.getContent().get(0).getId()));
             return "order";//todo widok tylko dodanej tury
 
         }
