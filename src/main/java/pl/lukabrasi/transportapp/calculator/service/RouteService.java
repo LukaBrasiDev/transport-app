@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pl.lukabrasi.transportapp.calculator.dto.RouteDto;
+import pl.lukabrasi.transportapp.calculator.form.CityForm;
 import pl.lukabrasi.transportapp.calculator.form.RouteForm;
 import pl.lukabrasi.transportapp.calculator.model.Route;
 import pl.lukabrasi.transportapp.calculator.repository.RouteRepository;
@@ -103,5 +104,18 @@ public class RouteService {
         }
         return newRoute;
     }
+
+    public void saveCity(CityForm cityForm){
+
+        Route routeNew = new Route();
+        routeNew.setPostalCode(cityForm.getPostalCode());
+        routeNew.setCity(cityForm.getCity());
+        routeNew.setDistance(cityForm.getDistance());
+
+        if (!cityForm.getCity().isEmpty() && !cityForm.getPostalCode().isEmpty() && cityForm.getDistance()>0) {
+            routeRepository.save(routeNew);
+        }
+    }
+
 }
 

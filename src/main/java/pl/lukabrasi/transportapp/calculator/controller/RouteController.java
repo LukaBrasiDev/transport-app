@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.lukabrasi.transportapp.calculator.dto.RouteDto;
+import pl.lukabrasi.transportapp.calculator.form.CityForm;
 import pl.lukabrasi.transportapp.calculator.form.RouteForm;
 import pl.lukabrasi.transportapp.calculator.service.RouteService;
 
@@ -43,6 +44,12 @@ public class RouteController {
         }
         return "calculator";
     }
-
+    @PostMapping("/nowemiasto")
+    public String sendRoute(@ModelAttribute CityForm cityForm,
+                            Model model) {
+        routeService.saveCity(cityForm);
+        model.addAttribute("settings", routeService.getRoutes());
+              return "settings";
+    }
 
 }

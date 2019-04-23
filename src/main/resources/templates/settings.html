@@ -8,7 +8,7 @@
     </div>
 
 
-        <table class="table table-striped table-hover" id="export">
+    <table class="table table-striped table-hover" id="export">
         <thead class="thead-dark">
         <tr>
             <td>ID</td>
@@ -27,7 +27,40 @@
         </tr>
 
     </table>
+    <div class="container-fluid" style="background-color: lightgrey">
+        <div style="padding-top: 25px;padding-bottom: 25px">
+            <p style="font-weight: bold">NOWE MIASTO:</p>
+            <form th:action="@{/nowemiasto}" th:object="${settings}" method="post">
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">KOD:</label>
+                    <div class="col-sm-3">
+                        <input name="postalCode" type="text" class="form-control" id="inputEmail3"
+                               placeholder="kod pocztowy">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail4" class="col-sm-3 col-form-label">MIASTO:</label>
+                    <div class="col-sm-3">
+                        <input name="city" type="text" class="form-control" id="inputEmail4" placeholder="miasto">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail30" class="col-sm-3 col-form-label"  placeholder="odległość w km">KM:</label>
+                    <div class="col-sm-3">
+                        <input name="distance" type="number" class="form-control" id="inputEmail30">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-success">+ DODAJ MIASTO</button>
+                    </div>
+                </div>
+            </form>
+            <!--formularz end-->
 
+        </div>
+    </div>
 </div>
 </body>
 </html>
