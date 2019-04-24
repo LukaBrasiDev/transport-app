@@ -14,6 +14,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     Page<Order> findAllByOrderByLoadDateDescLoadingCityAsc(Pageable pageable);
 
+    Page<Order> findAllByOrderByIdDesc(Pageable pageable);
+
     Page<Order> findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(LocalDate date1, LocalDate date2, Pageable pageable);
 
     @Query(value = "select * from orders where (date_load between ?1 and ?2) and (fk_user is null ) order by date_load asc, loading_city asc", nativeQuery = true)
@@ -30,7 +32,21 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findCurrentWeekAll(Pageable pageable);
 
 
-boolean existsByOrderNumber (String orderNumber);
+    boolean existsByOrderNumber(String orderNumber);
+
+    @Query(value = "SELECT count(id) as Sprzedane \n" +
+            "from orders \n" +
+            "where year(date_load)=year(?1) and month(date_load) = month(?1) and fk_freighter >1\n" +
+            "union all\n" +
+            "SELECT count(id) as MTW \n" +
+            "from orders \n" +
+            "where year(date_load)=year(?1) and month(date_load) = month(?1) and fk_freighter =1", nativeQuery = true)
+    List<Integer> soldByMtwCurrentMonth (LocalDate date1);
+
+/*    @Query(value = "SELECT count(id) as Sprzedane from orders where month(date_load) = month(?1) and fk_freighter >1", nativeQuery = true)
+    int soldInCurrentMonth (LocalDate date1);*/
+
+
 
 // List<Order> findAllByOrderNumberContains(String number);
 }

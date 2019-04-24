@@ -11,6 +11,15 @@ import pl.lukabrasi.transportapp.form.RangeForm;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.service.OrderService;
 
+import java.sql.Driver;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Controller
 public class OrderController {
@@ -107,19 +116,21 @@ public class OrderController {
     public String createOrder(@ModelAttribute OrderForm orderForm,
                               Model model,
                               Pageable pageable) {
+
         OrderService.ActionResponse actionResponse = orderService.saveOrder(orderForm);
         if (actionResponse == OrderService.ActionResponse.SUCCESS) {
-            Page<Order> orderPage = orderService.getOrders(pageable);
+            Page<Order> orderPage = orderService.getOrderById(pageable);
             model.addAttribute("info", actionResponse);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
             model.addAttribute("totalPages", orderPage.getTotalPages());
             model.addAttribute("totalElements", orderPage.getTotalElements());
             model.addAttribute("size", orderPage.getSize());
-            model.addAttribute("orders", orderPage.getContent());
+           // model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
-            return "order";//todo widok tylko dodanej tury
+            model.addAttribute("orders", orderService.getOrderById(orderPage.getContent().get(0).getId()));
+            return "order";
 
         }
         Page<Order> orderPage = orderService.getOrders(pageable);
@@ -169,4 +180,26 @@ public class OrderController {
         model.addAttribute("freighters", orderService.getFreighters());
         return "edit";
     }
+
+    @GetMapping("/raporty")
+    public String getCharts(Model model) {
+        Date dt = new Date();
+
+        List<List<Integer>> soldList = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            soldList.add(orderService.soldByMtwInCurrentMonth(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i)));
+        }
+        List<Object> lst = soldList.stream()
+                .flatMap(x -> x.stream())
+                .collect(Collectors.toList());
+
+        List<LocalDate> datyRok = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            datyRok.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i));
+        }
+        model.addAttribute("sold", lst);
+        model.addAttribute("dt", datyRok);
+        return "charts";
+    }
+
 }

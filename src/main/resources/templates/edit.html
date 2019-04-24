@@ -26,7 +26,7 @@
         <td><span th:if="${order.factory!=null}"
                   th:text="${order.getFactory().factoryName}"></span></td>
         <td><span th:text="${order.loadDate}"></span></td>
-        <td><span th:text="${order.ourNumber}"></span></td>
+        <td><span th:text="${order.ourNumber!=null} ? ${order.ourNumber} : (${#strings.length(order.id)<3} ? ${order.id}+'.' : ${#strings.substring(order.id,0,3)}+'.')"></span></td>
         <td><span th:text="${order.loadingCity}"></span></td>
         <td><span th:if="${order.cityCodes!=null}" th:text="${order.cityCodes}"></span></td>
         <td><span th:text="${order.price}"></span></td>

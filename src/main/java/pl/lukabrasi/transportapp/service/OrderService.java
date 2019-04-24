@@ -44,6 +44,11 @@ public class OrderService {
         return orderRepository.findAllByOrderByLoadDateDescLoadingCityAsc(pageable);
     }
 
+    public Page<Order> getOrderById(Pageable pageable) {
+
+        return orderRepository.findAllByOrderByIdDesc(pageable);
+    }
+
     public Page<Order> findCurrentWeekNotSold(Pageable pageable) {
         return orderRepository.findCurrentWeekNotSold(pageable);
     }
@@ -152,7 +157,7 @@ public class OrderService {
                 .replace(",", ", ")
                 //.replaceAll("[^\\x00-\\x7F]", "")
                 .trim());
-        orderNew.setOurNumber(orderForm.getOurNumber());
+        //orderNew.setOurNumber(orderForm.getOurNumber());
         orderNew.setPrice(orderForm.getPrice());
         orderNew.setFreighterPrice(orderForm.getFreighterPrice());
         orderNew.setUser(orderForm.getUser());
@@ -240,7 +245,9 @@ public class OrderService {
                 .replace(",", ", ")
                 // .replaceAll("[^\\x00-\\x7F]", "")
                 .trim());
+        if (!orderForm.getOurNumber().isEmpty()){
         optionalOrder.get().setOurNumber(orderForm.getOurNumber());
+        }
         optionalOrder.get().setPrice(orderForm.getPrice());
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
         optionalOrder.get().setFreighter(orderForm.getFreighter());
@@ -283,5 +290,15 @@ public class OrderService {
 
         userRepository.save(optionalUser.get());
     }
+
+    public List<Integer> soldByMtwInCurrentMonth(LocalDate date1){
+
+        return orderRepository.soldByMtwCurrentMonth(date1);
+    }
+
+  /*  public int soldInCurrentMonth(LocalDate date1){
+
+        return orderRepository.soldInCurrentMonth(date1);
+    }*/
 
 }
