@@ -1,9 +1,11 @@
 package pl.lukabrasi.transportapp.repository;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import pl.lukabrasi.transportapp.form.MonthForm;
 import pl.lukabrasi.transportapp.model.Order;
 
 import java.time.LocalDate;
@@ -42,6 +44,14 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "from orders \n" +
             "where year(date_load)=year(?1) and month(date_load) = month(?1) and fk_freighter =1", nativeQuery = true)
     List<Integer> soldByMtwCurrentMonth (LocalDate date1);
+
+
+    @Query(value = "select * from orders\n" +
+            "where\n" +
+            "(month(?1)  = month(now())) and (year(?1) = year(now())) and fk_user=(?2)",nativeQuery = true)
+    List<Order> monthRaportByPerson (LocalDate loadDate, int person);
+
+
 
 /*    @Query(value = "SELECT count(id) as Sprzedane from orders where month(date_load) = month(?1) and fk_freighter >1", nativeQuery = true)
     int soldInCurrentMonth (LocalDate date1);*/

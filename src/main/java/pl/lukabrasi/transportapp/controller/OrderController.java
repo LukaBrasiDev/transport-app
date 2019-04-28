@@ -1,20 +1,22 @@
 package pl.lukabrasi.transportapp.controller;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.lukabrasi.transportapp.form.MonthForm;
 import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.form.RangeForm;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.service.OrderService;
-
-import java.sql.Driver;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -199,7 +201,47 @@ public class OrderController {
         }
         model.addAttribute("sold", lst);
         model.addAttribute("dt", datyRok);
+        model.addAttribute("users", orderService.getUsers());
         return "charts";
     }
+
+    @PostMapping("/raporty/miesieczny")
+    public String getOrdersInWeek(@ModelAttribute
+                                          MonthForm monthForm, int person,
+                                  Model model) {
+
+      //  @DateTimeFormat(pattern = "yyyy-MM-dd")
+   //     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+ //       LocalDate dateMonth1 = LocalDate.parse(dateMonth, formatter);
+      //  DateTimeFormatter dateMonth = DateTimeFormatter.ofPattern("yyyy-MM-01");
+ //       LocalDate dateMonth2 = dateMonth1.withDayOfMonth(1);
+
+        Date dt = new Date();
+
+        List<List<Integer>> soldList = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            soldList.add(orderService.soldByMtwInCurrentMonth(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i)));
+        }
+        List<Object> lst = soldList.stream()
+                .flatMap(x -> x.stream())
+                .collect(Collectors.toList());
+
+        List<LocalDate> datyRok = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            datyRok.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i));
+        }
+        model.addAttribute("sold", lst);
+        model.addAttribute("dt", datyRok);
+        //   List<Order> orderPage = orderService.findCurrentWeekAll(monthForm);
+     //       model.addAttribute("page", orderPage);
+         //   model.addAttribute("number", orderPage.getNumber());
+         //   model.addAttribute("totalPages", orderPage.getTotalPages());
+          //  model.addAttribute("totalElements", orderPage.getTotalElements());
+          //  model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderService.getMonthRaportByPerson(monthForm.getLoadDate(),person));
+            model.addAttribute("users", orderService.getUsers());
+        //    model.addAttribute("freighters", orderService.getFreighters());
+            return "charts";
+        }
 
 }

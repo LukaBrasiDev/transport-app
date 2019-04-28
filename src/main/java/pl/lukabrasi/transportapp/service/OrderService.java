@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import pl.lukabrasi.transportapp.form.FactoryForm;
-import pl.lukabrasi.transportapp.form.FreighterForm;
-import pl.lukabrasi.transportapp.form.OrderForm;
-import pl.lukabrasi.transportapp.form.UserForm;
+import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
 
@@ -294,6 +291,10 @@ public class OrderService {
     public List<Integer> soldByMtwInCurrentMonth(LocalDate date1){
 
         return orderRepository.soldByMtwCurrentMonth(date1);
+    }
+
+    public List<Order> getMonthRaportByPerson (LocalDate loadDate, int person){
+        return orderRepository.monthRaportByPerson(loadDate,person);
     }
 
   /*  public int soldInCurrentMonth(LocalDate date1){
