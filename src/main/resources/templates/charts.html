@@ -129,15 +129,16 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">MIESIĄC</div>
                         </div>
-                        <input type="date" class="form-control" id="inlineFormInputGroupUsername" required
+                        <input th:value="${range3}" type="date" class="form-control" id="inlineFormInputGroupUsername"
+                               required
                                placeholder="wybierz miesiąc..." name="loadDate">
                     </div>
                 </div>
                 <div class="col-auto my-1">
                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required name="person">
                         <option selected>wybierz osobę...</option>
-                       <option  th:each="u : ${users}" th:value="${u.id}"
-                        th:text="${u.userName}"></option>
+                        <option th:each="u : ${users}" th:value="${u.id}"
+                                th:text="${u.userName}"></option>
                     </select>
                 </div>
                 <div class="col-auto my-1">
@@ -151,9 +152,8 @@
         <table class="table-sm table-bordered table-hover" id="export">
             <thead>
             <tr style="font-weight: bold">
-                <!--<td>ID</td>-->
+                <td>Lp.<span style="visibility: hidden"> </span></td>
                 <td>TURA</td>
-                <td>FABRYKA</td>
                 <td>DATA ZAŁ.</td>
                 <td>NR</td>
                 <td>ZAŁADUNEK</td>
@@ -163,20 +163,16 @@
                 <td>ZYSK</td>
                 <td>PRZEWOŹNIK</td>
                 <td>T/S</td>
-                <td>STATUS</td>
-
             </tr>
             </thead>
             <tbody>
-            <tr th:each="one : ${orders}"  th:style="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null} ? 'color:red' : ''">
+            <tr th:each="one,iterStat : ${orders}">
+                <td th:text="${iterStat.index}+1">LP</td>
                 <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
-                <td><span th:if="${one.factory!=null}"
-                          th:text="${one.factory.factoryName}"></span></td>
                 <td><span th:text="${one.loadDate}"></span></td>
-
-                <td><span th:text="${one.ourNumber!=null} ? ${one.ourNumber} : (${#strings.length(one.id)<3} ? ${one.id}+'.' : ${#strings.substring(one.id,0,3)}+'.')"></span></td>
-                <!-- <td><span th:text="${#strings.length(one.id)<3} ? ${one.id}+'.' : ${#strings.substring(one.id,0,3)}+'.'"></span></td>-->
-                <!--  <td><span th:text="${#strings.substring(one.id,0,3)}+'.'"></span></td>-->
+                <td><span
+                        th:text="${one.ourNumber!=null} ? ${one.ourNumber} : (${#strings.length(one.id)<3} ? ${one.id}+'.' : ${#strings.substring(one.id,0,3)}+'.')"></span>
+                </td>
                 <td>
                     <span th:text="${one.loadingCity}"></span>
                 </td>
@@ -189,19 +185,6 @@
                           th:text="${one.price}-${one.freighterPrice}+' €'"></span></td>
                 <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
                 <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
-                <td>
-            <span style="background-color:#d9534f;color:black"
-                  th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna#spad</span>
-                    <span style="background-color:#5bc0de"
-                          th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') < #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna</span>
-                    <span style="background-color:#5bc0de"
-                          th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') == #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna</span>
-                    <span style="background-color:#5cb85c" th:if="${one.user!=null} and ${one.user.userName!='STORNO'}">#sprzedana</span>
-                    <span style="background-color:gray"
-                          th:if="${one.user!=null} and ${one.user.userName=='STORNO'}">#storno</span>
-                    <span style="background-color:lightgreen"
-                          th:if="${one.freighter!=null} and ${one.freighter.freighterName=='MTW'}">#MTW</span>
-                </td>
             </tr>
             </tbody>
         </table>
@@ -211,9 +194,29 @@
 
 
 </div>
+<br><br>
 <script>
     $(document).ready(function () {
         $('table.highchart').highchartTable();
+    });
+</script>
+<script>
+    $("#export").sumtabletotal({
+        totalIndexArry: [6, 7, 8],
+        // "colspan": 6,
+        "totalText": "SUMA",
+        "color": "#dc3545",
+        "placeholder": "#",
+        "significant": 2,
+        bold: true
+        //  rateObjectArry: [{numerator: 5, denominator: 4, index: 6}] // for percentage values
+    });
+</script>
+<script>
+    $("#export").tableExport({
+        formats: ["csv"],
+        trimWhitespace: true
+        //  ignoreCols: [0, 1, 2, 6, 7, 8, 9, 10, 11, 12]
     });
 </script>
 </body>

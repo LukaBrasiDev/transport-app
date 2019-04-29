@@ -240,6 +240,7 @@ public class OrderController {
           //  model.addAttribute("size", orderPage.getSize());
             model.addAttribute("orders", orderService.getMonthRaportByPerson(monthForm.getLoadDate(),person));
             model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("range3", monthForm.getLoadDate());
         //    model.addAttribute("freighters", orderService.getFreighters());
             return "charts";
         }

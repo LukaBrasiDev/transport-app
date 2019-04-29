@@ -48,7 +48,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "select * from orders\n" +
             "where\n" +
-            "(month(?1)  = month(now())) and (year(?1) = year(now())) and fk_user=(?2)",nativeQuery = true)
+            "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_user=(?2) order by date_load asc",nativeQuery = true)
     List<Order> monthRaportByPerson (LocalDate loadDate, int person);
 
 
