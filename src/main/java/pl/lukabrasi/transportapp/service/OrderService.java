@@ -9,6 +9,7 @@ import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -242,8 +243,8 @@ public class OrderService {
                 .replace(",", ", ")
                 // .replaceAll("[^\\x00-\\x7F]", "")
                 .trim());
-        if (!orderForm.getOurNumber().isEmpty()){
-        optionalOrder.get().setOurNumber(orderForm.getOurNumber());
+        if (!orderForm.getOurNumber().isEmpty()) {
+            optionalOrder.get().setOurNumber(orderForm.getOurNumber());
         }
         optionalOrder.get().setPrice(orderForm.getPrice());
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
@@ -288,18 +289,26 @@ public class OrderService {
         userRepository.save(optionalUser.get());
     }
 
-    public List<Integer> soldByMtwInCurrentMonth(LocalDate date1){
+    public List<Integer> soldByMtwInCurrentMonth(LocalDate date1) {
 
         return orderRepository.soldByMtwCurrentMonth(date1);
     }
 
-    public List<Order> getMonthRaportByPerson (LocalDate loadDate, int person){
-        return orderRepository.monthRaportByPerson(loadDate,person);
+    public List<Order> getMonthRaportByPerson(LocalDate loadDate, int person) {
+        return orderRepository.monthRaportByPerson(loadDate, person);
     }
 
-  /*  public int soldInCurrentMonth(LocalDate date1){
+    public List<LocalDate> getMonthYear() {
 
-        return orderRepository.soldInCurrentMonth(date1);
-    }*/
+        int size = orderRepository.getMonthYear().size();
+        List<String> lista = orderRepository.getMonthYear();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+        List<LocalDate> input = new LinkedList<>();
+        for (int i = 0; i < size; i++) {
+            input.add(LocalDate.parse(lista.get(i), formatter));
+        }
+        return input;
+
+    }
 
 }

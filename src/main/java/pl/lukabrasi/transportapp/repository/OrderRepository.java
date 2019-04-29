@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import pl.lukabrasi.transportapp.form.MonthForm;
 import pl.lukabrasi.transportapp.model.Order;
 
 import java.time.LocalDate;
@@ -33,7 +32,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "                   order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findCurrentWeekAll(Pageable pageable);
 
-
     boolean existsByOrderNumber(String orderNumber);
 
     @Query(value = "SELECT count(id) as Sprzedane \n" +
@@ -45,18 +43,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "where year(date_load)=year(?1) and month(date_load) = month(?1) and fk_freighter =1", nativeQuery = true)
     List<Integer> soldByMtwCurrentMonth (LocalDate date1);
 
-
     @Query(value = "select * from orders\n" +
             "where\n" +
             "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_user=(?2) order by date_load asc",nativeQuery = true)
     List<Order> monthRaportByPerson (LocalDate loadDate, int person);
 
+@Query(value="SELECT distinct concat(1,'-',month(date_load),'-', year(date_load)) as data FROM transport.orders order by data desc;",nativeQuery = true)
+    List<String> getMonthYear();
 
 
-/*    @Query(value = "SELECT count(id) as Sprzedane from orders where month(date_load) = month(?1) and fk_freighter >1", nativeQuery = true)
-    int soldInCurrentMonth (LocalDate date1);*/
-
-
-
-// List<Order> findAllByOrderNumberContains(String number);
 }

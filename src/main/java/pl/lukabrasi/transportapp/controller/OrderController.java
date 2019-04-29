@@ -13,6 +13,7 @@ import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.form.RangeForm;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.service.OrderService;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
@@ -128,7 +129,7 @@ public class OrderController {
             model.addAttribute("totalPages", orderPage.getTotalPages());
             model.addAttribute("totalElements", orderPage.getTotalElements());
             model.addAttribute("size", orderPage.getSize());
-           // model.addAttribute("orders", orderPage.getContent());
+            // model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("orders", orderService.getOrderById(orderPage.getContent().get(0).getId()));
@@ -202,6 +203,7 @@ public class OrderController {
         model.addAttribute("sold", lst);
         model.addAttribute("dt", datyRok);
         model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("range3",orderService.getMonthYear());
         return "charts";
     }
 
@@ -209,12 +211,6 @@ public class OrderController {
     public String getOrdersInWeek(@ModelAttribute
                                           MonthForm monthForm, int person,
                                   Model model) {
-
-      //  @DateTimeFormat(pattern = "yyyy-MM-dd")
-   //     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
- //       LocalDate dateMonth1 = LocalDate.parse(dateMonth, formatter);
-      //  DateTimeFormatter dateMonth = DateTimeFormatter.ofPattern("yyyy-MM-01");
- //       LocalDate dateMonth2 = dateMonth1.withDayOfMonth(1);
 
         Date dt = new Date();
 
@@ -232,17 +228,11 @@ public class OrderController {
         }
         model.addAttribute("sold", lst);
         model.addAttribute("dt", datyRok);
-        //   List<Order> orderPage = orderService.findCurrentWeekAll(monthForm);
-     //       model.addAttribute("page", orderPage);
-         //   model.addAttribute("number", orderPage.getNumber());
-         //   model.addAttribute("totalPages", orderPage.getTotalPages());
-          //  model.addAttribute("totalElements", orderPage.getTotalElements());
-          //  model.addAttribute("size", orderPage.getSize());
-            model.addAttribute("orders", orderService.getMonthRaportByPerson(monthForm.getLoadDate(),person));
-            model.addAttribute("users", orderService.getUsers());
-        model.addAttribute("range3", monthForm.getLoadDate());
-        //    model.addAttribute("freighters", orderService.getFreighters());
-            return "charts";
-        }
+        model.addAttribute("orders", orderService.getMonthRaportByPerson(monthForm.getLoadDate(), person));
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("range3",orderService.getMonthYear());
+
+        return "charts";
+    }
 
 }

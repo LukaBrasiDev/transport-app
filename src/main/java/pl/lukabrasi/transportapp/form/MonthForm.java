@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 public class MonthForm {
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-M-dd")
     private LocalDate loadDate;
 
 

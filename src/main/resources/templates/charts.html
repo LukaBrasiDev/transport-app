@@ -80,47 +80,6 @@
     <div><br><br></div>
     <div class="row justify-content-md-center"><h4>Raport miesięczny</h4></div>
     <div class="row justify-content-md-center">
-        <!-- <form th:action="@{/raporty/miesieczny}" th:object="${orders}" method="post">
-             <div class="form-row align-items-center">
-                 <div class="col-auto">
-
-                     <div class="input-group mb-2">
-                         <div class="input-group-prepend">
-                             <div class="input-group-text">MIESIĄC:</div>
-                         </div>
-                         <input required name="date1" type="month" th:value="${rangemonth}" class="form-control">
-                     </div>
-                 </div>
-                 <div class="col-auto">
-
-                     <div class="input-group mb-2">
-                         <div class="input-group-prepend">
-                             <div class="input-group-text">OSOBA:</div>
-                         </div>
-                         <div class="col-sm-2" th:object="${users}">
-                             <select name="user" class="form-control" id="exampleFormControlSelect1">
-                                 <option value=" ">Wybierz osobę:</option>
-                                <option  th:each="u : ${users}" th:value="${u.id}"
-                                         th:text="${u.userName}"></option>
-                             </select>
-                         </div>
-                     </div>
-                     <label for="exampleFormControlSelect18" class="col-sm-2 col-form-label">T/S</label>
-                     <div class="col-sm-2" th:object="${users}">
-                         <select name="user" class="form-control" id="exampleFormControlSelect18">
-                             <option value=" ">Wybierz osobę:</option>
-                                               <option th:each="u : ${users}" th:value="${u.id}"
-                                     th:text="${u.userName}"></option>
-                         </select>
-                     </div>
-                 </div>
-
-                 <div class="col-auto">
-                     <button type="submit" class="btn btn-danger">GENERUJ RAPORT</button>
-                 </div>
-             </div>
-         </form>-->
-
         <form th:action="@{/raporty/miesieczny}" th:method="post">
             <div class="form-row align-items-center">
                 <div class="col-auto my-1">
@@ -129,14 +88,17 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">MIESIĄC</div>
                         </div>
-                        <input th:value="${range3}" type="date" class="form-control" id="inlineFormInputGroupUsername"
-                               required
-                               placeholder="wybierz miesiąc..." name="loadDate">
+                         <select class="custom-select mr-sm-2" id="inlineFormInputGroupUsername" required name="loadDate">
+                      <!--    <option selected>wybierz miesiąc...</option>-->
+                            <option th:each="u : ${range3}" th:value="${u.year}+'-'+${u.monthValue}+'-01'"
+                                    th:text="${u.month}+' '+${u.year}"
+                                    ></option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-auto my-1">
                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required name="person">
-                        <option selected>wybierz osobę...</option>
+                        <option disabled selected>wybierz osobę...</option>
                         <option th:each="u : ${users}" th:value="${u.id}"
                                 th:text="${u.userName}"></option>
                     </select>
@@ -146,10 +108,8 @@
                 </div>
             </div>
         </form>
-
-
         <!-- tabela raportu miesiac/osoba -->
-        <table class="table-sm table-bordered table-hover" id="export">
+        <table class="table-sm table-striped" id="export">
             <thead>
             <tr style="font-weight: bold">
                 <td>Lp.<span style="visibility: hidden"> </span></td>
@@ -188,11 +148,7 @@
             </tr>
             </tbody>
         </table>
-
-
     </div>
-
-
 </div>
 <br><br>
 <script>
@@ -202,21 +158,18 @@
 </script>
 <script>
     $("#export").sumtabletotal({
-        totalIndexArry: [6, 7, 8],
-        // "colspan": 6,
+        totalIndexArry: [8],
+         "colspan": 1,
         "totalText": "SUMA",
         "color": "#dc3545",
-        "placeholder": "#",
-        "significant": 2,
-        bold: true
-        //  rateObjectArry: [{numerator: 5, denominator: 4, index: 6}] // for percentage values
+        "placeholder": " ",
+        "significant": 2
     });
 </script>
 <script>
     $("#export").tableExport({
         formats: ["csv"],
         trimWhitespace: true
-        //  ignoreCols: [0, 1, 2, 6, 7, 8, 9, 10, 11, 12]
     });
 </script>
 </body>
