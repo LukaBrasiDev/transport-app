@@ -4,10 +4,9 @@
 <body class="calc">
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container">
-    <div class="row justify-content-md-center"><h4>Raporty</h4>
-    </div>
+    <div class="row justify-content-md-center"><h4>Raporty</h4><br></div>
     <table class="highchart" data-graph-container-before="1" data-graph-type="column" style="display: none">
-        <caption>Ilość tur w miesiącu</caption>
+        <caption>Ilość wszystkich tur w miesiącu</caption>
         <thead>
         <tr>
             <th>Data</th>
@@ -26,47 +25,47 @@
             <td><span th:text="${sold.get(3)}"></span></td>
             <td><span th:text="${sold.get(2)}"></span></td>
         </tr>
-        <tr  th:if="${sold.get(4)>0}">
+        <tr th:if="${sold.get(4)>0}">
             <td><span th:text="${#temporals.format(dt.get(2), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(5)}"></span></td>
             <td><span th:text="${sold.get(4)}"></span></td>
         </tr>
-        <tr  th:if="${sold.get(6)>0}">
+        <tr th:if="${sold.get(6)>0}">
             <td><span th:text="${#temporals.format(dt.get(3), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(7)}"></span></td>
             <td><span th:text="${sold.get(6)}"></span></td>
         </tr>
-        <tr  th:if="${sold.get(8)>0}">
+        <tr th:if="${sold.get(8)>0}">
             <td><span th:text="${#temporals.format(dt.get(4), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(9)}"></span></td>
             <td><span th:text="${sold.get(8)}"></span></td>
         </tr>
-        <tr  th:if="${sold.get(10)>0}">
+        <tr th:if="${sold.get(10)>0}">
             <td><span th:text="${#temporals.format(dt.get(5), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(11)}"></span></td>
             <td><span th:text="${sold.get(10)}"></span></td>
         </tr>
-        <tr  th:if="${sold.get(12)>0}">
+        <tr th:if="${sold.get(12)>0}">
             <td><span th:text="${#temporals.format(dt.get(6), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(13)}"></span></td>
             <td><span th:text="${sold.get(12)}"></span></td>
         </tr>
-        <tr  th:if="${sold.get(14)>0}">
+        <tr th:if="${sold.get(14)>0}">
             <td><span th:text="${#temporals.format(dt.get(7), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(15)}"></span></td>
             <td><span th:text="${sold.get(14)}"></span></td>
         </tr>
-        <tr  th:if="${sold.get(16)>0}">
+        <tr th:if="${sold.get(16)>0}">
             <td><span th:text="${#temporals.format(dt.get(8), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(17)}"></span></td>
             <td><span th:text="${sold.get(16)}"></span></td>
         </tr>
-        <tr  th:if="${sold.get(18)>0}">
+        <tr th:if="${sold.get(18)>0}">
             <td><span th:text="${#temporals.format(dt.get(9), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(19)}"></span></td>
             <td><span th:text="${sold.get(18)}"></span></td>
         </tr>
-        <tr  th:if="${sold.get(20)>0}">
+        <tr th:if="${sold.get(20)>0}">
             <td><span th:text="${#temporals.format(dt.get(10), 'MMM yyyy')}"></span></td>
             <td><span th:text="${sold.get(21)}"></span></td>
             <td><span th:text="${sold.get(20)}"></span></td>
@@ -78,10 +77,99 @@
         </tr>
         </tbody>
     </table>
+    <div><br><br></div>
+    <div class="row justify-content-md-center"><h4>Raport miesięczny</h4></div>
+    <div class="row justify-content-md-center">
+        <form th:action="@{/raporty/miesieczny}" th:method="post">
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                    <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">MIESIĄC</div>
+                        </div>
+                         <select class="custom-select mr-sm-2" id="inlineFormInputGroupUsername" required name="loadDate">
+                      <!--    <option selected>wybierz miesiąc...</option>-->
+                            <option th:each="u : ${range3}" th:value="${u.year}+'-'+${u.monthValue}+'-01'"
+                                    th:text="${u.month}+' '+${u.year}"
+                                    ></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-auto my-1">
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required name="person">
+                        <option disabled selected>wybierz osobę...</option>
+                        <option th:each="u : ${users}" th:value="${u.id}"
+                                th:text="${u.userName}"></option>
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <button type="submit" class="btn btn-danger">GENERUJ RAPORT</button>
+                </div>
+            </div>
+        </form>
+        <!-- tabela raportu miesiac/osoba -->
+        <table class="table-sm table-striped" id="export">
+            <thead>
+            <tr style="font-weight: bold">
+                <td>Lp.<span style="visibility: hidden"> </span></td>
+                <td>TURA</td>
+                <td>DATA ZAŁ.</td>
+                <td>NR</td>
+                <td>ZAŁADUNEK</td>
+                <td>ROZŁADUNKI</td>
+                <td>CENA NASZA</td>
+                <td>CENA PRZEW.</td>
+                <td>ZYSK</td>
+                <td>PRZEWOŹNIK</td>
+                <td>T/S</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="one,iterStat : ${orders}">
+                <td th:text="${iterStat.index}+1">LP</td>
+                <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
+                <td><span th:text="${one.loadDate}"></span></td>
+                <td><span
+                        th:text="${one.ourNumber!=null} ? ${one.ourNumber} : (${#strings.length(one.id)<3} ? ${one.id}+'.' : ${#strings.substring(one.id,0,3)}+'.')"></span>
+                </td>
+                <td>
+                    <span th:text="${one.loadingCity}"></span>
+                </td>
+                <td>
+                    <span th:if="${one.cityCodes!=null}" th:text="${one.cityCodes}"></span>
+                </td>
+                <td><span th:if="${one.price!=null}" th:text="${one.price}+' €'"></span></td>
+                <td><span th:if="${one.freighterPrice!=null}" th:text="${one.freighterPrice}+' €'"></span></td>
+                <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"
+                          th:text="${one.price}-${one.freighterPrice}+' €'"></span></td>
+                <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
+                <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+<br><br>
 <script>
     $(document).ready(function () {
         $('table.highchart').highchartTable();
+    });
+</script>
+<script>
+    $("#export").sumtabletotal({
+        totalIndexArry: [8],
+         "colspan": 1,
+        "totalText": "SUMA",
+        "color": "#dc3545",
+        "placeholder": " ",
+        "significant": 2
+    });
+</script>
+<script>
+    $("#export").tableExport({
+        formats: ["csv"],
+        trimWhitespace: true
     });
 </script>
 </body>
