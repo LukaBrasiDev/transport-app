@@ -10,6 +10,7 @@ import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -82,6 +83,7 @@ public class OrderService {
     public List<Freighter> getFreighters() {
         return freighterRepository.findAll();
     }
+
     public List<Freighter> getFreightersSorted() {
         return freighterRepository.findAllByOrderByFreighterNameAsc();
     }
@@ -163,7 +165,7 @@ public class OrderService {
         orderNew.setPrice(orderForm.getPrice());
         orderNew.setFreighterPrice(orderForm.getFreighterPrice());
         orderNew.setUser(orderForm.getUser());
-
+        orderNew.setQueryTime(LocalDateTime.now());
         orderRepository.save(orderNew);
         return ActionResponse.SUCCESS;
     }
@@ -254,7 +256,7 @@ public class OrderService {
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
         optionalOrder.get().setFreighter(orderForm.getFreighter());
         optionalOrder.get().setUser(orderForm.getUser());
-
+        optionalOrder.get().setQueryTime(LocalDateTime.now());
         orderRepository.save(optionalOrder.get());
         return ActionResponse.EDIT;
     }
