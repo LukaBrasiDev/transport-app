@@ -108,9 +108,9 @@
                 <div class="col-sm-2" th:object="${freighters}">
                     <select name="freighter" class="form-control" id="exampleFormControlSelect2">
                         <option value=" ">Wybierz przewoźnika:</option>
-                        <option th:if="${order.getFreighter()}!=null" th:each="f : ${freighters}" th:value="${f.id}"
+                        <option th:if="${order.getFreighter()}!=null" th:each="f : ${freightersasc}" th:value="${f.id}"
                                 th:text="${f.freighterName}" th:selected="${f.id== order.getFreighter().id}"></option>
-                        <option th:if="${order.freighter}==null" th:each="f : ${freighters}" th:value="${f.id}"
+                        <option th:if="${order.freighter}==null" th:each="f : ${freightersasc}" th:value="${f.id}"
                                 th:text="${f.freighterName}"></option>
                     </select>
                 </div>

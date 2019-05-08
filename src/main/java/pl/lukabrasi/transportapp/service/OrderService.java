@@ -3,6 +3,7 @@ package pl.lukabrasi.transportapp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
@@ -80,6 +81,9 @@ public class OrderService {
 
     public List<Freighter> getFreighters() {
         return freighterRepository.findAll();
+    }
+    public List<Freighter> getFreightersSorted() {
+        return freighterRepository.findAllByOrderByFreighterNameAsc();
     }
 
     public Order getOrderById(Long id) {
