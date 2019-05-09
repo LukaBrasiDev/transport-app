@@ -6,3 +6,4 @@ Aplikacja dla spedytorów do zarządzania zleceniami transportu ładunków
 + baza przewoźników
 + baza fabryk
 + baza użytkowników
++ raporty

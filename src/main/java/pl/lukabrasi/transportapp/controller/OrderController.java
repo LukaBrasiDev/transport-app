@@ -161,6 +161,7 @@ public class OrderController {
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("freightersasc", orderService.getFreightersSorted());
         model.addAttribute("factories", orderService.getFactories());
         model.addAttribute("orderForm", new OrderForm());
         return "edit";

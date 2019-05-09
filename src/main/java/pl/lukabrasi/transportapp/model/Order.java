@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Driver;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -42,6 +43,9 @@ public class Order {
 
     @JoinColumn(name = "city_codes")
     private String cityCodes;
+
+    private @Column(name = "query_time")
+    LocalDateTime queryTime;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "fk_factory")

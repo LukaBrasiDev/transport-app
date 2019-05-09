@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import pl.lukabrasi.transportapp.model.Freighter;
 import pl.lukabrasi.transportapp.model.Order;
 
 import java.time.LocalDate;
@@ -48,8 +49,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_user=(?2) order by date_load asc",nativeQuery = true)
     List<Order> monthRaportByPerson (LocalDate loadDate, int person);
 
-@Query(value="SELECT distinct concat(1,'-',month(date_load),'-', year(date_load)) as data FROM transport.orders order by data desc;",nativeQuery = true)
+@Query(value="SELECT distinct concat(1,'-',month(date_load),'-', year(date_load)) as data FROM orders order by data desc;",nativeQuery = true)
     List<String> getMonthYear();
+
+
 
 
 }
