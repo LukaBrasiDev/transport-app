@@ -54,8 +54,30 @@ public class OrderService {
     }
 
     public Page<Order> findCurrentWeekAll(Pageable pageable) {
+
         return orderRepository.findCurrentWeekAll(pageable);
     }
+
+    public Page<Order> findPreviousWeekNotSold(Pageable pageable) {
+        return orderRepository.findPreviousWeekNotSold(pageable);
+    }
+
+    public Page<Order> findPreviousWeekAll(Pageable pageable) {
+
+        return orderRepository.findPreviousWeekAll(pageable);
+    }
+    public Page<Order> findNextWeekNotSold(Pageable pageable) {
+        return orderRepository.findNextWeekNotSold(pageable);
+    }
+
+    public Page<Order> findNextWeekAll(Pageable pageable) {
+
+        return orderRepository.findNextWeekAll(pageable);
+    }
+
+
+
+
 
     public Page<Order> getOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable) {
 

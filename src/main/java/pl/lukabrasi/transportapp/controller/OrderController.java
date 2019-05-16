@@ -80,6 +80,66 @@ public class OrderController {
         }
     }
 
+    @PostMapping("/zlecenia/tydzien/poprzedni")
+    public String getOrdersInPreviousWeek(@ModelAttribute RangeForm rangeForm,
+                                  Model model,
+                                  Pageable pageable) {
+        String selection = rangeForm.getRadioSelect();
+        if (selection.equals("allweek")) {
+            Page<Order> orderPage = orderService.findCurrentWeekAll(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            return "order";
+        } else {
+            Page<Order> orderPage = orderService.findCurrentWeekNotSold(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            return "order";
+        }
+    }
+
+    @PostMapping("/zlecenia/tydzien/nastepny")
+    public String getOrdersInNextWeek(@ModelAttribute RangeForm rangeForm,
+                                  Model model,
+                                  Pageable pageable) {
+        String selection = rangeForm.getRadioSelect();
+        if (selection.equals("allweek")) {
+            Page<Order> orderPage = orderService.findCurrentWeekAll(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            return "order";
+        } else {
+            Page<Order> orderPage = orderService.findCurrentWeekNotSold(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            return "order";
+        }
+    }
+
     @PostMapping("/zlecenia/zakres")
     public String findOrdersBetweenDates(@ModelAttribute RangeForm rangeForm,
                                          Model model,
@@ -149,11 +209,6 @@ public class OrderController {
         return "order";
     }
 
-/*    @GetMapping("/search")
-    public String showOrdersByOrderNumber(@RequestParam (value = "searchStr", required = false) String searchStr, Model model) {
-        model.addAttribute("orders", orderService.getOrdersFilteredByOrderNumber(searchStr));
-        return "order";
-    }*/
 
     @GetMapping("/edycjazlecenie/{id}")
     public String edit(@PathVariable Long id,

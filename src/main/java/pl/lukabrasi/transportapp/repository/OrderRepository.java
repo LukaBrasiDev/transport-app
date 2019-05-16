@@ -27,11 +27,31 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findCurrentWeekNotSold(Pageable pageable);
 
+    @Query(value = "SELECT * FROM orders where (YEARWEEK(date_load)<=(YEARWEEK(NOW())-1)) and (fk_user is null)\n" +
+            "            order by date_load asc, loading_city asc", nativeQuery = true)
+    Page<Order> findPreviousWeekNotSold(Pageable pageable);
+
+    @Query(value = "SELECT * FROM orders where (YEARWEEK(date_load)<=(YEARWEEK(NOW())+1)) and (fk_user is null)\n" +
+            "            order by date_load asc, loading_city asc", nativeQuery = true)
+    Page<Order> findNextWeekNotSold(Pageable pageable);
+
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=YEARWEEK(NOW())\n" +
             "UNION  select * from orders where (YEARWEEK(date_load)<YEARWEEK(NOW())) and fk_user is null\n" +
             "           \n" +
             "                   order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findCurrentWeekAll(Pageable pageable);
+
+    @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=(YEARWEEK(NOW())-1)\n" +
+            "UNION  select * from orders where (YEARWEEK(date_load)<YEARWEEK(NOW())) and fk_user is null\n" +
+            "           \n" +
+            "                   order by date_load asc, loading_city asc", nativeQuery = true)
+    Page<Order> findPreviousWeekAll(Pageable pageable);
+
+    @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=(YEARWEEK(NOW())+1)\n" +
+            "UNION  select * from orders where (YEARWEEK(date_load)<YEARWEEK(NOW())) and fk_user is null\n" +
+            "           \n" +
+            "                   order by date_load asc, loading_city asc", nativeQuery = true)
+    Page<Order> findNextWeekAll(Pageable pageable);
 
     boolean existsByOrderNumber(String orderNumber);
 
