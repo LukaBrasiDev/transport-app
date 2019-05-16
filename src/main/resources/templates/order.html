@@ -3,40 +3,11 @@
 <head th:replace="fragments/header :: header"></head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
-<div class="container-fluid" style="background-color: #17a2b8">
-    <div style="padding-top: 25px;padding-bottom: 20px">
-        <div class="container-fluid">
-            <div class="row" style="padding-top: 5px;padding-bottom: 15px">
-                <div class="col-6">
-                    <p>Wyszukiwanie tur według zakresu dat:</p>
-                    <form th:replace="fragments/formrange :: formrange"></form>
-                </div>
-                <div class="col-1">
 
-                </div>
-                <div class="col-4">
-                    <p>Wyszukiwanie tur w aktualnym tygodniu + spady:</p>
-                    <form th:replace="fragments/formweek :: formweek"></form>
-                    <div><p><button type="button" class="btn btn-danger btn-sm"><<< POPRZEDNI</button>
-                        <button type="button" class="btn btn-danger btn-sm">NASTĘPNY >>></button></p></div>
+<div th:replace="fragments/selection :: selection"></div>
 
-                </div>
-                <div class="col-1">
-                    <a href="/zlecenia" class="btn btn-primary">
-                        Odśwież
-                    </a>
-                </div>
-            </div>
-            <div class="row" style="padding-top: 5px;padding-bottom: 0px">
-                <div class="col-11">
-                    <!--paginacja-->
-                    <nav th:replace="fragments/pagination :: pagination"></nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div style="display:flex;justify-content:center;align-items:center;background-color: #17a2b8">
+
+<div th:if="${info!=null}" style="display:flex;justify-content:center;align-items:center;background-color: #6495ED">
     <div class="alert">
         <th:block th:if="${info!=null}" th:switch="${info}">
 <span th:case="*{info.ERROR}" th:text="#{Order.info.error}"
@@ -51,36 +22,7 @@
 <!--poczatek tabeli tura-->
 <table th:replace="fragments/tables/table_orders :: tableorders"></table>
 <!-- koniec tabelki -->
-<div class="container-fluid" style="background-color: #17a2b8">
-    <div style="padding-top: 25px;padding-bottom: 20px">
-        <div class="container-fluid">
-            <div class="row" style="padding-top: 5px;padding-bottom: 15px">
-                <div class="col-6">
-                    <p>Wyszukiwanie tur według zakresu dat:</p>
-                    <form th:replace="fragments/formrange :: formrange"></form>
-                </div>
-                <div class="col-1">
-
-                </div>
-                <div class="col-4">
-                    <p>Wyszukiwanie tur w aktualnym tygodniu + spady:</p>
-                    <form th:replace="fragments/formweek :: formweek"></form>
-                </div>
-                <div class="col-1">
-                    <a href="/orders" class="btn btn-primary">
-                        Odśwież
-                    </a>
-                </div>
-            </div>
-            <div class="row" style="padding-top: 5px;padding-bottom: 0px">
-                <div class="col-11">
-                    <!--paginacja-->
-                    <nav th:replace="fragments/pagination :: pagination"></nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:replace="fragments/selection :: selection"></div>
 <!--formularz dodania tury start-->
 <div th:replace="fragments/forms/form_ordernew :: ordernew"></div>
 <!--formularz dodania tury koniec-->

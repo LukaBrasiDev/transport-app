@@ -1,0 +1,27 @@
+<div th:fragment="selection" class="container-fluid" style="background-color: #6495ED">
+
+    <div style="padding-top: 25px;padding-bottom: 20px">
+        <div class="container-fluid">
+            <div class="row" style="padding-top: 5px;padding-bottom: 15px">
+                <div class="col-6">
+                    <p>Wyszukiwanie tur według zakresu dat:</p>
+                    <form th:replace="fragments/formrange :: formrange"></form>
+                </div>
+
+                <div class="col-5">
+                    <p>Wyszukiwanie tur w aktualnym tygodniu + spady:</p>
+                    <form th:replace="fragments/formweek :: formweek"></form>
+                </div>
+                <div class="col-1">
+                    <a href="/zlecenia" class="btn btn-primary">Odśwież</a>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 5px;padding-bottom: 0px">
+                <div class="col-11">
+                    <!--paginacja-->
+                    <nav th:replace="fragments/pagination :: pagination"></nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
