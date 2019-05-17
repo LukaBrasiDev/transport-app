@@ -1,10 +1,8 @@
 package pl.lukabrasi.transportapp.controller;
 
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +13,7 @@ import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.service.OrderService;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -86,7 +82,7 @@ public class OrderController {
                                   Pageable pageable) {
         String selection = rangeForm.getRadioSelect();
         if (selection.equals("allweek")) {
-            Page<Order> orderPage = orderService.findCurrentWeekAll(pageable);
+            Page<Order> orderPage = orderService.findPreviousWeekAll(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
             model.addAttribute("totalPages", orderPage.getTotalPages());
@@ -97,7 +93,7 @@ public class OrderController {
             model.addAttribute("freighters", orderService.getFreighters());
             return "order";
         } else {
-            Page<Order> orderPage = orderService.findCurrentWeekNotSold(pageable);
+            Page<Order> orderPage = orderService.findPreviousWeekNotSold(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
             model.addAttribute("totalPages", orderPage.getTotalPages());
@@ -116,7 +112,7 @@ public class OrderController {
                                   Pageable pageable) {
         String selection = rangeForm.getRadioSelect();
         if (selection.equals("allweek")) {
-            Page<Order> orderPage = orderService.findCurrentWeekAll(pageable);
+            Page<Order> orderPage = orderService.findNextWeekAll(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
             model.addAttribute("totalPages", orderPage.getTotalPages());
@@ -127,7 +123,7 @@ public class OrderController {
             model.addAttribute("freighters", orderService.getFreighters());
             return "order";
         } else {
-            Page<Order> orderPage = orderService.findCurrentWeekNotSold(pageable);
+            Page<Order> orderPage = orderService.findNextWeekNotSold(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
             model.addAttribute("totalPages", orderPage.getTotalPages());
@@ -174,6 +170,28 @@ public class OrderController {
         }
 
     }
+
+    @GetMapping("/zlecenia/tura")
+    public String findOrderNumber(@RequestParam String searchStr,
+                                         Model model,
+                                         Pageable pageable) {
+
+            Page<Order> orderPage = orderService.findAllByOrderNumberContains(searchStr, pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+          //  model.addAttribute("range1", rangeForm.getDate1());
+          //  model.addAttribute("range2", rangeForm.getDate2());
+            return "order";
+
+
+    }
+
 
     @PostMapping("/zlecenia")
     public String createOrder(@ModelAttribute OrderForm orderForm,

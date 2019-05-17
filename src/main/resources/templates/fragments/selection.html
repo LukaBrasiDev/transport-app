@@ -8,12 +8,15 @@
                     <form th:replace="fragments/formrange :: formrange"></form>
                 </div>
 
-                <div class="col-5">
-                    <p>Wyszukiwanie tur w aktualnym, poprzednim lub następnym tygodniu:</p>
+                <div class="col-4">
+                    <p>Wyszukiwanie tur według tygodni:</p>
                     <form th:replace="fragments/formweek :: formweek"></form>
                 </div>
-                <div class="col-1">
-                    <a href="/zlecenia" class="btn btn-primary">Odśwież</a>
+                <div class="col-2">
+                    <p>Wyszukiwanie po numerze tury:</p>
+                    <form th:action="@{/zlecenia/tura}" th:object="${orders}" method="get">
+                        <input placeholder="wpisz nr tury..." name="searchStr" type="text" th:value="${searchStr}" class="form-control">
+                    </form>
                 </div>
             </div>
             <div class="row" style="padding-top: 5px;padding-bottom: 0px">

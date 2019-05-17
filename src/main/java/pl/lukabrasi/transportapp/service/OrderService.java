@@ -89,10 +89,10 @@ public class OrderService {
         return orderRepository.findNotSoldOrdersInRange(date1, date2, pageable);
     }
 
-/*    public List<Order> getOrdersFilteredByOrderNumber(String searchStr) {
+    public Page<Order> findAllByOrderNumberContains(String searchStr, Pageable pageable) {
 
-        return orderRepository.findAllByOrderNumberContains(searchStr);
-    }*/
+        return orderRepository.findAllByOrderNumberContainsOrderByLoadDateAscLoadingCityAsc(searchStr, pageable);
+    }
 
     public List<Factory> getFactories() {
         return factoryRepository.findAll();
