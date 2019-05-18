@@ -20,7 +20,7 @@
                 ➝</a>
         </li>
         <li class="page-item disabled"><a th:class="'page-link'" th:href="'#'">
-            <span th:if="${totalElements>0}" th:text="${size}*${page.number+1}+'/'+${totalElements}"></span></a>
+            <span th:if="${totalElements>0}" th:text="${size}+'/'+${totalElements}"></span></a>
         </li>
       <!--  <li class="page-item"><a th:class="'page-link'" th:href="@{/orders/(page=0, size=200)}">200</a>
         </li>
