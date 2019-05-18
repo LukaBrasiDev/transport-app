@@ -21,6 +21,7 @@ public class OrderForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate loadDate;
     private String ourNumber;
+    private String loadHour;
     private String loadingCity;
     private Factory factory;
     private String cityCodes;

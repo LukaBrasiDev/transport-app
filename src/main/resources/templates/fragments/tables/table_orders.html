@@ -4,6 +4,7 @@
     <tr style="font-weight: bold">
         <!--<td>ID</td>-->
         <td>TURA</td>
+        <td>GODZ.</td>
         <td>FABRYKA</td>
         <td>DATA ZAŁ.</td>
         <td>NR</td>
@@ -21,6 +22,7 @@
     <tbody>
     <tr th:each="one : ${orders}"  th:style="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null} ? 'color:red' : ''">
         <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
+        <td><span th:text="${one.loadHour}"></span></td>
         <td><span th:if="${one.factory!=null}"
                   th:text="${one.factory.factoryName}"></span></td>
         <td><span th:text="${one.loadDate}"></span></td>

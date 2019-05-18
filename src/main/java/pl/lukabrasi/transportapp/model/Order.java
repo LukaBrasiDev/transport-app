@@ -30,6 +30,9 @@ public class Order {
     private @Column(name = "order_number")
     String orderNumber;
 
+    private @Column(name = "load_hour")
+    String loadHour;
+
     private @Column(name = "our_number")
     String ourNumber;
 

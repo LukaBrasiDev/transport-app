@@ -76,9 +76,6 @@ public class OrderService {
     }
 
 
-
-
-
     public Page<Order> getOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable) {
 
         return orderRepository.findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(date1, date2, pageable);
@@ -275,6 +272,7 @@ public class OrderService {
             optionalOrder.get().setOurNumber(orderForm.getOurNumber());
         }
         optionalOrder.get().setPrice(orderForm.getPrice());
+        optionalOrder.get().setLoadHour(orderForm.getLoadHour());
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
         optionalOrder.get().setFreighter(orderForm.getFreighter());
         optionalOrder.get().setUser(orderForm.getUser());

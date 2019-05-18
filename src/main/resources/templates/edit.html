@@ -9,6 +9,7 @@
     <tr style="font-weight: bold">
         <!--<td th:if="${order != null}" th:text="'Id'"></td>-->
         <td th:if="${order != null}" th:text="'TURA'"></td>
+        <td th:if="${order != null}" th:text="'GODZ. ZAŁ.'"></td>
         <td th:if="${order != null}" th:text="'FABRYKA'"></td>
         <td th:if="${order != null}" th:text="'DATA ZAŁ.'"></td>
         <td th:if="${order != null}" th:text="'NR ZLEC.'"></td>
@@ -23,6 +24,7 @@
     <tr>
         <!--  <td><span th:text="${order.id}"></span></td>-->
         <td><span th:text="${order.orderNumber}"></span></td>
+        <td><span th:text="${order.loadHour}"></span></td>
         <td><span th:if="${order.factory!=null}"
                   th:text="${order.getFactory().factoryName}"></span></td>
         <td><span th:text="${order.loadDate}"></span></td>
@@ -58,6 +60,13 @@
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail3" name="orderNumber" type="text"
                            th:value="${order.getOrderNumber()}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail0" class="col-sm-2 col-form-label">GODZ. ZAŁADUNKU</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail0" name="loadHour" type="text"
+                           th:value="${order.getLoadHour()}">
                 </div>
             </div>
             <div class="form-group row">
