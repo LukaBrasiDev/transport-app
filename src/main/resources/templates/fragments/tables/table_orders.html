@@ -27,7 +27,7 @@
                   th:text="${one.factory.factoryName}"></span></td>
         <td><span th:text="${one.loadDate}"></span></td>
 
-        <td><span th:text="${one.ourNumber!=null} ? ${one.ourNumber} : (${#strings.length(one.id)<3} ? ${one.id}+'.' : ${#strings.substring(one.id,0,3)}+'.')"></span></td>
+        <td><span th:text="${one.ourNumber!=null} ? ${one.ourNumber} : (${#strings.length(one.id)<4} ? ${one.id}+'.' : ${#strings.substring(one.id,1,4)}+'.')"></span></td>
        <!-- <td><span th:text="${#strings.length(one.id)<3} ? ${one.id}+'.' : ${#strings.substring(one.id,0,3)}+'.'"></span></td>-->
       <!--  <td><span th:text="${#strings.substring(one.id,0,3)}+'.'"></span></td>-->
         <td>
