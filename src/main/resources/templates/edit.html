@@ -29,7 +29,7 @@
                   th:text="${order.getFactory().factoryName}"></span></td>
         <td><span th:text="${order.loadDate}"></span></td>
         <td><span
-                th:text="${order.ourNumber!=null} ? ${order.ourNumber} : (${#strings.length(order.id)<4} ? ${order.id}+'.' : ${#strings.substring(order.id,1,4)}+'.')"></span>
+                th:text="${order.ourNumber!=null} ? ${order.ourNumber} : (${#strings.length(order.id)<4} ? ${order.id}+'.' : ${#strings.substring(order.id,(#strings.length(order.id)-3),(#strings.length(order.id)))}+'.')"></span>
         </td>
         <td><span th:text="${order.loadingCity}"></span></td>
         <td><span th:if="${order.cityCodes!=null}" th:text="${order.cityCodes}"></span></td>
@@ -73,7 +73,7 @@
                 <label for="inputEmail34" class="col-sm-2 col-form-label">NR ZLECENIA</label>
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail34" name="ourNumber" type="text"
-                           th:value="${order.ourNumber!=null} ? ${order.ourNumber} : (${#strings.length(order.id)<3} ? ${order.id}+'.' : ${#strings.substring(order.id,0,3)}+'.')">
+                           th:value="${order.ourNumber!=null} ? ${order.ourNumber} : (${#strings.length(order.id)<4} ? ${order.id}+'.' : ${#strings.substring(order.id,(#strings.length(order.id)-3),(#strings.length(order.id)))}+'.')">
                 </div>
             </div>
             <div class="form-group row">
