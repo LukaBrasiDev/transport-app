@@ -188,10 +188,11 @@ public class OrderService {
         orderNew.setUser(orderForm.getUser());
         orderNew.setQueryTime(LocalDateTime.now());
 //pobieranie adresu ip
-            InetAddress inetAddress = InetAddress.getLocalHost();
+        //    InetAddress inetAddress = InetAddress.getLocalHost();
+       // String username = System.getProperty("user.name" ).toString();
 
+        orderNew.setIpaddress(System.getProperty("user.name" ));
 
-        orderNew.setIpaddress(inetAddress.getHostAddress());
         orderRepository.save(orderNew);
         return ActionResponse.SUCCESS;
     }
@@ -285,8 +286,9 @@ public class OrderService {
         optionalOrder.get().setUser(orderForm.getUser());
         optionalOrder.get().setQueryTime(LocalDateTime.now());
        // update adresu ip
-        InetAddress inetAddress = InetAddress.getLocalHost();
-        optionalOrder.get().setIpaddress(inetAddress.getHostAddress());
+        //InetAddress inetAddress = InetAddress.getLocalHost();
+        String username = System.getProperty("user.name" ).toString();
+        optionalOrder.get().setIpaddress(username);
 
         orderRepository.save(optionalOrder.get());
         return ActionResponse.EDIT;
