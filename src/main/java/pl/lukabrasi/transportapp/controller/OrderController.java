@@ -12,6 +12,7 @@ import pl.lukabrasi.transportapp.form.RangeForm;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.service.OrderService;
 
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -196,7 +197,7 @@ public class OrderController {
     @PostMapping("/zlecenia")
     public String createOrder(@ModelAttribute OrderForm orderForm,
                               Model model,
-                              Pageable pageable) {
+                              Pageable pageable) throws UnknownHostException {
 
         OrderService.ActionResponse actionResponse = orderService.saveOrder(orderForm);
         if (actionResponse == OrderService.ActionResponse.SUCCESS) {
@@ -243,7 +244,7 @@ public class OrderController {
     @PostMapping("/edycjazlecenie/{id}")
     public String updateOrder(
             @PathVariable Long id,
-            @ModelAttribute OrderForm orderForm, Model model) {
+            @ModelAttribute OrderForm orderForm, Model model) throws UnknownHostException {
         OrderService.ActionResponse actionResponse = orderService.updateOrder(id, orderForm);
         if (actionResponse == OrderService.ActionResponse.EDIT) {
             model.addAttribute("info", actionResponse);

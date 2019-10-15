@@ -50,6 +50,9 @@ public class Order {
     private @Column(name = "query_time")
     LocalDateTime queryTime;
 
+    private @Column(name = "ipaddress")
+    String ipaddress;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "fk_factory")
     private Factory factory;

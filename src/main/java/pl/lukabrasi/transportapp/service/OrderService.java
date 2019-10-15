@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
-
+import java.net.InetAddress;
+import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -139,7 +141,7 @@ public class OrderService {
         return null;
     }
 
-    public ActionResponse saveOrder(OrderForm orderForm) {
+    public ActionResponse saveOrder(OrderForm orderForm) throws UnknownHostException {
 
         Order orderNew = new Order();
         String orderNb = orderForm.getOrderNumber()
@@ -185,6 +187,11 @@ public class OrderService {
         orderNew.setFreighterPrice(orderForm.getFreighterPrice());
         orderNew.setUser(orderForm.getUser());
         orderNew.setQueryTime(LocalDateTime.now());
+//pobieranie adresu ip
+            InetAddress inetAddress = InetAddress.getLocalHost();
+
+
+        orderNew.setIpaddress(inetAddress.getHostAddress());
         orderRepository.save(orderNew);
         return ActionResponse.SUCCESS;
     }
@@ -226,7 +233,7 @@ public class OrderService {
         }
     }
 
-    public ActionResponse updateOrder(Long id, OrderForm orderForm) {
+    public ActionResponse updateOrder(Long id, OrderForm orderForm) throws UnknownHostException {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
 
@@ -277,6 +284,10 @@ public class OrderService {
         optionalOrder.get().setFreighter(orderForm.getFreighter());
         optionalOrder.get().setUser(orderForm.getUser());
         optionalOrder.get().setQueryTime(LocalDateTime.now());
+       // update adresu ip
+        InetAddress inetAddress = InetAddress.getLocalHost();
+        optionalOrder.get().setIpaddress(inetAddress.getHostAddress());
+
         orderRepository.save(optionalOrder.get());
         return ActionResponse.EDIT;
     }
