@@ -1,38 +1,33 @@
-<nav aria-label="..." th:fragment="pagination" th:if="${page.totalPages gt 0}">
+<nav aria-label="Pagination" th:fragment="pagination" th:if="${page.totalPages gt 0}">
     <ul class="pagination">
 
-        <li th:class="${page.first} ? 'page-item disabled':'page-item'">
-            <span th:class="'page-link'" th:if="${page.first}">← Początek</span>
-            <a th:class="'page-link'" th:if="${not page.first}" th:href="@{/zlecenia/(page=0)}">← Początek</a>
-        </li>
-
-        <li th:each='i : ${#numbers.sequence(0, page.totalPages-1)}'
-            th:class="(${i}==${page.number})? 'page-item active' : 'page-item'">
-            <span th:class="'page-link'" th:if='${i}==${page.number}' th:text='${i+1}'>1</span>
-            <a th:class="'page-link'" th:if='${i}!=${page.number}' th:href="@{/zlecenia/(page=${i})}">
-                <span th:text='${i+1}'>1</span>
+        <li class="page-item" th:classappend="${page.number eq 0} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{/zlecenia?page={id}(id=${page.number lt 1 ? 1 : page.number - 1})}"
+               title="Poprzednia strona" rel="tooltip">
+                <span aria-hidden="true" data-feather="chevrons-left" width="20" height="20">←  Poprzednia</span>
             </a>
         </li>
 
-        <li th:class="${page.last} ? 'page-item disabled':'page-item'">
-            <span th:class="'page-link'" th:if="${page.last}">Koniec ➝</span>
-            <a th:class="'page-link'" th:if="${not page.last}" th:href="@{/zlecenia/(page=(${page.totalPages}-1))}">Koniec
-                ➝</a>
-        </li>
-        <li class="page-item disabled"><a th:class="'page-link'" th:href="'#'">
-            <span th:if="${totalElements>0}" th:text="${size}+'/'+${totalElements}"></span></a>
-        </li>
-      <!--  <li class="page-item"><a th:class="'page-link'" th:href="@{/orders/(page=0, size=200)}">200</a>
-        </li>
-        </li>
-        <li class="page-item"><a th:class="'page-link'" th:href="@{/orders/(page=0, size=500)}">500</a>
-        </li>
-        <li class="page-item"><a th:class="'page-link'"
-                                 th:href="@{/zlecenia/(page=0, size=${totalElements})}">WSZYSTKO</a>
-        </li>
-         <li>
-              <input type="button" value="EXPORT" onClick ="$('#userTbl').tableExport({type:'csv',escape:'true',ignoreColumn: [2,6,7,8,9,10,11]});" id="buttonExportData" href="#" class="btn btn-success" />
 
-          </li>-->
+        <li class="page-item" th:classappend="${i eq page.number } ? 'active'"
+            th:each="i : ${#numbers.sequence( page.number, page.totalPages > 10 + page.number ? page.number + 9 : page.totalPages -1)}">
+            <a class="page-link" th:href="@{/zlecenia?page={id}(id=${i})}" th:text="${i +1}"
+               th:title="${'Strona '+ (i + 1)}"
+               rel="tooltip"></a>
+        </li>
+        <li class="page-item disabled" th:if="${page.number + 9 < page.totalPages}">
+
+            <a class="page-link" href="#">
+                <span data-feather="more-horizontal" width="20" height="20">...</span>
+            </a>
+        </li>
+
+        <li class="page-item" th:classappend="${page.number eq page.totalPages - 1} ? 'disabled'">
+            <a class="page-link" th:href="@{/zlecenia?page={id}(id=${page.number + 1})}"
+                              title="Następna strona" rel="tooltip">
+                <span aria-hidden="true" data-feather="chevrons-right" width="20" height="20">Następna ➝</span>
+            </a>
+        </li>
     </ul>
 </nav>
