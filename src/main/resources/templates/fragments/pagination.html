@@ -1,4 +1,4 @@
-<nav aria-label="..." th:fragment="pagination">
+<nav aria-label="..." th:fragment="pagination" th:if="${page.totalPages gt 0}">
     <ul class="pagination">
 
         <li th:class="${page.first} ? 'page-item disabled':'page-item'">
