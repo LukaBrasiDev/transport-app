@@ -9,6 +9,7 @@ import pl.lukabrasi.transportapp.model.Order;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
@@ -72,7 +73,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 @Query(value="SELECT distinct concat(1,'-',month(date_load),'-', year(date_load)) as data FROM orders order by data desc;",nativeQuery = true)
     List<String> getMonthYear();
 
-
+    @Query(value = 		" SELECT f.factory_name, count(o.id) as Suma from orders as o, factory as f  where YEARWEEK(o.date_load)=YEARWEEK(?1) and  o.fk_factory = f.id group by f.factory_name", nativeQuery = true)
+    Map<String,Integer> soldByFactoryWeekly (LocalDate date1);
 
 
 }

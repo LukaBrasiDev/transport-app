@@ -77,6 +77,55 @@
         </tr>
         </tbody>
     </table>
+
+
+    <!--
+    RAPORT TYGODNIOWY ZE SPRZEDAŻY
+        -->
+    <table class="highchart" data-graph-container-before="1" data-graph-type="column" style="display: none">
+        <caption>Sprzedaż tygodniowa</caption>
+        <thead>
+        <tr >
+            <th>Data</th>
+            <th>MTW</th>
+            <th>Sprzedane</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><span th:text="${#dates.format(#dates.createNow(), 'dd-MM-yyyy')}"></span></td>
+            <td><span th:text="${sold.get(1)}"></span></td>
+            <td><span th:text="${sold.get(0)}"></span></td>
+        </tr>
+       <tr th:if="${sold.get(2)>0}">
+            <td><span th:text="${#temporals.format(dtW.get(1), 'dd-MM-yyyy')}"></span></td>
+            <td><span th:text="${sold.get(3)}"></span></td>
+            <td><span th:text="${sold.get(2)}"></span></td>
+        </tr>
+        <tr th:if="${sold.get(4)>0}">
+            <td><span th:text="${#temporals.format(dtW.get(2), 'dd-MM-yyyy')}"></span></td>
+            <td><span th:text="${sold.get(5)}"></span></td>
+            <td><span th:text="${sold.get(4)}"></span></td>
+        </tr>
+        <tr th:if="${sold.get(6)>0}">
+            <td><span th:text="${#temporals.format(dtW.get(3), 'dd-MM-yyyy')}"></span></td>
+            <td><span th:text="${sold.get(7)}"></span></td>
+            <td><span th:text="${sold.get(6)}"></span></td>
+        </tr>
+        <tr th:if="${sold.get(8)>0}">
+            <td><span th:text="${#temporals.format(dtW.get(4), 'dd-MM-yyyy')}"></span></td>
+            <td><span th:text="${sold.get(9)}"></span></td>
+            <td><span th:text="${sold.get(8)}"></span></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <!-- koniec raportu tygodnioweg -->
+
+
+
+
     <div><br><br></div>
     <div class="row justify-content-md-center"><h4>Raport miesięczny</h4></div>
     <div class="row justify-content-md-center">

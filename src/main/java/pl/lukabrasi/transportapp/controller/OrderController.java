@@ -288,7 +288,7 @@ public class OrderController {
                                   Model model) {
 
         Date dt = new Date();
-
+//////////// tworzenie listy
         List<List<Integer>> soldList = new LinkedList<>();
         for (int i = 0; i > -12; i--) {
             soldList.add(orderService.soldByMtwInCurrentMonth(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i)));
@@ -301,8 +301,16 @@ public class OrderController {
         for (int i = 0; i > -12; i--) {
             datyRok.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i));
         }
+
+        List<LocalDate> datyWeek = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            datyWeek.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i));
+        }
+
+
         model.addAttribute("sold", lst);
         model.addAttribute("dt", datyRok);
+        model.addAttribute("dtW", datyWeek);
         model.addAttribute("orders", orderService.getMonthRaportByPerson(monthForm.getLoadDate(), person));
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("range3",orderService.getMonthYear());
