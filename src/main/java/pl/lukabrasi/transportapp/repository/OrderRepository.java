@@ -78,11 +78,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
 
 
-    @Query(value="SELECT count(o.id) as Bega from orders as o, factory as f where o.fk_factory = f.id and year(o.date_load)=year(?1) and YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_freighter >0 and f.factory_group = 'B'",nativeQuery = true)
+    @Query(value="SELECT count(o.id) as Bega from orders as o, factory as f where o.fk_factory = f.id and year(o.date_load)=year(?1) and YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >0 and f.factory_group = 'B'",nativeQuery = true)
     Integer soldBegaGroupWeekly(LocalDate date1);
-    @Query(value="SELECT count(o.id) as Wojcik from orders as o, factory as f where o.fk_factory = f.id and year(o.date_load)=year(?1) and YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_freighter >0 and f.factory_group = 'W'",nativeQuery = true)
+    @Query(value="SELECT count(o.id) as Wojcik from orders as o, factory as f where o.fk_factory = f.id and year(o.date_load)=year(?1) and YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >0 and f.factory_group = 'W'",nativeQuery = true)
     Integer soldWojcikGroupWeekly(LocalDate date1);
-    @Query(value="SELECT count(o.id) as Inne from orders as o, factory as f where o.fk_factory = f.id and year(o.date_load)=year(?1) and YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_freighter >0 and f.factory_group = 'I'",nativeQuery = true)
+    @Query(value="SELECT count(o.id) as Inne from orders as o, factory as f where o.fk_factory = f.id and year(o.date_load)=year(?1) and YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >0 and f.factory_group = 'I'",nativeQuery = true)
     Integer soldOtherGroupWeekly(LocalDate date1);
 
 
