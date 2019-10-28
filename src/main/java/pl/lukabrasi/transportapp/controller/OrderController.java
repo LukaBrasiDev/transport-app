@@ -365,7 +365,7 @@ public class OrderController {
             soldOtherWeeklyList.add(
                     orderService.getOtherWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
         }
-        model.addAttribute("weeklyOther",soldWojcikWeeklyList);
+        model.addAttribute("weeklyOther",soldOtherWeeklyList);
 
         model.addAttribute("sold", lst);
         model.addAttribute("dt", datyRok);
