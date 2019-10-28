@@ -32,7 +32,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findPreviousWeekNotSold(Pageable pageable);
 
-    @Query(value = "SELECT * FROM orders where year(date_load)=year(now()) and year(date_load)=year(?1) and (YEARWEEK(date_load)=(YEARWEEK(NOW())+1)) and (fk_user is null)\n" +
+    @Query(value = "SELECT * FROM orders where year(date_load)=year(now()) and (YEARWEEK(date_load)=(YEARWEEK(NOW())+1)) and (fk_user is null)\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNextWeekNotSold(Pageable pageable);
 
