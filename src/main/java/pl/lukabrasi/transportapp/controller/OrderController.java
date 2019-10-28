@@ -308,7 +308,7 @@ public class OrderController {
             soldOtherWeeklyList.add(
                     orderService.getOtherWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
         }
-        model.addAttribute("weeklyOther",soldWojcikWeeklyList);
+        model.addAttribute("weeklyOther",soldOtherWeeklyList);
 
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("range3",orderService.getMonthYear());
