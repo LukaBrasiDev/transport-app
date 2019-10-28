@@ -12,6 +12,7 @@
         <td>ID</td>
         <td>PREFIX</td>
         <td>FABRYKA</td>
+        <td>GRUPA</td>
         <td>MIASTO</td>
         <td>ADRES</td>
         <td>AWIZACJE</td>
@@ -22,6 +23,7 @@
         <td><span th:text="${f.id}"></span></td>
         <td><span th:text="${f.prefix}"></span></td>
         <td><span th:text="${f.factoryName}"></span></td>
+        <td><span th:text="${f.factoryGroup}"></span></td>
         <td><span th:text="${f.factoryCity}"></span></td>
         <td><span th:text="${f.factoryAddress}"></span></td>
         <td><span th:text="${f.factoryContact}"></span></td>
@@ -47,6 +49,13 @@
                 <div class="col-sm-2">
                     <input th:value="${factories.getFactoryName()}" name="factoryName" type="text" class="form-control"
                            id="inputEmail4">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail49" class="col-sm-2 col-form-label">GRUPA</label>
+                <div class="col-sm-2">
+                    <input th:value="${factories.getFactoryGroup()}" name="factoryGroup" type="text" class="form-control"
+                           id="inputEmail49">
                 </div>
             </div>
             <div class="form-group row">

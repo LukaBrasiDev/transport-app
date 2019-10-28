@@ -207,6 +207,7 @@ String ipAddress = inetAddress.toString();
         factoryNew.setFactoryAddress(factoryForm.getFactoryAddress());
         factoryNew.setFactoryContact(factoryForm.getFactoryContact());
         factoryNew.setFactoryInfo(factoryForm.getFactoryInfo());
+        factoryNew.setFactoryGroup(factoryForm.getFactoryGroup());
         if (!factoryForm.getFactoryCity().isEmpty()) {
             factoryRepository.save(factoryNew);
         }
@@ -305,6 +306,7 @@ String ipAddress = inetAddress.toString();
         optionalFactory.get().setFactoryAddress(factoryForm.getFactoryAddress());
         optionalFactory.get().setFactoryContact(factoryForm.getFactoryContact());
         optionalFactory.get().setFactoryInfo(factoryForm.getFactoryInfo());
+        optionalFactory.get().setFactoryGroup(factoryForm.getFactoryGroup());
         factoryRepository.save(optionalFactory.get());
     }
 
@@ -353,9 +355,24 @@ String ipAddress = inetAddress.toString();
     }
 
 
-    public List<Integer> soldByFactoryWeekly(LocalDate date1) {
+//trzy raporty tygodniowe
+    public Integer getBegaWeekly(LocalDate date1) {
+       if (orderRepository.soldBegaGroupWeekly(date1) > 0) {
+            return orderRepository.soldBegaGroupWeekly(date1);
 
-        return orderRepository.soldByFactoryWeekly(date1);
+        }else return 0;
+   }
+
+    public Integer getWojcikWeekly(LocalDate date1) {
+        if (orderRepository.soldWojcikGroupWeekly(date1) > 0) {
+       return orderRepository.soldWojcikGroupWeekly(date1);
+        }else return 0;
+   }
+
+    public Integer getOtherWeekly(LocalDate date1) {
+        if (orderRepository.soldOtherGroupWeekly(date1) > 0) {
+            return orderRepository.soldOtherGroupWeekly(date1);
+        }else return 0;
     }
 
 }

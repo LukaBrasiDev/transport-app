@@ -37,6 +37,9 @@ public class Factory {
     private @Column(name = "factory_info")
     String factoryInfo;
 
+    private @Column(name = "factory_group")
+    String factoryGroup;
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "factory",
             cascade = {

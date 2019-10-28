@@ -11,6 +11,7 @@
         <td>ID</td>
         <td>KOD</td>
         <td>FABRYKA</td>
+        <td>GRUPA</td>
         <td>MIASTO</td>
         <td>ADRES</td>
         <td>AWIZACJE</td>
@@ -22,12 +23,14 @@
         <td><span th:text="${f.id}"></span></td>
         <td><span th:text="${f.prefix}"></span></td>
         <td><span th:text="${f.factoryName}"></span></td>
+        <td><span th:text="${f.factoryGroup}"></span></td>
         <td><span th:text="${f.factoryCity}"></span></td>
         <td><span th:text="${f.factoryAddress}"></span></td>
         <td><span th:text="${f.factoryContact}"></span></td>
         <td><span th:text="${f.factoryInfo}"></span></td>
         <td>
-            <a class="btn btn-outline-success btn-sm" th:href="@{/edycjafabryka/{id}(id=${f.id})}" role="button">Edytuj</a>
+            <a class="btn btn-outline-success btn-sm" th:href="@{/edycjafabryka/{id}(id=${f.id})}"
+               role="button">Edytuj</a>
         </td>
     </tr>
 </table>
@@ -50,6 +53,26 @@
                     <input name="factoryName" type="text" class="form-control" id="inputEmail4">
                 </div>
             </div>
+
+            <div class="form-group row">
+                <label for="exampleFormControlSelect16" class="col-sm-2 col-form-label">GRUPA</label>
+                <div class="col-sm-2">
+                    <select name="factoryGroup" class="form-control" id="exampleFormControlSelect16">
+                        <option value=" ">Wybierz grupę:</option>
+                        <option value="B">B - Bega</option>
+                        <option value="W">W - Wójcik</option>
+                        <option value="I">I - inne</option>
+                    </select>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
             <div class="form-group row">
                 <label for="inputEmail9" class="col-sm-2 col-form-label"> MIASTO</label>
                 <div class="col-sm-2">

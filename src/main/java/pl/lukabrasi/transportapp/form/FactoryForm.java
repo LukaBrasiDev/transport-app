@@ -11,5 +11,6 @@ public class FactoryForm {
     private String factoryAddress;
     private String factoryContact;
     private String factoryInfo;
+    private String factoryGroup;
 
 }

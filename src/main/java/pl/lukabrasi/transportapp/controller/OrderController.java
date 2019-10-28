@@ -15,6 +15,7 @@ import pl.lukabrasi.transportapp.service.OrderService;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -277,6 +278,38 @@ public class OrderController {
         }
         model.addAttribute("sold", lst);
         model.addAttribute("dt", datyRok);
+
+        Calendar cal = Calendar.getInstance();
+        List<Integer> datyWeek = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            datyWeek.add(cal.get(Calendar.WEEK_OF_YEAR)+i);
+        }
+        model.addAttribute("dtW", datyWeek);
+
+        // tygodnie sprzedazy Bega wstecz
+        List<Integer> soldBegaWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldBegaWeeklyList.add(
+                    orderService.getBegaWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyBega",soldBegaWeeklyList);
+
+        // tygodnie sprzedazy Wojcik wstecz
+        List<Integer> soldWojcikWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldWojcikWeeklyList.add(
+                   orderService.getWojcikWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+       model.addAttribute("weeklyWojcik",soldWojcikWeeklyList);
+
+        // tygodnie sprzedazy Wojcik wstecz
+        List<Integer> soldOtherWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldOtherWeeklyList.add(
+                    orderService.getOtherWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyOther",soldWojcikWeeklyList);
+
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("range3",orderService.getMonthYear());
         return "charts";
@@ -302,15 +335,41 @@ public class OrderController {
             datyRok.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i));
         }
 
-        List<LocalDate> datyWeek = new LinkedList<>();
+        Calendar cal = Calendar.getInstance();
+      //  System.out.println("Current week of month is : " +cal.get(Calendar.WEEK_OF_MONTH));
+       // System.out.println("Current week of year is : " +cal.get(Calendar.WEEK_OF_YEAR));
+        List<Integer> datyWeek = new LinkedList<>();
         for (int i = 0; i > -12; i--) {
-            datyWeek.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i));
+            datyWeek.add(cal.get(Calendar.WEEK_OF_YEAR)+i);
         }
+        model.addAttribute("dtW", datyWeek);
+        // tygodnie sprzedazy Bega wstecz
+        List<Integer> soldBegaWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldBegaWeeklyList.add(
+                    orderService.getBegaWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyBega",soldBegaWeeklyList);
 
+        // tygodnie sprzedazy Wojcik wstecz
+        List<Integer> soldWojcikWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldWojcikWeeklyList.add(
+                    orderService.getWojcikWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyWojcik",soldWojcikWeeklyList);
+
+        // tygodnie sprzedazy Wojcik wstecz
+        List<Integer> soldOtherWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldOtherWeeklyList.add(
+                    orderService.getOtherWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyOther",soldWojcikWeeklyList);
 
         model.addAttribute("sold", lst);
         model.addAttribute("dt", datyRok);
-        model.addAttribute("dtW", datyWeek);
+
         model.addAttribute("orders", orderService.getMonthRaportByPerson(monthForm.getLoadDate(), person));
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("range3",orderService.getMonthYear());
