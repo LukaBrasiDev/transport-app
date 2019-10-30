@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
@@ -288,16 +290,18 @@ String ipAddress = inetAddress.toString();
         optionalOrder.get().setUser(orderForm.getUser());
         optionalOrder.get().setQueryTime(LocalDateTime.now());
        // update adresu ip
-     InetAddress inetAddress = InetAddress.getLocalHost();
-     String ipAddress = inetAddress.toString();
-     //   String username = System.getProperty("user.name" ).toString();
-        optionalOrder.get().setIpaddress(ipAddress);
+        String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+                .getRequest().getRemoteAddr();
+
+
+        optionalOrder.get().setIpaddress(remoteAddress);
 
         orderRepository.save(optionalOrder.get());
         return ActionResponse.EDIT;
     }
 
-    public void updateFactory(Long id, FactoryForm factoryForm) {
+
+       public void updateFactory(Long id, FactoryForm factoryForm) {
 
         Optional<Factory> optionalFactory = factoryRepository.findById(id);
         optionalFactory.get().setPrefix(factoryForm.getPrefix());
