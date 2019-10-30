@@ -190,11 +190,15 @@ public class OrderService {
         orderNew.setUser(orderForm.getUser());
         orderNew.setQueryTime(LocalDateTime.now());
 //pobieranie adresu ip
-           InetAddress inetAddress = InetAddress.getLocalHost();
+  //         InetAddress inetAddress = InetAddress.getLocalHost();
        // String username = System.getProperty("user.name" ).toString();
-String ipAddress = inetAddress.toString();
+//String ipAddress = inetAddress.toString();
         //orderNew.setIpaddress(System.getProperty("user.name" ));
-        orderNew.setIpaddress(ipAddress);
+
+        // update adresu ip
+        String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+                .getRequest().getRemoteAddr();
+             orderNew.setIpaddress(remoteAddress);
 
         orderRepository.save(orderNew);
         return ActionResponse.SUCCESS;
@@ -292,8 +296,6 @@ String ipAddress = inetAddress.toString();
        // update adresu ip
         String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest().getRemoteAddr();
-
-
         optionalOrder.get().setIpaddress(remoteAddress);
 
         orderRepository.save(optionalOrder.get());
