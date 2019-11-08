@@ -26,13 +26,15 @@ public class OrderService {
     final UserRepository userRepository;
     final FreighterRepository freighterRepository;
     final FactoryRepository factoryRepository;
+    final BanRepository banRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, FreighterRepository freighterRepository, FactoryRepository factoryRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, FreighterRepository freighterRepository, FactoryRepository factoryRepository, BanRepository banRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.freighterRepository = freighterRepository;
         this.factoryRepository = factoryRepository;
+        this.banRepository = banRepository;
     }
 
     public enum ActionResponse {
@@ -380,5 +382,59 @@ public class OrderService {
             return orderRepository.soldOtherGroupWeekly(date1);
         }else return 0;
     }
+
+    public List<Ban> getBansSorted() {
+        return banRepository.findAllByOrderByStatusDescFreighterAsc();
+    }
+
+    public void saveBan(BanForm banForm) {
+        Ban banNew = new Ban();
+        banNew.setFreighter(banForm.getFreighter());
+        banNew.setCity(banForm.getCity());
+        banNew.setNip(banForm.getNip());
+        banNew.setDescription(banForm.getDescription());
+        banNew.setStatus("ZAKAZ");
+        banNew.setQueryTime(LocalDateTime.now());
+
+        // userNew.setPassword(userForm.getFreighterPerson());
+        if (!banForm.getFreighter().isEmpty()) {
+            banRepository.save(banNew);
+        }
+    }
+
+    public void updateBanStatus(Long id, BanForm banForm) {
+
+        Optional<Ban> optionalBan = banRepository.findById(id);
+       // optionalBan.get().setFreighter(banForm.getFreighter());
+        //optionalBan.get().setCity(banForm.getCity());
+        //optionalBan.get().setNip(banForm.getNip());
+
+        if (optionalBan.get().getStatus()=="ZAKAZ"){
+            optionalBan.get().setStatus("OK");
+
+        }else{
+            optionalBan.get().setStatus("ZAKAZ");
+        }
+
+        optionalBan.get().setQueryTime(LocalDateTime.now());
+     //   optionalBan.get().setFreighterPhone(banForm.getFreighterPhone());
+
+        banRepository.save(optionalBan.get());
+    }
+
+    public Ban getBanById(Long id) {
+        Optional<Ban> optionalBan = banRepository.findById(id);
+        if (optionalBan.isPresent()) {
+            return optionalBan.get();
+        }
+        return null;
+    }
+
+    public void deleteBanById(Long id) {
+
+        banRepository.deleteById(id);
+
+    }
+
 
 }
