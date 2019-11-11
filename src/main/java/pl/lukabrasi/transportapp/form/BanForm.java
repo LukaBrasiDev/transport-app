@@ -3,6 +3,7 @@ package pl.lukabrasi.transportapp.form;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class BanForm {
@@ -11,7 +12,7 @@ public class BanForm {
     private String nip;
     private String description;
     private String status;
-    private LocalDate queryTime;
+    private LocalDateTime queryTime;
     private String ipAddress;
 }
 

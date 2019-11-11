@@ -139,7 +139,7 @@
             <div class="form-group row">
                 <label for="inputEmail667" class="col-sm-2 col-form-label">OSTATNIA MODYFIKACJA:</label>
                 <div class="col-sm-2">
-                    <input name="queryTime" th:value="${order.getQueryTime()}"
+                    <input name="queryTime" th:value="${#temporals.format(order.getQueryTime(), 'dd-MM-yyyy HH:mm')}"
                            class="form-control" id="inputEmail667" disabled>
                 </div>
             </div>

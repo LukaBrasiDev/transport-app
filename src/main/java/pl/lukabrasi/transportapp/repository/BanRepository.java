@@ -9,4 +9,6 @@ import java.util.List;
 public interface BanRepository extends JpaRepository<Ban, Long> {
 
     List<Ban> findAllByOrderByStatusDescFreighterAsc();
+
+    boolean existsByFreighter(String freighter);
 }

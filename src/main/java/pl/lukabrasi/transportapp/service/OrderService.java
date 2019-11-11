@@ -42,7 +42,9 @@ public class OrderService {
         ERROR,
         DUPLICAT,
         EDIT,
-        NOFACTORY
+        NOFACTORY,
+        ZAKAZOK,
+        ZAKAZNOK
     }
 
     public Page<Order> getOrders(Pageable pageable) {
@@ -387,9 +389,18 @@ public class OrderService {
         return banRepository.findAllByOrderByStatusDescFreighterAsc();
     }
 
-    public void saveBan(BanForm banForm) {
+    public ActionResponse saveBan(BanForm banForm) {
         Ban banNew = new Ban();
         banNew.setFreighter(banForm.getFreighter());
+
+       // Order orderNew = new Order();
+        String freighter = banForm.getFreighter()
+                .toUpperCase()
+                .trim();
+        if (banRepository.existsByFreighter(freighter)) {
+            return ActionResponse.ZAKAZNOK;
+        }
+
         banNew.setCity(banForm.getCity());
         banNew.setNip(banForm.getNip());
         banNew.setDescription(banForm.getDescription());
@@ -399,7 +410,8 @@ public class OrderService {
         // userNew.setPassword(userForm.getFreighterPerson());
         if (!banForm.getFreighter().isEmpty()) {
             banRepository.save(banNew);
-        }
+            return ActionResponse.ZAKAZOK;
+        }return ActionResponse.ZAKAZNOK;
     }
 
     public void updateBanStatus(Long id, BanForm banForm) {
@@ -409,7 +421,12 @@ public class OrderService {
         //optionalBan.get().setCity(banForm.getCity());
         //optionalBan.get().setNip(banForm.getNip());
 
-        if (optionalBan.get().getStatus()=="ZAKAZ"){
+        String test = optionalBan.get().getStatus();
+        boolean isFound = test.contains("ZAKAZ"); // true
+
+
+
+        if (isFound==true){
             optionalBan.get().setStatus("OK");
 
         }else{

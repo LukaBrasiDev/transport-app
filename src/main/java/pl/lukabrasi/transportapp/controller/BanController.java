@@ -26,8 +26,14 @@ public class BanController {
 
     @PostMapping("/zakazy")
     public String createFreighter(@ModelAttribute BanForm banForm, Model model) {
+        OrderService.ActionResponse actionResponse = orderService.saveBan(banForm);
+        if (actionResponse == OrderService.ActionResponse.ZAKAZOK) {
         orderService.saveBan(banForm);
         model.addAttribute("ban", orderService.getBansSorted());
+            model.addAttribute("info", actionResponse);
+        return "ban";}
+        model.addAttribute("ban", orderService.getBansSorted());
+        model.addAttribute("info", actionResponse);
         return "ban";
     }
 
