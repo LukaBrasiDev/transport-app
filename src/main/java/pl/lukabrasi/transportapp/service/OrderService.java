@@ -10,6 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
+
 import java.net.InetAddress;
 import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
@@ -74,6 +75,7 @@ public class OrderService {
 
         return orderRepository.findPreviousWeekAll(pageable);
     }
+
     public Page<Order> findNextWeekNotSold(Pageable pageable) {
         return orderRepository.findNextWeekNotSold(pageable);
     }
@@ -194,15 +196,15 @@ public class OrderService {
         orderNew.setUser(orderForm.getUser());
         orderNew.setQueryTime(LocalDateTime.now());
 //pobieranie adresu ip
-  //         InetAddress inetAddress = InetAddress.getLocalHost();
-       // String username = System.getProperty("user.name" ).toString();
+        //         InetAddress inetAddress = InetAddress.getLocalHost();
+        // String username = System.getProperty("user.name" ).toString();
 //String ipAddress = inetAddress.toString();
         //orderNew.setIpaddress(System.getProperty("user.name" ));
 
         // update adresu ip
         String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest().getRemoteAddr();
-             orderNew.setIpaddress(remoteAddress);
+        orderNew.setIpaddress(remoteAddress);
 
         orderRepository.save(orderNew);
         return ActionResponse.SUCCESS;
@@ -297,7 +299,7 @@ public class OrderService {
         optionalOrder.get().setFreighter(orderForm.getFreighter());
         optionalOrder.get().setUser(orderForm.getUser());
         optionalOrder.get().setQueryTime(LocalDateTime.now());
-       // update adresu ip
+        // update adresu ip
         String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest().getRemoteAddr();
         optionalOrder.get().setIpaddress(remoteAddress);
@@ -307,7 +309,7 @@ public class OrderService {
     }
 
 
-       public void updateFactory(Long id, FactoryForm factoryForm) {
+    public void updateFactory(Long id, FactoryForm factoryForm) {
 
         Optional<Factory> optionalFactory = factoryRepository.findById(id);
         optionalFactory.get().setPrefix(factoryForm.getPrefix());
@@ -365,24 +367,24 @@ public class OrderService {
     }
 
 
-//trzy raporty tygodniowe
+    //trzy raporty tygodniowe
     public Integer getBegaWeekly(LocalDate date1) {
-       if (orderRepository.soldBegaGroupWeekly(date1) > 0) {
+        if (orderRepository.soldBegaGroupWeekly(date1) > 0) {
             return orderRepository.soldBegaGroupWeekly(date1);
 
-        }else return 0;
-   }
+        } else return 0;
+    }
 
     public Integer getWojcikWeekly(LocalDate date1) {
         if (orderRepository.soldWojcikGroupWeekly(date1) > 0) {
-       return orderRepository.soldWojcikGroupWeekly(date1);
-        }else return 0;
-   }
+            return orderRepository.soldWojcikGroupWeekly(date1);
+        } else return 0;
+    }
 
     public Integer getOtherWeekly(LocalDate date1) {
         if (orderRepository.soldOtherGroupWeekly(date1) > 0) {
             return orderRepository.soldOtherGroupWeekly(date1);
-        }else return 0;
+        } else return 0;
     }
 
     public List<Ban> getBansSorted() {
@@ -391,16 +393,16 @@ public class OrderService {
 
     public ActionResponse saveBan(BanForm banForm) {
         Ban banNew = new Ban();
-        banNew.setFreighter(banForm.getFreighter());
 
-       // Order orderNew = new Order();
+
+        // Order orderNew = new Order();
         String freighter = banForm.getFreighter()
                 .toUpperCase()
                 .trim();
         if (banRepository.existsByFreighter(freighter)) {
             return ActionResponse.ZAKAZNOK;
         }
-
+        banNew.setFreighter(freighter);
         banNew.setCity(banForm.getCity());
         banNew.setNip(banForm.getNip());
         banNew.setDescription(banForm.getDescription());
@@ -411,13 +413,14 @@ public class OrderService {
         if (!banForm.getFreighter().isEmpty()) {
             banRepository.save(banNew);
             return ActionResponse.ZAKAZOK;
-        }return ActionResponse.ZAKAZNOK;
+        }
+        return ActionResponse.ZAKAZNOK;
     }
 
     public void updateBanStatus(Long id, BanForm banForm) {
 
         Optional<Ban> optionalBan = banRepository.findById(id);
-       // optionalBan.get().setFreighter(banForm.getFreighter());
+        // optionalBan.get().setFreighter(banForm.getFreighter());
         //optionalBan.get().setCity(banForm.getCity());
         //optionalBan.get().setNip(banForm.getNip());
 
@@ -425,16 +428,15 @@ public class OrderService {
         boolean isFound = test.contains("ZAKAZ"); // true
 
 
-
-        if (isFound==true){
+        if (isFound == true) {
             optionalBan.get().setStatus("OK");
 
-        }else{
+        } else {
             optionalBan.get().setStatus("ZAKAZ");
         }
 
         optionalBan.get().setQueryTime(LocalDateTime.now());
-     //   optionalBan.get().setFreighterPhone(banForm.getFreighterPhone());
+        //   optionalBan.get().setFreighterPhone(banForm.getFreighterPhone());
 
         banRepository.save(optionalBan.get());
     }
