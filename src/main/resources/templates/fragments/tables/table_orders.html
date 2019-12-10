@@ -4,15 +4,15 @@
     <tr style="font-weight: bold">
         <td style="width: 7%">TURA</td>
         <td style="width: 3%">GODZ.</td>
-        <td style="width: 7%">FABRYKA</td>
+        <td style="width: 8%">FABRYKA</td>
         <td style="width: 7%">DATA ZAŁ.</td>
         <td style="width: 3%">NR</td>
         <td style="width: 6%">ZAŁADUNEK</td>
         <td style="width: 21%">ROZŁADUNKI</td>
-        <td style="width: 3%">KM</td>
-        <td style="width: 5%">CENA NASZA</td>
-        <td style="width: 5%">CENA PRZEW.</td>
-        <td style="width: 5%">ZYSK</td>
+        <td style="width: 5%">KM</td>
+        <td style="width: 4%">CENA NASZA</td>
+        <td style="width: 4%">CENA PRZEW.</td>
+        <td style="width: 4%">ZYSK</td>
         <td style="width: 9%">PRZEWOŹNIK</td>
         <td style="width: 7%">T/S</td>
         <td style="width: 7%">STATUS</td>
@@ -37,10 +37,10 @@
         <td>
             <span th:if="${one.kilometers!=null}" th:text="${one.kilometers}+' km'"></span>
         </td>
-        <td><span th:if="${one.price!=null}" th:text="${one.price}+' €'"></span></td>
-        <td><span th:if="${one.freighterPrice!=null}" th:text="${one.freighterPrice}+' €'"></span></td>
+        <td><span th:if="${one.price!=null}" th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}+' €'"></span></td>
+        <td><span th:if="${one.freighterPrice!=null}" th:text="${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
         <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"
-                  th:text="${one.price}-${one.freighterPrice}+' €'"></span></td>
+                  th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}-${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
         <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
         <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
         <td>
