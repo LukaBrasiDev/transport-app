@@ -7,13 +7,14 @@
         <td style="width: 7%">FABRYKA</td>
         <td style="width: 7%">DATA ZAŁ.</td>
         <td style="width: 3%">NR</td>
-        <td style="width: 7%">ZAŁADUNEK</td>
+        <td style="width: 6%">ZAŁADUNEK</td>
         <td style="width: 21%">ROZŁADUNKI</td>
-        <td style="width: 6%">CENA NASZA</td>
-        <td style="width: 6%">CENA PRZEW.</td>
-        <td style="width: 6%">ZYSK</td>
+        <td style="width: 3%">KM</td>
+        <td style="width: 5%">CENA NASZA</td>
+        <td style="width: 5%">CENA PRZEW.</td>
+        <td style="width: 5%">ZYSK</td>
         <td style="width: 9%">PRZEWOŹNIK</td>
-        <td style="width: 6%">T/S</td>
+        <td style="width: 7%">T/S</td>
         <td style="width: 7%">STATUS</td>
         <td style="width: 5%"></td>
     </tr>
@@ -32,6 +33,9 @@
         </td>
         <td>
             <span th:if="${one.cityCodes!=null}" th:text="${one.cityCodes}"></span>
+        </td>
+        <td>
+            <span th:if="${one.kilometers!=null}" th:text="${one.kilometers}+' km'"></span>
         </td>
         <td><span th:if="${one.price!=null}" th:text="${one.price}+' €'"></span></td>
         <td><span th:if="${one.freighterPrice!=null}" th:text="${one.freighterPrice}+' €'"></span></td>

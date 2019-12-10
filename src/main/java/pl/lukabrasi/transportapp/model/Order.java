@@ -47,6 +47,8 @@ public class Order {
     @JoinColumn(name = "city_codes")
     private String cityCodes;
 
+    private Integer kilometers;
+
     private @Column(name = "query_time")
     LocalDateTime queryTime;
 

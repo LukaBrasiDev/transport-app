@@ -191,6 +191,7 @@ public class OrderService {
                 //.replaceAll("[^\\x00-\\x7F]", "")
                 .trim());
         //orderNew.setOurNumber(orderForm.getOurNumber());
+        orderNew.setKilometers(orderForm.getKilometers());
         orderNew.setPrice(orderForm.getPrice());
         orderNew.setFreighterPrice(orderForm.getFreighterPrice());
         orderNew.setUser(orderForm.getUser());
@@ -293,6 +294,7 @@ public class OrderService {
         if (!orderForm.getOurNumber().isEmpty()) {
             optionalOrder.get().setOurNumber(orderForm.getOurNumber());
         }
+        optionalOrder.get().setKilometers(orderForm.getKilometers());
         optionalOrder.get().setPrice(orderForm.getPrice());
         optionalOrder.get().setLoadHour(orderForm.getLoadHour());
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());

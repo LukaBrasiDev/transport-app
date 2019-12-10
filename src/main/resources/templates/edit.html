@@ -15,6 +15,7 @@
         <td th:if="${order != null}" th:text="'NR ZLEC.'"></td>
         <td th:if="${order != null}" th:text="'ZAŁADUNEK'"></td>
         <td th:if="${order != null}" th:text="'ROZŁADUNKI'"></td>
+        <td th:if="${order != null}" th:text="'KM'"></td>
         <td th:if="${order != null}" th:text="'CENA NASZA'"></td>
         <td th:if="${order != null}" th:text="'CENA PRZEW.'"></td>
         <td th:if="${order != null}" th:text="'PRZEWOŹNIK'"></td>
@@ -33,6 +34,7 @@
         </td>
         <td><span th:text="${order.loadingCity}"></span></td>
         <td><span th:if="${order.cityCodes!=null}" th:text="${order.cityCodes}"></span></td>
+        <td><span th:text="${order.kilometers}"></span></td>
         <td><span th:text="${order.price}"></span></td>
         <td><span th:text="${order.freighterPrice}"></span></td>
         <td><span th:if="${order.freighter!=null}" th:text="${order.getFreighter().freighterName}"></span></td>
@@ -96,6 +98,13 @@
                     <textarea th:field="*{cityCodes}" th:wrap="hard" name="cityCodes" class="form-control"
                               id="exampleFormControlSelect22"
                               rows="3"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail50" class="col-sm-2 col-form-label">KILOMETRY</label>
+                <div class="col-sm-2">
+                    <input name="kilometers" th:value="${order.getKilometers()}" type="number" step="1" class="form-control"
+                           id="inputEmail50">
                 </div>
             </div>
             <div class="form-group row">

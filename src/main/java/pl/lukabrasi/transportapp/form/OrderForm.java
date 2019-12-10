@@ -25,6 +25,7 @@ public class OrderForm {
     private String loadingCity;
     private Factory factory;
     private String cityCodes;
+    private Integer kilometers;
     private BigDecimal price;
     private BigDecimal freighterPrice;
     private Freighter freighter;
