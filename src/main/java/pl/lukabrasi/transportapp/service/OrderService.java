@@ -10,7 +10,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
-
 import java.net.InetAddress;
 import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
@@ -28,14 +27,16 @@ public class OrderService {
     final FreighterRepository freighterRepository;
     final FactoryRepository factoryRepository;
     final BanRepository banRepository;
+    final OurDriverRepository ourDriverRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, FreighterRepository freighterRepository, FactoryRepository factoryRepository, BanRepository banRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, FreighterRepository freighterRepository, FactoryRepository factoryRepository, BanRepository banRepository, OurDriverRepository ourDriverRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.freighterRepository = freighterRepository;
         this.factoryRepository = factoryRepository;
         this.banRepository = banRepository;
+        this.ourDriverRepository = ourDriverRepository;
     }
 
     public enum ActionResponse {
@@ -109,6 +110,10 @@ public class OrderService {
         return userRepository.findAll();
     }
 
+    public List<OurDriver> getOurDrivers() {
+        return ourDriverRepository.findAll();
+    }
+
     public List<Freighter> getFreighters() {
         return freighterRepository.findAll();
     }
@@ -145,6 +150,14 @@ public class OrderService {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             return optionalUser.get();
+        }
+        return null;
+    }
+
+    public OurDriver getOurDriverById(Long id) {
+        Optional<OurDriver> optionalOurDriver = ourDriverRepository.findById(id);
+        if (optionalOurDriver.isPresent()) {
+            return optionalOurDriver.get();
         }
         return null;
     }
@@ -249,6 +262,18 @@ public class OrderService {
         }
     }
 
+    public void saveOurDriver(OurDriverForm ourDriverForm) {
+        OurDriver ourDriverNew = new OurDriver();
+        ourDriverNew.setDriverName(ourDriverForm.getDriverName());
+        ourDriverNew.setDriverSurname(ourDriverForm.getDriverSurname());
+        ourDriverNew.setDriverPhone(ourDriverForm.getDriverPhone());
+        ourDriverNew.setDriverInfo(ourDriverForm.getDriverInfo());
+        ourDriverNew.setDriverStatus(ourDriverForm.getDriverStatus());
+        if (!ourDriverForm.getDriverSurname().isEmpty()) {
+            ourDriverRepository.save(ourDriverNew);
+        }
+    }
+
     public ActionResponse updateOrder(Long id, OrderForm orderForm) throws UnknownHostException {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
@@ -344,6 +369,18 @@ public class OrderService {
         //optionalUser.get().setPassword(userForm.getPassword());
 
         userRepository.save(optionalUser.get());
+    }
+
+    public void updateOurDriver(Long id, OurDriverForm ourDriverForm) {
+        Optional<OurDriver> optionalOurDriver = ourDriverRepository.findById(id);
+        optionalOurDriver.get().setDriverName(ourDriverForm.getDriverName());
+        optionalOurDriver.get().setDriverSurname(ourDriverForm.getDriverSurname());
+        optionalOurDriver.get().setDriverPhone(ourDriverForm.getDriverPhone());
+        optionalOurDriver.get().setDriverInfo(ourDriverForm.getDriverInfo());
+        optionalOurDriver.get().setDriverStatus(ourDriverForm.getDriverStatus());
+        //optionalUser.get().setPassword(userForm.getPassword());
+
+        ourDriverRepository.save(optionalOurDriver.get());
     }
 
     public List<Integer> soldByMtwInCurrentMonth(LocalDate date1) {

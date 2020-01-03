@@ -1,8 +1,8 @@
-<nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark" th:fragment="navbar" style="background-color: #e3f2fd;">
+<nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark" th:fragment="navbar"
+     style="background-color: #e3f2fd;">
 
 
-
-    <a class="navbar-brand" href="/zlecenia"><img th:src="@{/images/logo.png}" /></a> v.2.1.0
+    <a class="navbar-brand" href="/zlecenia"><img th:src="@{/images/logo.png}"/></a> v.3.0.0
 
     <!-- Navbar links -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -11,13 +11,7 @@
                 <a class="nav-link" href="/zlecenia">ZLECENIA</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/przewoznicy">PRZEWOŹNICY</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/fabryki">FABRYKI</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/uzytkownicy">OSOBY</a>
+                <a class="nav-link" href="/naszeauta">NASZE AUTA</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/raporty">RAPORTY</a>
@@ -25,15 +19,21 @@
             <li class="nav-item">
                 <a class="nav-link" href="/zakazy">ZAKAZY</a>
             </li>
-             <li class="nav-item dropdown">
-                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Narzędzia
-                 </a>
-                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                     <a class="dropdown-item" href="/kalkulator">Kalkulator tras</a>
 
-                 </div>
-             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    INNE
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/kalkulator">KALKULATOR TRAS</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/kierowcy">KIEROWCY</a>
+                    <a class="dropdown-item" href="/przewoznicy">PRZEWOŹNICY</a>
+                    <a class="dropdown-item" href="/fabryki">FABRYKI</a>
+                    <a class="dropdown-item" href="/uzytkownicy">UŻYTKOWNICY</a>
+                </div>
+            </li>
         </ul>
     </div>
     <div><input id="myInput" class="form-control mr-sm-2" type="text" placeholder="filtruj..." aria-label="Search">

@@ -67,5 +67,8 @@ public class Order {
     @JoinColumn(name = "fk_freighter")
     private Freighter freighter;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "fk_driver")
+    private OurDriver driver;
 
 }
