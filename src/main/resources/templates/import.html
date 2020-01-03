@@ -3,8 +3,10 @@
 <head th:replace="fragments/header :: header"></head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
+<!--
 
 <div th:replace="fragments/selection :: selection"></div>
+-->
 
 
 <div th:if="${info!=null}" style="display:flex;justify-content:center;align-items:center;background-color: #6495ED">
@@ -22,7 +24,9 @@
 <!--poczatek tabeli importy-->
 <table th:replace="fragments/tables/table_imports :: tableimports"></table>
 <!-- koniec tabelki -->
+<!--
 <div th:replace="fragments/selection :: selection"></div>
+-->
 
 <script>
     $("table").tableExport({

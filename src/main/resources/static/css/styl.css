@@ -32,6 +32,11 @@ thead{
   background-color:#dc3545;
     text-align:center
 }
+.import{
+  color:white;
+  background-color:#0275d8;
+    text-align:center
+}
 /*radiobutton active*/
 
 /* This is the default state
