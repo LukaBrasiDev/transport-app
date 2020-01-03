@@ -48,6 +48,21 @@ public class OrderController {
         return "order";
     }
 
+    @GetMapping("/naszeauta")
+    public String getOurCars(Model model,
+                            Pageable pageable) {
+        Page<Order> orderPage = orderService.getOrders(pageable);
+        model.addAttribute("page", orderPage);
+        model.addAttribute("number", orderPage.getNumber());
+        model.addAttribute("totalPages", orderPage.getTotalPages());
+        model.addAttribute("totalElements", orderPage.getTotalElements());
+        model.addAttribute("size", orderPage.getSize());
+        model.addAttribute("orders", orderPage.getContent());
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        return "import";
+    }
+
     @PostMapping("/zlecenia/tydzien")
     public String getOrdersInWeek(@ModelAttribute RangeForm rangeForm,
                                   Model model,
@@ -252,11 +267,13 @@ public class OrderController {
             model.addAttribute("order", orderService.getOrderById(id));
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("freightersasc", orderService.getFreightersSorted());
             return "edit";
         }
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("freightersasc", orderService.getFreightersSorted());
         return "edit";
     }
 

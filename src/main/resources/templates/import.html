@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div th:replace="fragments/selection :: selection"></div>
+
+
+<div th:if="${info!=null}" style="display:flex;justify-content:center;align-items:center;background-color: #6495ED">
+    <div class="alert">
+        <th:block th:if="${info!=null}" th:switch="${info}">
+<span th:case="*{info.ERROR}" th:text="#{Order.info.error}"
+      th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.DUPLICAT}" th:text="#{Order.info.duplicat}" th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.NOFACTORY}" th:text="#{Order.info.nofactory}" th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.SUCCESS}" th:text="#{Order.info.success}"
+                  th:class="${'alert alert-success'}"></span>
+        </th:block>
+    </div>
+</div>
+<!--poczatek tabeli importy-->
+<table th:replace="fragments/tables/table_imports :: tableimports"></table>
+<!-- koniec tabelki -->
+<div th:replace="fragments/selection :: selection"></div>
+
+<script>
+    $("table").tableExport({
+        formats: ["csv", "txt"],
+        trimWhitespace: true,
+        ignoreCols: [0, 1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14]
+    });
+</script>
+</body>
+</html>

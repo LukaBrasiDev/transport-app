@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.lukabrasi.transportapp.model.Factory;
 import pl.lukabrasi.transportapp.model.Freighter;
+import pl.lukabrasi.transportapp.model.OurDriver;
 import pl.lukabrasi.transportapp.model.User;
 
 import java.math.BigDecimal;
@@ -30,6 +31,7 @@ public class OrderForm {
     private BigDecimal freighterPrice;
     private Freighter freighter;
     private User user;
+    private OurDriver driver;
 
 
 }

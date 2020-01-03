@@ -55,7 +55,7 @@
 <!--formularz start-->
 <div class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">
-        <p style="font-weight: bold">EDYTUJ:</p>
+        <p style="font-weight: bold">EDYCJA</p>
         <form method="post" th:action="@{/edycjazlecenie/{id}(id=${order.id})}" th:object="${order}">
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">TURA</label>
@@ -110,24 +110,24 @@
             <div class="form-group row">
                 <label for="inputEmail5" class="col-sm-2 col-form-label">CENA NASZA</label>
                 <div class="col-sm-2">
-                    <input name="price" th:value="${order.getPrice()}" type="number" step="0.01" class="form-control"
+                    <input name="price" th:value="${order.getPrice()}" type="number" step="1" class="form-control"
                            id="inputEmail5">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="inputEmail6" class="col-sm-2 col-form-label">CENA PRZEWOŹNIKA</label>
                 <div class="col-sm-2">
-                    <input name="freighterPrice" th:value="${order.getFreighterPrice()}" type="number" step="0.01"
+                    <input name="freighterPrice" th:value="${order.getFreighterPrice()}" type="number" step="1"
                            class="form-control" id="inputEmail6">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">PRZEWOŹNIK</label>
-                <div class="col-sm-2" th:object="${freighters}">
+                <div class="col-sm-2" th:object="${freightersasc}">
                     <select name="freighter" class="form-control" id="exampleFormControlSelect2">
                         <option value=" ">Wybierz przewoźnika:</option>
-                        <option th:if="${order.getFreighter()}!=null" th:each="f : ${freightersasc}" th:value="${f.id}"
-                                th:text="${f.freighterName}" th:selected="${f.id== order.getFreighter().id}"></option>
+                        <option th:if="${order.freighter}!=null" th:each="f : ${freightersasc}" th:value="${f.id}"
+                                th:text="${f.freighterName}" th:selected="${f.freighterName== order.getFreighter().freighterName}"></option>
                         <option th:if="${order.freighter}==null" th:each="f : ${freightersasc}" th:value="${f.id}"
                                 th:text="${f.freighterName}"></option>
                     </select>
