@@ -262,14 +262,8 @@ public class OrderController {
             @PathVariable Long id,
             @ModelAttribute OrderForm orderForm, Model model) throws UnknownHostException {
         OrderService.ActionResponse actionResponse = orderService.updateOrder(id, orderForm);
-        if (actionResponse == OrderService.ActionResponse.EDIT) {
-            model.addAttribute("info", actionResponse);
-            model.addAttribute("order", orderService.getOrderById(id));
-            model.addAttribute("users", orderService.getUsers());
-            model.addAttribute("freighters", orderService.getFreighters());
-            model.addAttribute("freightersasc", orderService.getFreightersSorted());
-            return "edit";
-        }
+
+        model.addAttribute("info", actionResponse);
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());

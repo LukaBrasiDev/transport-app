@@ -10,6 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
+
 import java.net.InetAddress;
 import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
@@ -330,7 +331,11 @@ public class OrderService {
         String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest().getRemoteAddr();
         optionalOrder.get().setIpaddress(remoteAddress);
-
+//if do save,jezeli osoba nie jest pusta a przewoznik jest pusty to error, save tylko jak przewoznik pusty
+        // i osoba pusta,
+        if ((orderForm.getFreighter()==null && orderForm.getUser()!=null) || (orderForm.getFreighter()!=null && orderForm.getUser()==null)) {
+            return ActionResponse.ERROR;
+        }
         orderRepository.save(optionalOrder.get());
         return ActionResponse.EDIT;
     }

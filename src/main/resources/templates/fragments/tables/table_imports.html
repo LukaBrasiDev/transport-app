@@ -14,7 +14,7 @@
         <td style="width: 9%">DATA DOK.</td>
 
         <td class="import" style="width: 9%">ZAŁADUNEK</td>
-        <td class="import" style="width: 9%">KM</td>
+        <td class="import" style="width: 9%">DOJAZD KM</td>
         <td class="import" style="width: 9%">ROZŁADUNEK</td>
         <td class="import" style="width: 9%">DATA DOK.</td>
         <td class="import" style="width: 9%">ZAŁADUNEK</td>
@@ -80,10 +80,10 @@
             <span style="background-color:lightgreen"
                   th:if="${one.freighter!=null} and ${one.freighter.freighterName=='MTW'}">#MTW</span>
         </td>
-
+-->
         <td>
-            <a class="btn btn-outline-danger btn-sm" th:href="@{/edycjazlecenie/{id}(id=${one.id})}" role="button">Edytuj</a>
-        </td>-->
+            <a class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}" role="button">Edycja</a>
+        </td>
     </tr>
     </tbody>
 </table>
