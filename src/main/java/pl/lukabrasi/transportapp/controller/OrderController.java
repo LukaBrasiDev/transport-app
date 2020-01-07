@@ -258,6 +258,8 @@ public class OrderController {
         return "edit";
     }
 
+
+
     @PostMapping("/edycjazlecenie/{id}")
     public String updateOrder(
             @PathVariable Long id,
@@ -269,8 +271,34 @@ public class OrderController {
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
         model.addAttribute("drivers", orderService.getOurDrivers());
-
         return "edit";
+    }
+
+    @GetMapping("/edycjaimport/{id}")
+    public String editImport(@PathVariable Long id,
+                             Model model) {
+        model.addAttribute("order", orderService.getOrderById(id));
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("freightersasc", orderService.getFreightersSorted());
+        model.addAttribute("factories", orderService.getFactories());
+        model.addAttribute("drivers", orderService.getOurDrivers());
+        model.addAttribute("orderForm", new OrderForm());
+        return "editimport";
+    }
+
+    @PostMapping("/edycjaimport/{id}")
+    public String updateImport(
+            @PathVariable Long id,
+            @ModelAttribute OrderForm orderForm, Model model) throws UnknownHostException {
+        OrderService.ActionResponse actionResponse = orderService.updateOrderImport(id, orderForm);
+
+        model.addAttribute("info", actionResponse);
+        model.addAttribute("order", orderService.getOrderById(id));
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("drivers", orderService.getOurDrivers());
+        return "editimport";
     }
 
     @GetMapping("/raporty")

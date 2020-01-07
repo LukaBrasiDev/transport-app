@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head th:replace="fragments/header :: header"></head>
+<body>
+
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<table th:fragment="tableimports" class="table-sm table-bordered table-hover" id="export"
+       xmlns:th="http://www.thymeleaf.org/">
+    <thead>
+    <tr style="font-weight: bold">
+        <td colspan="6">EXPORT</td>
+        <td class="import" colspan="6">IMPORT</td>
+    </tr>
+    <tr style="font-weight: bold">
+        <td style="width: 6%">TURA</td>
+        <td style="width: 10%">KIEROWCA</td>
+        <td style="width: 4%">DATA ZAŁ.</td>
+        <td style="width: 9%">FABRYKA</td>
+        <td style="width: 9%">ROZŁADUNEK</td>
+        <td style="width: 9%">DATA DOK.</td>
+
+        <td class="import" style="width: 9%">ZAŁADUNEK</td>
+        <td class="import" style="width: 9%">DOJAZD KM</td>
+        <td class="import" style="width: 9%">ROZŁADUNEK</td>
+        <td class="import" style="width: 9%">SPEDYTOR</td>
+        <td class="import" style="width: 9%">DATA DOK.</td>
+        <td class="import" style="width: 9%">NAST. ZAŁADUNEK</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><strong><span th:text="${order.orderNumber}"></span></strong></td>
+        <td><span th:if="${order.driver!=null}"
+                  th:text="${#strings.substring(order.driver.driverName,0,1)}  + '.' + ${order.driver.driverSurname}"></span>
+        </td>
+        <td><span th:text="${order.loadDate}"></span></td>
+        <td><span th:if="${order.factory!=null}"
+                  th:text="${order.loadingCity}"></span></td>
+        <td>
+            <span th:if="${order.cityCodes!=null}"
+                  th:text="${#strings.arraySplit(order.cityCodes, ',')[#arrays.length(#strings.arraySplit(order.cityCodes, ',')) - 1]}"></span>
+        </td>
+        <td>
+            <span th:if="${order.docDateExp!=null}"
+            th:text="${order.docDateExp}"></span>
+        </td>
+        <td>
+            <span th:if="${order.loadingCityImp!=null}"
+                  th:text="${order.loadingCityImp}"></span>
+        </td>
+        <td>
+            <span> </span>
+        </td>
+        <td>
+            <span> </span>
+        </td>
+        <td>
+            <span> </span>
+        </td>
+        <td>
+            <span> </span>
+        </td>
+        <td>
+            <span> </span>
+        </td>
+        <!--  <td><span th:text="${one.ourNumber!=null} ? ${one.ourNumber} : (${#strings.length(one.id)<4} ? ${one.id}+'.' : ${#strings.substring(one.id,(#strings.length(one.id)-3),(#strings.length(one.id)))}+'.')"></span></td>
+          <td>
+              <span th:text="${one.loadingCity}"></span>
+          </td>
+
+          <td>
+              <span th:if="${one.kilometers!=null}" th:text="${one.kilometers}+' km'"></span>
+          </td>
+          <td><span th:if="${one.price!=null}" th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}+' €'"></span></td>
+          <td><span th:if="${one.freighterPrice!=null}" th:text="${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
+          <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"
+                    th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}-${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
+          <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
+          <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
+          <td>
+              <span style="background-color:#d9534f;color:black"
+                    th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna#spad</span>
+              <span style="background-color:#5bc0de"
+                    th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') < #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna</span>
+              <span style="background-color:#5bc0de"
+                    th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') == #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna</span>
+              <span style="background-color:#5cb85c" th:if="${one.user!=null} and ${one.user.userName!='STORNO'}">#sprzedana</span>
+              <span style="background-color:gray"
+                    th:if="${one.user!=null} and ${one.user.userName=='STORNO'}">#storno</span>
+              <span style="background-color:lightgreen"
+                    th:if="${one.freighter!=null} and ${one.freighter.freighterName=='MTW'}">#MTW</span>
+          </td>
+  -->
+
+    </tr>
+    </tbody>
+</table>
+
+
+<!--
+<div th:if="${info!=null}" style="display:flex;justify-content:center;align-items:center;background-color: #6495ED">
+    <div class="alert">
+        <th:block th:if="${info!=null}" th:switch="${info}">
+<span th:case="*{info.ERROR}" th:text="#{Order.info.error}"
+      th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.DUPLICAT}" th:text="#{Order.info.duplicat}" th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.EDIT}" th:text="#{Edit.info.edited}"
+                  th:class="${'alert alert-success'}"></span>
+        </th:block>
+    </div>
+</div>-->
+
+
+<!--formularz start-->
+<div class="container-fluid" style="background-color: lightgrey">
+    <div style="padding-top: 25px;padding-bottom: 25px">
+        <p style="font-weight: bold">EDYCJA</p>
+        <form method="post" th:action="@{/edycjaimport/{id}(id=${order.id})}" th:object="${order}">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">TURA</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail3" name="orderNumber" type="text" disabled
+                           th:value="${order.getOrderNumber()}">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="otherFieldDiv" class="col-sm-2 col-form-label">KIEROWCA</label>
+                <div class="col-sm-2" th:object="${drivers}">
+                    <select name="driver" class="form-control" id="otherFieldDiv">
+                        <option value=" ">Wybierz osobę:</option>
+                        <option th:if="${order.driver}!=null" th:each="d : ${drivers}" th:value="${d.id}"
+                                th:text="${d.driverName + ' ' + d.driverSurname}"
+                                th:selected="${d.id == order.getDriver().id}"></option>
+                        <option th:if="${order.driver}==null" th:each="d : ${drivers}" th:value="${d.id}"
+                                th:text="${d.driverName + ' ' + d.driverSurname}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputEmail4" class="col-sm-2 col-form-label">DATA DOK.</label>
+                <div class="col-sm-2">
+                    <input name="docDateExp" type="date" th:value="${order.getDocDateExp()}" class="form-control"
+                           id="inputEmail4">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputEmail36" class="col-sm-2 col-form-label">ZAŁADUNEK</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail36" name="loadingCityImp" type="text"
+                           th:value="${order.getLoadingCityImp()}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail667" class="col-sm-2 col-form-label">OSTATNIA MODYFIKACJA:</label>
+                <div class="col-sm-2">
+                    <input name="queryTime" th:value="${#temporals.format(order.getQueryTime(), 'dd-MM-yyyy HH:mm')}"
+                           class="form-control" id="inputEmail667" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail6678" class="col-sm-2 col-form-label"> </label>
+                <div class="col-sm-2">
+                    <input name="ipaddress" th:value="${order.getIpaddress()}"
+                           class="form-control" id="inputEmail6678" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
+
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-success btn-lg">ZAPISZ</button>
+                    <a href="/naszeauta" class="btn btn-secondary btn-lg">WYJDŹ</a>
+                </div>
+            </div>
+        </form>
+      <!-- formularz end-->
+    </div>
+</div>
+</body>
+</html>

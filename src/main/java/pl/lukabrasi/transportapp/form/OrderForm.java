@@ -5,13 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.lukabrasi.transportapp.model.Factory;
-import pl.lukabrasi.transportapp.model.Freighter;
 import pl.lukabrasi.transportapp.model.OurDriver;
 import pl.lukabrasi.transportapp.model.User;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -32,6 +30,15 @@ public class OrderForm {
     private String freighter;
     private User user;
     private OurDriver driver;
-
+    //import
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate docDateExp;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate docDateImp;
+    private String loadingCityImp;
+    private String nextLoadingCityImp;
+    private String cityCodesImp;
+    private Integer kilometersImp;
+   // private User user2;
 
 }
