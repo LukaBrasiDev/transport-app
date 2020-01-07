@@ -103,6 +103,10 @@ public class OrderService {
         return orderRepository.findAllByOrderNumberContainsOrderByLoadDateAscLoadingCityAsc(searchStr, pageable);
     }
 
+    public Page<Order> findAllMTW (Pageable pageable){
+        return orderRepository.findAllMTW(pageable);
+    }
+
     public List<Factory> getFactories() {
         return factoryRepository.findAll();
     }
@@ -324,7 +328,33 @@ public class OrderService {
         optionalOrder.get().setPrice(orderForm.getPrice());
         optionalOrder.get().setLoadHour(orderForm.getLoadHour());
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
-        optionalOrder.get().setFreighter(orderForm.getFreighter());
+
+
+            if ((orderForm.getFreighter().isEmpty() && orderForm.getUser() != null && !orderForm.getUser().getUserName().equals("STORNO")) || (!orderForm.getFreighter().isEmpty() && orderForm.getUser() == null)) {
+                return ActionResponse.ERROR;
+            }
+
+      //tak bylo:  optionalOrder.get().setFreighter(orderForm.getFreighter());
+
+
+        //sprawdzam czytaki przewoznik istnieje w bazie danych
+        String namePrzewoznika = orderForm.getFreighter();
+        Optional<Freighter> freighterOptional = freighterRepository.findFreighterByFreighterName(orderForm.getFreighter());
+
+
+        //jezeli przewoznik nie istnieje w bazie to zapisuje go do bazy jako nowy
+        if (!freighterOptional.isPresent()) {
+          //  contactOptional.get().getTags().add(tagRepository.save(new Tag(t)));
+            Freighter freighterNew = new Freighter();
+            freighterNew.setFreighterName(orderForm.getFreighter());
+            freighterRepository.save(freighterNew);
+             optionalOrder.get().setFreighter(freighterNew);
+            //jezeli tag istnieje w bazie to tylko dodaje go do kontaktu
+        } else {
+           // contactOptional.get().getTags().add(tagOptional.get());
+            optionalOrder.get().setFreighter(freighterRepository.findByFreighterName(orderForm.getFreighter()));
+        }
+        optionalOrder.get().setDriver(orderForm.getDriver());
         optionalOrder.get().setUser(orderForm.getUser());
         optionalOrder.get().setQueryTime(LocalDateTime.now());
         // update adresu ip
@@ -333,9 +363,7 @@ public class OrderService {
         optionalOrder.get().setIpaddress(remoteAddress);
 //if do save,jezeli osoba nie jest pusta a przewoznik jest pusty to error, save tylko jak przewoznik pusty
         // i osoba pusta,
-        if ((orderForm.getFreighter()==null && orderForm.getUser()!=null) || (orderForm.getFreighter()!=null && orderForm.getUser()==null)) {
-            return ActionResponse.ERROR;
-        }
+
         orderRepository.save(optionalOrder.get());
         return ActionResponse.EDIT;
     }

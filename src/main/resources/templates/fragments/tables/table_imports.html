@@ -8,7 +8,7 @@
     <tr style="font-weight: bold">
         <td style="width: 6%">TURA</td>
         <td style="width: 10%">KIEROWCA</td>
-        <td style="width: 4%">TYDZIEŃ</td>
+        <td style="width: 4%">KW</td>
         <td style="width: 9%">FABRYKA</td>
         <td style="width: 9%">ROZŁADUNEK</td>
         <td style="width: 9%">DATA DOK.</td>
@@ -23,34 +23,34 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="one : ${orders}"  th:style="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null} ? 'color:red' : ''">
+    <tr th:each="one : ${orders}" >
         <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
-        <td><span th:if="${one.driver!=null}" th:text="${one.driver.driverName} + ' ' + ${one.driver.driverSurname}"></span></td>
+        <td><span th:if="${one.driver!=null}" th:text="${#strings.substring(one.driver.driverName,0,1)}  + '.' + ${one.driver.driverSurname}"></span></td>
         <td><span th:text="${one.loadDate}"></span></td>
         <td><span th:if="${one.factory!=null}"
                   th:text="${one.loadingCity}"></span></td>
         <td>
-            <span th:if="${one.cityCodes!=null}" th:text="${#strings.substring(one.cityCodes,#strings.length(one.cityCodes)-5,#strings.length(one.cityCodes))}"></span>
+            <span th:if="${one.cityCodes!=null}" th:text="${#strings.arraySplit(one.cityCodes, ',')[#arrays.length(#strings.arraySplit(one.cityCodes, ',')) - 1]}"></span>
         </td>
         <td>
-            <span>data dok.</span>
+            <span> </span>
         </td>
 
 
         <td>
-            <span>kod załadunku</span>
+            <span> </span>
         </td>
         <td>
-            <span>km</span>
+            <span> </span>
         </td>
         <td>
-            <span>kod rozład.</span>
+            <span> </span>
         </td>
         <td>
-            <span>data dok.</span>
+            <span> </span>
         </td>
         <td>
-            <span>załadunek</span>
+            <span> </span>
         </td>
 
       <!--  <td><span th:text="${one.ourNumber!=null} ? ${one.ourNumber} : (${#strings.length(one.id)<4} ? ${one.id}+'.' : ${#strings.substring(one.id,(#strings.length(one.id)-3),(#strings.length(one.id)))}+'.')"></span></td>

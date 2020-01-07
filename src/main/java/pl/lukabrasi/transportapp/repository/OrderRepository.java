@@ -85,5 +85,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value="SELECT count(o.id) as Inne from orders as o, factory as f where o.fk_factory = f.id and year(o.date_load)=year(?1) and YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >1 and f.factory_group = 'I'",nativeQuery = true)
     Integer soldOtherGroupWeekly(LocalDate date1);
 
+    @Query(value = "SELECT * FROM orders where fk_freighter=1  order by date_load desc, fk_user asc", nativeQuery = true)
+    Page<Order> findAllMTW (Pageable pageable);
+
+
+
+
 
 }

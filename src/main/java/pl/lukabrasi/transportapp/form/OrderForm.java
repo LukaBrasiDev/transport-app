@@ -29,7 +29,7 @@ public class OrderForm {
     private Integer kilometers;
     private BigDecimal price;
     private BigDecimal freighterPrice;
-    private Freighter freighter;
+    private String freighter;
     private User user;
     private OurDriver driver;
 
