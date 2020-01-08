@@ -39,6 +39,6 @@ public class OrderForm {
     private String nextLoadingCityImp;
     private String cityCodesImp;
     private Integer kilometersImp;
-   // private User user2;
+    private String userImp;
 
 }

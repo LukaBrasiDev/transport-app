@@ -116,7 +116,7 @@ public class OrderService {
     }
 
     public List<OurDriver> getOurDrivers() {
-        return ourDriverRepository.findAll();
+        return ourDriverRepository.findAllByOrderByDriverSurnameAsc();
     }
 
     public List<Freighter> getFreighters() {
@@ -357,22 +357,12 @@ public class OrderService {
         optionalOrder.get().setDriver(orderForm.getDriver());
         optionalOrder.get().setUser(orderForm.getUser());
 
-        //import
-        optionalOrder.get().setDocDateExp(orderForm.getDocDateExp());
-        optionalOrder.get().setLoadingCityImp(orderForm.getLoadingCityImp());
-        optionalOrder.get().setKilometersImp(orderForm.getKilometersImp());
-        optionalOrder.get().setCityCodesImp(orderForm.getCityCodesImp());
-        optionalOrder.get().setDocDateImp(orderForm.getDocDateImp());
-       optionalOrder.get().setNextLoadingCityImp(orderForm.getNextLoadingCityImp());
-
 
         optionalOrder.get().setQueryTime(LocalDateTime.now());
         // update adresu ip
         String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest().getRemoteAddr();
         optionalOrder.get().setIpaddress(remoteAddress);
-//if do save,jezeli osoba nie jest pusta a przewoznik jest pusty to error, save tylko jak przewoznik pusty
-        // i osoba pusta,
 
         orderRepository.save(optionalOrder.get());
         return ActionResponse.EDIT;
@@ -382,79 +372,9 @@ public class OrderService {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
 
-       // optionalOrder.get().setOrderNumber(orderForm.getOrderNumber());
 
-        /*String orderPrefix = orderForm.getOrderNumber();
-        if (orderPrefix.length() >= 3) {
-            orderPrefix = orderPrefix.substring(0, 3);
-            // sprawdzenie czy istnieje prefix fabryki dla podanego order number
-            Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
-            //uzupelnianie fabryki na podstawie prefixu tury
-            if (cityPrefix.isPresent()) {
-                optionalOrder.get().setFactory(cityPrefix.get());
-            }
-            //uzupelnianie zaladunku jezeli jest pusty miastem fabryki z tury
-            if (cityPrefix.isPresent() && optionalOrder.get().getLoadingCity() == null) {
-                optionalOrder.get().setLoadingCity(cityPrefix.get().getFactoryCity());
-            } else {
-                //tura inna niz z factory - nadpisz miasto
-                optionalOrder.get().setLoadingCity(orderForm.getLoadingCity().toUpperCase());
-            }
-        } else {
-            //brak tury
-            optionalOrder.get().setLoadingCity(orderForm.getLoadingCity().toUpperCase());
-        }*/
-
-       // optionalOrder.get().setLoadDate(orderForm.getLoadDate());
-        //update kodow - splitowanie stringa do linked listy
-      /*  List<String> codes = new LinkedList<>();
-        String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.trim().isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
-        for (int i = 0; i < stringCodes.length; i++) {
-            codes.add(stringCodes[i]);
-        }
-        optionalOrder.get().setCityCodes(codes.toString()
-                .replace("[", "")  //remove the right bracket
-                .replace("]", "")  //remove the left bracket
-                .replace(" ", "")
-                .replaceAll("\\s{2,}", "")
-                .replace(",", ", ")
-                // .replaceAll("[^\\x00-\\x7F]", "")
-                .trim());
-        if (!orderForm.getOurNumber().isEmpty()) {
-            optionalOrder.get().setOurNumber(orderForm.getOurNumber());
-        }*/
-       // optionalOrder.get().setKilometers(orderForm.getKilometers());
-       // optionalOrder.get().setPrice(orderForm.getPrice());
-       // optionalOrder.get().setLoadHour(orderForm.getLoadHour());
-       // optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
-
-
-     /*   if ((orderForm.getFreighter().isEmpty() && orderForm.getUser() != null && !orderForm.getUser().getUserName().equals("STORNO")) || (!orderForm.getFreighter().isEmpty() && orderForm.getUser() == null)) {
-            return ActionResponse.ERROR;
-        }*/
-
-
-
-
-        //sprawdzam czytaki przewoznik istnieje w bazie danych
-     //   String namePrzewoznika = orderForm.getFreighter();
-     //   Optional<Freighter> freighterOptional = freighterRepository.findFreighterByFreighterName(orderForm.getFreighter());
-
-
-        //jezeli przewoznik nie istnieje w bazie to zapisuje go do bazy jako nowy
-       /* if (!freighterOptional.isPresent()) {
-            //  contactOptional.get().getTags().add(tagRepository.save(new Tag(t)));
-            Freighter freighterNew = new Freighter();
-            freighterNew.setFreighterName(orderForm.getFreighter());
-            freighterRepository.save(freighterNew);
-            optionalOrder.get().setFreighter(freighterNew);
-            //jezeli tag istnieje w bazie to tylko dodaje go do kontaktu
-        } else {
-            // contactOptional.get().getTags().add(tagOptional.get());
-            optionalOrder.get().setFreighter(freighterRepository.findByFreighterName(orderForm.getFreighter()));
-        }*/
         optionalOrder.get().setDriver(orderForm.getDriver());
-      //  optionalOrder.get().setUser(orderForm.getUser());
+
 
         //import
         optionalOrder.get().setDocDateExp(orderForm.getDocDateExp());
@@ -463,15 +383,13 @@ public class OrderService {
         optionalOrder.get().setCityCodesImp(orderForm.getCityCodesImp());
         optionalOrder.get().setDocDateImp(orderForm.getDocDateImp());
         optionalOrder.get().setNextLoadingCityImp(orderForm.getNextLoadingCityImp());
+        optionalOrder.get().setUserImp(orderForm.getUserImp());
 
-
-        optionalOrder.get().setQueryTime(LocalDateTime.now());
+        optionalOrder.get().setQueryTimeImp(LocalDateTime.now());
         // update adresu ip
         String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest().getRemoteAddr();
-        optionalOrder.get().setIpaddress(remoteAddress);
-//if do save,jezeli osoba nie jest pusta a przewoznik jest pusty to error, save tylko jak przewoznik pusty
-        // i osoba pusta,
+        optionalOrder.get().setIpaddressImp(remoteAddress);
 
         orderRepository.save(optionalOrder.get());
         return ActionResponse.EDIT;

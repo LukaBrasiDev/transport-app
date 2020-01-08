@@ -91,8 +91,14 @@ public class Order {
     private @Column(name = "next_loading_city_imp")
     String nextLoadingCityImp;
 
-  //  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-   // @JoinColumn(name = "fk_user2")
-  //  private User user2;
+    private @Column(name = "user_imp")
+    String userImp;
+
+    private @Column(name = "query_time_imp")
+    LocalDateTime queryTimeImp;
+
+    private @Column(name = "ipaddress_imp")
+    String ipaddressImp;
+
 
 }

@@ -20,10 +20,10 @@
         <td style="width: 9%">ROZŁADUNEK</td>
         <td style="width: 9%">DATA DOK.</td>
 
-        <td class="import" style="width: 9%">ZAŁADUNEK</td>
+        <td class="import" style="width: 9%">SKĄD</td>
         <td class="import" style="width: 9%">DOJAZD KM</td>
-        <td class="import" style="width: 9%">ROZŁADUNEK</td>
-        <td class="import" style="width: 9%">SPEDYTOR</td>
+        <td class="import" style="width: 9%">DOKĄD</td>
+        <td class="import" style="width: 9%">KTO ZNALAZŁ</td>
         <td class="import" style="width: 9%">DATA DOK.</td>
         <td class="import" style="width: 9%">NAST. ZAŁADUNEK</td>
     </tr>
@@ -43,56 +43,32 @@
         </td>
         <td>
             <span th:if="${order.docDateExp!=null}"
-            th:text="${order.docDateExp}"></span>
+                  th:text="${order.docDateExp}"></span>
         </td>
         <td>
             <span th:if="${order.loadingCityImp!=null}"
                   th:text="${order.loadingCityImp}"></span>
         </td>
         <td>
-            <span> </span>
+           <span th:if="${order.kilometersImp!=null}"
+                 th:text="${order.kilometersImp}+ ' km'"></span>
         </td>
         <td>
-            <span> </span>
+            <span th:if="${order.cityCodesImp!=null}"
+                  th:text="${order.cityCodesImp}"></span>
         </td>
         <td>
-            <span> </span>
+           <span th:if="${order.userImp!=null}"
+                 th:text="${order.userImp}"></span>
         </td>
         <td>
-            <span> </span>
+            <span th:if="${order.docDateImp!=null}"
+                  th:text="${order.docDateImp}"></span>
         </td>
         <td>
-            <span> </span>
+            <span th:if="${order.nextLoadingCityImp!=null}"
+                  th:text="${order.nextLoadingCityImp}"></span>
         </td>
-        <!--  <td><span th:text="${one.ourNumber!=null} ? ${one.ourNumber} : (${#strings.length(one.id)<4} ? ${one.id}+'.' : ${#strings.substring(one.id,(#strings.length(one.id)-3),(#strings.length(one.id)))}+'.')"></span></td>
-          <td>
-              <span th:text="${one.loadingCity}"></span>
-          </td>
-
-          <td>
-              <span th:if="${one.kilometers!=null}" th:text="${one.kilometers}+' km'"></span>
-          </td>
-          <td><span th:if="${one.price!=null}" th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}+' €'"></span></td>
-          <td><span th:if="${one.freighterPrice!=null}" th:text="${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
-          <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"
-                    th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}-${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
-          <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
-          <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
-          <td>
-              <span style="background-color:#d9534f;color:black"
-                    th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna#spad</span>
-              <span style="background-color:#5bc0de"
-                    th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') < #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna</span>
-              <span style="background-color:#5bc0de"
-                    th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') == #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna</span>
-              <span style="background-color:#5cb85c" th:if="${one.user!=null} and ${one.user.userName!='STORNO'}">#sprzedana</span>
-              <span style="background-color:gray"
-                    th:if="${one.user!=null} and ${one.user.userName=='STORNO'}">#storno</span>
-              <span style="background-color:lightgreen"
-                    th:if="${one.freighter!=null} and ${one.freighter.freighterName=='MTW'}">#MTW</span>
-          </td>
-  -->
-
     </tr>
     </tbody>
 </table>
@@ -128,43 +104,86 @@
             <div class="form-group row">
                 <label for="otherFieldDiv" class="col-sm-2 col-form-label">KIEROWCA</label>
                 <div class="col-sm-2" th:object="${drivers}">
-                    <select name="driver" class="form-control" id="otherFieldDiv">
+                    <select name="driver" class="form-control" id="otherFieldDiv" style="border:2px solid tomato;">
                         <option value=" ">Wybierz osobę:</option>
                         <option th:if="${order.driver}!=null" th:each="d : ${drivers}" th:value="${d.id}"
-                                th:text="${d.driverName + ' ' + d.driverSurname}"
+                                th:text="${d.driverSurname + ' ' + d.driverName}"
                                 th:selected="${d.id == order.getDriver().id}"></option>
                         <option th:if="${order.driver}==null" th:each="d : ${drivers}" th:value="${d.id}"
-                                th:text="${d.driverName + ' ' + d.driverSurname}"></option>
+                                th:text="${d.driverSurname + ' ' + d.driverName}"></option>
                     </select>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="inputEmail4" class="col-sm-2 col-form-label">DATA DOK.</label>
+                <label for="inputEmail4" class="col-sm-2 col-form-label">DATA DOK. EXP.</label>
                 <div class="col-sm-2">
                     <input name="docDateExp" type="date" th:value="${order.getDocDateExp()}" class="form-control"
-                           id="inputEmail4">
+                           id="inputEmail4" style="border:2px solid tomato;">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="inputEmail36" class="col-sm-2 col-form-label">ZAŁADUNEK</label>
+                <label for="inputEmail36" class="col-sm-2 col-form-label">SKĄD</label>
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail36" name="loadingCityImp" type="text"
-                           th:value="${order.getLoadingCityImp()}">
+                           th:value="${order.getLoadingCityImp()}" style="border:2px solid dodgerblue;">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail367" class="col-sm-2 col-form-label">DOJAZD KM</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail367" name="kilometersImp" type="number"
+                           th:value="${order.getKilometersImp()}" style="border:2px solid dodgerblue;">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3677" class="col-sm-2 col-form-label">DOKĄD</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail3677" name="cityCodesImp" type="text"
+                           th:value="${order.getCityCodesImp()}" style="border:2px solid dodgerblue;">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="otherFieldDiv33" class="col-sm-2 col-form-label">KTO ZNALAZŁ</label>
+                <div class="col-sm-2" th:object="${users}">
+                    <select name="userImp" class="form-control" id="otherFieldDiv33"
+                            style="border:2px solid dodgerblue;">
+                        <option value=" ">Wybierz osobę:</option>
+                        <option th:if="${order.userImp}!=null" th:each="d : ${users}" th:value="${d.userName}"
+                                th:text="${d.userName}"
+                                th:selected="${d.userName == order.getUserImp()}"></option>
+                        <option th:if="${order.userImp}==null" th:each="d : ${users}" th:value="${d.userName}"
+                                th:text="${d.userName}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail48" class="col-sm-2 col-form-label">DATA DOK. IMP.</label>
+                <div class="col-sm-2">
+                    <input name="docDateImp" type="date" th:value="${order.getDocDateImp()}" class="form-control"
+                           id="inputEmail48" style="border:2px solid dodgerblue;">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail36778" class="col-sm-2 col-form-label">NAST. ZAŁADUNEK</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail36778" name="nextLoadingCityImp" type="text"
+                           th:value="${order.getNextLoadingCityImp()}" style="border:2px solid dodgerblue;">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="inputEmail667" class="col-sm-2 col-form-label">OSTATNIA MODYFIKACJA:</label>
                 <div class="col-sm-2">
-                    <input name="queryTime" th:value="${#temporals.format(order.getQueryTime(), 'dd-MM-yyyy HH:mm')}"
+                    <input name="queryTimeImp"
+                           th:value="${#temporals.format(order.getQueryTimeImp(), 'dd-MM-yyyy HH:mm')}"
                            class="form-control" id="inputEmail667" disabled>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="inputEmail6678" class="col-sm-2 col-form-label"> </label>
                 <div class="col-sm-2">
-                    <input name="ipaddress" th:value="${order.getIpaddress()}"
+                    <input name="ipaddressImp" th:value="${order.getIpaddressImp()}"
                            class="form-control" id="inputEmail6678" disabled>
                 </div>
             </div>
@@ -178,7 +197,7 @@
                 </div>
             </div>
         </form>
-      <!-- formularz end-->
+        <!-- formularz end-->
     </div>
 </div>
 </body>

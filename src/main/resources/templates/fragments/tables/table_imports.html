@@ -13,12 +13,12 @@
         <td style="width: 9%">ROZŁADUNEK</td>
         <td style="width: 9%">DATA DOK.</td>
 
-        <td class="import" style="width: 9%">ZAŁADUNEK</td>
+        <td class="import" style="width: 9%">SKĄD</td>
         <td class="import" style="width: 9%">DOJAZD KM</td>
-        <td class="import" style="width: 9%">ROZŁADUNEK</td>
-        <td class="import" style="width: 9%">SPEDYTOR</td>
+        <td class="import" style="width: 9%">DOKĄD</td>
+        <td class="import" style="width: 9%">KTO ZNALAZŁ</td>
         <td class="import" style="width: 9%">DATA DOK.</td>
-        <td class="import" style="width: 9%">ZAŁADUNEK</td>
+        <td class="import" style="width: 9%">NAST. ZAŁADUNEK</td>
 
         <td class="import" style="width: 5%"></td>
     </tr>
@@ -34,57 +34,33 @@
             <span th:if="${one.cityCodes!=null}" th:text="${#strings.arraySplit(one.cityCodes, ',')[#arrays.length(#strings.arraySplit(one.cityCodes, ',')) - 1]}"></span>
         </td>
         <td>
-            <span> </span>
-        </td>
-
-
-        <td>
-            <span> </span>
+           <span th:if="${one.docDateExp!=null}"
+                 th:text="${one.docDateExp}"></span>
         </td>
         <td>
-            <span> </span>
+            <span th:if="${one.loadingCityImp!=null}"
+                  th:text="${one.loadingCityImp}"></span>
         </td>
         <td>
-            <span> </span>
+            <span th:if="${one.kilometersImp!=null}"
+                  th:text="${one.kilometersImp}+' km'"></span>
         </td>
         <td>
-            <span> </span>
+            <span th:if="${one.cityCodesImp!=null}"
+                  th:text="${one.cityCodesImp}"></span>
         </td>
         <td>
-            <span> </span>
+           <span th:if="${one.userImp!=null}"
+                 th:text="${one.userImp}"></span>
         </td>
         <td>
-            <span> </span>
+            <span th:if="${one.docDateImp!=null}"
+                  th:text="${one.docDateImp}"></span>
         </td>
-
-      <!--  <td><span th:text="${one.ourNumber!=null} ? ${one.ourNumber} : (${#strings.length(one.id)<4} ? ${one.id}+'.' : ${#strings.substring(one.id,(#strings.length(one.id)-3),(#strings.length(one.id)))}+'.')"></span></td>
         <td>
-            <span th:text="${one.loadingCity}"></span>
+            <span th:if="${one.nextLoadingCityImp!=null}"
+            th:text="${one.nextLoadingCityImp}"></span>
         </td>
-
-        <td>
-            <span th:if="${one.kilometers!=null}" th:text="${one.kilometers}+' km'"></span>
-        </td>
-        <td><span th:if="${one.price!=null}" th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}+' €'"></span></td>
-        <td><span th:if="${one.freighterPrice!=null}" th:text="${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
-        <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"
-                  th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}-${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
-        <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
-        <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
-        <td>
-            <span style="background-color:#d9534f;color:black"
-                  th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna#spad</span>
-            <span style="background-color:#5bc0de"
-                  th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') < #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna</span>
-            <span style="background-color:#5bc0de"
-                  th:if="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') == #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null}">#wolna</span>
-            <span style="background-color:#5cb85c" th:if="${one.user!=null} and ${one.user.userName!='STORNO'}">#sprzedana</span>
-            <span style="background-color:gray"
-                  th:if="${one.user!=null} and ${one.user.userName=='STORNO'}">#storno</span>
-            <span style="background-color:lightgreen"
-                  th:if="${one.freighter!=null} and ${one.freighter.freighterName=='MTW'}">#MTW</span>
-        </td>
--->
         <td>
             <a class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}" role="button">Edycja</a>
         </td>

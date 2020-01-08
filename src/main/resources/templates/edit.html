@@ -129,23 +129,6 @@
                 <label for="seeAnotherField" class="col-sm-2 col-form-label">PRZEWOŹNIK</label>
                 <div class="col-sm-2" th:object="${freighters}">
 
-                    <!--   <select th:if="${order.freighter}!=null" name="freighter" class="form-control" id="exampleFormControlSelect2">
-                           &lt;!&ndash; <option value=" ">Wybierz przewoźnika:</option>&ndash;&gt;
-                            <option  th:each="f : ${freightersasc}" th:value="${f.id}"
-                                    th:text="${f.freighterName}" th:selected="${f.freighterName== order.getFreighter().freighterName}"></option>
-                           &lt;!&ndash; <option th:if="${order.freighter}==null" th:each="f : ${freightersasc}" th:value="${f.id}"
-                                    th:text="${f.freighterName}"></option>&ndash;&gt;
-                        </select>
-
-
-                        <input th:if="${order.freighter}==null" type="text" list="cars" name="freighter" class="form-control"/>
-                        <datalist id="cars">
-                            <option value=" ">Wybierz lub wpisz przewoźnika:</option>
-                         &lt;!&ndash;   <option th:if="${order.freighter}!=null" th:each="f : ${freighters}" th:value="${f.id}"
-                                    th:text="${f.freighterName}" th:selected="${f.id == order.getFreighter().id}"></option>&ndash;&gt;
-                            <option  th:each="f : ${freighters}" th:value="${f.id}" th:text="${f.freighterName}"> </option>
-                        </datalist>-->
-
                     <select name="freighter" class="js-example-tags" id="seeAnotherField">
                         <option value="">Wybierz lub wpisz przewoźnika:</option>
                         <option th:if="${order.freighter}!=null" th:each="f : ${freighters}" th:value="${f.freighterName}"
