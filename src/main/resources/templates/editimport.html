@@ -17,11 +17,11 @@
         <td style="width: 10%">KIEROWCA</td>
         <td style="width: 4%">DATA ZAŁ.</td>
         <td style="width: 9%">FABRYKA</td>
-        <td style="width: 9%">ROZŁADUNEK</td>
+        <td style="width: 9%">OSTATNI ROZŁAD.</td>
         <td style="width: 9%">DATA DOK.</td>
 
-        <td class="import" style="width: 9%">SKĄD</td>
         <td class="import" style="width: 9%">DOJAZD KM</td>
+        <td class="import" style="width: 9%">SKĄD</td>
         <td class="import" style="width: 9%">DOKĄD</td>
         <td class="import" style="width: 9%">KTO ZNALAZŁ</td>
         <td class="import" style="width: 9%">DATA DOK.</td>
@@ -46,12 +46,12 @@
                   th:text="${order.docDateExp}"></span>
         </td>
         <td>
-            <span th:if="${order.loadingCityImp!=null}"
-                  th:text="${order.loadingCityImp}"></span>
-        </td>
-        <td>
            <span th:if="${order.kilometersImp!=null}"
                  th:text="${order.kilometersImp}+ ' km'"></span>
+        </td>
+        <td>
+            <span th:if="${order.loadingCityImp!=null}"
+                  th:text="${order.loadingCityImp}"></span>
         </td>
         <td>
             <span th:if="${order.cityCodesImp!=null}"
@@ -122,19 +122,18 @@
                            id="inputEmail4" style="border:2px solid tomato;">
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label for="inputEmail36" class="col-sm-2 col-form-label">SKĄD</label>
-                <div class="col-sm-2">
-                    <input class="form-control" id="inputEmail36" name="loadingCityImp" type="text"
-                           th:value="${order.getLoadingCityImp()}" style="border:2px solid dodgerblue;">
-                </div>
-            </div>
             <div class="form-group row">
                 <label for="inputEmail367" class="col-sm-2 col-form-label">DOJAZD KM</label>
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail367" name="kilometersImp" type="number"
                            th:value="${order.getKilometersImp()}" style="border:2px solid dodgerblue;">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail36" class="col-sm-2 col-form-label">SKĄD</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail36" name="loadingCityImp" type="text"
+                           th:value="${order.getLoadingCityImp()}" style="border:2px solid dodgerblue;">
                 </div>
             </div>
             <div class="form-group row">

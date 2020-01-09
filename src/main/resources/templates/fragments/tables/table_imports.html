@@ -10,11 +10,11 @@
         <td style="width: 10%">KIEROWCA</td>
         <td style="width: 4%">DATA ZAŁ.</td>
         <td style="width: 9%">FABRYKA</td>
-        <td style="width: 9%">ROZŁADUNEK</td>
+        <td style="width: 9%">OSTATNI ROZŁAD.</td>
         <td style="width: 9%">DATA DOK.</td>
 
-        <td class="import" style="width: 9%">SKĄD</td>
         <td class="import" style="width: 9%">DOJAZD KM</td>
+        <td class="import" style="width: 9%">SKĄD</td>
         <td class="import" style="width: 9%">DOKĄD</td>
         <td class="import" style="width: 9%">KTO ZNALAZŁ</td>
         <td class="import" style="width: 9%">DATA DOK.</td>
@@ -38,12 +38,12 @@
                  th:text="${one.docDateExp}"></span>
         </td>
         <td>
-            <span th:if="${one.loadingCityImp!=null}"
-                  th:text="${one.loadingCityImp}"></span>
-        </td>
-        <td>
             <span th:if="${one.kilometersImp!=null}"
                   th:text="${one.kilometersImp}+' km'"></span>
+        </td>
+        <td>
+            <span th:if="${one.loadingCityImp!=null}"
+                  th:text="${one.loadingCityImp}"></span>
         </td>
         <td>
             <span th:if="${one.cityCodesImp!=null}"
