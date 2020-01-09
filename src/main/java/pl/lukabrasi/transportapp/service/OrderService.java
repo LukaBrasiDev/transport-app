@@ -112,11 +112,12 @@ public class OrderService {
     }
 
     public List<User> getUsers() {
-        return userRepository.findAll();
+        return userRepository.finadAllUsers();
     }
 
+
     public List<OurDriver> getOurDrivers() {
-        return ourDriverRepository.findAllByOrderByDriverSurnameAsc();
+        return ourDriverRepository.findAllByOrderByDriverSurnameAscAndActiveDesc();
     }
 
     public List<Freighter> getFreighters() {
@@ -262,6 +263,7 @@ public class OrderService {
         userNew.setEmail(userForm.getEmail());
         userNew.setTelephone(userForm.getTelephone());
         // userNew.setPassword(userForm.getFreighterPerson());
+        userNew.setActive(true);
         if (!userForm.getUserName().isEmpty()) {
             userRepository.save(userNew);
         }
@@ -273,7 +275,7 @@ public class OrderService {
         ourDriverNew.setDriverSurname(ourDriverForm.getDriverSurname());
         ourDriverNew.setDriverPhone(ourDriverForm.getDriverPhone());
         ourDriverNew.setDriverInfo(ourDriverForm.getDriverInfo());
-        ourDriverNew.setDriverStatus(ourDriverForm.getDriverStatus());
+        ourDriverNew.setActive(true);
         if (!ourDriverForm.getDriverSurname().isEmpty()) {
             ourDriverRepository.save(ourDriverNew);
         }
@@ -426,6 +428,7 @@ public class OrderService {
         optionalUser.get().setUserName(userForm.getUserName());
         optionalUser.get().setEmail(userForm.getEmail());
         optionalUser.get().setTelephone(userForm.getTelephone());
+        optionalUser.get().setActive(userForm.getActive());
         //optionalUser.get().setPassword(userForm.getPassword());
 
         userRepository.save(optionalUser.get());
@@ -437,7 +440,7 @@ public class OrderService {
         optionalOurDriver.get().setDriverSurname(ourDriverForm.getDriverSurname());
         optionalOurDriver.get().setDriverPhone(ourDriverForm.getDriverPhone());
         optionalOurDriver.get().setDriverInfo(ourDriverForm.getDriverInfo());
-        optionalOurDriver.get().setDriverStatus(ourDriverForm.getDriverStatus());
+        optionalOurDriver.get().setActive(ourDriverForm.getActive());
         //optionalUser.get().setPassword(userForm.getPassword());
 
         ourDriverRepository.save(optionalOurDriver.get());

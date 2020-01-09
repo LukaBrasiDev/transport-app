@@ -106,10 +106,12 @@
                 <div class="col-sm-2" th:object="${drivers}">
                     <select name="driver" class="form-control" id="otherFieldDiv" style="border:2px solid tomato;">
                         <option value=" ">Wybierz osobę:</option>
-                        <option th:if="${order.driver}!=null" th:each="d : ${drivers}" th:value="${d.id}"
-                                th:text="${d.driverSurname + ' ' + d.driverName}"
-                                th:selected="${d.id == order.getDriver().id}"></option>
-                        <option th:if="${order.driver}==null" th:each="d : ${drivers}" th:value="${d.id}"
+                        <option th:if="${order.driver}!=null"  th:value="${order.getDriver().id}"
+                                th:text="${order.getDriver().driverName + ' ' + order.getDriver().driverSurname}"
+                                th:selected="${order.getDriver().driverName + ' ' + order.getDriver().driverSurname}"></option>
+                        <option th:if="${order.driver}!=null and ${d.active}" th:each="d : ${drivers}" th:value="${d.id}"
+                                th:text="${d.driverSurname + ' ' + d.driverName}"></option>
+                        <option th:if="${order.driver}==null and ${d.active}" th:each="d : ${drivers}" th:value="${d.id}"
                                 th:text="${d.driverSurname + ' ' + d.driverName}"></option>
                     </select>
                 </div>
@@ -149,10 +151,12 @@
                     <select name="userImp" class="form-control" id="otherFieldDiv33"
                             style="border:2px solid dodgerblue;">
                         <option value=" ">Wybierz osobę:</option>
-                        <option th:if="${order.userImp}!=null" th:each="d : ${users}" th:value="${d.userName}"
-                                th:text="${d.userName}"
-                                th:selected="${d.userName == order.getUserImp()}"></option>
-                        <option th:if="${order.userImp}==null" th:each="d : ${users}" th:value="${d.userName}"
+                        <option th:if="${order.userImp}!=null" th:value="${order.getUserImp()}"
+                                th:text="${order.getUserImp()}"
+                                th:selected="${order.getUserImp()}"></option>
+                        <option th:if="${order.userImp}!=null and ${d.active}" th:each="d : ${users}" th:value="${d.userName}"
+                                th:text="${d.userName}"></option>
+                        <option th:if="${order.userImp}==null and ${d.active}" th:each="d : ${users}" th:value="${d.userName}"
                                 th:text="${d.userName}"></option>
                     </select>
                 </div>

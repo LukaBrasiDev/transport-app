@@ -9,5 +9,5 @@ public class OurDriverForm {
     private String driverEmail;
     private String driverPhone;
     private String driverInfo;
-    private Boolean driverStatus;
+    private Boolean active;
 }

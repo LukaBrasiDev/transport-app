@@ -12,12 +12,14 @@
         <td>IMIĘ</td>
         <td>EMAIL</td>
         <td>TELEFON</td>
+        <td> </td>
     </tr>
     </thead>
-    <tr th:each="f : ${users}">
+    <tr th:each="f : ${users}" >
         <td><span th:text="${f.userName}"></span></td>
         <td><span th:text="${f.email}"></span></td>
         <td><span th:text="${f.telephone}"></span></td>
+
     </tr>
 </table>
 <!-- koniec tabelki -->
@@ -45,6 +47,15 @@
                     <input th:value="${users.getTelephone()}" name="telephone" type="number" class="form-control" id="inputEmail9">
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="inputEmail99" class="col-sm-2 col-form-label">is active</label>
+                <div class="col-sm-2">
+                    <input  th:checked="${users.active}" name="active" type="checkbox" class="form-check-input" id="inputEmail99">
+                </div>
+            </div>
+
+
+
 
             <div class="form-group row">
                 <div class="col-sm-2">

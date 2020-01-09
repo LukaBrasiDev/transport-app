@@ -4,17 +4,18 @@
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <!--poczatek tabeli -->
-<table id="export" class="table table-bordered table-hover"  style="font-family: Verdana">
+<table id="export" class="table table-bordered table-hover" style="font-family: Verdana">
     <thead>
     <tr style="font-weight: bold">
         <td>ID</td>
         <td>IMIĘ</td>
         <td>EMAIL</td>
         <td>TELEFON</td>
+
         <td></td>
     </tr>
     </thead>
-    <tr th:each="f : ${users}">
+    <tr th:each="f : ${users}" th:style="${f.active} ? '' : 'color:lightgrey'">
         <td><span th:text="${f.id}"></span></td>
         <td><span th:text="${f.userName}"></span></td>
         <td><span th:text="${f.email}"></span></td>

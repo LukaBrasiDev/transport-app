@@ -8,4 +8,5 @@ public class UserForm {
     private String email;
     private String password;
     private String telephone;
+    private Boolean active;
 }

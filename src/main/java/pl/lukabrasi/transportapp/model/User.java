@@ -23,6 +23,7 @@ public class User {
     private String email;
     private String password;
     private String telephone;
+    private Boolean active;
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",
             cascade = {

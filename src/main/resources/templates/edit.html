@@ -39,7 +39,8 @@
         <td><span th:text="${order.price}"></span></td>
         <td><span th:text="${order.freighterPrice}"></span></td>
         <td><span th:if="${order.freighter!=null}" th:text="${order.getFreighter().freighterName}"></span></td>
-        <td><span th:if="${order.driver!=null}" th:text="${order.getDriver().driverName + ' ' + order.getDriver().driverSurname}"></span></td>
+        <td><span th:if="${order.driver!=null}"
+                  th:text="${order.getDriver().driverName + ' ' + order.getDriver().driverSurname}"></span></td>
         <td><span th:if="${order.user!=null}" th:text="${order.getUser().userName}"></span></td>
     </tr>
 </table>
@@ -131,15 +132,20 @@
 
                     <select name="freighter" class="js-example-tags" id="seeAnotherField">
                         <option value="">Wybierz lub wpisz przewoźnika:</option>
-                        <option th:if="${order.freighter}!=null" th:each="f : ${freighters}" th:value="${f.freighterName}"
-                                th:text="${f.freighterName}" th:selected="${f.freighterName == order.getFreighter().freighterName}"></option>
-                        <option th:if="${order.freighter}==null" th:each="f : ${freighters}" th:value="${f.freighterName}"
+                        <option th:if="${order.freighter}!=null" th:each="f : ${freighters}"
+                                th:value="${f.freighterName}"
+                                th:text="${f.freighterName}"
+                                th:selected="${f.freighterName == order.getFreighter().freighterName}"></option>
+                        <option th:if="${order.freighter}==null" th:each="f : ${freighters}"
+                                th:value="${f.freighterName}"
                                 th:text="${f.freighterName}"></option>
                     </select>
                     <script>
                     $(".js-example-tags").select2({
                     tags: true
                     });
+
+
                     </script>
                 </div>
             </div>
@@ -148,9 +154,15 @@
                 <div class="col-sm-2" th:object="${drivers}">
                     <select name="driver" class="form-control" id="otherFieldDiv">
                         <option value=" ">Wybierz osobę:</option>
-                        <option th:if="${order.driver}!=null" th:each="d : ${drivers}" th:value="${d.id}"
-                                th:text="${d.driverName + ' ' + d.driverSurname}" th:selected="${d.id == order.getDriver().id}"></option>
-                        <option th:if="${order.driver}==null" th:each="d : ${drivers}" th:value="${d.id}"
+                        <option th:if="${order.driver}!=null" th:value="${order.getDriver().id}"
+                                th:text="${order.getDriver().driverName + ' ' + order.getDriver().driverSurname}"
+                                th:selected="${order.getDriver().driverName + ' ' + order.getDriver().driverSurname}"></option>
+                        <option th:if="${order.driver}!=null and ${d.active}" th:each="d : ${drivers}"
+                                th:value="${d.id}"
+                                th:text="${d.driverName + ' ' + d.driverSurname}"
+                        ></option>
+                        <option th:if="${order.driver}==null and ${d.active}" th:each="d : ${drivers}"
+                                th:value="${d.id}"
                                 th:text="${d.driverName + ' ' + d.driverSurname}"></option>
                     </select>
                 </div>
@@ -160,9 +172,12 @@
                 <div class="col-sm-2" th:object="${users}">
                     <select name="user" class="form-control" id="exampleFormControlSelect1">
                         <option value=" ">Wybierz osobę:</option>
-                        <option th:if="${order.user}!=null" th:each="u : ${users}" th:value="${u.id}"
-                                th:text="${u.userName}" th:selected="${u.id == order.getUser().id}"></option>
-                        <option th:if="${order.user}==null" th:each="u : ${users}" th:value="${u.id}"
+                        <option th:if="${order.user}!=null" th:value="${order.getUser().id}"
+                                th:text="${order.getUser().userName}"
+                                th:selected="${order.getUser().userName}"></option>
+                        <option th:if="${order.user}!=null and ${u.active}" th:each="u : ${users}" th:value="${u.id}"
+                                th:text="${u.userName}"></option>
+                        <option th:if="${order.user}==null and ${u.active}" th:each="u : ${users}" th:value="${u.id}"
                                 th:text="${u.userName}"></option>
                     </select>
                 </div>
@@ -226,4 +241,6 @@ $("#seeAnotherFieldGroup").change(function() {
   }
 });
 $("#seeAnotherFieldGroup").trigger("change");
+
+
 </script>

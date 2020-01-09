@@ -28,8 +28,8 @@ public class OurDriver {
     String driverEmail;
     private @Column(name = "driver_info")
     String driverInfo;
-    private @Column(name = "driver_status")
-    Boolean driverStatus;
+    private @Column(name = "active")
+    Boolean active;
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver",
             cascade = {
