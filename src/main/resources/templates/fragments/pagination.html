@@ -1,18 +1,15 @@
 <nav aria-label="Pagination" th:fragment="pagination" th:if="${page.totalPages gt 0}">
     <ul class="pagination">
-
         <li class="page-item" th:classappend="${page.number eq 0} ? 'disabled'">
             <a class="page-link"
-               th:href="@{/zlecenia?page={id}(id=${page.number lt 1 ? 1 : page.number - 1})}"
+               th:href="@{__${#httpServletRequest.requestURI}__?page={id}(id=${page.number lt 1 ? 1 : page.number - 1})}"
                title="Poprzednia strona" rel="tooltip">
                 <span aria-hidden="true" data-feather="chevrons-left" width="20" height="20">←  Poprzednia</span>
             </a>
         </li>
-
-
         <li class="page-item" th:classappend="${i eq page.number } ? 'active'"
             th:each="i : ${#numbers.sequence( page.number, page.totalPages > 10 + page.number ? page.number + 9 : page.totalPages -1)}">
-            <a class="page-link" th:href="@{/zlecenia?page={id}(id=${i})}" th:text="${i +1}"
+            <a class="page-link" th:href="@{__${#httpServletRequest.requestURI}__?page={id}(id=${i})}" th:text="${i +1}"
                th:title="${'Strona '+ (i + 1)}"
                rel="tooltip"></a>
         </li>
@@ -22,9 +19,8 @@
                 <span data-feather="more-horizontal" width="20" height="20">...</span>
             </a>
         </li>
-
         <li class="page-item" th:classappend="${page.number eq page.totalPages - 1} ? 'disabled'">
-            <a class="page-link" th:href="@{/zlecenia?page={id}(id=${page.number + 1})}"
+            <a class="page-link" th:href="@{__${#httpServletRequest.requestURI}__?page={id}(id=${page.number + 1})}"
                               title="Następna strona" rel="tooltip">
                 <span aria-hidden="true" data-feather="chevrons-right" width="20" height="20">Następna ➝</span>
             </a>

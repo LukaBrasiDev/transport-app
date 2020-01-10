@@ -89,7 +89,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findAllMTW (Pageable pageable);
 
 
-
+    @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=YEARWEEK(NOW()) and fk_freighter=1 order by date_load desc, fk_user asc", nativeQuery = true)
+    Page<Order> findCurrentWeekMTW(Pageable pageable);
 
 
 }

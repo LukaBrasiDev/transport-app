@@ -1,0 +1,30 @@
+<div th:fragment="selection" class="container-fluid" style="background-color: #6495ED">
+
+    <div style="padding-top: 25px;padding-bottom: 20px">
+        <div class="container-fluid">
+           <div class="row" style="padding-top: 5px;padding-bottom: 15px">
+               <div class="col-4">
+                   <!-- <p>Wyszukiwanie tur według zakresu dat:</p>
+                    <form th:replace="fragments/formrange :: formrange"></form>-->
+                </div>
+
+                <div class="col-4">
+                    <p>Wyszukiwanie tur według tygodni:</p>
+                    <form th:replace="fragments/formweekimport :: formweek"></form>
+                </div>
+                <div class="col-4">
+                <!--    <p>Wyszukiwanie po numerze tury:</p>
+                    <form th:action="@{/zlecenia/tura}" th:object="${orders}" method="get">
+                        <input placeholder="wpisz nr tury..." name="searchStr" type="text" th:value="${searchStr}" class="form-control">
+                    </form>-->
+                </div>
+            </div>
+            <div class="row" style="padding-top: 5px;padding-bottom: 0px">
+                <div class="col-12">
+                    <!--paginacja-->
+                    <nav th:replace="fragments/pagination :: pagination"></nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -93,6 +93,23 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/naszeauta/tydzien")
+    public String getOrdersInWeekMTW(@ModelAttribute RangeForm rangeForm,
+                                  Model model,
+                                  Pageable pageable) {
+            Page<Order> orderPage = orderService.findCurrentWeekMTW(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            return "import";
+
+    }
+
     @PostMapping("/zlecenia/tydzien/poprzedni")
     public String getOrdersInPreviousWeek(@ModelAttribute RangeForm rangeForm,
                                   Model model,

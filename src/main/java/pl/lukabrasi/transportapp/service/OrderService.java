@@ -69,6 +69,11 @@ public class OrderService {
         return orderRepository.findCurrentWeekAll(pageable);
     }
 
+    public Page<Order> findCurrentWeekMTW(Pageable pageable) {
+
+        return orderRepository.findCurrentWeekMTW(pageable);
+    }
+
     public Page<Order> findPreviousWeekNotSold(Pageable pageable) {
         return orderRepository.findPreviousWeekNotSold(pageable);
     }

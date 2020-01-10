@@ -3,10 +3,10 @@
 <head th:replace="fragments/header :: header"></head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
-<!--
 
-<div th:replace="fragments/selection :: selection"></div>
--->
+
+<div th:replace="fragments/selectionimport :: selection"></div>
+
 
 
 <div th:if="${info!=null}" style="display:flex;justify-content:center;align-items:center;background-color: #6495ED">
@@ -21,12 +21,35 @@
         </th:block>
     </div>
 </div>
+
+<!-- poczatek menu tabs -->
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="/naszeauta">WSZYSTKIE</a>
+        <button type="button" class="btn btn-secondary">Left</button>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/naszeauta/tydzien">TYGODNIE</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" disabled href="/naszeauta/tydzien">Link</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+    </li>
+</ul>
+
+<div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-secondary">Left</button>
+    <button type="button" class="btn btn-secondary">Middle</button>
+    <button type="button" class="btn btn-secondary">Right</button>
+</div>
+
 <!--poczatek tabeli importy-->
 <table th:replace="fragments/tables/table_imports :: tableimports"></table>
 <!-- koniec tabelki -->
-<!--
-<div th:replace="fragments/selection :: selection"></div>
--->
+<!-- koniec menu tabs -->
+<div th:replace="fragments/selectionimport :: selection"></div>
 
 <script>
     $("table").tableExport({
