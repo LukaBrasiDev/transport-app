@@ -2,28 +2,27 @@
 
     <div style="padding-top: 25px;padding-bottom: 20px">
         <div class="container-fluid">
-           <div class="row" style="padding-top: 5px;padding-bottom: 15px">
-               <div class="col-4">
-                   <!-- <p>Wyszukiwanie tur według zakresu dat:</p>
-                    <form th:replace="fragments/formrange :: formrange"></form>-->
-                </div>
+            <!--           <div class="row" style="padding-top: 5px;padding-bottom: 15px">
+                           <div class="col-4">
+                               &lt;!&ndash; <p>Wyszukiwanie tur według zakresu dat:</p>
+                                <form th:replace="fragments/formrange :: formrange"></form>&ndash;&gt;
+                            </div>
 
-                <div class="col-4">
-                    <p>Wyszukiwanie tur według tygodni:</p>
-                    <form th:replace="fragments/formweekimport :: formweek"></form>
-                </div>
-                <div class="col-4">
-                <!--    <p>Wyszukiwanie po numerze tury:</p>
-                    <form th:action="@{/zlecenia/tura}" th:object="${orders}" method="get">
-                        <input placeholder="wpisz nr tury..." name="searchStr" type="text" th:value="${searchStr}" class="form-control">
-                    </form>-->
-                </div>
-            </div>
-            <div class="row" style="padding-top: 5px;padding-bottom: 0px">
-                <div class="col-12">
-                    <!--paginacja-->
-                    <nav th:replace="fragments/pagination :: pagination"></nav>
-                </div>
+                            <div class="col-4">
+                                <p>Wyszukiwanie tur według tygodni:</p>
+                                <form th:replace="fragments/formweekimport :: formweek"></form>
+                            </div>
+                            <div class="col-4">
+                            &lt;!&ndash;    <p>Wyszukiwanie po numerze tury:</p>
+                                <form th:action="@{/zlecenia/tura}" th:object="${orders}" method="get">
+                                    <input placeholder="wpisz nr tury..." name="searchStr" type="text" th:value="${searchStr}" class="form-control">
+                                </form>&ndash;&gt;
+                            </div>
+                        </div>-->
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="/naszeauta/tydzien/poprzedni" type="submit" class="btn btn-primary btn-lg"><< POPRZEDNI</a>
+                <a href="/naszeauta/tydzien" type="submit" class="btn btn-primary btn-lg">AKTUALNY TYDZIEŃ</a>
+                <a href="/naszeauta/tydzien/nastepny" type="submit" class="btn btn-primary btn-lg">NASTĘPNY >></a>
             </div>
         </div>
     </div>

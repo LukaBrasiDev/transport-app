@@ -5,7 +5,11 @@
 <nav th:replace="fragments/navbar :: navbar"></nav>
 
 
+
+
 <div th:replace="fragments/selectionimport :: selection"></div>
+
+
 
 
 
@@ -23,40 +27,70 @@
 </div>
 
 <!-- poczatek menu tabs -->
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link active" href="/naszeauta">WSZYSTKIE</a>
-        <button type="button" class="btn btn-secondary">Left</button>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/naszeauta/tydzien">TYGODNIE</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" disabled href="/naszeauta/tydzien">Link</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-    </li>
-</ul>
 
-<div class="btn-group" role="group" aria-label="Basic example">
+<!--<div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-secondary">Left</button>
     <button type="button" class="btn btn-secondary">Middle</button>
     <button type="button" class="btn btn-secondary">Right</button>
-</div>
+</div>-->
+
+
 
 <!--poczatek tabeli importy-->
 <table th:replace="fragments/tables/table_imports :: tableimports"></table>
 <!-- koniec tabelki -->
-<!-- koniec menu tabs -->
-<div th:replace="fragments/selectionimport :: selection"></div>
 
+<!--<div th:replace="fragments/selectionimport :: selection"></div>-->
+<!--<script>
+    $(document).ready(function() {
+    var groupColumn = 0;
+    var table = $('#export').DataTable({
+        "columnDefs": [
+            { "visible": true,
+             "targets": groupColumn }
+        ],
+        "rowsGroup":[groupColumn,0],
+
+        "order": [ [ groupColumn, 'asc' ] ],
+        "displayLength": 100,
+        "drawCallback": function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+
+            api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+                if ( last !== group ) {
+                    $(rows).eq( i ).before(
+                        '<tr class="group"><td class="bg-info text-white" style="text-align:center" colspan="13">'+group+'</td></tr>'
+                    );
+
+                    last = group;
+                }
+            } );
+        }
+    } );
+
+    // Order by the grouping
+    $('#exporte tbody').on( 'click', 'tr.group', function () {
+        var currentOrder = table.order()[0];
+        if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
+            table.order( [ groupColumn, 'desc' ] ).draw();
+        }
+        else {
+            table.order( [ groupColumn, 'asc' ] ).draw();
+        }
+    } );
+} );
+</script>-->
 <script>
-    $("table").tableExport({
-        formats: ["csv", "txt"],
-        trimWhitespace: true,
-        ignoreCols: [0, 1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14]
-    });
+$(document).ready( function () {
+  var table = $('#export').DataTable({
+    "rowsGroup" : [0],
+    "displayLength": 200,
+     "paging":   false,
+ "order": [  [ 0, "desc" ]  ]
+        });
+} );
 </script>
 </body>
 </html>

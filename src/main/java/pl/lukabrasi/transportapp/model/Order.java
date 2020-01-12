@@ -91,6 +91,9 @@ public class Order {
     private @Column(name = "next_loading_city_imp")
     String nextLoadingCityImp;
 
+    private @Column(name = "price_imp")
+    BigDecimal priceImp;
+
     private @Column(name = "user_imp")
     String userImp;
 

@@ -10,7 +10,7 @@
     <thead>
     <tr style="font-weight: bold">
         <td colspan="6">EXPORT</td>
-        <td class="import" colspan="6">IMPORT</td>
+        <td class="import" colspan="7">IMPORT</td>
     </tr>
     <tr style="font-weight: bold">
         <td style="width: 6%">TURA</td>
@@ -23,6 +23,7 @@
         <td class="import" style="width: 9%">DOJAZD KM</td>
         <td class="import" style="width: 9%">SKĄD</td>
         <td class="import" style="width: 9%">DOKĄD</td>
+        <td class="import" style="width: 9%">STAWKA</td>
         <td class="import" style="width: 9%">KTO ZNALAZŁ</td>
         <td class="import" style="width: 9%">DATA DOK.</td>
         <td class="import" style="width: 9%">NAST. ZAŁADUNEK</td>
@@ -56,6 +57,10 @@
         <td>
             <span th:if="${order.cityCodesImp!=null}"
                   th:text="${order.cityCodesImp}"></span>
+        </td>
+        <td>
+            <span th:if="${order.priceImp!=null}"
+                  th:text="${order.priceImp}+ ' €'"></span>
         </td>
         <td>
            <span th:if="${order.userImp!=null}"
@@ -146,6 +151,13 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="inputEmail367789" class="col-sm-2 col-form-label">STAWKA</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail367789" name="priceImp" type="number"
+                           th:value="${order.getPriceImp()}" style="border:2px solid dodgerblue;">
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="otherFieldDiv33" class="col-sm-2 col-form-label">KTO ZNALAZŁ</label>
                 <div class="col-sm-2" th:object="${users}">
                     <select name="userImp" class="form-control" id="otherFieldDiv33"
@@ -196,7 +208,7 @@
                 </div>
                 <div class="col-sm-2">
                     <button type="submit" class="btn btn-success btn-lg">ZAPISZ</button>
-                    <a href="/naszeauta" class="btn btn-secondary btn-lg">WYJDŹ</a>
+                    <a href="/naszeauta/tydzien" class="btn btn-secondary btn-lg">WYJDŹ</a>
                 </div>
             </div>
         </form>

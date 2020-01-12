@@ -40,5 +40,6 @@ public class OrderForm {
     private String cityCodesImp;
     private Integer kilometersImp;
     private String userImp;
+    private BigDecimal priceImp;
 
 }

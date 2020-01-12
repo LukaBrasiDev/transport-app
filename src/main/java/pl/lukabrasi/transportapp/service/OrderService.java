@@ -74,6 +74,16 @@ public class OrderService {
         return orderRepository.findCurrentWeekMTW(pageable);
     }
 
+    public Page<Order> findPreviousWeekMTW(Pageable pageable) {
+
+        return orderRepository.findPreviousWeekMTW(pageable);
+    }
+    public Page<Order> findNextWeekMTW(Pageable pageable) {
+
+        return orderRepository.findNextWeekMTW(pageable);
+    }
+
+
     public Page<Order> findPreviousWeekNotSold(Pageable pageable) {
         return orderRepository.findPreviousWeekNotSold(pageable);
     }
@@ -390,6 +400,7 @@ public class OrderService {
         optionalOrder.get().setCityCodesImp(orderForm.getCityCodesImp());
         optionalOrder.get().setDocDateImp(orderForm.getDocDateImp());
         optionalOrder.get().setNextLoadingCityImp(orderForm.getNextLoadingCityImp());
+        optionalOrder.get().setPriceImp(orderForm.getPriceImp());
         optionalOrder.get().setUserImp(orderForm.getUserImp());
 
         optionalOrder.get().setQueryTimeImp(LocalDateTime.now());

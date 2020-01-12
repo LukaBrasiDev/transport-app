@@ -2,10 +2,11 @@
        xmlns:th="http://www.thymeleaf.org/">
     <thead>
     <tr style="font-weight: bold">
-        <td colspan="6">EXPORT</td>
-        <td class="import" colspan="7">IMPORT</td>
+        <td colspan="7">EXPORT</td>
+        <td class="import" colspan="8">IMPORT</td>
     </tr>
     <tr style="font-weight: bold">
+        <td style="width: 6%">SPEDYTOR</td>
         <td style="width: 6%">TURA</td>
         <td style="width: 10%">KIEROWCA</td>
         <td style="width: 4%">DATA ZAŁ.</td>
@@ -13,9 +14,10 @@
         <td style="width: 9%">OSTATNI ROZŁAD.</td>
         <td style="width: 9%">DATA DOK.</td>
 
-        <td class="import" style="width: 9%">DOJAZD KM</td>
+        <td class="import" style="width: 9%">DOJAZD</td>
         <td class="import" style="width: 9%">SKĄD</td>
         <td class="import" style="width: 9%">DOKĄD</td>
+        <td class="import" style="width: 9%">STAWKA</td>
         <td class="import" style="width: 9%">KTO ZNALAZŁ</td>
         <td class="import" style="width: 9%">DATA DOK.</td>
         <td class="import" style="width: 9%">NAST. ZAŁADUNEK</td>
@@ -24,14 +26,18 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="one : ${orders}" >
+    <tr th:each="one : ${orders}">
+        <td class="pion"><strong><div class="pion"><span th:text="${one.user.userName}"></span></div></strong></td>
         <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
-        <td><span th:if="${one.driver!=null}" th:text="${#strings.substring(one.driver.driverName,0,1)}  + '.' + ${one.driver.driverSurname}"></span></td>
+        <td><span th:if="${one.driver!=null}"
+                  th:text="${#strings.substring(one.driver.driverName,0,1)}  + '.' + ${one.driver.driverSurname}"></span>
+        </td>
         <td><span th:text="${one.loadDate}"></span></td>
         <td><span th:if="${one.factory!=null}"
                   th:text="${one.loadingCity}"></span></td>
         <td>
-            <span th:if="${one.cityCodes!=null}" th:text="${#strings.arraySplit(one.cityCodes, ',')[#arrays.length(#strings.arraySplit(one.cityCodes, ',')) - 1]}"></span>
+            <span th:if="${one.cityCodes!=null}"
+                  th:text="${#strings.arraySplit(one.cityCodes, ',')[#arrays.length(#strings.arraySplit(one.cityCodes, ',')) - 1]}"></span>
         </td>
         <td>
            <span th:if="${one.docDateExp!=null}"
@@ -50,6 +56,10 @@
                   th:text="${one.cityCodesImp}"></span>
         </td>
         <td>
+           <span th:if="${one.priceImp!=null}"
+                 th:text="${one.priceImp}+ ' €'"></span>
+        </td>
+        <td>
            <span th:if="${one.userImp!=null}"
                  th:text="${one.userImp}"></span>
         </td>
@@ -59,11 +69,15 @@
         </td>
         <td>
             <span th:if="${one.nextLoadingCityImp!=null}"
-            th:text="${one.nextLoadingCityImp}"></span>
+                  th:text="${one.nextLoadingCityImp}"></span>
         </td>
         <td>
-            <a class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}" role="button">Edycja</a>
+            <a class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}"
+               role="button">Edycja</a>
         </td>
     </tr>
     </tbody>
+    <tfoot>
+
+    </tfoot>
 </table>

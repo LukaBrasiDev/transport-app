@@ -9,7 +9,6 @@ import pl.lukabrasi.transportapp.model.Order;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
@@ -24,42 +23,56 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "select * from orders where (date_load between ?1 and ?2) and (fk_user is null ) order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNotSoldOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);
 
-    @Query(value = "SELECT * FROM orders where (YEARWEEK(date_load)<=YEARWEEK(NOW())) and (fk_user is null)\n" +
+    @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)<=YEARWEEK(curdate()) and fk_user is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findCurrentWeekNotSold(Pageable pageable);
 
-    @Query(value = "SELECT * FROM orders where (YEARWEEK(date_load)=(YEARWEEK(NOW())-1)) and (fk_user is null)\n" +
+    @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=yearweek(SUBDATE(curdate(), INTERVAL 7 DAY)) and fk_user is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findPreviousWeekNotSold(Pageable pageable);
 
-    @Query(value = "SELECT * FROM orders where (YEARWEEK(date_load)=(YEARWEEK(NOW())+1)) and (fk_user is null)\n" +
+    @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=yearweek(DATE_ADD(curdate(), INTERVAL 7 DAY)) and fk_user is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNextWeekNotSold(Pageable pageable);
 
-    @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=YEARWEEK(NOW())\n" +
-            "UNION  select * from orders where (YEARWEEK(date_load)<YEARWEEK(NOW())) and fk_user is null\n" +
-            "                   order by date_load asc, loading_city asc", nativeQuery = true)
+    @Query(value = "SELECT * \n" +
+            "FROM orders \n" +
+            "where YEARWEEK(date_load)=YEARWEEK(curdate())\n" +
+            "UNION\n" +
+            "select * \n" +
+            "from orders \n" +
+            "where YEARWEEK(date_load)<YEARWEEK(curdate()) and fk_user is null\n" +
+            "order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findCurrentWeekAll(Pageable pageable);
 
-    @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=(YEARWEEK(NOW())-1)\n" +
-            "UNION  select * from orders where (YEARWEEK(date_load)=YEARWEEK(NOW())-1) and fk_user is null\n" +
+    @Query(value = "SELECT * \n" +
+            "FROM orders \n" +
+            "where YEARWEEK(date_load)=yearweek(SUBDATE(curdate(), INTERVAL 7 DAY))\n" +
+            "UNION\n" +
+            "select * \n" +
+            "from orders \n" +
+            "where YEARWEEK(date_load)=yearweek(SUBDATE(curdate(), INTERVAL 7 DAY)) and fk_user is null\n" +
             "order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findPreviousWeekAll(Pageable pageable);
 
-    @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=(YEARWEEK(NOW())+1)\n" +
-            "UNION  select * from orders where (YEARWEEK(date_load)=YEARWEEK(NOW())+1) and fk_user is null\n" +
-            "                   order by date_load asc, loading_city asc", nativeQuery = true)
+    @Query(value = "SELECT *\n" +
+            "FROM orders\n" +
+            "where YEARWEEK(date_load)=yearweek(DATE_ADD(curdate(), INTERVAL 7 DAY))\n" +
+            "UNION  select * \n" +
+            "from orders \n" +
+            "where YEARWEEK(date_load)=yearweek(DATE_ADD(curdate(), INTERVAL 7 DAY)) and fk_user is null\n" +
+            "order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNextWeekAll(Pageable pageable);
 
     boolean existsByOrderNumber(String orderNumber);
 
     //updated
-    @Query(value = "SELECT count(id) as Sprzedane \n" +
+    @Query(value = "SELECT count(o.id) as Sprzedane \n" +
             "FROM orders o\n" +
             "INNER JOIN freighter f\n" +
             "where o.fk_freighter = f.id and year(o.date_load)=year(?1) and month(o.date_load) = month(?1) and f.freighter_name <> 'MTW' and o.fk_freighter IS NOT NULL\n" +
-            "UNION\n" +
-            "SELECT count(id) as MTW\n" +
+            "UNION ALL\n" +
+            "SELECT count(o.id) as MTW\n" +
             "FROM orders o\n" +
             "INNER JOIN freighter f\n" +
             "where o.fk_freighter = f.id and year(o.date_load)=year(?1) and month(o.date_load) = month(?1) and f.freighter_name = 'MTW'", nativeQuery = true)
@@ -88,21 +101,43 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Integer soldOtherGroupWeekly(LocalDate date1);
 
     //updated
-    @Query(value = "SELECT * \n" +
-            "FROM orders o\n" +
-            "INNER JOIN freighter f\n" +
-            "where o.fk_freighter = f.id and f.freighter_name='MTW'  \n" +
-            "order by o.date_load desc, o.fk_user asc", nativeQuery = true)
+    @Query(value = "SELECT * FROM orders o  where fk_freighter = 1 order by date_load desc, fk_user asc", nativeQuery = true)
     Page<Order> findAllMTW(Pageable pageable);
 
 
     //TBD
     @Query(value = "SELECT * \n" +
-            "FROM orders o\n" +
-            "INNER JOIN freighter f\n" +
-            "where o.fk_freighter = f.id and YEAR(o.date_load)=YEAR(CURDATE()) and WEEK(o.date_load)=WEEK(CURDATE()) and f.freighter_name = 'MTW' \n" +
-            "order by o.date_load desc, o.fk_user asc", nativeQuery = true)
+            "FROM orders as o INNER JOIN freighter as f\n" +
+            "INNER JOIN user as u\n" +
+            "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
+            "and o.date_load between DATE_ADD(curdate(), INTERVAL -(weekday(curdate()+4)) day)\n" +
+            "and DATE_ADD(curdate(), INTERVAL (weekday(curdate()+4)) day)\n" +
+            "and f.freighter_name = 'MTW'\n" +
+            "order by u.user_name asc, o.date_load desc", nativeQuery = true)
     Page<Order> findCurrentWeekMTW(Pageable pageable);
+
+    @Query(value = "SELECT * \n" +
+            "FROM orders as o INNER JOIN freighter as f\n" +
+            "INNER JOIN user as u\n" +
+            "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
+            "and o.date_load between DATE_ADD(curdate()-7, INTERVAL -(weekday(curdate()+4)) day)\n" +
+            "and DATE_ADD(curdate()-7, INTERVAL (weekday(curdate()+4)) day)\n" +
+            "and f.freighter_name = 'MTW'\n" +
+            "order by u.user_name asc, o.date_load desc", nativeQuery = true)
+    Page<Order> findPreviousWeekMTW(Pageable pageable);
+
+    @Query(value = "SELECT * \n" +
+            "FROM orders as o INNER JOIN freighter as f\n" +
+            "INNER JOIN user as u\n" +
+            "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
+            "and o.date_load between DATE_ADD(curdate()+7, INTERVAL -(weekday(curdate()+4)) day)\n" +
+            "and DATE_ADD(curdate()+7, INTERVAL (weekday(curdate()+4)) day)\n" +
+            "and f.freighter_name = 'MTW'\n" +
+            "order by u.user_name asc, o.date_load desc", nativeQuery = true)
+    Page<Order> findNextWeekMTW(Pageable pageable);
+
+
+
 
 
 }

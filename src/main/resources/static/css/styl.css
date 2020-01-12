@@ -33,10 +33,28 @@ thead{
     text-align:center
 }
 .import{
-  color:white;
-  background-color:#0275d8;
-    text-align:center
+   color:white;
+   background-color:#0275d8;
+     text-align:center
+ }
+
+
+.pion {
+background-color: #dc3545;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+
 }
+.pion div {
+     -moz-transform: rotate(-90.0deg);  /* FF3.5+ */
+       -o-transform: rotate(-90.0deg);  /* Opera 10.5 */
+  -webkit-transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
+             filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
+         -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+         color:white;
+}
+
 /*radiobutton active*/
 
 /* This is the default state

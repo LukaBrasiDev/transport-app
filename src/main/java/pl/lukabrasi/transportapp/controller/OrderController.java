@@ -140,6 +140,22 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/naszeauta/tydzien/poprzedni")
+    public String getOrdersPreviousWeekMTW(@ModelAttribute RangeForm rangeForm,
+                                     Model model,
+                                     Pageable pageable) {
+        Page<Order> orderPage = orderService.findPreviousWeekMTW(pageable);
+        model.addAttribute("page", orderPage);
+        model.addAttribute("number", orderPage.getNumber());
+        model.addAttribute("totalPages", orderPage.getTotalPages());
+        model.addAttribute("totalElements", orderPage.getTotalElements());
+        model.addAttribute("size", orderPage.getSize());
+        model.addAttribute("orders", orderPage.getContent());
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        return "import";
+
+    }
     @PostMapping("/zlecenia/tydzien/nastepny")
     public String getOrdersInNextWeek(@ModelAttribute RangeForm rangeForm,
                                   Model model,
@@ -170,6 +186,22 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/naszeauta/tydzien/nastepny")
+    public String getOrdersNextWeekMTW(@ModelAttribute RangeForm rangeForm,
+                                     Model model,
+                                     Pageable pageable) {
+        Page<Order> orderPage = orderService.findNextWeekMTW(pageable);
+        model.addAttribute("page", orderPage);
+        model.addAttribute("number", orderPage.getNumber());
+        model.addAttribute("totalPages", orderPage.getTotalPages());
+        model.addAttribute("totalElements", orderPage.getTotalElements());
+        model.addAttribute("size", orderPage.getSize());
+        model.addAttribute("orders", orderPage.getContent());
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        return "import";
+
+    }
     @PostMapping("/zlecenia/zakres")
     public String findOrdersBetweenDates(@ModelAttribute RangeForm rangeForm,
                                          Model model,
