@@ -22,12 +22,10 @@ public class OurDriver {
     String driverName;
     private @Column(name = "driver_surname")
     String driverSurname;
-    private @Column(name = "driver_phone")
-    String driverPhone;
-    private @Column(name = "driver_email")
-    String driverEmail;
-    private @Column(name = "driver_info")
-    String driverInfo;
+    private @Column(name = "driver_car")
+    String driverCar;
+    private @Column(name = "driver_semitrailer")
+    String driverSemitrailer;
     private @Column(name = "active")
     Boolean active;
     @JsonIgnore

@@ -6,28 +6,28 @@
         <td class="import" colspan="8">IMPORT</td>
     </tr>
     <tr style="font-weight: bold">
-        <td style="width: 6%">SPEDYTOR</td>
-        <td style="width: 6%">TURA</td>
-        <td style="width: 10%">KIEROWCA</td>
-        <td style="width: 4%">DATA ZAŁ.</td>
-        <td style="width: 9%">FABRYKA</td>
+        <td style="width: 3%"> </td>
+        <td style="width: 7%">TURA</td>
+        <td style="width: 9%">KIEROWCA</td>
+        <td style="width: 6%">DATA ZAŁ.</td>
+        <td style="width: 6%">FABRYKA</td>
         <td style="width: 9%">OSTATNI ROZŁAD.</td>
-        <td style="width: 9%">DATA DOK.</td>
+        <td style="width: 6%">DATA DOK.</td>
 
-        <td class="import" style="width: 9%">DOJAZD</td>
-        <td class="import" style="width: 9%">SKĄD</td>
-        <td class="import" style="width: 9%">DOKĄD</td>
-        <td class="import" style="width: 9%">STAWKA</td>
-        <td class="import" style="width: 9%">KTO ZNALAZŁ</td>
-        <td class="import" style="width: 9%">DATA DOK.</td>
-        <td class="import" style="width: 9%">NAST. ZAŁADUNEK</td>
+        <td class="import" style="width: 5%">DOJAZD</td>
+        <td class="import" style="width: 8%">SKĄD</td>
+        <td class="import" style="width: 8%">DOKĄD</td>
+        <td class="import" style="width: 6%">STAWKA</td>
+        <td class="import" style="width: 7%">KTO ZNALAZŁ</td>
+        <td class="import" style="width: 6%">DATA DOK.</td>
+        <td class="import" style="width: 7%">NAST. ZAŁADUNEK</td>
 
         <td class="import" style="width: 5%"></td>
     </tr>
     </thead>
     <tbody>
     <tr th:each="one : ${orders}">
-        <td class="pion"><strong><div class="pion"><span th:text="${one.user.userName}"></span></div></strong></td>
+        <td class="pion"><div class="pion"><strong><span th:text="${one.user.userName}"></span></strong></div></td>
         <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
         <td><span th:if="${one.driver!=null}"
                   th:text="${#strings.substring(one.driver.driverName,0,1)}  + '.' + ${one.driver.driverSurname}"></span>
@@ -35,7 +35,7 @@
         <td><span th:text="${one.loadDate}"></span></td>
         <td><span th:if="${one.factory!=null}"
                   th:text="${one.loadingCity}"></span></td>
-        <td>
+        <td style="background-color:#ffe6e6">
             <span th:if="${one.cityCodes!=null}"
                   th:text="${#strings.arraySplit(one.cityCodes, ',')[#arrays.length(#strings.arraySplit(one.cityCodes, ',')) - 1]}"></span>
         </td>
@@ -47,7 +47,7 @@
             <span th:if="${one.kilometersImp!=null}"
                   th:text="${one.kilometersImp}+' km'"></span>
         </td>
-        <td>
+        <td style="background-color:#ebf0fa">
             <span th:if="${one.loadingCityImp!=null}"
                   th:text="${one.loadingCityImp}"></span>
         </td>
@@ -57,7 +57,7 @@
         </td>
         <td>
            <span th:if="${one.priceImp!=null}"
-                 th:text="${one.priceImp}+ ' €'"></span>
+                  th:text="${#numbers.formatDecimal(one.priceImp,0,0,'COMMA')}+' €'"></span>
         </td>
         <td>
            <span th:if="${one.userImp!=null}"

@@ -10,7 +10,7 @@
     </parent>
     <groupId>pl.lukabrasi</groupId>
     <artifactId>transport-app</artifactId>
-    <version>2.1.0</version>
+    <version>3.0.1</version>
     <packaging>jar</packaging>
     <name>transport-app</name>
     <description>Application for transport management</description>

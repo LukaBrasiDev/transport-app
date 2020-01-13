@@ -6,8 +6,7 @@ import lombok.Data;
 public class OurDriverForm {
     private String driverName;
     private String driverSurname;
-    private String driverEmail;
-    private String driverPhone;
-    private String driverInfo;
+    private String driverCar;
+    private String driverSemitrailer;
     private Boolean active;
 }

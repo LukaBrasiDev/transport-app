@@ -18,8 +18,8 @@
     <tr th:each="d : ${drivers}">
         <td><span th:text="${d.driverName}"></span></td>
         <td><span th:text="${d.driverSurname}"></span></td>
-        <td><span th:text="${d.driverPhone}"></span></td>
-        <td><span th:text="${d.driverInfo}"></span></td>
+        <td><span th:text="${d.driverCar}"></span></td>
+        <td><span th:text="${d.driverSemitrailer}"></span></td>
     </tr>
 </table>
 <!-- koniec tabelki -->
@@ -43,15 +43,15 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputEmail4" class="col-sm-2 col-form-label">TELEFON</label>
+                <label for="inputEmail4" class="col-sm-2 col-form-label">CIĄGNIK</label>
                 <div class="col-sm-2">
-                    <input th:value="${drivers.getDriverPhone()}" name="driverPhone" type="number" class="form-control" id="inputEmail4">
+                    <input th:value="${drivers.getDriverCar()}" name="driverCar" type="text" class="form-control" id="inputEmail4">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputEmail9" class="col-sm-2 col-form-label">INFO</label>
+                <label for="inputEmail9" class="col-sm-2 col-form-label">NACZEPA</label>
                 <div class="col-sm-2">
-                    <input th:value="${drivers.getDriverInfo()}" name="driverInfo" type="text" class="form-control" id="inputEmail9">
+                    <input th:value="${drivers.getDriverSemitrailer()}" name="driverSemitrailer" type="text" class="form-control" id="inputEmail9">
                 </div>
             </div>
             <div class="form-group row">

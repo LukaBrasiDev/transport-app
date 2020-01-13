@@ -110,8 +110,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "FROM orders as o INNER JOIN freighter as f\n" +
             "INNER JOIN user as u\n" +
             "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
-            "and o.date_load between DATE_ADD(curdate(), INTERVAL -(weekday(curdate()+4)) day)\n" +
-            "and DATE_ADD(curdate(), INTERVAL (weekday(curdate()+4)) day)\n" +
+            "and o.date_load between date_sub(curdate(), interval if(dayofweek(curdate())-5 >= 0, dayofweek(curdate())-5, dayofweek(curdate())-5+7) day)\n" +
+            "and date_sub(curdate(), interval if(dayofweek(curdate())-5 >= 0, dayofweek(curdate())-5, dayofweek(curdate())-5+7) - 6 day)\n" +
             "and f.freighter_name = 'MTW'\n" +
             "order by u.user_name asc, o.date_load desc", nativeQuery = true)
     Page<Order> findCurrentWeekMTW(Pageable pageable);
@@ -120,8 +120,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "FROM orders as o INNER JOIN freighter as f\n" +
             "INNER JOIN user as u\n" +
             "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
-            "and o.date_load between DATE_ADD(curdate()-7, INTERVAL -(weekday(curdate()+4)) day)\n" +
-            "and DATE_ADD(curdate()-7, INTERVAL (weekday(curdate()+4)) day)\n" +
+            "and o.date_load between date_sub(curdate()-7, interval if(dayofweek(curdate()-7)-5 >= 0, dayofweek(curdate()-7)-5, dayofweek(curdate()-7)-5+7) day)\n" +
+            "and date_sub(curdate()-7, interval if(dayofweek(curdate()-7)-5 >= 0, dayofweek(curdate()-7)-5, dayofweek(curdate()-7)-5+7) - 6 day)\n" +
             "and f.freighter_name = 'MTW'\n" +
             "order by u.user_name asc, o.date_load desc", nativeQuery = true)
     Page<Order> findPreviousWeekMTW(Pageable pageable);
@@ -130,8 +130,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "FROM orders as o INNER JOIN freighter as f\n" +
             "INNER JOIN user as u\n" +
             "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
-            "and o.date_load between DATE_ADD(curdate()+7, INTERVAL -(weekday(curdate()+4)) day)\n" +
-            "and DATE_ADD(curdate()+7, INTERVAL (weekday(curdate()+4)) day)\n" +
+            "and o.date_load between date_sub(curdate()+7, interval if(dayofweek(curdate()+7)-5 >= 0, dayofweek(curdate()+7)-5, dayofweek(curdate()+7)-5+7) day)\n" +
+            "and date_sub(curdate()+7, interval if(dayofweek(curdate()+7)-5 >= 0, dayofweek(curdate()+7)-5, dayofweek(curdate()+7)-5+7) - 6 day)\n" +
             "and f.freighter_name = 'MTW'\n" +
             "order by u.user_name asc, o.date_load desc", nativeQuery = true)
     Page<Order> findNextWeekMTW(Pageable pageable);

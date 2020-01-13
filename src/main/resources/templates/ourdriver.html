@@ -7,20 +7,20 @@
 <table id="export" class="table table-bordered table-hover"  style="font-family: Verdana">
     <thead>
     <tr style="font-weight: bold">
-        <td>ID</td>
+        <td>Lp.</td>
         <td>IMIĘ</td>
         <td>NAZWISKO</td>
-        <td>TELEFON</td>
-        <td>INFO</td>
+        <td>CIĄGNIK</td>
+        <td>NACZEPA</td>
         <td></td>
     </tr>
     </thead>
-    <tr th:each="d : ${drivers}" th:style="${d.active} ? '' : 'color:lightgrey'">
-        <td><span th:text="${d.id}"></span></td>
+    <tr th:each="d,iterStat : ${drivers}" th:style="${d.active} ? '' : 'color:lightgrey'">
+        <td><span th:text="${iterStat.index}+1"></span></td>
         <td><span th:text="${d.driverName}"></span></td>
         <td><span th:text="${d.driverSurname}"></span></td>
-        <td><span th:text="${d.driverPhone}"></span></td>
-        <td><span th:text="${d.driverInfo}"></span></td>
+        <td><span th:text="${d.driverCar}"></span></td>
+        <td><span th:text="${d.driverSemitrailer}"></span></td>
         <td>
             <a class="btn btn-outline-success btn-sm" th:href="@{/edycjakierowca/{id}(id=${d.id})}" role="button">Edytuj</a>
         </td>
@@ -45,15 +45,15 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputEmail4" class="col-sm-2 col-form-label">TELEFON</label>
+                <label for="inputEmail4" class="col-sm-2 col-form-label">CIĄGNIK</label>
                 <div class="col-sm-2">
-                    <input name="driverPhone" type="number" class="form-control" id="inputEmail4">
+                    <input name="driverCar" type="text" class="form-control" id="inputEmail4">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputEmail9" class="col-sm-2 col-form-label">INFO</label>
+                <label for="inputEmail9" class="col-sm-2 col-form-label">NACZEPA</label>
                 <div class="col-sm-2">
-                    <input name="driverInfo" type="text" class="form-control" id="inputEmail9">
+                    <input name="driverSemitrailer" type="text" class="form-control" id="inputEmail9">
                 </div>
             </div>
 

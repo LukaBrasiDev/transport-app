@@ -284,16 +284,22 @@ public class OrderService {
         }
     }
 
-    public void saveOurDriver(OurDriverForm ourDriverForm) {
+    public ActionResponse saveOurDriver(OurDriverForm ourDriverForm) {
         OurDriver ourDriverNew = new OurDriver();
         ourDriverNew.setDriverName(ourDriverForm.getDriverName());
         ourDriverNew.setDriverSurname(ourDriverForm.getDriverSurname());
-        ourDriverNew.setDriverPhone(ourDriverForm.getDriverPhone());
-        ourDriverNew.setDriverInfo(ourDriverForm.getDriverInfo());
-        ourDriverNew.setActive(true);
-        if (!ourDriverForm.getDriverSurname().isEmpty()) {
-            ourDriverRepository.save(ourDriverNew);
+        ourDriverNew.setDriverCar(ourDriverForm.getDriverCar());
+        ourDriverNew.setDriverSemitrailer(ourDriverForm.getDriverSemitrailer());
+        if (ourDriverRepository.existsByDriverNameAndDriverSurname(ourDriverNew.getDriverName(),ourDriverNew.getDriverSurname())) {
+            return ActionResponse.DUPLICAT;
         }
+        ourDriverNew.setActive(true);
+        if (ourDriverForm.getDriverSurname().isEmpty() &&
+                ourDriverForm.getDriverName().isEmpty()     ) {
+                   return ActionResponse.ERROR;
+        }
+        ourDriverRepository.save(ourDriverNew);
+        return ActionResponse.SUCCESS;
     }
 
     public ActionResponse updateOrder(Long id, OrderForm orderForm) throws UnknownHostException {
@@ -454,8 +460,8 @@ public class OrderService {
         Optional<OurDriver> optionalOurDriver = ourDriverRepository.findById(id);
         optionalOurDriver.get().setDriverName(ourDriverForm.getDriverName());
         optionalOurDriver.get().setDriverSurname(ourDriverForm.getDriverSurname());
-        optionalOurDriver.get().setDriverPhone(ourDriverForm.getDriverPhone());
-        optionalOurDriver.get().setDriverInfo(ourDriverForm.getDriverInfo());
+        optionalOurDriver.get().setDriverCar(ourDriverForm.getDriverCar());
+        optionalOurDriver.get().setDriverSemitrailer(ourDriverForm.getDriverSemitrailer());
         optionalOurDriver.get().setActive(ourDriverForm.getActive());
         //optionalUser.get().setPassword(userForm.getPassword());
 

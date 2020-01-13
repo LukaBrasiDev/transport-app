@@ -9,8 +9,10 @@ import java.util.List;
 
 public interface OurDriverRepository extends JpaRepository<OurDriver, Long> {
 
-    @Query(value = "select * from driver order by  active desc", nativeQuery = true)
+    @Query(value = "select * from driver order by active desc, driver_surname asc", nativeQuery = true)
     List<OurDriver> findAllByOrderByDriverSurnameAscAndActiveDesc();
+
+    boolean existsByDriverNameAndDriverSurname(String driverName, String driverSurname);
 
 
 
