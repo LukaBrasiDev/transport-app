@@ -15,6 +15,7 @@
         <td th:if="${order != null}" th:text="'NR ZLEC.'"></td>
         <td th:if="${order != null}" th:text="'ZAŁADUNEK'"></td>
         <td th:if="${order != null}" th:text="'ROZŁADUNKI'"></td>
+        <td th:if="${order != null}" th:text="'M'"></td>
         <td th:if="${order != null}" th:text="'KM'"></td>
         <td th:if="${order != null}" th:text="'CENA NASZA'"></td>
         <td th:if="${order != null}" th:text="'CENA PRZEW.'"></td>
@@ -35,6 +36,10 @@
         </td>
         <td><span th:text="${order.loadingCity}"></span></td>
         <td><span th:if="${order.cityCodes!=null}" th:text="${order.cityCodes}"></span></td>
+        <td style="text-align:center">
+            <a th:href="@{'https://www.google.pl/maps/dir/'+${#strings.replace(order.cityCodes,',','/')}}"
+               target="_blank" title="pokaż na mapie">
+                <img src="/images/earth.png" width=15 height=15></a></td>
         <td><span th:text="${order.kilometers}"></span></td>
         <td><span th:text="${order.price}"></span></td>
         <td><span th:text="${order.freighterPrice}"></span></td>
@@ -146,6 +151,7 @@
                     });
 
 
+
                     </script>
                 </div>
             </div>
@@ -241,6 +247,7 @@ $("#seeAnotherFieldGroup").change(function() {
   }
 });
 $("#seeAnotherFieldGroup").trigger("change");
+
 
 
 </script>
