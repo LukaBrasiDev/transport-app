@@ -136,7 +136,7 @@
                 <div class="col-sm-2" th:object="${freighters}">
 
                     <select name="freighter" class="js-example-tags" id="seeAnotherField">
-                        <option value="">Wybierz lub wpisz przewoźnika:</option>
+                        <option value="">Wpisz i wybierz przewoźnika:</option>
                         <option th:if="${order.freighter}!=null" th:each="f : ${freighters}"
                                 th:value="${f.freighterName}"
                                 th:text="${f.freighterName}"
@@ -147,11 +147,9 @@
                     </select>
                     <script>
                     $(".js-example-tags").select2({
-                    tags: true
-                    });
-
-
-
+                    tags: true,
+                     theme: 'bootstrap4'
+                       });
                     </script>
                 </div>
             </div>
@@ -247,7 +245,5 @@ $("#seeAnotherFieldGroup").change(function() {
   }
 });
 $("#seeAnotherFieldGroup").trigger("change");
-
-
 
 </script>
