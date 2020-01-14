@@ -260,16 +260,22 @@ public class OrderService {
         }
     }
 
-    public void saveFreighter(FreighterForm freighterForm) {
+    public ActionResponse saveFreighter(FreighterForm freighterForm) {
         Freighter freighterNew = new Freighter();
         freighterNew.setFreighterEmail(freighterForm.getFreighterEmail());
         freighterNew.setFreighterInfo(freighterForm.getFreighterInfo());
         freighterNew.setFreighterName(freighterForm.getFreighterName());
         freighterNew.setFreighterPerson(freighterForm.getFreighterPerson());
         freighterNew.setFreighterPhone(freighterForm.getFreighterPhone());
-        if (!freighterForm.getFreighterName().isEmpty()) {
-            freighterRepository.save(freighterNew);
+        if (freighterRepository.findFreighterByFreighterName(freighterNew.getFreighterName()).isPresent()) {
+            return ActionResponse.DUPLICAT;
         }
+        if (freighterForm.getFreighterName().isEmpty()) {
+            return ActionResponse.ERROR;
+
+        }
+        freighterRepository.save(freighterNew);
+        return ActionResponse.SUCCESS;
     }
 
     public void saveUser(UserForm userForm) {
