@@ -37,7 +37,7 @@
         <td><span th:text="${order.loadingCity}"></span></td>
         <td><span th:if="${order.cityCodes!=null}" th:text="${order.cityCodes}"></span></td>
         <td style="text-align:center">
-            <a th:href="@{'https://www.google.pl/maps/dir/'+${#strings.replace(order.cityCodes,',','/')}}"
+            <a th:href="@{'https://www.google.pl/maps/dir/'+${order.loadingCity}+'/'+${#strings.replace(order.cityCodes,',',',europe/')}}"
                target="_blank" title="pokaż na mapie">
                 <img src="/images/earth.png" width=15 height=15></a></td>
         <td><span th:text="${order.kilometers}"></span></td>

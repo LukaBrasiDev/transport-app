@@ -1,5 +1,5 @@
 <table th:fragment="tableimports" class="table-sm table-bordered table-hover" id="export"
-       xmlns:th="http://www.thymeleaf.org/">
+       xmlns:th="http://www.thymeleaf.org/" >
     <thead>
     <tr style="font-weight: bold">
         <td colspan="7">EXPORT</td>
@@ -35,7 +35,7 @@
         <td><span th:text="${one.loadDate}"></span></td>
         <td><span th:if="${one.factory!=null}"
                   th:text="${one.loadingCity}"></span></td>
-        <td style="background-color:#ffe6e6">
+        <td >
             <span th:if="${one.cityCodes!=null}"
                   th:text="${#strings.arraySplit(one.cityCodes, ',')[#arrays.length(#strings.arraySplit(one.cityCodes, ',')) - 1]}"></span>
         </td>
@@ -47,7 +47,7 @@
             <span th:if="${one.kilometersImp!=null}"
                   th:text="${one.kilometersImp}+' km'"></span>
         </td>
-        <td style="background-color:#ebf0fa">
+        <td >
             <span th:if="${one.loadingCityImp!=null}"
                   th:text="${one.loadingCityImp}"></span>
         </td>

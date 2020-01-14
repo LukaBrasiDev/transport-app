@@ -14,11 +14,17 @@ import pl.lukabrasi.transportapp.repository.*;
 import java.net.InetAddress;
 import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.IsoFields;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class OrderService {
@@ -212,7 +218,7 @@ public class OrderService {
         }
         // splitowanie kodów po przecinku do linked listy
         List<String> codes = new LinkedList<>();
-        String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.trim().isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
+        String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.trim().isEmpty()).collect(toList()).toArray(new String[0]);
         for (int i = 0; i < stringCodes.length; i++) {
             codes.add(stringCodes[i]);
         }
@@ -338,7 +344,7 @@ public class OrderService {
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
         //update kodow - splitowanie stringa do linked listy
         List<String> codes = new LinkedList<>();
-        String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.trim().isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
+        String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.trim().isEmpty()).collect(toList()).toArray(new String[0]);
         for (int i = 0; i < stringCodes.length; i++) {
             codes.add(stringCodes[i]);
         }
