@@ -34,8 +34,9 @@ thead{
 }
 .import{
    color:white;
-   background-color:#0275d8;
-     text-align:center
+ background-color:#0275d8;
+     text-align:center;
+     border-color:#DEE2E6 !important;
  }
 
 
