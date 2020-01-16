@@ -11460,7 +11460,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
+			"sEmptyTable": "Brak danych",
 	
 	
 			/**
@@ -11535,7 +11535,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoFiltered": "(filtered from _MAX_ total entries)",
+			"sInfoFiltered": "(odfiltrowano z _MAX_ zleceć)",
 	
 	
 			/**
