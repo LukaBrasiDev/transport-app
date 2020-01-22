@@ -372,7 +372,17 @@ public class OrderController {
         Calendar cal = Calendar.getInstance();
         List<Integer> datyWeek = new LinkedList<>();
         for (int i = 0; i > -12; i--) {
-            datyWeek.add(cal.get(Calendar.WEEK_OF_YEAR)+i);
+           int week = cal.get(Calendar.WEEK_OF_YEAR)+i;
+            if (week > 0){
+                datyWeek.add(week);
+            }
+            if (week==0){
+                datyWeek.add(53);
+            }
+            if (week<0){
+                datyWeek.add(53+week);
+            }
+
         }
         model.addAttribute("dtW", datyWeek);
 
