@@ -156,6 +156,41 @@ public class OrderController {
         return "import";
 
     }
+
+    @GetMapping("/naszeauta/tydzien/2poprzednie")
+    public String getOrdersTwoPreviousWeekMTW(@ModelAttribute RangeForm rangeForm,
+                                           Model model,
+                                           Pageable pageable) {
+        Page<Order> orderPage = orderService.find2PreviousWeekMTW(pageable);
+        model.addAttribute("page", orderPage);
+        model.addAttribute("number", orderPage.getNumber());
+        model.addAttribute("totalPages", orderPage.getTotalPages());
+        model.addAttribute("totalElements", orderPage.getTotalElements());
+        model.addAttribute("size", orderPage.getSize());
+        model.addAttribute("orders", orderPage.getContent());
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        return "import";
+
+    }
+
+    @GetMapping("/naszeauta/tydzien/3poprzednie")
+    public String getOrders3PreviousWeekMTW(@ModelAttribute RangeForm rangeForm,
+                                              Model model,
+                                              Pageable pageable) {
+        Page<Order> orderPage = orderService.find3PreviousWeekMTW(pageable);
+        model.addAttribute("page", orderPage);
+        model.addAttribute("number", orderPage.getNumber());
+        model.addAttribute("totalPages", orderPage.getTotalPages());
+        model.addAttribute("totalElements", orderPage.getTotalElements());
+        model.addAttribute("size", orderPage.getSize());
+        model.addAttribute("orders", orderPage.getContent());
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        return "import";
+
+    }
+
     @PostMapping("/zlecenia/tydzien/nastepny")
     public String getOrdersInNextWeek(@ModelAttribute RangeForm rangeForm,
                                   Model model,
@@ -236,6 +271,24 @@ public class OrderController {
         }
 
     }
+
+    @PostMapping("/naszeauta/zakres")
+    public String findMTWOrdersBetweenDates(@ModelAttribute RangeForm rangeForm,
+                                         Model model,
+                                         Pageable pageable) {
+            Page<Order> orderPage = orderService.findMTWOrdersInRange(rangeForm.getDate1(), rangeForm.getDate2(), pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("range1", rangeForm.getDate1());
+            model.addAttribute("range2", rangeForm.getDate2());
+            return "import";
+        }
 
     @GetMapping("/zlecenia/tura")
     public String findOrderNumber(@RequestParam String searchStr,
@@ -436,11 +489,19 @@ public class OrderController {
         }
 
         Calendar cal = Calendar.getInstance();
-      //  System.out.println("Current week of month is : " +cal.get(Calendar.WEEK_OF_MONTH));
-       // System.out.println("Current week of year is : " +cal.get(Calendar.WEEK_OF_YEAR));
         List<Integer> datyWeek = new LinkedList<>();
         for (int i = 0; i > -12; i--) {
-            datyWeek.add(cal.get(Calendar.WEEK_OF_YEAR)+i);
+            int week = cal.get(Calendar.WEEK_OF_YEAR)+i;
+            if (week > 0){
+                datyWeek.add(week);
+            }
+            if (week==0){
+                datyWeek.add(53);
+            }
+            if (week<0){
+                datyWeek.add(53+week);
+            }
+
         }
         model.addAttribute("dtW", datyWeek);
         // tygodnie sprzedazy Bega wstecz

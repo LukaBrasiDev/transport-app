@@ -1,0 +1,36 @@
+<form th:action="@{/naszeauta/zakres}" th:object="${orders}" method="post" th:fragment="formrange">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <label class="sr-only" for="inlineFormInputGroup2">DATA OD:</label>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">DATA OD:</div>
+                </div>
+                <input required name="date1" type="date" th:value="${range1}" class="form-control" id="inlineFormInputGroup2">
+            </div>
+        </div>
+        <div class="col-auto">
+            <label class="sr-only" for="inlineFormInputGroup">DATA DO:</label>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">DATA DO:</div>
+                </div>
+                <input required name="date2" type="date" th:value="${range2}" class="form-control" id="inlineFormInputGroup">
+            </div>
+        </div>
+<!--        <div class="col-auto">
+            <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio1" name="radioSelect" value="allorders" class="custom-control-input"
+                       checked>
+                <label class="custom-control-label" for="customRadio1">wszystkie tury</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio2" name="radioSelect" value="none" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio2">tury do sprzedania</label>
+            </div>
+        </div>-->
+        <div class="col-auto">
+            <button type="submit" class="btn btn-danger btn-lg">ZNAJDŹ TURY</button>
+        </div>
+    </div>
+</form>

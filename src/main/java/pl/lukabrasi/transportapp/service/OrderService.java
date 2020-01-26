@@ -80,6 +80,17 @@ public class OrderService {
         return orderRepository.findCurrentWeekMTW(pageable);
     }
 
+    public Page<Order> find2PreviousWeekMTW(Pageable pageable) {
+
+        return orderRepository.find2PreviousWeekMTW(pageable);
+    }
+
+    public Page<Order> find3PreviousWeekMTW(Pageable pageable) {
+
+        return orderRepository.find3PreviousWeekMTW(pageable);
+    }
+
+
     public Page<Order> findPreviousWeekMTW(Pageable pageable) {
 
         return orderRepository.findPreviousWeekMTW(pageable);
@@ -88,6 +99,8 @@ public class OrderService {
 
         return orderRepository.findNextWeekMTW(pageable);
     }
+
+
 
 
     public Page<Order> findPreviousWeekNotSold(Pageable pageable) {
@@ -112,6 +125,11 @@ public class OrderService {
     public Page<Order> getOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable) {
 
         return orderRepository.findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(date1, date2, pageable);
+    }
+
+    public Page<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable) {
+
+        return orderRepository.findMTWOrdersInRange(date1, date2, pageable);
     }
 
     public Page<Order> getOrdersInRangeNotSold(LocalDate date1, LocalDate date2, Pageable pageable) {

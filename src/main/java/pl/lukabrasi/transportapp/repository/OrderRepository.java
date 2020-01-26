@@ -23,6 +23,16 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "select * from orders where (date_load between ?1 and ?2) and (fk_user is null ) order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNotSoldOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);
 
+    //tututututututu
+     @Query(value = "SELECT * \n" +
+            "FROM orders as o INNER JOIN freighter as f\n" +
+            "INNER JOIN user as u\n" +
+            "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
+            "and  (o.date_load between ?1 and ?2)" +
+              "and f.freighter_name = 'MTW'\n" +
+            "order by u.user_name asc, o.date_load desc", nativeQuery = true)
+    Page<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);
+
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)<=YEARWEEK(curdate()) and fk_user is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findCurrentWeekNotSold(Pageable pageable);
@@ -125,6 +135,27 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "and f.freighter_name = 'MTW'\n" +
             "order by u.user_name asc, o.date_load desc", nativeQuery = true)
     Page<Order> findPreviousWeekMTW(Pageable pageable);
+
+
+    @Query(value = "SELECT * \n" +
+            "FROM orders as o INNER JOIN freighter as f\n" +
+            "INNER JOIN user as u\n" +
+            "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
+            "and o.date_load between date_sub(curdate()-14, interval if(dayofweek(curdate()-14)-5 >= 0, dayofweek(curdate()-14)-5, dayofweek(curdate()-14)-5+7) day)\n" +
+            "and date_sub(curdate()-14, interval if(dayofweek(curdate()-14)-5 >= 0, dayofweek(curdate()-14)-5, dayofweek(curdate()-14)-5+7) - 6 day)\n" +
+            "and f.freighter_name = 'MTW'\n" +
+            "order by u.user_name asc, o.date_load desc", nativeQuery = true)
+    Page<Order> find2PreviousWeekMTW(Pageable pageable);
+
+    @Query(value = "SELECT * \n" +
+            "FROM orders as o INNER JOIN freighter as f\n" +
+            "INNER JOIN user as u\n" +
+            "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
+            "and o.date_load between date_sub(curdate()-21, interval if(dayofweek(curdate()-21)-5 >= 0, dayofweek(curdate()-21)-5, dayofweek(curdate()-21)-5+7) day)\n" +
+            "and date_sub(curdate()-21, interval if(dayofweek(curdate()-21)-5 >= 0, dayofweek(curdate()-21)-5, dayofweek(curdate()-21)-5+7) - 6 day)\n" +
+            "and f.freighter_name = 'MTW'\n" +
+            "order by u.user_name asc, o.date_load desc", nativeQuery = true)
+    Page<Order> find3PreviousWeekMTW(Pageable pageable);
 
     @Query(value = "SELECT * \n" +
             "FROM orders as o INNER JOIN freighter as f\n" +
