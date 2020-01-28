@@ -110,7 +110,7 @@
                 <label for="otherFieldDiv" class="col-sm-2 col-form-label">KIEROWCA</label>
                 <div class="col-sm-2" th:object="${drivers}">
                     <select name="driver" class="form-control" id="otherFieldDiv" style="border:2px solid tomato;">
-                        <option value=" ">Wybierz osobę:</option>
+                        <option value=" ">Wybierz kierowcę:</option>
                         <option th:if="${order.driver}!=null"  th:value="${order.getDriver().id}"
                                 th:text="${order.getDriver().driverName + ' ' + order.getDriver().driverSurname}"
                                 th:selected="${order.getDriver().driverName + ' ' + order.getDriver().driverSurname}"></option>

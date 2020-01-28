@@ -507,6 +507,10 @@ public class OrderService {
         return orderRepository.monthRaportByPerson(loadDate, person);
     }
 
+    public List<Order> getMonthRaportByDriver(LocalDate loadDate, int person) {
+        return orderRepository.monthRaportByDriver(loadDate, person);
+    }
+
     public List<LocalDate> getMonthYear() {
 
         int size = orderRepository.getMonthYear().size();

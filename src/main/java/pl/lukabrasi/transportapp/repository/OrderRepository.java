@@ -24,9 +24,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findNotSoldOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);
 
     //tututututututu
-     @Query(value = "SELECT * \n" +
-            "FROM orders as o INNER JOIN freighter as f\n" +
-            "INNER JOIN user as u\n" +
+     @Query(value = "SELECT * FROM orders o, freighter f, user u\n" +
             "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
             "and  (o.date_load between ?1 and ?2)" +
               "and f.freighter_name = 'MTW'\n" +
@@ -93,6 +91,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "where\n" +
             "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_user=(?2) order by date_load asc", nativeQuery = true)
     List<Order> monthRaportByPerson(LocalDate loadDate, int person);
+
+    @Query(value = "select * from orders\n" +
+            "where\n" +
+            "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_driver=(?2) order by date_load asc", nativeQuery = true)
+    List<Order> monthRaportByDriver(LocalDate loadDate, int person);
 
     @Query(value = "SELECT distinct concat(1,'-',month(date_load),'-', year(date_load)) as data FROM orders order by date_load desc;", nativeQuery = true)
     List<String> getMonthYear();

@@ -602,4 +602,139 @@ public class OrderController {
         return "charts2";
     }
 
+    @GetMapping("/raporty/kierowcy")
+    public String getChartsMonthDrivers (Model model) {
+        Date dt = new Date();
+
+        List<List<Integer>> soldList = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            soldList.add(orderService.soldByMtwInCurrentMonth(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i)));
+        }
+        List<Object> lst = soldList.stream()
+                .flatMap(x -> x.stream())
+                .collect(Collectors.toList());
+
+        List<LocalDate> datyRok = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            datyRok.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i));
+        }
+        model.addAttribute("sold", lst);
+        model.addAttribute("dt", datyRok);
+
+        Calendar cal = Calendar.getInstance();
+        List<Integer> datyWeek = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            int week = cal.get(Calendar.WEEK_OF_YEAR)+i;
+            if (week > 0){
+                datyWeek.add(week);
+            }
+            if (week==0){
+                datyWeek.add(53);
+            }
+            if (week<0){
+                datyWeek.add(53+week);
+            }
+
+        }
+        model.addAttribute("dtW", datyWeek);
+
+        // tygodnie sprzedazy Bega wstecz
+        List<Integer> soldBegaWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldBegaWeeklyList.add(
+                    orderService.getBegaWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyBega",soldBegaWeeklyList);
+
+        // tygodnie sprzedazy Wojcik wstecz
+        List<Integer> soldWojcikWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldWojcikWeeklyList.add(
+                    orderService.getWojcikWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyWojcik",soldWojcikWeeklyList);
+
+        // tygodnie sprzedazy Wojcik wstecz
+        List<Integer> soldOtherWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldOtherWeeklyList.add(
+                    orderService.getOtherWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyOther",soldOtherWeeklyList);
+
+        model.addAttribute("drivers", orderService.getOurDrivers());
+        model.addAttribute("range3",orderService.getMonthYear());
+        return "charts3";
+    }
+
+    @PostMapping("/raporty/kierowcy")
+    public String getOrdersMonthDrivers (@ModelAttribute
+                                               MonthForm monthForm, int person,
+                                       Model model) {
+
+        Date dt = new Date();
+//////////// tworzenie listy
+        List<List<Integer>> soldList = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            soldList.add(orderService.soldByMtwInCurrentMonth(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i)));
+        }
+        List<Object> lst = soldList.stream()
+                .flatMap(x -> x.stream())
+                .collect(Collectors.toList());
+
+        List<LocalDate> datyRok = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            datyRok.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i));
+        }
+
+        Calendar cal = Calendar.getInstance();
+        List<Integer> datyWeek = new LinkedList<>();
+        for (int i = 0; i > -12; i--) {
+            int week = cal.get(Calendar.WEEK_OF_YEAR)+i;
+            if (week > 0){
+                datyWeek.add(week);
+            }
+            if (week==0){
+                datyWeek.add(53);
+            }
+            if (week<0){
+                datyWeek.add(53+week);
+            }
+
+        }
+        model.addAttribute("dtW", datyWeek);
+        // tygodnie sprzedazy Bega wstecz
+        List<Integer> soldBegaWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldBegaWeeklyList.add(
+                    orderService.getBegaWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyBega",soldBegaWeeklyList);
+
+        // tygodnie sprzedazy Wojcik wstecz
+        List<Integer> soldWojcikWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldWojcikWeeklyList.add(
+                    orderService.getWojcikWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyWojcik",soldWojcikWeeklyList);
+
+        // tygodnie sprzedazy Wojcik wstecz
+        List<Integer> soldOtherWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldOtherWeeklyList.add(
+                    orderService.getOtherWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyOther",soldOtherWeeklyList);
+
+        model.addAttribute("sold", lst);
+        model.addAttribute("dt", datyRok);
+
+        model.addAttribute("orders", orderService.getMonthRaportByDriver(monthForm.getLoadDate(), person));
+        model.addAttribute("drivers", orderService.getOurDrivers());
+        model.addAttribute("range3",orderService.getMonthYear());
+
+        return "charts3";
+    }
+
 }
