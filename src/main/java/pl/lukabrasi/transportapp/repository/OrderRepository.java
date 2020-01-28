@@ -94,7 +94,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_user=(?2) order by date_load asc", nativeQuery = true)
     List<Order> monthRaportByPerson(LocalDate loadDate, int person);
 
-    @Query(value = "SELECT distinct concat(1,'-',month(date_load),'-', year(date_load)) as data FROM orders order by data desc;", nativeQuery = true)
+    @Query(value = "SELECT distinct concat(1,'-',month(date_load),'-', year(date_load)) as data FROM orders order by date_load desc;", nativeQuery = true)
     List<String> getMonthYear();
 
     //@Query(value = 		" SELECT f.factory_name, count(o.id) as Suma from orders as o, factory as f  where YEARWEEK(o.date_load)=YEARWEEK(?1) and  o.fk_factory = f.id group by f.factory_name", nativeQuery = true)
