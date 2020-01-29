@@ -24,12 +24,18 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findNotSoldOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);
 
     //tututututututu
-     @Query(value = "SELECT * FROM orders o, freighter f, user u\n" +
+/*   @Query(value = "SELECT * FROM orders as o INNER JOIN freighter as f\n" +
+            "INNER JOIN user as u\n" +
             "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
-            "and  (o.date_load between ?1 and ?2)" +
-              "and f.freighter_name = 'MTW'\n" +
+            "and o.date_load >= CAST(?1 AS DATE) and o.date_load <= CAST(?2 AS DATE)\n" +
+             "and f.freighter_name = 'MTW'\n" +
             "order by u.user_name asc, o.date_load desc", nativeQuery = true)
+         Page<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);*/
+
+    //updated
+    @Query(value = "SELECT * FROM orders o  where fk_freighter = 1 and date_load >= ?1 and date_load <= ?2 order by date_load desc, fk_user asc", nativeQuery = true)
     Page<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);
+
 
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)<=YEARWEEK(curdate()) and fk_user is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
@@ -43,8 +49,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNextWeekNotSold(Pageable pageable);
 
-    @Query(value = "SELECT * \n" +
-            "FROM orders \n" +
+    @Query(value = "SELECT * FROM orders \n" +
             "where YEARWEEK(date_load)=YEARWEEK(curdate())\n" +
             "UNION\n" +
             "select * \n" +
@@ -96,6 +101,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "where\n" +
             "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_driver=(?2) order by date_load asc", nativeQuery = true)
     List<Order> monthRaportByDriver(LocalDate loadDate, int person);
+
+    @Query(value = "select * from orders o, driver d\n" +
+            "where o.fk_driver = d.id and\n" +
+            "(month(o.date_load)  = month(?1)) and (year(o.date_load) = year(?1)) order by d.driver_surname asc, o.date_load asc", nativeQuery = true)
+    List<Order> monthRaportByAllDrivers(LocalDate loadDate);
 
     @Query(value = "SELECT distinct concat(1,'-',month(date_load),'-', year(date_load)) as data FROM orders order by date_load desc;", nativeQuery = true)
     List<String> getMonthYear();

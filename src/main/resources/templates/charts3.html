@@ -26,8 +26,8 @@
                 </div>
                 <div class="col-auto my-1">
                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required name="person">
-                        <option disabled selected>wybierz kierowcę...</option>
-                        <option th:if="${u.active}" th:each="u : ${drivers}" th:value="${u.id}"
+                        <option th:value="0" th:text="${'WSZYSCY'}" selected>WSZYSCY</option>
+                        <option  th:if="${u.active}" th:each="u : ${drivers}" th:value="${u.id}"
                                 th:text="${u.driverSurname} + ' ' + ${u.driverName}"></option>
                     </select>
                 </div>

@@ -288,6 +288,7 @@ public class OrderController {
             model.addAttribute("range1", rangeForm.getDate1());
             model.addAttribute("range2", rangeForm.getDate2());
             return "import";
+
         }
 
     @GetMapping("/zlecenia/tura")
@@ -730,7 +731,12 @@ public class OrderController {
         model.addAttribute("sold", lst);
         model.addAttribute("dt", datyRok);
 
-        model.addAttribute("orders", orderService.getMonthRaportByDriver(monthForm.getLoadDate(), person));
+
+        if (person > 0) {
+            model.addAttribute("orders", orderService.getMonthRaportByDriver(monthForm.getLoadDate(), person));
+        }else{
+            model.addAttribute("orders", orderService.getMonthRaportByallDrivers(monthForm.getLoadDate()));
+        }
         model.addAttribute("drivers", orderService.getOurDrivers());
         model.addAttribute("range3",orderService.getMonthYear());
 
