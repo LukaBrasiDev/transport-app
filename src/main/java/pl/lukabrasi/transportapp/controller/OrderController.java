@@ -239,30 +239,21 @@ public class OrderController {
     }
     @PostMapping("/zlecenia/zakres")
     public String findOrdersBetweenDates(@ModelAttribute RangeForm rangeForm,
-                                         Model model,
-                                         Pageable pageable) {
+                                         Model model) {
         String selection = rangeForm.getRadioSelect();
         if (selection.equals("allorders")) {
-            Page<Order> orderPage = orderService.getOrdersInRange(rangeForm.getDate1(), rangeForm.getDate2(), pageable);
-            model.addAttribute("page", orderPage);
-            model.addAttribute("number", orderPage.getNumber());
-            model.addAttribute("totalPages", orderPage.getTotalPages());
-            model.addAttribute("totalElements", orderPage.getTotalElements());
-            model.addAttribute("size", orderPage.getSize());
-            model.addAttribute("orders", orderPage.getContent());
+           List<Order> orderPage = orderService.getOrdersInRange(rangeForm.getDate1(), rangeForm.getDate2());
+            model.addAttribute("orders", orderPage);
+            model.addAttribute("totalPages", -1);
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("range1", rangeForm.getDate1());
             model.addAttribute("range2", rangeForm.getDate2());
             return "order";
         } else {
-            Page<Order> orderPage = orderService.getOrdersInRangeNotSold(rangeForm.getDate1(), rangeForm.getDate2(), pageable);
-            model.addAttribute("page", orderPage);
-            model.addAttribute("number", orderPage.getNumber());
-            model.addAttribute("totalPages", orderPage.getTotalPages());
-            model.addAttribute("totalElements", orderPage.getTotalElements());
-            model.addAttribute("size", orderPage.getSize());
-            model.addAttribute("orders", orderPage.getContent());
+            List<Order> orderPage = orderService.getOrdersInRangeNotSold(rangeForm.getDate1(), rangeForm.getDate2());
+            model.addAttribute("orders", orderPage);
+            model.addAttribute("totalPages", -1);
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("range1", rangeForm.getDate1());
@@ -274,15 +265,10 @@ public class OrderController {
 
     @PostMapping("/naszeauta/zakres")
     public String findMTWOrdersBetweenDates(@ModelAttribute RangeForm rangeForm,
-                                         Model model,
-                                         Pageable pageable) {
-            Page<Order> orderPage = orderService.findMTWOrdersInRange(rangeForm.getDate1(), rangeForm.getDate2(), pageable);
-            model.addAttribute("page", orderPage);
-            model.addAttribute("number", orderPage.getNumber());
-            model.addAttribute("totalPages", orderPage.getTotalPages());
-            model.addAttribute("totalElements", orderPage.getTotalElements());
-            model.addAttribute("size", orderPage.getSize());
-            model.addAttribute("orders", orderPage.getContent());
+                                         Model model) {
+            List<Order> orderPage = orderService.findMTWOrdersInRange(rangeForm.getDate1(), rangeForm.getDate2());
+            model.addAttribute("orders", orderPage);
+            model.addAttribute("totalPages", -1);
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("range1", rangeForm.getDate1());

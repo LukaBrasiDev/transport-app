@@ -122,19 +122,19 @@ public class OrderService {
     }
 
 
-    public Page<Order> getOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable) {
+    public List<Order> getOrdersInRange(LocalDate date1, LocalDate date2) {
 
-        return orderRepository.findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(date1, date2, pageable);
+        return orderRepository.findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(date1, date2);
     }
 
-    public Page<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable) {
+    public List<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2) {
 
-        return orderRepository.findMTWOrdersInRange(date1, date2, pageable);
+        return orderRepository.findMTWOrdersInRange(date1, date2);
     }
 
-    public Page<Order> getOrdersInRangeNotSold(LocalDate date1, LocalDate date2, Pageable pageable) {
+    public List<Order> getOrdersInRangeNotSold(LocalDate date1, LocalDate date2) {
 
-        return orderRepository.findNotSoldOrdersInRange(date1, date2, pageable);
+        return orderRepository.findNotSoldOrdersInRange(date1, date2);
     }
 
     public Page<Order> findAllByOrderNumberContains(String searchStr, Pageable pageable) {

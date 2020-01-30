@@ -18,10 +18,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     Page<Order> findAllByOrderByIdDesc(Pageable pageable);
 
-    Page<Order> findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(LocalDate date1, LocalDate date2, Pageable pageable);
+    List<Order> findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(LocalDate date1, LocalDate date2);
 
     @Query(value = "select * from orders where (date_load between ?1 and ?2) and (fk_user is null ) order by date_load asc, loading_city asc", nativeQuery = true)
-    Page<Order> findNotSoldOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);
+    List<Order> findNotSoldOrdersInRange(LocalDate date1, LocalDate date2);
 
     //tututututututu
 /*   @Query(value = "SELECT * FROM orders as o INNER JOIN freighter as f\n" +
@@ -30,11 +30,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "and o.date_load >= CAST(?1 AS DATE) and o.date_load <= CAST(?2 AS DATE)\n" +
              "and f.freighter_name = 'MTW'\n" +
             "order by u.user_name asc, o.date_load desc", nativeQuery = true)
-         Page<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);*/
+         List<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);*/
 
     //updated
     @Query(value = "SELECT * FROM orders o  where fk_freighter = 1 and date_load >= ?1 and date_load <= ?2 order by date_load desc, fk_user asc", nativeQuery = true)
-    Page<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);
+    List<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2);
 
 
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)<=YEARWEEK(curdate()) and fk_user is null\n" +
