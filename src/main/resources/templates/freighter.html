@@ -7,7 +7,7 @@
 <table id="export" class="table table-bordered table-hover table-striped" style="font-family: Verdana">
     <thead>
     <tr style="font-weight: bold">
-        <td>ID</td>
+        <td>Lp.</td>
         <td>NAZWA</td>
         <td>OSOBA</td>
         <td>TELEFON</td>
@@ -16,8 +16,8 @@
         <td></td>
     </tr>
     </thead>
-    <tr th:each="f : ${freighters}">
-        <td><span th:text="${f.id}"></span></td>
+    <tr th:each="f,iterStat : ${freighters}">
+        <td><span th:text="${iterStat.index}+1"></span></td>
         <td><span th:text="${f.freighterName}"></span></td>
         <td><span th:text="${f.freighterPerson}"></span></td>
         <td><span th:text="${f.freighterPhone}"></span></td>

@@ -7,7 +7,7 @@
 <table id="export" class="table table-bordered table-hover" style="font-family: Verdana">
     <thead>
     <tr style="font-weight: bold">
-        <td>ID</td>
+        <td>Lp.</td>
         <td>IMIĘ</td>
         <td>EMAIL</td>
         <td>TELEFON</td>
@@ -15,8 +15,8 @@
         <td></td>
     </tr>
     </thead>
-    <tr th:each="f : ${users}" th:style="${f.active} ? '' : 'color:lightgrey'">
-        <td><span th:text="${f.id}"></span></td>
+    <tr th:each="f,iterStat : ${users}" th:style="${f.active} ? '' : 'color:lightgrey'">
+         <td><span th:text="${iterStat.index}+1"></span></td>
         <td><span th:text="${f.userName}"></span></td>
         <td><span th:text="${f.email}"></span></td>
         <td><span th:text="${f.telephone}"></span></td>
