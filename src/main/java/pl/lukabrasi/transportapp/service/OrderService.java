@@ -95,6 +95,7 @@ public class OrderService {
 
         return orderRepository.findPreviousWeekMTW(pageable);
     }
+
     public Page<Order> findNextWeekMTW(Pageable pageable) {
 
         return orderRepository.findNextWeekMTW(pageable);

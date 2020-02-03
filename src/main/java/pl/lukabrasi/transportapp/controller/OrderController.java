@@ -141,7 +141,7 @@ public class OrderController {
     }
 
     @GetMapping("/naszeauta/tydzien/poprzedni")
-    public String getOrdersPreviousWeekMTW(@ModelAttribute RangeForm rangeForm,
+    public String getOrdersPreviousWeekMTWonly(
                                      Model model,
                                      Pageable pageable) {
         Page<Order> orderPage = orderService.findPreviousWeekMTW(pageable);
@@ -158,8 +158,7 @@ public class OrderController {
     }
 
     @GetMapping("/naszeauta/tydzien/2poprzednie")
-    public String getOrdersTwoPreviousWeekMTW(@ModelAttribute RangeForm rangeForm,
-                                           Model model,
+    public String getOrdersTwoPreviousWeekMTW(Model model,
                                            Pageable pageable) {
         Page<Order> orderPage = orderService.find2PreviousWeekMTW(pageable);
         model.addAttribute("page", orderPage);
@@ -175,8 +174,7 @@ public class OrderController {
     }
 
     @GetMapping("/naszeauta/tydzien/3poprzednie")
-    public String getOrders3PreviousWeekMTW(@ModelAttribute RangeForm rangeForm,
-                                              Model model,
+    public String getOrders3PreviousWeekMTW(Model model,
                                               Pageable pageable) {
         Page<Order> orderPage = orderService.find3PreviousWeekMTW(pageable);
         model.addAttribute("page", orderPage);

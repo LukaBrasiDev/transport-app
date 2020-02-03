@@ -143,8 +143,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "FROM orders as o INNER JOIN freighter as f\n" +
             "INNER JOIN user as u\n" +
             "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
-            "and o.date_load between date_sub(curdate()-7, interval if(dayofweek(curdate()-7)-5 >= 0, dayofweek(curdate()-7)-5, dayofweek(curdate()-7)-5+7) day)\n" +
-            "and date_sub(curdate()-7, interval if(dayofweek(curdate()-7)-5 >= 0, dayofweek(curdate()-7)-5, dayofweek(curdate()-7)-5+7) - 6 day)\n" +
+            "and o.date_load between date_sub((date_sub(curdate(), interval 7 day)), interval if(dayofweek((date_sub(curdate(), interval 7 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 7 day)))-5, dayofweek((date_sub(curdate(), interval 7 day)))-5+7) day)\n" +
+            "and date_sub((date_sub(curdate(), interval 7 day)), interval if(dayofweek((date_sub(curdate(), interval 7 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 7 day)))-5, dayofweek((date_sub(curdate(), interval 7 day)))-5+7) - 6 day)\n" +
             "and f.freighter_name = 'MTW'\n" +
             "order by u.user_name asc, o.date_load desc", nativeQuery = true)
     Page<Order> findPreviousWeekMTW(Pageable pageable);
@@ -154,8 +154,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "FROM orders as o INNER JOIN freighter as f\n" +
             "INNER JOIN user as u\n" +
             "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
-            "and o.date_load between date_sub(curdate()-14, interval if(dayofweek(curdate()-14)-5 >= 0, dayofweek(curdate()-14)-5, dayofweek(curdate()-14)-5+7) day)\n" +
-            "and date_sub(curdate()-14, interval if(dayofweek(curdate()-14)-5 >= 0, dayofweek(curdate()-14)-5, dayofweek(curdate()-14)-5+7) - 6 day)\n" +
+            "and o.date_load between date_sub((date_sub(curdate(), interval 14 day)), interval if(dayofweek((date_sub(curdate(), interval 14 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 14 day)))-5, dayofweek((date_sub(curdate(), interval 14 day)))-5+7) day)\n" +
+            "and date_sub((date_sub(curdate(), interval 14 day)), interval if(dayofweek((date_sub(curdate(), interval 14 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 14 day)))-5, dayofweek((date_sub(curdate(), interval 14 day)))-5+7) - 6 day)\n" +
             "and f.freighter_name = 'MTW'\n" +
             "order by u.user_name asc, o.date_load desc", nativeQuery = true)
     Page<Order> find2PreviousWeekMTW(Pageable pageable);
@@ -164,8 +164,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "FROM orders as o INNER JOIN freighter as f\n" +
             "INNER JOIN user as u\n" +
             "where o.fk_freighter = f.id and o.fk_user = u.id\n" +
-            "and o.date_load between date_sub(curdate()-21, interval if(dayofweek(curdate()-21)-5 >= 0, dayofweek(curdate()-21)-5, dayofweek(curdate()-21)-5+7) day)\n" +
-            "and date_sub(curdate()-21, interval if(dayofweek(curdate()-21)-5 >= 0, dayofweek(curdate()-21)-5, dayofweek(curdate()-21)-5+7) - 6 day)\n" +
+            "and o.date_load between date_sub((date_sub(curdate(), interval 21 day)), interval if(dayofweek((date_sub(curdate(), interval 21 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 21 day)))-5, dayofweek((date_sub(curdate(), interval 21 day)))-5+7) day)\n" +
+            "and date_sub((date_sub(curdate(), interval 21 day)), interval if(dayofweek((date_sub(curdate(), interval 21 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 21 day)))-5, dayofweek((date_sub(curdate(), interval 21 day)))-5+7) - 6 day)\n" +
             "and f.freighter_name = 'MTW'\n" +
             "order by u.user_name asc, o.date_load desc", nativeQuery = true)
     Page<Order> find3PreviousWeekMTW(Pageable pageable);
