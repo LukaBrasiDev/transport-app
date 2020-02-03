@@ -503,11 +503,11 @@ public class OrderService {
         return orderRepository.soldByMtwCurrentMonth(date1);
     }
 
-    public List<Order> getMonthRaportByPerson(LocalDate loadDate, int person) {
+    public List<Order> getMonthRaportByPerson(LocalDate loadDate, Integer person) {
         return orderRepository.monthRaportByPerson(loadDate, person);
     }
 
-    public List<Order> getMonthRaportByDriver(LocalDate loadDate, int person) {
+    public List<Order> getMonthRaportByDriver(LocalDate loadDate, Integer person) {
         return orderRepository.monthRaportByDriver(loadDate, person);
     }
 

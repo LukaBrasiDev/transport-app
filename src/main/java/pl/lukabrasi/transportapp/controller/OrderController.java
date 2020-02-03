@@ -521,7 +521,7 @@ public class OrderController {
 
     @PostMapping("/raporty/spedytorzy")
     public String getOrdersInWeekSped (@ModelAttribute
-                                          MonthForm monthForm, int person,
+                                          MonthForm monthForm, Integer person,
                                   Model model) {
 
         Date dt = new Date();
@@ -656,7 +656,7 @@ public class OrderController {
 
     @PostMapping("/raporty/kierowcy")
     public String getOrdersMonthDrivers (@ModelAttribute
-                                               MonthForm monthForm, int person,
+                                               MonthForm monthForm, Integer person,
                                        Model model) {
 
         Date dt = new Date();
