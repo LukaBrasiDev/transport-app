@@ -514,12 +514,12 @@ public class OrderService {
         return orderRepository.monthRaportByPerson(loadDate, person);
     }
 
-    public List<Order> getMonthRaportByDriver(LocalDate loadDate, Integer person) {
-        return orderRepository.monthRaportByDriver(loadDate, person);
+    public List<Order> getMonthRaportByDriver(LocalDate loadDate1, LocalDate loadDate2, Integer person) {
+        return orderRepository.monthRaportByDriver(loadDate1, loadDate2, person);
     }
 
-    public List<Order> getMonthRaportByallDrivers(LocalDate loadDate) {
-        return orderRepository.monthRaportByAllDrivers(loadDate);
+    public List<Order> getMonthRaportByallDrivers(LocalDate loadDate1, LocalDate loadDate2) {
+        return orderRepository.monthRaportByAllDrivers(loadDate1, loadDate2);
     }
 
     public List<LocalDate> getMonthYear() {

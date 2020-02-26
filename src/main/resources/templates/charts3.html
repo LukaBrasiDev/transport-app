@@ -10,18 +10,24 @@
         <form th:action="@{/raporty/kierowcy}" th:method="post">
             <div class="form-row align-items-center">
                 <div class="col-auto my-1">
-                    <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">MIESIĄC</div>
+
+                    <div class="col-auto">
+                        <label class="sr-only" for="inlineFormInputGroup2">DATA OD:</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">DATA OD:</div>
+                            </div>
+                            <input required name="date1" type="date" th:value="${range1}" class="form-control" id="inlineFormInputGroup2">
                         </div>
-                        <select class="custom-select mr-sm-2" id="inlineFormInputGroupUsername" required
-                                name="loadDate">
-                                <option selected value="">wybierz miesiąc...</option>
-                            <option th:each="u : ${range3}" th:value="${u.year}+'-'+${u.monthValue}+'-01'"
-                                    th:text="${u.month}+' '+${u.year}"
-                            ></option>
-                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <label class="sr-only" for="inlineFormInputGroup">DATA DO:</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">DATA DO:</div>
+                            </div>
+                            <input required name="date2" type="date" th:value="${range2}" class="form-control" id="inlineFormInputGroup">
+                        </div>
                     </div>
                 </div>
                 <div class="col-auto my-1">

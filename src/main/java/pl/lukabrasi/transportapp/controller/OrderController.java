@@ -671,7 +671,7 @@ public class OrderController {
 
     @PostMapping("/raporty/kierowcy")
     public String getOrdersMonthDrivers (@ModelAttribute
-                                               MonthForm monthForm, Integer person,
+                                               RangeForm rangeForm, Integer person,
                                        Model model) {
 
         Date dt = new Date();
@@ -734,9 +734,9 @@ public class OrderController {
 
 
         if (person > 0) {
-            model.addAttribute("orders", orderService.getMonthRaportByDriver(monthForm.getLoadDate(), person));
+            model.addAttribute("orders", orderService.getMonthRaportByDriver(rangeForm.getDate1(),rangeForm.getDate2(), person));
         }else{
-            model.addAttribute("orders", orderService.getMonthRaportByallDrivers(monthForm.getLoadDate()));
+            model.addAttribute("orders", orderService.getMonthRaportByallDrivers(rangeForm.getDate1(),rangeForm.getDate2()));
         }
         model.addAttribute("drivers", orderService.getOurDrivers());
         model.addAttribute("range3",orderService.getMonthYear());

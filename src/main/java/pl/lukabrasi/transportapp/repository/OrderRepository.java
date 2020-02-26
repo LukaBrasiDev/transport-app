@@ -104,13 +104,18 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "select * from orders\n" +
             "where\n" +
-            "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_driver=(?2) order by date_load asc", nativeQuery = true)
-    List<Order> monthRaportByDriver(LocalDate loadDate, Integer person);
+            "date_load >= ?1 and date_load <= ?2 and fk_driver=(?3) order by date_load asc", nativeQuery = true)
+    List<Order> monthRaportByDriver(LocalDate loadDate1, LocalDate loadDate2, Integer person);
+
+  /*  @Query(value = "SELECT * FROM orders o where fk_freighter = 1 and date_load >= ?1 and date_load <= ?2 order by date_load desc, fk_user asc", nativeQuery = true)
+    List<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2);*/
+
+
 
     @Query(value = "select * from orders o, driver d\n" +
             "where o.fk_driver = d.id and\n" +
-            "(month(o.date_load)  = month(?1)) and (year(o.date_load) = year(?1)) order by d.driver_surname asc, o.date_load asc", nativeQuery = true)
-    List<Order> monthRaportByAllDrivers(LocalDate loadDate);
+            "o.date_load >= ?1 and o.date_load <= ?2 order by d.driver_surname asc, o.date_load asc", nativeQuery = true)
+    List<Order> monthRaportByAllDrivers(LocalDate loadDate1, LocalDate loadDate2);
 
     @Query(value = "SELECT distinct concat(1,'-',month(date_load),'-', year(date_load)) as data FROM orders order by date_load desc;", nativeQuery = true)
     List<String> getMonthYear();
