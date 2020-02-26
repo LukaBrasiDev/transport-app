@@ -1,34 +1,43 @@
-<div th:fragment="selection" class="container-fluid" style="background-color: #6495ED" >
+<div th:fragment="selection" class="container-fluid" style="background-color: #6495ED">
 
-    <div  style="padding-top: 25px;padding-bottom: 20px">
-        <div class="container-fluid" >
-                      <div class="row" style="padding-top: 5px;padding-bottom: 15px">
-                           <div class="col-5">
-                              <p>Wyszukiwanie tur według zakresu dat:</p>
-                                <form th:replace="fragments/formrangeimport :: formrange"></form>
-                            </div>
+    <div style="padding-top: 25px;padding-bottom: 20px">
+        <div class="container-fluid">
+            <div class="row" style="padding-top: 5px;padding-bottom: 15px">
+                <div class="col-5">
+                    <p>Wyszukiwanie tur według zakresu dat:</p>
+                    <form th:replace="fragments/formrangeimport :: formrange"></form>
+                </div>
 
-                          <!--  <div class="col-4">
-                                <p>Wyszukiwanie tur według tygodni:</p>
-                                <form th:replace="fragments/formweekimport :: formweek"></form>
-                            </div>
-                            <div class="col-4">
-                            &lt;!&ndash;    <p>Wyszukiwanie po numerze tury:</p>
-                                <form th:action="@{/zlecenia/tura}" th:object="${orders}" method="get">
-                                    <input placeholder="wpisz nr tury..." name="searchStr" type="text" th:value="${searchStr}" class="form-control">
-                                </form>&ndash;&gt;
-                            </div>-->
-                          <div class="col-7">
-                              <p>Wyszukiwanie tur według tygodni (od czwartku do środy):</p>
-                          <div class="btn-group" role="group" aria-label="Basic example" >
-                              <a href="/naszeauta/tydzien/3poprzednie" type="submit"  title="3 tygodnie wstecz" class="btn btn-danger btn-lg"> <<< </a>
-                              <a href="/naszeauta/tydzien/2poprzednie" type="submit" title="2 tygodnie wstecz" class="btn btn-danger btn-lg"> << </a>
-                              <a href="/naszeauta/tydzien/poprzedni" type="submit" title="poprzedni tydzień" class="btn btn-danger btn-lg"> < </a>
-                              <a href="/naszeauta/tydzien" type="submit" class="btn btn-danger btn-lg">AKTUALNY TYDZIEŃ</a>
-                              <a href="/naszeauta/tydzien/nastepny" type="submit" title="następny tydzień" class="btn btn-danger btn-lg"> > </a>
-                          </div>
-                          </div>
-                        </div>
+                <!--  <div class="col-4">
+                      <p>Wyszukiwanie tur według tygodni:</p>
+                      <form th:replace="fragments/formweekimport :: formweek"></form>
+                  </div>
+                  <div class="col-4">
+                  &lt;!&ndash;    <p>Wyszukiwanie po numerze tury:</p>
+                      <form th:action="@{/zlecenia/tura}" th:object="${orders}" method="get">
+                          <input placeholder="wpisz nr tury..." name="searchStr" type="text" th:value="${searchStr}" class="form-control">
+                      </form>&ndash;&gt;
+                  </div>-->
+                <div class="col-7">
+                    <p>Wyszukiwanie tur według tygodni (od czwartku do środy):</p>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a href="/naszeauta/tydzien/3poprzednie" type="submit" title="3 tygodnie wstecz"
+                           class="btn btn-danger btn-lg"> <<< </a>
+                        <a href="/naszeauta/tydzien/2poprzednie" type="submit" title="2 tygodnie wstecz"
+                           class="btn btn-danger btn-lg"> << </a>
+                        <a href="/naszeauta/tydzien/poprzedni" type="submit" title="poprzedni tydzień"
+                           class="btn btn-danger btn-lg"> < </a>
+                    </div>
+                    <div class="btn-group-vertical">
+                        <a href="/naszeauta/tydzien" type="submit" class="btn btn-danger btn-lg">AKTUALNY TYDZIEŃ</a>
+                        <a href="/naszeauta/tydzienbrak" type="submit" class="btn btn-outline-danger  btn-sm">brak
+                            powrotu</a>
+                    </div>
+                    <a href="/naszeauta/tydzien/nastepny" type="submit" title="następny tydzień"
+                       class="btn btn-danger btn-lg"> > </a>
+                </div>
+            </div>
+        </div>
         <!--    <div class="row" style="padding-top: 5px;padding-bottom: 0px">
                 <div class="col-12">
                     &lt;!&ndash;paginacja&ndash;&gt;
@@ -36,6 +45,6 @@
                 </div>
             </div>-->
 
-        </div>
     </div>
+</div>
 </div>

@@ -17,7 +17,7 @@
                         </div>
                         <select class="custom-select mr-sm-2" id="inlineFormInputGroupUsername" required
                                 name="loadDate">
-                            <!--    <option selected>wybierz miesiąc...</option>-->
+                                <option selected value="">wybierz miesiąc...</option>
                             <option th:each="u : ${range3}" th:value="${u.year}+'-'+${u.monthValue}+'-01'"
                                     th:text="${u.month}+' '+${u.year}"
                             ></option>

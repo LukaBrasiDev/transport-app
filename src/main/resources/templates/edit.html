@@ -163,7 +163,7 @@
                                 th:selected="${order.getDriver().driverName + ' ' + order.getDriver().driverSurname}"></option>
                         <option th:if="${order.driver}!=null and ${d.active}" th:each="d : ${drivers}"
                                 th:value="${d.id}"
-                                th:text="${d.driverName + ' ' + d.driverSurname}"
+                                th:text="${d.driverSurname + ' ' + d.driverName}"
                         ></option>
                         <option th:if="${order.driver}==null and ${d.active}" th:each="d : ${drivers}"
                                 th:value="${d.id}"

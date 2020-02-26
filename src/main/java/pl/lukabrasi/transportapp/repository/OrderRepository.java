@@ -97,6 +97,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_user=(?2) order by date_load asc", nativeQuery = true)
     List<Order> monthRaportByPerson(LocalDate loadDate, Integer person);
 
+/*    @Query(value = "select * from orders\n" +
+            "where\n" +
+            "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_driver=(?2) order by date_load asc", nativeQuery = true)
+    List<Order> monthRaportByDriver(LocalDate loadDate, Integer person);*/
+
     @Query(value = "select * from orders\n" +
             "where\n" +
             "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_driver=(?2) order by date_load asc", nativeQuery = true)
@@ -137,6 +142,15 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "and f.freighter_name = 'MTW'\n" +
             "order by u.user_name asc, o.date_load desc", nativeQuery = true)
     Page<Order> findCurrentWeekMTW(Pageable pageable);
+
+    @Query(value = "SELECT * \n" +
+            "FROM orders o INNER JOIN freighter f ON o.fk_freighter = f.id\n" +
+            "INNER JOIN user u ON o.fk_user = u.id\n" +
+            "where o.date_load between date_sub(curdate(), interval if(dayofweek(curdate())-5 >= 0, dayofweek(curdate())-5, dayofweek(curdate())-5+7) day)\n" +
+            "and date_sub(curdate(), interval if(dayofweek(curdate())-5 >= 0, dayofweek(curdate())-5, dayofweek(curdate())-5+7) - 6 day)\n" +
+            "and f.freighter_name = 'MTW' and (o.loading_city_imp is NULL OR o.loading_city_imp = '')\n" +
+            "order by u.user_name asc, o.date_load desc", nativeQuery = true)
+    Page<Order> findCurrentWeekMTWempty(Pageable pageable);
 
     @Query(value = "SELECT * \n" +
             "FROM orders o INNER JOIN freighter f ON o.fk_freighter = f.id\n" +
