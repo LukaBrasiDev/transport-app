@@ -33,6 +33,7 @@ public class OrderForm {
     //import
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate docDateExp;
+    private String exportEnd;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate docDateImp;
     private String loadingCityImp;

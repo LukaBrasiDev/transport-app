@@ -79,6 +79,9 @@ public class Order {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate docDateImp;
 
+    private @Column(name = "export_end")
+    String exportEnd;
+
     private @Column(name = "loading_city_imp")
     String loadingCityImp;
 

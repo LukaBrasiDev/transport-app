@@ -432,6 +432,7 @@ public class OrderService {
 
         //import
         optionalOrder.get().setDocDateExp(orderForm.getDocDateExp());
+        optionalOrder.get().setExportEnd(orderForm.getExportEnd());
         optionalOrder.get().setLoadingCityImp(orderForm.getLoadingCityImp());
         optionalOrder.get().setKilometersImp(orderForm.getKilometersImp());
         optionalOrder.get().setCityCodesImp(orderForm.getCityCodesImp());
