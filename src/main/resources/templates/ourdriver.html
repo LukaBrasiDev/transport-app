@@ -12,6 +12,7 @@
         <td>NAZWISKO</td>
         <td>CIĄGNIK</td>
         <td>NACZEPA</td>
+        <td>SPEDYTOR</td>
         <td></td>
     </tr>
     </thead>
@@ -21,6 +22,7 @@
         <td><span th:text="${d.driverSurname}"></span></td>
         <td><span th:text="${d.driverCar}"></span></td>
         <td><span th:text="${d.driverSemitrailer}"></span></td>
+        <td><span th:if="${d.user!=null}" th:text="${d.user.userName}"></span></td>
         <td>
             <a class="btn btn-outline-success btn-sm" th:href="@{/edycjakierowca/{id}(id=${d.id})}" role="button">Edytuj</a>
         </td>

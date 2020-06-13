@@ -11,8 +11,9 @@
     <tr style="font-weight: bold">
         <td>IMIĘ</td>
         <td>NAZWISKO</td>
-        <td>TELEFON</td>
-        <td>INFO</td>
+        <td>CIĄGNIK</td>
+        <td>NACZEPA</td>
+        <td>SPEDYTOR</td>
     </tr>
     </thead>
     <tr th:each="d : ${drivers}">
@@ -20,6 +21,7 @@
         <td><span th:text="${d.driverSurname}"></span></td>
         <td><span th:text="${d.driverCar}"></span></td>
         <td><span th:text="${d.driverSemitrailer}"></span></td>
+        <td><span th:if="${d.user!=null}" th:text="${d.user.userName}"></span></td>
     </tr>
 </table>
 <!-- koniec tabelki -->
@@ -52,6 +54,21 @@
                 <label for="inputEmail9" class="col-sm-2 col-form-label">NACZEPA</label>
                 <div class="col-sm-2">
                     <input th:value="${drivers.getDriverSemitrailer()}" name="driverSemitrailer" type="text" class="form-control" id="inputEmail9">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">SPEDYTOR</label>
+                <div class="col-sm-2" th:object="${users}">
+                    <select name="user" class="form-control" id="exampleFormControlSelect1">
+                        <option value=" ">Wybierz osobę:</option>
+                        <option th:if="${drivers.user}!=null" th:value="${drivers.getUser().id}"
+                                th:text="${drivers.getUser().userName}"
+                                th:selected="${drivers.getUser().userName}"></option>
+                        <option th:if="${drivers.user}!=null and ${u.active}" th:each="u : ${users}" th:value="${u.id}"
+                                th:text="${u.userName}"></option>
+                        <option th:if="${drivers.user}==null and ${u.active}" th:each="u : ${users}" th:value="${u.id}"
+                                th:text="${u.userName}"></option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">

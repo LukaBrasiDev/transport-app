@@ -326,6 +326,7 @@ public class OrderService {
         ourDriverNew.setDriverSurname(ourDriverForm.getDriverSurname());
         ourDriverNew.setDriverCar(ourDriverForm.getDriverCar());
         ourDriverNew.setDriverSemitrailer(ourDriverForm.getDriverSemitrailer());
+        ourDriverNew.setUser(ourDriverForm.getUser());
         if (ourDriverRepository.existsByDriverNameAndDriverSurname(ourDriverNew.getDriverName(),ourDriverNew.getDriverSurname())) {
             return ActionResponse.DUPLICAT;
         }
@@ -499,6 +500,7 @@ public class OrderService {
         optionalOurDriver.get().setDriverSurname(ourDriverForm.getDriverSurname());
         optionalOurDriver.get().setDriverCar(ourDriverForm.getDriverCar());
         optionalOurDriver.get().setDriverSemitrailer(ourDriverForm.getDriverSemitrailer());
+        optionalOurDriver.get().setUser(ourDriverForm.getUser());
         optionalOurDriver.get().setActive(ourDriverForm.getActive());
         //optionalUser.get().setPassword(userForm.getPassword());
 

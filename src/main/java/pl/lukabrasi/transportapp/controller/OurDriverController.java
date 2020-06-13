@@ -23,6 +23,7 @@ public class OurDriverController {
     @GetMapping("/kierowcy")
     public String getOurDrivers(Model model) {
         model.addAttribute("drivers", orderService.getOurDrivers());
+        model.addAttribute("users", orderService.getUsers());
         return "ourdriver";
     }
 
@@ -44,6 +45,7 @@ public class OurDriverController {
                        Model model) {
         model.addAttribute("drivers", orderService.getOurDriverById(id));
         model.addAttribute("ourDriverForm", new OurDriverForm());
+        model.addAttribute("users", orderService.getUsers());
         return "editdriver";
     }
 

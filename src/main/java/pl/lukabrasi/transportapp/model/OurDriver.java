@@ -28,6 +28,9 @@ public class OurDriver {
     String driverSemitrailer;
     private @Column(name = "active")
     Boolean active;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "fk_user")
+    private User user;
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver",
             cascade = {
