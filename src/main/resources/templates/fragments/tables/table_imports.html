@@ -1,12 +1,12 @@
 <table th:fragment="tableimports" class="table-sm table-bordered table-hover" id="export"
-       xmlns:th="http://www.thymeleaf.org/" >
+       xmlns:th="http://www.thymeleaf.org/">
     <thead>
     <tr style="font-weight: bold">
         <td colspan="8">EXPORT</td>
         <td class="import" colspan="8">IMPORT</td>
     </tr>
     <tr style="font-weight: bold">
-        <td style="width: 3%"> </td>
+        <td style="width: 3%"></td>
         <td style="width: 7%">TURA</td>
         <td style="width: 9%">KIEROWCA</td>
         <td style="width: 6%">DATA ZAŁ.</td>
@@ -22,65 +22,92 @@
         <td class="import" style="width: 7%">KTO ZNALAZŁ</td>
         <td class="import" style="width: 6%">DATA DOK.</td>
         <td class="import" style="width: 7%">NAST. ZAŁADUNEK</td>
-
         <td class="import" style="width: 5%"></td>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="one : ${orders}">
-        <td class="pion"><div class="pion"><strong><span th:text="${one.user.userName}"></span></strong></div></td>
-        <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
-        <td><span th:if="${one.driver!=null}"
-                  th:text="${#strings.substring(one.driver.driverName,0,1)}  + '.' + ${one.driver.driverSurname}"></span>
-        </td>
-        <td><span th:text="${one.loadDate}"></span></td>
-        <td><span th:if="${one.factory!=null}"
-                  th:text="${one.loadingCity}"></span></td>
-        <td >
+    <th:block th:each="one : ${orders}">
+
+        <tr th:if="${one.id!=null}">
+            <td class="pion">
+                <div class="pion"><strong><span th:text="${one.user.userName}"></span></strong></div>
+            </td>
+            <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
+            <td><span th:if="${one.driver!=null}"
+                      th:text="${#strings.substring(one.driver.driverName,0,1)}  + '.' + ${one.driver.driverSurname}"></span>
+            </td>
+            <td><span th:text="${one.loadDate}"></span></td>
+            <td><span th:if="${one.factory!=null}"
+                      th:text="${one.loadingCity}"></span></td>
+            <td>
             <span th:if="${one.cityCodes!=null}"
                   th:text="${#strings.arraySplit(one.cityCodes, ',')[#arrays.length(#strings.arraySplit(one.cityCodes, ',')) - 1]}"></span>
-        </td>
-        <td>
+            </td>
+            <td>
            <span th:if="${one.exportEnd!=null}"
                  th:text="${one.exportEnd}"></span>
-        </td>
-        <td>
+            </td>
+            <td>
            <span th:if="${one.docDateExp!=null}"
                  th:text="${one.docDateExp}"></span>
-        </td>
-        <td>
+            </td>
+            <td>
             <span th:if="${one.kilometersImp!=null}"
                   th:text="${one.kilometersImp}+' km'"></span>
-        </td>
-        <td >
+            </td>
+            <td>
             <span th:if="${one.loadingCityImp!=null}"
                   th:text="${one.loadingCityImp}"></span>
-        </td>
-        <td>
+            </td>
+            <td>
             <span th:if="${one.cityCodesImp!=null}"
                   th:text="${one.cityCodesImp}"></span>
-        </td>
-        <td>
+            </td>
+            <td>
            <span th:if="${one.priceImp!=null}"
-                  th:text="${#numbers.formatDecimal(one.priceImp,0,0,'COMMA')}+' €'"></span>
-        </td>
-        <td>
+                 th:text="${#numbers.formatDecimal(one.priceImp,0,0,'COMMA')}+' €'"></span>
+            </td>
+            <td>
            <span th:if="${one.userImp!=null}"
                  th:text="${one.userImp}"></span>
-        </td>
-        <td>
+            </td>
+            <td>
             <span th:if="${one.docDateImp!=null}"
                   th:text="${one.docDateImp}"></span>
-        </td>
-        <td>
+            </td>
+            <td>
             <span th:if="${one.nextLoadingCityImp!=null}"
                   th:text="${one.nextLoadingCityImp}"></span>
-        </td>
-        <td>
-            <a class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}"
-               role="button">Edycja</a>
-        </td>
-    </tr>
+            </td>
+            <td>
+                <a class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}"
+                   role="button">Edycja</a>
+            </td>
+        </tr>
+    </th:block>
+    <th:block th:if="${dr.active==true}" th:each="dr : ${driversFreeWeek}">
+        <tr>
+            <td class="pion">
+                <div class="pion"><strong><span th:text="${dr.user.userName}"></span></strong></div>
+            </td>
+            <td></td>
+            <td th:text="${#strings.substring(dr.driverName,0,1)}  + '.' + ${dr.driverSurname}"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </th:block>
+
     </tbody>
     <tfoot>
 

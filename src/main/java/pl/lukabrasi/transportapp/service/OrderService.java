@@ -626,5 +626,9 @@ public class OrderService {
 
     }
 
+    public List<OurDriver> getDriversFreeWeek() {
+        return ourDriverRepository.findDriversFreeWeek();
+    }
+
 
 }

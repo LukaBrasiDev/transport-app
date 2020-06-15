@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query(value = "select * from user order by active desc", nativeQuery = true)
+    @Query(value = "select * from user where active is true", nativeQuery = true)
     List<User> finadAllUsers();
 
   //  @Query(value = "select * from user where active = 1", nativeQuery = true)
