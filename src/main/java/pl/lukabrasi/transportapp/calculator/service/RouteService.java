@@ -96,7 +96,7 @@ public class RouteService {
                     .max(Comparator.comparingInt(Route::getDistance))
                     .get().getDistance();
             BigDecimal finalD = BigDecimal.valueOf(maxDistance);
-            BigDecimal finaleDistance = finalD.multiply(new BigDecimal(1.08));
+            BigDecimal finaleDistance = finalD.multiply(new BigDecimal(1.02));
             BigDecimal finaler = finaleDistance.setScale(0, BigDecimal.ROUND_HALF_UP);
             BigDecimal calcPrice = BigDecimal.valueOf((citiesList.size() - 1) * 30);
             newRoute.setFinalPrice((calcPrice.add(finaler)));
