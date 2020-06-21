@@ -171,6 +171,8 @@ public class OrderController {
         model.addAttribute("size", orderPage.getSize());
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("drivers", orderService.getOurDrivers());
+        model.addAttribute("driversFreeWeek", orderService.getDriversFreePreviousWeek());
         model.addAttribute("freighters", orderService.getFreighters());
         return "import";
 
@@ -250,6 +252,8 @@ public class OrderController {
         model.addAttribute("size", orderPage.getSize());
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("drivers", orderService.getOurDrivers());
+        model.addAttribute("driversFreeWeek", orderService.getDriversFreeNextWeek());
         model.addAttribute("freighters", orderService.getFreighters());
         return "import";
 

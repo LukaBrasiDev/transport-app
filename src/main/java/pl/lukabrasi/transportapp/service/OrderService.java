@@ -630,5 +630,13 @@ public class OrderService {
         return ourDriverRepository.findDriversFreeWeek();
     }
 
+    public List<OurDriver> getDriversFreeNextWeek() {
+        return ourDriverRepository.findDriversFreeNextWeek();
+    }
+
+    public List<OurDriver> getDriversFreePreviousWeek() {
+        return ourDriverRepository.findDriversFreePreviousWeek();
+    }
+
 
 }
