@@ -7,34 +7,32 @@
     </tr>
     <tr style="font-weight: bold">
         <td style="width: 3%"></td>
-        <td style="width: 7%">TURA</td>
-        <td style="width: 9%">KIEROWCA</td>
+        <td style="width: 4%">TURA</td>
+        <td style="width: 11%">KIEROWCA</td>
         <td class="nic" style="width: 6%">DATA ZAŁ.</td>
         <td class="nic" style="width: 6%">FABRYKA</td>
         <td style="width: 9%">OSTATNI ROZŁAD.</td>
         <td style="width: 7%">KIEDY KOŃCZY</td>
         <td class="nic" style="width: 6%">DATA DOK.</td>
-
         <td id="nic3" class="import" style="width: 5%">DOJAZD</td>
-        <td id="nic4" class="import" style="width: 8%">SKĄD</td>
-        <td class="import" style="width: 8%">DOKĄD</td>
+        <td id="nic4" class="import" style="width: 7%">SKĄD</td>
+        <td class="import" style="width: 7%">DOKĄD</td>
         <td id="nic5" class="import" style="width: 6%">STAWKA</td>
-        <td id="nic6" class="import" style="width: 7%">KTO ZNALAZŁ</td>
-        <td id="nic7" class="import" style="width: 6%">DATA DOK.</td>
-        <td id="nic8" class="import" style="width: 7%">NAST. ZAŁADUNEK</td>
-        <td id="nic9" class="import" style="width: 5%"></td>
+        <td id="nic6" class="import" style="width: 6%">KTO ZNALAZŁ</td>
+        <td id="nic7" class="import" style="width: 5%">DATA DOK.</td>
+        <td id="nic8" class="import" style="width: 5%">NAST. ZAŁADUNEK</td>
+        <td id="nic9" class="import" style="width: 4%"></td>
     </tr>
     </thead>
     <tbody>
     <th:block th:each="one : ${orders}">
-
         <tr th:if="${one.id!=null}">
             <td class="pion">
                 <div class="pion"><strong><span th:text="${one.user.userName}"></span></strong></div>
             </td>
             <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
             <td><span th:if="${one.driver!=null}"
-                      th:text="${#strings.substring(one.driver.driverName,0,1)}  + '.' + ${one.driver.driverSurname}"></span>
+                      th:text="${one.driver.driverSurname}+' '+${one.driver.driverName}"></span>
             </td>
             <td class="nic"><span th:text="${one.loadDate}"></span></td>
             <td class="nic"><span th:if="${one.factory!=null}"
@@ -91,8 +89,8 @@
                 <div class="pion"><strong><span th:text="${dr.user.userName}"></span></strong></div>
             </td>
             <td></td>
-            <td th:text="${#strings.substring(dr.driverName,0,1)}  + '.' + ${dr.driverSurname}"></td>
-            <td  class="nic" ></td>
+            <td th:text="${dr.driverSurname}+' '+${dr.driverName}"></td>
+            <td class="nic" ></td>
             <td class="nic" ></td>
             <td></td>
             <td></td>
@@ -107,9 +105,7 @@
             <td class="nic" ></td>
         </tr>
     </th:block>
-
     </tbody>
     <tfoot>
-
     </tfoot>
 </table>
