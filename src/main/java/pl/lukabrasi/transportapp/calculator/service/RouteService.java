@@ -120,5 +120,26 @@ public class RouteService {
         }
     }
 
+    public void updateCity(Long id, CityForm cityForm){
+
+        Optional<Route> optionalRoute = routeRepository.findById(id);
+        optionalRoute.get().setPostalCode(cityForm.getPostalCode());
+        optionalRoute.get().setCity(cityForm.getCity());
+        optionalRoute.get().setDistance(cityForm.getDistance());
+        optionalRoute.get().setRouteRate(cityForm.getRouteRate());
+
+        routeRepository.save(optionalRoute.get());
+    }
+
+    public Route getRouteById(Long id) {
+        Optional<Route> optionalRoute = routeRepository.findById(id);
+        if (optionalRoute.isPresent()) {
+            return optionalRoute.get();
+        }
+        return null;
+    }
+
+
+
 }
 

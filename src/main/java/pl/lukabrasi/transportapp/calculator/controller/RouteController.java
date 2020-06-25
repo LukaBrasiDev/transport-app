@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.lukabrasi.transportapp.calculator.dto.RouteDto;
 import pl.lukabrasi.transportapp.calculator.form.CityForm;
@@ -35,6 +36,12 @@ public class RouteController {
         return "settings";
     }
 
+    @GetMapping("/stawki")
+    public String showSettings2(Model model) {
+        model.addAttribute("settings", routeService.getRoutes());
+        return "settings";
+    }
+
     @PostMapping("/kalkulator")
     public String sendRoute(@ModelAttribute RouteForm routeForm,
                             Model model) {
@@ -50,6 +57,21 @@ public class RouteController {
         routeService.saveCity(cityForm);
         model.addAttribute("settings", routeService.getRoutes());
               return "settings";
+    }
+
+    @GetMapping("/edycjamiasto/{id}")
+    public String editcity(@PathVariable Long id,
+                       Model model) {
+        model.addAttribute("settings", routeService.getRouteById(id));
+         return "editsettings";
+    }
+
+    @PostMapping("/edycjamiasto/{id}")
+    public String updateCity(
+            @PathVariable Long id,
+            @ModelAttribute CityForm cityForm) {
+        routeService.updateCity(id, cityForm);
+        return "redirect:/stawki";
     }
 
 }

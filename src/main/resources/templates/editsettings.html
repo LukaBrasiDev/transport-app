@@ -32,43 +32,42 @@
     </table>
     <div class="container-fluid" style="background-color: lightgrey">
         <div style="padding-top: 25px;padding-bottom: 25px">
-            <p style="font-weight: bold">NOWE MIASTO</p>
-            <form th:action="@{/nowemiasto}" th:object="${settings}" method="post">
+            <p style="font-weight: bold">EDYCJA:</p>
+            <form th:action="@{/edycjamiasto/{id}(id=${settings.id})}" th:object="${settings}" method="post">
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-3 col-form-label">KOD:</label>
                     <div class="col-sm-3">
-                        <input name="postalCode" type="text" class="form-control" id="inputEmail3"
+                        <input th:value="${settings.getPostalCode()}" name="postalCode" type="text" class="form-control" id="inputEmail3"
                                placeholder="kod pocztowy" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail4" class="col-sm-3 col-form-label">MIASTO:</label>
                     <div class="col-sm-3">
-                        <input name="city" type="text" class="form-control" id="inputEmail4" placeholder="miasto" required>
+                        <input th:value="${settings.getCity()}" name="city" type="text" class="form-control" id="inputEmail4" placeholder="miasto" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail30" class="col-sm-3 col-form-label"  placeholder="odległość w km">KM:</label>
                     <div class="col-sm-3">
-                        <input name="distance" type="number" class="form-control" id="inputEmail30" required>
+                        <input th:value="${settings.getDistance()}" name="distance" type="number" class="form-control" id="inputEmail30" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail301" class="col-sm-3 col-form-label"  placeholder="stawka">STAWKA:</label>
                     <div class="col-sm-3">
-                        <input name="routeRate" type="number"  step="0.01" class="form-control" id="inputEmail301" required>
+                        <input th:value="${settings.getRouteRate()}" name="routeRate" type="number"  step="0.01" class="form-control" id="inputEmail301" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9">
-                        <button type="submit" class="btn btn-success">+ DODAJ MIASTO</button>
-                        <a href="/kalkulator" class="btn btn-secondary">POWRÓT DO KALKULATORA</a>
+                        <button type="submit" class="btn btn-success">ZAPISZ</button>
+                        <a href="/stawki" class="btn btn-danger">ANULUJ</a>
                     </div>
                 </div>
             </form>
             <!--formularz end-->
-
         </div>
     </div>
 </div>
