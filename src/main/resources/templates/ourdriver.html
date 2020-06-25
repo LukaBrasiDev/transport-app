@@ -13,7 +13,7 @@
         <td>CIĄGNIK</td>
         <td>NACZEPA</td>
         <td>SPEDYTOR</td>
-        <td></td>
+        <td class="nic"></td>
     </tr>
     </thead>
     <tr th:each="d,iterStat : ${drivers}" th:style="${d.active} ? '' : 'color:lightgrey'">
@@ -23,12 +23,13 @@
         <td><span th:text="${d.driverCar}"></span></td>
         <td><span th:text="${d.driverSemitrailer}"></span></td>
         <td><span th:if="${d.user!=null}" th:text="${d.user.userName}"></span></td>
-        <td>
+        <td class="nic">
             <a class="btn btn-outline-success btn-sm" th:href="@{/edycjakierowca/{id}(id=${d.id})}" role="button">Edytuj</a>
         </td>
     </tr>
 </table>
 <!-- koniec tabelki -->
+<button onclick="printDiv();">DRUKUJ</button>
 <!--formularz start-->
 <div class="container-fluid" style="background-color: lightgrey">
     <div style="padding-top: 25px;padding-bottom: 25px">
@@ -77,5 +78,28 @@
         <!--formularz end-->
     </div>
 </div>
+<script>
+function printDiv() {
+    var divToPrint = document.getElementById('export');
+    var htmlToPrint = '' +
+        '<style type="text/css">' +
+        '#export {' +
+        'border-collapse: collapse;'+
+        '}' +
+        'table th, table td {' +
+        'border:1px solid #000;' +
+        'padding;0.5em;' +
+        '}' +
+         'td.nic {' +
+        'display:none;' +
+              '}' +
+        '</style>';
+    htmlToPrint += divToPrint.outerHTML;
+    newWin = window.open("");
+    newWin.document.write(htmlToPrint);
+    newWin.print();
+    newWin.close();
+}
+</script>
 </body>
 </html>

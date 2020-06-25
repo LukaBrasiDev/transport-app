@@ -31,6 +31,7 @@ public class OurDriverController {
     public String createOurDriver(@ModelAttribute OurDriverForm ourDriverForm, Model model) {
         orderService.saveOurDriver(ourDriverForm);
         model.addAttribute("drivers", orderService.getOurDrivers());
+        model.addAttribute("users", orderService.getUsers());
         return "ourdriver";
     }
 
