@@ -96,7 +96,9 @@ public class RouteService {
                     .max(Comparator.comparingInt(Route::getDistance))
                     .get().getDistance();
             BigDecimal finalD = BigDecimal.valueOf(maxDistance);
-            BigDecimal finaleDistance = finalD.multiply(new BigDecimal(1.02));
+           // BigDecimal finaleDistance = finalD.multiply(new BigDecimal(1.02));
+            BigDecimal stawka = distanceList.get(0).getRouteRate();
+            BigDecimal finaleDistance = finalD.multiply(stawka);
             BigDecimal finaler = finaleDistance.setScale(0, BigDecimal.ROUND_HALF_UP);
             BigDecimal calcPrice = BigDecimal.valueOf((citiesList.size() - 1) * 30);
             newRoute.setFinalPrice((calcPrice.add(finaler)));
@@ -111,6 +113,7 @@ public class RouteService {
         routeNew.setPostalCode(cityForm.getPostalCode());
         routeNew.setCity(cityForm.getCity());
         routeNew.setDistance(cityForm.getDistance());
+        routeNew.setRouteRate(cityForm.getRouteRate());
 
         if (!cityForm.getCity().isEmpty() && !cityForm.getPostalCode().isEmpty() && cityForm.getDistance()>0) {
             routeRepository.save(routeNew);
