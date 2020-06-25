@@ -4,11 +4,11 @@
 <body class="calc">
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container">
-    <div class="row justify-content-md-center"><h4>Kalkulator tras - NIEMCY</h4>
+    <div class="row justify-content-md-center"><h4>Kalkulator tras</h4>
     </div>
     <div>
         <ul>
-            <li>Wprowadź nazwy niemieckich miast oddzielone znakiem "/"</li>
+            <li>Wprowadź nazwy miast oddzielone znakiem "/"</li>
         </ul>
         <div style="text-align: right">
             <form th:action="@{/stawki}" th:object="${settings}" method="post">
