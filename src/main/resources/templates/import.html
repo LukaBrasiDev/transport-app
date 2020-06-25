@@ -25,7 +25,7 @@
 <!--poczatek tabeli importy-->
 
 <table th:replace="fragments/tables/table_imports :: tableimports"></table>
-
+<button onclick="printDiv();">DRUKUJ</button>
 <!-- koniec tabelki -->
 
 <!--<div th:replace="fragments/selectionimport :: selection"></div>-->
@@ -79,6 +79,29 @@ $(document).ready( function () {
  "order": [  [ 0, "desc" ]  ]
         });
 } );
+</script>
+<script>
+function printDiv() {
+    var divToPrint = document.getElementById('export');
+    var htmlToPrint = '' +
+        '<style type="text/css">' +
+        '#export {' +
+        'border-collapse: collapse;'+
+        '}' +
+        'table th, table td {' +
+        'border:1px solid #000;' +
+        'padding;0.5em;' +
+        '}' +
+         'td.nic {' +
+        'display:none;' +
+              '}' +
+        '</style>';
+    htmlToPrint += divToPrint.outerHTML;
+    newWin = window.open("");
+    newWin.document.write(htmlToPrint);
+    newWin.print();
+    newWin.close();
+}
 </script>
 </body>
 </html>

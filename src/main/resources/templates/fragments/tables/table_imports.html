@@ -9,20 +9,20 @@
         <td style="width: 3%"></td>
         <td style="width: 7%">TURA</td>
         <td style="width: 9%">KIEROWCA</td>
-        <td style="width: 6%">DATA ZAŁ.</td>
-        <td style="width: 6%">FABRYKA</td>
+        <td class="nic"style="width: 6%">DATA ZAŁ.</td>
+        <td class="nic"style="width: 6%">FABRYKA</td>
         <td style="width: 9%">OSTATNI ROZŁAD.</td>
         <td style="width: 7%">KIEDY KOŃCZY</td>
-        <td style="width: 6%">DATA DOK.</td>
+        <td class="nic"style="width: 6%">DATA DOK.</td>
 
-        <td class="import" style="width: 5%">DOJAZD</td>
-        <td class="import" style="width: 8%">SKĄD</td>
+        <td class="nic"class="import" style="width: 5%">DOJAZD</td>
+        <td class="nic"class="import" style="width: 8%">SKĄD</td>
         <td class="import" style="width: 8%">DOKĄD</td>
-        <td class="import" style="width: 6%">STAWKA</td>
-        <td class="import" style="width: 7%">KTO ZNALAZŁ</td>
-        <td class="import" style="width: 6%">DATA DOK.</td>
-        <td class="import" style="width: 7%">NAST. ZAŁADUNEK</td>
-        <td class="import" style="width: 5%"></td>
+        <td class="nic"class="import" style="width: 6%">STAWKA</td>
+        <td class="nic"class="import" style="width: 7%">KTO ZNALAZŁ</td>
+        <td class="nic"class="import" style="width: 6%">DATA DOK.</td>
+        <td class="nic"class="import" style="width: 7%">NAST. ZAŁADUNEK</td>
+        <td class="nic"class="import" style="width: 5%"></td>
     </tr>
     </thead>
     <tbody>
@@ -36,8 +36,8 @@
             <td><span th:if="${one.driver!=null}"
                       th:text="${#strings.substring(one.driver.driverName,0,1)}  + '.' + ${one.driver.driverSurname}"></span>
             </td>
-            <td><span th:text="${one.loadDate}"></span></td>
-            <td><span th:if="${one.factory!=null}"
+            <td class="nic"><span th:text="${one.loadDate}"></span></td>
+            <td class="nic"><span th:if="${one.factory!=null}"
                       th:text="${one.loadingCity}"></span></td>
             <td>
             <span th:if="${one.cityCodes!=null}"
@@ -47,15 +47,15 @@
            <span th:if="${one.exportEnd!=null}"
                  th:text="${one.exportEnd}"></span>
             </td>
-            <td>
+            <td class="nic">
            <span th:if="${one.docDateExp!=null}"
                  th:text="${one.docDateExp}"></span>
             </td>
-            <td>
+            <td class="nic">
             <span th:if="${one.kilometersImp!=null}"
                   th:text="${one.kilometersImp}+' km'"></span>
             </td>
-            <td>
+            <td class="nic">
             <span th:if="${one.loadingCityImp!=null}"
                   th:text="${one.loadingCityImp}"></span>
             </td>
@@ -63,23 +63,23 @@
             <span th:if="${one.cityCodesImp!=null}"
                   th:text="${one.cityCodesImp}"></span>
             </td>
-            <td>
+            <td class="nic">
            <span th:if="${one.priceImp!=null}"
                  th:text="${#numbers.formatDecimal(one.priceImp,0,0,'COMMA')}+' €'"></span>
             </td>
-            <td>
+            <td class="nic">
            <span th:if="${one.userImp!=null}"
                  th:text="${one.userImp}"></span>
             </td>
-            <td>
+            <td class="nic">
             <span th:if="${one.docDateImp!=null}"
                   th:text="${one.docDateImp}"></span>
             </td>
-            <td>
+            <td class="nic">
             <span th:if="${one.nextLoadingCityImp!=null}"
                   th:text="${one.nextLoadingCityImp}"></span>
             </td>
-            <td>
+            <td class="nic">
                 <a class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}"
                    role="button">Edycja</a>
             </td>
