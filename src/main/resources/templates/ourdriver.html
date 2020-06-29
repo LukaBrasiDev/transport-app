@@ -12,7 +12,7 @@
         <td>NAZWISKO</td>
         <td>CIĄGNIK</td>
         <td>NACZEPA</td>
-        <td>SPEDYTOR</td>
+        <td class="nic">SPEDYTOR</td>
         <td class="nic"></td>
     </tr>
     </thead>
@@ -22,7 +22,7 @@
         <td><span th:text="${d.driverSurname}"></span></td>
         <td><span th:text="${d.driverCar}"></span></td>
         <td><span th:text="${d.driverSemitrailer}"></span></td>
-        <td><span th:if="${d.user!=null}" th:text="${d.user.userName}"></span></td>
+        <td class="nic"><span th:if="${d.user!=null}" th:text="${d.user.userName}"></span></td>
         <td class="nic">
             <a class="btn btn-outline-success btn-sm" th:href="@{/edycjakierowca/{id}(id=${d.id})}" role="button">Edytuj</a>
         </td>
@@ -83,8 +83,11 @@ function printDiv() {
     var divToPrint = document.getElementById('export');
     var htmlToPrint = '' +
         '<style type="text/css">' +
-        '#export {' +
+            'table {' +
+        'height:297mm; max-width:210mm; margin-left:15mm; margin-right:auto; '+
         'border-collapse: collapse;'+
+        'font-size: 0.75em;'+
+        'font-family: Arial,sans-serif;'+
         '}' +
         'table th, table td {' +
         'border:1px solid #000;' +
