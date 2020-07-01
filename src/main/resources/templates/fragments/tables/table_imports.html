@@ -9,6 +9,8 @@
         <td style="width: 3%"></td>
         <td class="nic" style="width: 7%">TURA</td>
         <td style="width: 11%">KIEROWCA</td>
+        <td style="width: 11%" class="noScreen">CIĄGNIK</td>
+        <td style="width: 11%" class="noScreen">NACZEPA</td>
         <td class="nic" style="width: 6%">DATA ZAŁ.</td>
         <td class="nic" style="width: 6%">FABRYKA</td>
         <td style="width: 8%">OSTATNI ROZŁAD.</td>
@@ -33,6 +35,12 @@
             <td class="nic"><strong><span th:text="${one.orderNumber}"></span></strong></td>
             <td><span th:if="${one.driver!=null}"
                       th:text="${one.driver.driverSurname}+' '+${one.driver.driverName}"></span>
+            </td>
+            <td class="noScreen"><span th:if="${one.driver!=null}"
+                      th:text="${one.driver.driverCar}"></span>
+            </td>
+            <td class="noScreen"><span th:if="${one.driver!=null}"
+                      th:text="${one.driver.driverSemitrailer}"></span>
             </td>
             <td class="nic"><span th:text="${one.loadDate}"></span></td>
             <td class="nic"><span th:if="${one.factory!=null}"
@@ -89,6 +97,8 @@
             </td>
             <td class="nic" ></td>
             <td th:text="${dr.driverSurname}+' '+${dr.driverName}"></td>
+            <td class="noScreen" th:text="${dr.driverCar}"></td>
+            <td class="noScreen" th:text="${dr.driverSemitrailer}"></td>
             <td class="nic" ></td>
             <td class="nic" ></td>
             <td></td>
