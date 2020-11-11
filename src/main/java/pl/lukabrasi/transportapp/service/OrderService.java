@@ -416,7 +416,10 @@ public class OrderService {
         }
         optionalOrder.get().setDriver(orderForm.getDriver());
         optionalOrder.get().setUser(orderForm.getUser());
-
+        // setowanie pustych wartości dla importu jezeli przeweznik zmieniony z MTW na innego
+        if (!orderForm.getFreighter().equals("MTW")) {
+            optionalOrder.get().setDriver(null);
+        }
 
         optionalOrder.get().setQueryTime(LocalDateTime.now());
         // update adresu ip
