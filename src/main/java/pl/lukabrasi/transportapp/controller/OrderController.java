@@ -416,7 +416,7 @@ public class OrderController {
         Date dt = new Date();
 
         List<List<Integer>> soldList = new LinkedList<>();
-        for (int i = 0; i > -12; i--) {
+        for (int i = 0; i > -24; i--) {
             soldList.add(orderService.soldByMtwInCurrentMonth(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i)));
         }
         List<Object> lst = soldList.stream()
@@ -424,7 +424,7 @@ public class OrderController {
                 .collect(Collectors.toList());
 
         List<LocalDate> datyRok = new LinkedList<>();
-        for (int i = 0; i > -12; i--) {
+        for (int i = 0; i > -24; i--) {
             datyRok.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i));
         }
         model.addAttribute("sold", lst);
@@ -432,7 +432,7 @@ public class OrderController {
 
         Calendar cal = Calendar.getInstance();
         List<Integer> datyWeek = new LinkedList<>();
-        for (int i = 0; i > -12; i--) {
+        for (int i = 0; i > -24; i--) {
            int week = cal.get(Calendar.WEEK_OF_YEAR)+i;
             if (week > 0){
                 datyWeek.add(week);
