@@ -63,13 +63,14 @@ public class UserController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-        if (!userSession.getUserEntity().getId().equals(id)) {
-            return "redirect:/";
+        if (userSession.getUserEntity().getId().equals(id)|| userSession.getUserEntity().getRole().equals("3")) {
+            model.addAttribute("users", orderService.getUserById(id));
+            model.addAttribute("userForm", new UserForm());
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "edituser";
+
         }
-        model.addAttribute("users", orderService.getUserById(id));
-        model.addAttribute("userForm", new UserForm());
-        model.addAttribute("logged", userSession.getUserEntity());
-        return "edituser";
+        return "redirect:/";
     }
 
     @PostMapping("/edycjauzytkownik/{id}")

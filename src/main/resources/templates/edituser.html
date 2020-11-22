@@ -54,7 +54,13 @@
                     <input th:value="${users.getTelephone()}" name="telephone" type="number" class="form-control" id="inputEmail9">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 3" >
+                <label for="inputEmail92" class="col-sm-2 col-form-label">ROLA</label>
+                <div class="col-sm-2">
+                    <input th:value="${users.getRole()}" name="role" type="number" class="form-control" id="inputEmail92">
+                </div>
+            </div>
+            <div class="form-group row" th:if="${logged.role} == 3">
                 <label for="inputEmail99" class="col-sm-2 col-form-label">is active</label>
                 <div class="col-sm-2">
                     <input  th:checked="${users.active}" name="active" type="checkbox" class="form-check-input" id="inputEmail99">

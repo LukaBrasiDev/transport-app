@@ -28,6 +28,7 @@ public class UserService {
         userEntity.setPassword(getBCrypt().encode(registerForm.getPassword()));
         userEntity.setEmail(registerForm.getEmail());
         userEntity.setActive(true);
+        userEntity.setRole("0");
 
         userRepository.save(userEntity);
         return LoginResponse.SUCCESS;
@@ -79,7 +80,11 @@ public class UserService {
 
         optionalUser.get().setEmail(userForm.getEmail());
         optionalUser.get().setTelephone(userForm.getTelephone());
-        optionalUser.get().setActive(userForm.getActive());
+        if(userForm.getActive() != null){
+        optionalUser.get().setActive(userForm.getActive());}
+        if(userForm.getRole() != null) {
+            optionalUser.get().setRole(userForm.getRole());
+        }
         //optionalUser.get().setPassword(userForm.getPassword());
         if(!userForm.getPassword().trim().isEmpty()){
             optionalUser.get().setPassword(getBCrypt().encode(userForm.getPassword()));

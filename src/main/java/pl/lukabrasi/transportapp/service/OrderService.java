@@ -217,7 +217,7 @@ public class OrderService {
         return null;
     }
 
-    public ActionResponse saveOrder(OrderForm orderForm) throws UnknownHostException {
+    public ActionResponse saveOrder(OrderForm orderForm, String loggedUser) throws UnknownHostException {
 
         Order orderNew = new Order();
         String orderNb = orderForm.getOrderNumber()
@@ -271,9 +271,9 @@ public class OrderService {
         //orderNew.setIpaddress(System.getProperty("user.name" ));
 
         // update adresu ip
-        String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-                .getRequest().getRemoteAddr();
-        orderNew.setIpaddress(remoteAddress);
+      //  String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+         //       .getRequest().getRemoteAddr();
+        orderNew.setIpaddress(loggedUser);
 
         orderRepository.save(orderNew);
         return ActionResponse.SUCCESS;
@@ -450,20 +450,37 @@ public class OrderService {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
 
-
-        optionalOrder.get().setDriver(orderForm.getDriver());
-
-
+        if(orderForm.getDriver() != null) {
+            optionalOrder.get().setDriver(orderForm.getDriver());
+        }
         //import
-        optionalOrder.get().setDocDateExp(orderForm.getDocDateExp());
-        optionalOrder.get().setExportEnd(orderForm.getExportEnd());
-        optionalOrder.get().setLoadingCityImp(orderForm.getLoadingCityImp().trim());
-        optionalOrder.get().setKilometersImp(orderForm.getKilometersImp());
-        optionalOrder.get().setCityCodesImp(orderForm.getCityCodesImp());
-        optionalOrder.get().setDocDateImp(orderForm.getDocDateImp());
-        optionalOrder.get().setNextLoadingCityImp(orderForm.getNextLoadingCityImp());
-        optionalOrder.get().setPriceImp(orderForm.getPriceImp());
-        optionalOrder.get().setUserImp(orderForm.getUserImp());
+        if(orderForm.getDocDateExp() != null) {
+            optionalOrder.get().setDocDateExp(orderForm.getDocDateExp());
+        }
+        if(orderForm.getExportEnd() != null) {
+            optionalOrder.get().setExportEnd(orderForm.getExportEnd());
+        }
+        if(orderForm.getLoadingCityImp() != null) {
+            optionalOrder.get().setLoadingCityImp(orderForm.getLoadingCityImp().trim());
+        }
+        if(orderForm.getKilometersImp() != null) {
+            optionalOrder.get().setKilometersImp(orderForm.getKilometersImp());
+        }
+        if(orderForm.getCityCodesImp() != null) {
+            optionalOrder.get().setCityCodesImp(orderForm.getCityCodesImp());
+        }
+        if(orderForm.getDocDateImp() != null) {
+            optionalOrder.get().setDocDateImp(orderForm.getDocDateImp());
+        }
+        if(orderForm.getNextLoadingCityImp() != null) {
+            optionalOrder.get().setNextLoadingCityImp(orderForm.getNextLoadingCityImp());
+        }
+        if(orderForm.getPriceImp() != null) {
+            optionalOrder.get().setPriceImp(orderForm.getPriceImp());
+        }
+        if(orderForm.getUserImp() != null) {
+            optionalOrder.get().setUserImp(orderForm.getUserImp());
+        }
 
         optionalOrder.get().setQueryTimeImp(LocalDateTime.now());
         // update adresu ip

@@ -23,7 +23,7 @@
         <td>IMIĘ</td>
         <td>EMAIL</td>
         <td>TELEFON</td>
-
+        <td th:if="${logged.role} == 3">ROLA</td>
         <td></td>
     </tr>
     </thead>
@@ -32,8 +32,9 @@
         <td><span th:text="${f.userName}"></span></td>
         <td><span th:text="${f.email}"></span></td>
         <td><span th:text="${f.telephone}"></span></td>
+        <td  th:if="${logged.role} == 3"><span th:text="${f.role}"></span></td>
         <td>
-            <a th:if="${logged.id}==${f.id}" class="btn btn-outline-success btn-sm" th:href="@{/edycjauzytkownik/{id}(id=${f.id})}" role="button">Edytuj</a>
+            <a th:if="${logged.id}==${f.id} OR ${logged.role} ==3" class="btn btn-outline-success btn-sm" th:href="@{/edycjauzytkownik/{id}(id=${f.id})}" role="button">Edytuj</a>
         </td>
     </tr>
 </table>
@@ -71,8 +72,15 @@
         &lt;!&ndash;formularz end&ndash;&gt;
     </div>
 </div>-->
-<div class="mt-3">Ktoś nie ma konta?
+<div class="mt-3" th:if="${logged.role} == 3">Ktoś nie ma konta?
     <a href="/register">Zarejestruj nową osobę</a></div>
-<p class="mt-3 mb-3 text-muted"> </p>
+<p class="mt-3 mb-3" th:if="${logged.role} == 3">
+Instrukcja nadawania roli:<br>
+0 - tylko podgląd (bez możliwości edycji zleceń i zakazów)<br>
+1 - księgowa (edycja dat w NASZE AUTA i ZAKAZY)<br>
+    2 - spedytor (edycja zleceń)<br>
+    21 - spedytor bez edycji zleceń<br>
+    3 - administrator (może wszystko :)
+</p>
 </body>
 </html>

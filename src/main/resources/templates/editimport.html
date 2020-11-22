@@ -111,7 +111,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="otherFieldDiv" class="col-sm-2 col-form-label">KIEROWCA</label>
                 <div class="col-sm-2" th:object="${drivers}">
                     <select name="driver" class="form-control" id="otherFieldDiv" style="border:2px solid tomato;">
@@ -126,49 +126,49 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail47" class="col-sm-2 col-form-label">KIEDY KOŃCZY</label>
                 <div class="col-sm-2">
                     <input name="exportEnd" type="text" th:value="${order.getExportEnd()}" class="form-control"
                            id="inputEmail47" style="border:2px solid tomato;">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 1 OR ${logged.role} == 3">
                 <label for="inputEmail4" class="col-sm-2 col-form-label">DATA DOK. EXP.</label>
                 <div class="col-sm-2">
                     <input name="docDateExp" type="date" th:value="${order.getDocDateExp()}" class="form-control"
                            id="inputEmail4" style="border:2px solid tomato;">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail367" class="col-sm-2 col-form-label">DOJAZD KM</label>
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail367" name="kilometersImp" type="number"
                            th:value="${order.getKilometersImp()}" style="border:2px solid dodgerblue;">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail36" class="col-sm-2 col-form-label">SKĄD</label>
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail36" name="loadingCityImp" type="text"
                            th:value="${order.getLoadingCityImp()}" style="border:2px solid dodgerblue;">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail3677" class="col-sm-2 col-form-label">DOKĄD</label>
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail3677" name="cityCodesImp" type="text"
                            th:value="${order.getCityCodesImp()}" style="border:2px solid dodgerblue;">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail367789" class="col-sm-2 col-form-label">STAWKA</label>
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail367789" name="priceImp" type="number" step="1"
                            th:value="${order.getPriceImp()}" style="border:2px solid dodgerblue;">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="otherFieldDiv33" class="col-sm-2 col-form-label">KTO ZNALAZŁ</label>
                 <div class="col-sm-2" th:object="${users}">
                     <select name="userImp" class="form-control" id="otherFieldDiv33"
@@ -184,21 +184,21 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 1 OR ${logged.role} == 3">
                 <label for="inputEmail48" class="col-sm-2 col-form-label">DATA DOK. IMP.</label>
                 <div class="col-sm-2">
                     <input name="docDateImp" type="date" th:value="${order.getDocDateImp()}" class="form-control"
                            id="inputEmail48" style="border:2px solid dodgerblue;">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail36778" class="col-sm-2 col-form-label">NAST. ZAŁADUNEK</label>
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail36778" name="nextLoadingCityImp" type="text"
                            th:value="${order.getNextLoadingCityImp()}" style="border:2px solid dodgerblue;">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail667" class="col-sm-2 col-form-label">OSTATNIA MODYFIKACJA:</label>
                 <div class="col-sm-2">
                     <input name="queryTimeImp"
@@ -206,7 +206,7 @@
                            class="form-control" id="inputEmail667" disabled>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail6678" class="col-sm-2 col-form-label"> </label>
                 <div class="col-sm-2">
                     <input name="ipaddressImp" th:value="${order.getIpaddressImp()}"

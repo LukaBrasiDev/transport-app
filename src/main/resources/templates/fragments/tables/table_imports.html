@@ -86,7 +86,7 @@
                   th:text="${one.nextLoadingCityImp}"></span>
             </td>
             <td class="nic">
-                <a class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}"
+                <a th:if="${logged.role} == 2 OR ${logged.role} ==3 OR ${logged.role} ==1 OR ${logged.role} ==21" class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}"
                    role="button">Edycja</a>
             </td>
         </tr>

@@ -390,7 +390,8 @@ public class OrderController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-        OrderService.ActionResponse actionResponse = orderService.saveOrder(orderForm);
+        String loggedUser = userSession.getUserEntity().getUserName();
+        OrderService.ActionResponse actionResponse = orderService.saveOrder(orderForm, loggedUser);
         if (actionResponse == OrderService.ActionResponse.SUCCESS) {
             Page<Order> orderPage = orderService.getOrderById(pageable);
             model.addAttribute("info", actionResponse);
