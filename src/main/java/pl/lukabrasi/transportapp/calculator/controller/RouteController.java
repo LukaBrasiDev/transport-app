@@ -28,11 +28,12 @@ public class RouteController {
     }
 
     @GetMapping("/kalkulator")
-    public String showCalc() {
+    public String showCalc(Model model) {
 
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
+        model.addAttribute("logged", userSession.getUserEntity());
         return "calculator";
     }
 
@@ -42,6 +43,7 @@ public class RouteController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
+        model.addAttribute("logged", userSession.getUserEntity());
         model.addAttribute("settings", routeService.getRoutes());
         return "settings";
     }
@@ -51,6 +53,7 @@ public class RouteController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
+        model.addAttribute("logged", userSession.getUserEntity());
         model.addAttribute("settings", routeService.getRoutes());
         return "settings";
     }
@@ -62,6 +65,7 @@ public class RouteController {
             return "redirect:/";
         }
         if (!routeForm.getRouteStr().isEmpty()) {
+            model.addAttribute("logged", userSession.getUserEntity());
             model.addAttribute("routes", routeService.calculateRoute(routeForm));
             model.addAttribute("form", routeForm.getRouteStr());
         }
@@ -74,6 +78,7 @@ public class RouteController {
             return "redirect:/";
         }
         routeService.saveCity(cityForm);
+        model.addAttribute("logged", userSession.getUserEntity());
         model.addAttribute("settings", routeService.getRoutes());
               return "settings";
     }
@@ -84,6 +89,7 @@ public class RouteController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
+        model.addAttribute("logged", userSession.getUserEntity());
         model.addAttribute("settings", routeService.getRouteById(id));
          return "editsettings";
     }
