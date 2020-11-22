@@ -1,8 +1,8 @@
 <nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark" th:fragment="navbar"
-     style="background-color: #e3f2fd;">
+     style="background-color: #e3f2fd;" xmlns:th="http://www.w3.org/1999/XSL/Transform">
 
 
-    <a class="navbar-brand" href="/zlecenia"><img th:src="@{/images/logo.png}"/></a> v.3.7.0
+    <a class="navbar-brand" href="/zlecenia"><img th:src="@{/images/logo.png}"/></a> v.4.0.0
 
     <!-- Navbar links -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -40,6 +40,12 @@
                     <a class="dropdown-item" href="/przewoznicy">PRZEWOŹNICY</a>
                     <a class="dropdown-item" href="/uzytkownicy">UŻYTKOWNICY</a>
                 </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">WYLOGUJ</a>
+            </li>
+            <li class="nav-item">
+                Zalogowano: <span th:text="${logged.userName}"></span>
             </li>
         </ul>
     </div>

@@ -1,16 +1,19 @@
 package pl.lukabrasi.transportapp.service;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import pl.lukabrasi.transportapp.auth.repositories.UserRepository;
+import pl.lukabrasi.transportapp.auth.services.UserSession;
 import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
-
 import java.net.InetAddress;
 import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
@@ -23,6 +26,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static java.util.stream.Collectors.toList;
 
@@ -308,8 +312,12 @@ public class OrderService {
         return ActionResponse.SUCCESS;
     }
 
-    public void saveUser(UserForm userForm) {
+    public ActionResponse saveUser(UserForm userForm) {
         User userNew = new User();
+        if (userRepository.existsByUserName(userForm.getUserName()))
+        {
+            return ActionResponse.ERROR;
+        }
         userNew.setUserName(userForm.getUserName());
         userNew.setEmail(userForm.getEmail());
         userNew.setTelephone(userForm.getTelephone());
@@ -317,7 +325,9 @@ public class OrderService {
         userNew.setActive(true);
         if (!userForm.getUserName().isEmpty()) {
             userRepository.save(userNew);
+            return ActionResponse.SUCCESS;
         }
+        return ActionResponse.ERROR;
     }
 
     public ActionResponse saveOurDriver(OurDriverForm ourDriverForm) {
@@ -339,7 +349,7 @@ public class OrderService {
         return ActionResponse.SUCCESS;
     }
 
-    public ActionResponse updateOrder(Long id, OrderForm orderForm) throws UnknownHostException {
+    public ActionResponse updateOrder(Long id, OrderForm orderForm, String loggedUser) throws UnknownHostException {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
 
@@ -423,15 +433,20 @@ public class OrderService {
 
         optionalOrder.get().setQueryTime(LocalDateTime.now());
         // update adresu ip
-        String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-                .getRequest().getRemoteAddr();
-        optionalOrder.get().setIpaddress(remoteAddress);
+        //String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+      //          .getRequest().getRemoteAddr();
+      //  optionalOrder.get().setIpaddress(remoteAddress);
+
+        //update kto ostatni zmodyfikował
+        //UserSession loggedUser = new UserSession();
+       // loggedUser.getUserEntity().setUserName();
+        optionalOrder.get().setIpaddress(loggedUser);
 
         orderRepository.save(optionalOrder.get());
         return ActionResponse.EDIT;
     }
 
-    public ActionResponse updateOrderImport(Long id, OrderForm orderForm) throws UnknownHostException {
+    public ActionResponse updateOrderImport(Long id, OrderForm orderForm, String loggedUser) throws UnknownHostException {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
 
@@ -452,9 +467,9 @@ public class OrderService {
 
         optionalOrder.get().setQueryTimeImp(LocalDateTime.now());
         // update adresu ip
-        String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-                .getRequest().getRemoteAddr();
-        optionalOrder.get().setIpaddressImp(remoteAddress);
+     //   String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+       //         .getRequest().getRemoteAddr();
+        optionalOrder.get().setIpaddressImp(loggedUser);
 
         orderRepository.save(optionalOrder.get());
         return ActionResponse.EDIT;
@@ -486,16 +501,6 @@ public class OrderService {
         freighterRepository.save(optionalFreighter.get());
     }
 
-    public void updateUser(Long id, UserForm userForm) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        optionalUser.get().setUserName(userForm.getUserName());
-        optionalUser.get().setEmail(userForm.getEmail());
-        optionalUser.get().setTelephone(userForm.getTelephone());
-        optionalUser.get().setActive(userForm.getActive());
-        //optionalUser.get().setPassword(userForm.getPassword());
-
-        userRepository.save(optionalUser.get());
-    }
 
     public void updateOurDriver(Long id, OurDriverForm ourDriverForm) {
         Optional<OurDriver> optionalOurDriver = ourDriverRepository.findById(id);
@@ -640,6 +645,8 @@ public class OrderService {
     public List<OurDriver> getDriversFreePreviousWeek() {
         return ourDriverRepository.findDriversFreePreviousWeek();
     }
+
+
 
 
 }

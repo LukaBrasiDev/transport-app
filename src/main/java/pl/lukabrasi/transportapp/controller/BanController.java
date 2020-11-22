@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.lukabrasi.transportapp.auth.services.UserSession;
 import pl.lukabrasi.transportapp.form.BanForm;
 import pl.lukabrasi.transportapp.form.UserForm;
 import pl.lukabrasi.transportapp.service.OrderService;
@@ -12,20 +13,29 @@ import pl.lukabrasi.transportapp.service.OrderService;
 public class BanController {
 
     final OrderService orderService;
+    final UserSession userSession;
 
     @Autowired
-    public BanController(OrderService orderService) {
+    public BanController(UserSession userSession,OrderService orderService) {
+        this.userSession = userSession;
         this.orderService = orderService;
     }
 
     @GetMapping("/zakazy")
     public String getBlocked(Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         model.addAttribute("ban", orderService.getBansSorted());
+        model.addAttribute("logged", userSession.getUserEntity());
         return "ban";
     }
 
     @PostMapping("/zakazy")
     public String createFreighter(@ModelAttribute BanForm banForm, Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         OrderService.ActionResponse actionResponse = orderService.saveBan(banForm);
        /* if (actionResponse == OrderService.ActionResponse.ZAKAZOK) {
         orderService.saveBan(banForm);
@@ -34,6 +44,7 @@ public class BanController {
         return "ban";}*/
         model.addAttribute("ban", orderService.getBansSorted());
         model.addAttribute("info", actionResponse);
+        model.addAttribute("logged", userSession.getUserEntity());
         return "ban";
     }
 
@@ -63,7 +74,11 @@ public class BanController {
             @PathVariable Long id,
             @ModelAttribute BanForm banForm,
             Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         model.addAttribute("ban", orderService.getBanById(id));
+        model.addAttribute("logged", userSession.getUserEntity());
         orderService.updateBanStatus(id, banForm);
 
         return "redirect:/zakazy";
@@ -72,6 +87,9 @@ public class BanController {
 
     @RequestMapping(value = "/zakazy/usun/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable(value = "id") Long id) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
 
         orderService.deleteBanById(id);
         return "redirect:/zakazy";

@@ -6,10 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.lukabrasi.transportapp.auth.services.UserSession;
 import pl.lukabrasi.transportapp.form.MonthForm;
 import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.form.RangeForm;
 import pl.lukabrasi.transportapp.model.Order;
+import pl.lukabrasi.transportapp.model.User;
 import pl.lukabrasi.transportapp.service.OrderService;
 
 import java.net.UnknownHostException;
@@ -27,30 +29,39 @@ public class OrderController {
 
 
     final OrderService orderService;
+    final UserSession userSession;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(UserSession userSession, OrderService orderService) {
+        this.userSession = userSession;
         this.orderService = orderService;
     }
 
     @GetMapping("/zlecenia")
     public String getOrders(Model model,
                             Pageable pageable) {
-        Page<Order> orderPage = orderService.getOrders(pageable);
-        model.addAttribute("page", orderPage);
-        model.addAttribute("number", orderPage.getNumber());
-        model.addAttribute("totalPages", orderPage.getTotalPages());
-        model.addAttribute("totalElements", orderPage.getTotalElements());
-        model.addAttribute("size", orderPage.getSize());
-        model.addAttribute("orders", orderPage.getContent());
-        model.addAttribute("users", orderService.getUsers());
-        model.addAttribute("freighters", orderService.getFreighters());
-        return "order";
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
+            Page<Order> orderPage = orderService.getOrders(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "order";
     }
 
     @GetMapping("/naszeauta")
     public String getOurCars(Model model,
                             Pageable pageable) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         Page<Order> orderPage = orderService.findAllMTW(pageable);
         model.addAttribute("page", orderPage);
         model.addAttribute("number", orderPage.getNumber());
@@ -60,6 +71,7 @@ public class OrderController {
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
         return "import";
     }
 
@@ -67,6 +79,9 @@ public class OrderController {
     public String getOrdersInWeek(@ModelAttribute RangeForm rangeForm,
                                   Model model,
                                   Pageable pageable) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         String selection = rangeForm.getRadioSelect();
         if (selection.equals("allweek")) {
             Page<Order> orderPage = orderService.findCurrentWeekAll(pageable);
@@ -78,6 +93,7 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
             return "order";
         } else {
             Page<Order> orderPage = orderService.findCurrentWeekNotSold(pageable);
@@ -89,6 +105,7 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
             return "order";
         }
     }
@@ -97,6 +114,9 @@ public class OrderController {
     public String getOrdersInWeekMTW(@ModelAttribute RangeForm rangeForm,
                                   Model model,
                                   Pageable pageable) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
             Page<Order> orderPage = orderService.findCurrentWeekMTW(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -108,6 +128,7 @@ public class OrderController {
             model.addAttribute("drivers", orderService.getOurDrivers());
             model.addAttribute("driversFreeWeek", orderService.getDriversFreeWeek());
             model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
             return "import";
 
     }
@@ -116,6 +137,9 @@ public class OrderController {
     public String getOrdersInWeekMTWempty(@ModelAttribute RangeForm rangeForm,
                                      Model model,
                                      Pageable pageable) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         Page<Order> orderPage = orderService.findCurrentWeekMTWempty(pageable);
         model.addAttribute("page", orderPage);
         model.addAttribute("number", orderPage.getNumber());
@@ -125,6 +149,7 @@ public class OrderController {
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
         return "import";
 
     }
@@ -133,6 +158,9 @@ public class OrderController {
     public String getOrdersInPreviousWeek(@ModelAttribute RangeForm rangeForm,
                                   Model model,
                                   Pageable pageable) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         String selection = rangeForm.getRadioSelect();
         if (selection.equals("allweek")) {
             Page<Order> orderPage = orderService.findPreviousWeekAll(pageable);
@@ -144,6 +172,7 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
             return "order";
         } else {
             Page<Order> orderPage = orderService.findPreviousWeekNotSold(pageable);
@@ -155,6 +184,7 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
             return "order";
         }
     }
@@ -163,6 +193,9 @@ public class OrderController {
     public String getOrdersPreviousWeekMTWonly(
                                      Model model,
                                      Pageable pageable) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         Page<Order> orderPage = orderService.findPreviousWeekMTW(pageable);
         model.addAttribute("page", orderPage);
         model.addAttribute("number", orderPage.getNumber());
@@ -174,6 +207,7 @@ public class OrderController {
         model.addAttribute("drivers", orderService.getOurDrivers());
         model.addAttribute("driversFreeWeek", orderService.getDriversFreePreviousWeek());
         model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
         return "import";
 
     }
@@ -181,6 +215,9 @@ public class OrderController {
     @GetMapping("/naszeauta/tydzien/2poprzednie")
     public String getOrdersTwoPreviousWeekMTW(Model model,
                                            Pageable pageable) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         Page<Order> orderPage = orderService.find2PreviousWeekMTW(pageable);
         model.addAttribute("page", orderPage);
         model.addAttribute("number", orderPage.getNumber());
@@ -190,6 +227,7 @@ public class OrderController {
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
         return "import";
 
     }
@@ -197,6 +235,9 @@ public class OrderController {
     @GetMapping("/naszeauta/tydzien/3poprzednie")
     public String getOrders3PreviousWeekMTW(Model model,
                                               Pageable pageable) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         Page<Order> orderPage = orderService.find3PreviousWeekMTW(pageable);
         model.addAttribute("page", orderPage);
         model.addAttribute("number", orderPage.getNumber());
@@ -206,6 +247,7 @@ public class OrderController {
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
         return "import";
 
     }
@@ -214,6 +256,9 @@ public class OrderController {
     public String getOrdersInNextWeek(@ModelAttribute RangeForm rangeForm,
                                   Model model,
                                   Pageable pageable) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         String selection = rangeForm.getRadioSelect();
         if (selection.equals("allweek")) {
             Page<Order> orderPage = orderService.findNextWeekAll(pageable);
@@ -225,6 +270,7 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
             return "order";
         } else {
             Page<Order> orderPage = orderService.findNextWeekNotSold(pageable);
@@ -236,6 +282,7 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
             return "order";
         }
     }
@@ -244,6 +291,9 @@ public class OrderController {
     public String getOrdersNextWeekMTW(@ModelAttribute RangeForm rangeForm,
                                      Model model,
                                      Pageable pageable) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         Page<Order> orderPage = orderService.findNextWeekMTW(pageable);
         model.addAttribute("page", orderPage);
         model.addAttribute("number", orderPage.getNumber());
@@ -255,12 +305,16 @@ public class OrderController {
         model.addAttribute("drivers", orderService.getOurDrivers());
         model.addAttribute("driversFreeWeek", orderService.getDriversFreeNextWeek());
         model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
         return "import";
 
     }
     @PostMapping("/zlecenia/zakres")
     public String findOrdersBetweenDates(@ModelAttribute RangeForm rangeForm,
                                          Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         String selection = rangeForm.getRadioSelect();
         if (selection.equals("allorders")) {
            List<Order> orderPage = orderService.getOrdersInRange(rangeForm.getDate1(), rangeForm.getDate2());
@@ -270,6 +324,7 @@ public class OrderController {
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("range1", rangeForm.getDate1());
             model.addAttribute("range2", rangeForm.getDate2());
+            model.addAttribute("logged", userSession.getUserEntity());
             return "order";
         } else {
             List<Order> orderPage = orderService.getOrdersInRangeNotSold(rangeForm.getDate1(), rangeForm.getDate2());
@@ -279,6 +334,7 @@ public class OrderController {
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("range1", rangeForm.getDate1());
             model.addAttribute("range2", rangeForm.getDate2());
+            model.addAttribute("logged", userSession.getUserEntity());
             return "order";
         }
 
@@ -287,6 +343,9 @@ public class OrderController {
     @PostMapping("/naszeauta/zakres")
     public String findMTWOrdersBetweenDates(@ModelAttribute RangeForm rangeForm,
                                          Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
             List<Order> orderPage = orderService.findMTWOrdersInRange(rangeForm.getDate1(), rangeForm.getDate2());
             model.addAttribute("orders", orderPage);
             model.addAttribute("totalPages", -1);
@@ -294,6 +353,7 @@ public class OrderController {
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("range1", rangeForm.getDate1());
             model.addAttribute("range2", rangeForm.getDate2());
+        model.addAttribute("logged", userSession.getUserEntity());
             return "import";
 
         }
@@ -302,7 +362,9 @@ public class OrderController {
     public String findOrderNumber(@RequestParam String searchStr,
                                          Model model,
                                          Pageable pageable) {
-
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
             Page<Order> orderPage = orderService.findAllByOrderNumberContains(searchStr, pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -312,6 +374,7 @@ public class OrderController {
             model.addAttribute("orders", orderPage.getContent());
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
           //  model.addAttribute("range1", rangeForm.getDate1());
           //  model.addAttribute("range2", rangeForm.getDate2());
             return "order";
@@ -324,7 +387,9 @@ public class OrderController {
     public String createOrder(@ModelAttribute OrderForm orderForm,
                               Model model,
                               Pageable pageable) throws UnknownHostException {
-
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         OrderService.ActionResponse actionResponse = orderService.saveOrder(orderForm);
         if (actionResponse == OrderService.ActionResponse.SUCCESS) {
             Page<Order> orderPage = orderService.getOrderById(pageable);
@@ -338,6 +403,7 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("orders", orderService.getOrderById(orderPage.getContent().get(0).getId()));
+            model.addAttribute("logged", userSession.getUserEntity());
             return "order";
 
         }
@@ -351,6 +417,7 @@ public class OrderController {
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
         return "order";
     }
 
@@ -358,6 +425,9 @@ public class OrderController {
     @GetMapping("/edycjazlecenie/{id}")
     public String edit(@PathVariable Long id,
                        Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("users", orderService.getUsers());
        model.addAttribute("freighters", orderService.getFreighters());
@@ -365,6 +435,7 @@ public class OrderController {
         model.addAttribute("factories", orderService.getFactories());
         model.addAttribute("drivers", orderService.getOurDrivers());
         model.addAttribute("orderForm", new OrderForm());
+        model.addAttribute("logged", userSession.getUserEntity());
         return "edit";
     }
 
@@ -374,8 +445,12 @@ public class OrderController {
     public String updateOrder(
             @PathVariable Long id,
             @ModelAttribute OrderForm orderForm, Model model) throws UnknownHostException {
-        OrderService.ActionResponse actionResponse = orderService.updateOrder(id, orderForm);
-
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
+        String loggedUser = userSession.getUserEntity().getUserName();
+        OrderService.ActionResponse actionResponse = orderService.updateOrder(id, orderForm, loggedUser);
+        model.addAttribute("logged", userSession.getUserEntity());
         model.addAttribute("info", actionResponse);
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("users", orderService.getUsers());
@@ -387,6 +462,9 @@ public class OrderController {
     @GetMapping("/edycjaimport/{id}")
     public String editImport(@PathVariable Long id,
                              Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
@@ -394,6 +472,7 @@ public class OrderController {
         model.addAttribute("factories", orderService.getFactories());
         model.addAttribute("drivers", orderService.getOurDrivers());
         model.addAttribute("orderForm", new OrderForm());
+        model.addAttribute("logged", userSession.getUserEntity());
         return "editimport";
     }
 
@@ -401,8 +480,12 @@ public class OrderController {
     public String updateImport(
             @PathVariable Long id,
             @ModelAttribute OrderForm orderForm, Model model) throws UnknownHostException {
-        OrderService.ActionResponse actionResponse = orderService.updateOrderImport(id, orderForm);
-
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
+        String loggedUser = userSession.getUserEntity().getUserName();
+        OrderService.ActionResponse actionResponse = orderService.updateOrderImport(id, orderForm, loggedUser);
+        model.addAttribute("logged", userSession.getUserEntity());
         model.addAttribute("info", actionResponse);
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("users", orderService.getUsers());
@@ -413,6 +496,9 @@ public class OrderController {
 
     @GetMapping("/raporty/wykresy")
     public String getCharts(Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         Date dt = new Date();
 
         List<List<Integer>> soldList = new LinkedList<>();
@@ -471,12 +557,16 @@ public class OrderController {
         }
         model.addAttribute("weeklyOther",soldOtherWeeklyList);
         model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("logged", userSession.getUserEntity());
 
         return "charts";
     }
 
     @GetMapping("/raporty/spedytorzy")
     public String getChartsSpedytors (Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         Date dt = new Date();
 
         List<List<Integer>> soldList = new LinkedList<>();
@@ -537,6 +627,7 @@ public class OrderController {
 
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("range3",orderService.getMonthYear());
+        model.addAttribute("logged", userSession.getUserEntity());
         return "charts2";
     }
 
@@ -544,7 +635,9 @@ public class OrderController {
     public String getOrdersInWeekSped (@ModelAttribute
                                           MonthForm monthForm, Integer person,
                                   Model model) {
-
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         Date dt = new Date();
 //////////// tworzenie listy
         List<List<Integer>> soldList = new LinkedList<>();
@@ -606,12 +699,16 @@ public class OrderController {
         model.addAttribute("orders", orderService.getMonthRaportByPerson(monthForm.getLoadDate(), person));
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("range3",orderService.getMonthYear());
+        model.addAttribute("logged", userSession.getUserEntity());
 
         return "charts2";
     }
 
     @GetMapping("/raporty/kierowcy")
     public String getChartsMonthDrivers (Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         Date dt = new Date();
 
         List<List<Integer>> soldList = new LinkedList<>();
@@ -669,7 +766,7 @@ public class OrderController {
                     orderService.getOtherWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
         }
         model.addAttribute("weeklyOther",soldOtherWeeklyList);
-
+        model.addAttribute("logged", userSession.getUserEntity());
         model.addAttribute("drivers", orderService.getOurDrivers());
         model.addAttribute("range3",orderService.getMonthYear());
         return "charts3";
@@ -679,7 +776,9 @@ public class OrderController {
     public String getOrdersMonthDrivers (@ModelAttribute
                                                RangeForm rangeForm, Integer person,
                                        Model model) {
-
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
         Date dt = new Date();
 //////////// tworzenie listy
         List<List<Integer>> soldList = new LinkedList<>();
@@ -746,6 +845,7 @@ public class OrderController {
         }
         model.addAttribute("drivers", orderService.getOurDrivers());
         model.addAttribute("range3",orderService.getMonthYear());
+        model.addAttribute("logged", userSession.getUserEntity());
 
         return "charts3";
     }
