@@ -1,5 +1,6 @@
 package pl.lukabrasi.transportapp.controller;
 
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,10 +11,12 @@ import pl.lukabrasi.transportapp.auth.services.UserSession;
 import pl.lukabrasi.transportapp.form.MonthForm;
 import pl.lukabrasi.transportapp.form.OrderForm;
 import pl.lukabrasi.transportapp.form.RangeForm;
+import pl.lukabrasi.transportapp.form.ReportForm;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.model.User;
 import pl.lukabrasi.transportapp.service.OrderService;
 
+import java.io.FileNotFoundException;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -568,138 +571,25 @@ public class OrderController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-        Date dt = new Date();
-
-        List<List<Integer>> soldList = new LinkedList<>();
-        for (int i = 0; i > -12; i--) {
-            soldList.add(orderService.soldByMtwInCurrentMonth(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i)));
-        }
-        List<Object> lst = soldList.stream()
-                .flatMap(x -> x.stream())
-                .collect(Collectors.toList());
-
-        List<LocalDate> datyRok = new LinkedList<>();
-        for (int i = 0; i > -12; i--) {
-            datyRok.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i));
-        }
-        model.addAttribute("sold", lst);
-        model.addAttribute("dt", datyRok);
-
-        Calendar cal = Calendar.getInstance();
-        List<Integer> datyWeek = new LinkedList<>();
-        for (int i = 0; i > -12; i--) {
-            int week = cal.get(Calendar.WEEK_OF_YEAR)+i;
-            if (week > 0){
-                datyWeek.add(week);
-            }
-            if (week==0){
-                datyWeek.add(53);
-            }
-            if (week<0){
-                datyWeek.add(53+week);
-            }
-
-        }
-        model.addAttribute("dtW", datyWeek);
-
-        // tygodnie sprzedazy Bega wstecz
-        List<Integer> soldBegaWeeklyList = new LinkedList<>();
-        for (int i=0; i>-12;i--){
-            soldBegaWeeklyList.add(
-                    orderService.getBegaWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
-        }
-        model.addAttribute("weeklyBega",soldBegaWeeklyList);
-
-        // tygodnie sprzedazy Wojcik wstecz
-        List<Integer> soldWojcikWeeklyList = new LinkedList<>();
-        for (int i=0; i>-12;i--){
-            soldWojcikWeeklyList.add(
-                    orderService.getWojcikWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
-        }
-        model.addAttribute("weeklyWojcik",soldWojcikWeeklyList);
-
-        // tygodnie sprzedazy Wojcik wstecz
-        List<Integer> soldOtherWeeklyList = new LinkedList<>();
-        for (int i=0; i>-12;i--){
-            soldOtherWeeklyList.add(
-                    orderService.getOtherWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
-        }
-        model.addAttribute("weeklyOther",soldOtherWeeklyList);
 
         model.addAttribute("users", orderService.getUsers());
-        model.addAttribute("range3",orderService.getMonthYear());
         model.addAttribute("logged", userSession.getUserEntity());
         return "charts2";
     }
 
     @PostMapping("/raporty/spedytorzy")
     public String getOrdersInWeekSped (@ModelAttribute
-                                          MonthForm monthForm, Integer person,
-                                  Model model) {
+                                               ReportForm reportForm,
+                                  Model model) throws FileNotFoundException, JRException {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-        Date dt = new Date();
-//////////// tworzenie listy
-        List<List<Integer>> soldList = new LinkedList<>();
-        for (int i = 0; i > -12; i--) {
-            soldList.add(orderService.soldByMtwInCurrentMonth(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i)));
-        }
-        List<Object> lst = soldList.stream()
-                .flatMap(x -> x.stream())
-                .collect(Collectors.toList());
-
-        List<LocalDate> datyRok = new LinkedList<>();
-        for (int i = 0; i > -12; i--) {
-            datyRok.add(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusMonths(i));
+        if (reportForm.getReportFormat().equalsIgnoreCase("PDF")) {
+            orderService.getMonthRaportByPerson(reportForm.getLoadDate(), reportForm.getPerson(), reportForm.getReportFormat());
         }
 
-        Calendar cal = Calendar.getInstance();
-        List<Integer> datyWeek = new LinkedList<>();
-        for (int i = 0; i > -12; i--) {
-            int week = cal.get(Calendar.WEEK_OF_YEAR)+i;
-            if (week > 0){
-                datyWeek.add(week);
-            }
-            if (week==0){
-                datyWeek.add(53);
-            }
-            if (week<0){
-                datyWeek.add(53+week);
-            }
-
-        }
-        model.addAttribute("dtW", datyWeek);
-        // tygodnie sprzedazy Bega wstecz
-        List<Integer> soldBegaWeeklyList = new LinkedList<>();
-        for (int i=0; i>-12;i--){
-            soldBegaWeeklyList.add(
-                    orderService.getBegaWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
-        }
-        model.addAttribute("weeklyBega",soldBegaWeeklyList);
-
-        // tygodnie sprzedazy Wojcik wstecz
-        List<Integer> soldWojcikWeeklyList = new LinkedList<>();
-        for (int i=0; i>-12;i--){
-            soldWojcikWeeklyList.add(
-                    orderService.getWojcikWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
-        }
-        model.addAttribute("weeklyWojcik",soldWojcikWeeklyList);
-
-        // tygodnie sprzedazy Wojcik wstecz
-        List<Integer> soldOtherWeeklyList = new LinkedList<>();
-        for (int i=0; i>-12;i--){
-            soldOtherWeeklyList.add(
-                    orderService.getOtherWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
-        }
-        model.addAttribute("weeklyOther",soldOtherWeeklyList);
-
-        model.addAttribute("sold", lst);
-        model.addAttribute("dt", datyRok);
-
-        model.addAttribute("orders", orderService.getMonthRaportByPerson(monthForm.getLoadDate(), person));
+        // model.addAttribute("loadDate", reportForm.);
         model.addAttribute("users", orderService.getUsers());
-        model.addAttribute("range3",orderService.getMonthYear());
         model.addAttribute("logged", userSession.getUserEntity());
 
         return "charts2";

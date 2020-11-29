@@ -1,5 +1,7 @@
 package pl.lukabrasi.transportapp.service;
 
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -7,16 +9,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import pl.lukabrasi.transportapp.auth.repositories.UserRepository;
 import pl.lukabrasi.transportapp.auth.services.UserSession;
+import pl.lukabrasi.transportapp.dto.ReportMonthPerson;
 import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.InetAddress;
 import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
+import java.sql.Timestamp;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,6 +34,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static java.util.stream.Collectors.toList;
@@ -109,8 +118,6 @@ public class OrderService {
 
         return orderRepository.findNextWeekMTW(pageable);
     }
-
-
 
 
     public Page<Order> findPreviousWeekNotSold(Pageable pageable) {
@@ -271,8 +278,8 @@ public class OrderService {
         //orderNew.setIpaddress(System.getProperty("user.name" ));
 
         // update adresu ip
-      //  String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-         //       .getRequest().getRemoteAddr();
+        //  String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+        //       .getRequest().getRemoteAddr();
         orderNew.setIpaddress(loggedUser);
 
         orderRepository.save(orderNew);
@@ -314,8 +321,7 @@ public class OrderService {
 
     public ActionResponse saveUser(UserForm userForm) {
         User userNew = new User();
-        if (userRepository.existsByUserName(userForm.getUserName()))
-        {
+        if (userRepository.existsByUserName(userForm.getUserName())) {
             return ActionResponse.ERROR;
         }
         userNew.setUserName(userForm.getUserName());
@@ -337,13 +343,13 @@ public class OrderService {
         ourDriverNew.setDriverCar(ourDriverForm.getDriverCar());
         ourDriverNew.setDriverSemitrailer(ourDriverForm.getDriverSemitrailer());
         ourDriverNew.setUser(ourDriverForm.getUser());
-        if (ourDriverRepository.existsByDriverNameAndDriverSurname(ourDriverNew.getDriverName(),ourDriverNew.getDriverSurname())) {
+        if (ourDriverRepository.existsByDriverNameAndDriverSurname(ourDriverNew.getDriverName(), ourDriverNew.getDriverSurname())) {
             return ActionResponse.DUPLICAT;
         }
         ourDriverNew.setActive(true);
         if (ourDriverForm.getDriverSurname().isEmpty() &&
-                ourDriverForm.getDriverName().isEmpty()     ) {
-                   return ActionResponse.ERROR;
+                ourDriverForm.getDriverName().isEmpty()) {
+            return ActionResponse.ERROR;
         }
         ourDriverRepository.save(ourDriverNew);
         return ActionResponse.SUCCESS;
@@ -434,12 +440,12 @@ public class OrderService {
         optionalOrder.get().setQueryTime(LocalDateTime.now());
         // update adresu ip
         //String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-      //          .getRequest().getRemoteAddr();
-      //  optionalOrder.get().setIpaddress(remoteAddress);
+        //          .getRequest().getRemoteAddr();
+        //  optionalOrder.get().setIpaddress(remoteAddress);
 
         //update kto ostatni zmodyfikował
         //UserSession loggedUser = new UserSession();
-       // loggedUser.getUserEntity().setUserName();
+        // loggedUser.getUserEntity().setUserName();
         optionalOrder.get().setIpaddress(loggedUser);
 
         orderRepository.save(optionalOrder.get());
@@ -450,42 +456,42 @@ public class OrderService {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
 
-        if(orderForm.getDriver() != null) {
+        if (orderForm.getDriver() != null) {
             optionalOrder.get().setDriver(orderForm.getDriver());
         }
         //import
-        if(orderForm.getDocDateExp() != null) {
+        if (orderForm.getDocDateExp() != null) {
             optionalOrder.get().setDocDateExp(orderForm.getDocDateExp());
         }
-        if(orderForm.getExportEnd() != null) {
+        if (orderForm.getExportEnd() != null) {
             optionalOrder.get().setExportEnd(orderForm.getExportEnd());
         }
-        if(orderForm.getLoadingCityImp() != null) {
+        if (orderForm.getLoadingCityImp() != null) {
             optionalOrder.get().setLoadingCityImp(orderForm.getLoadingCityImp().trim());
         }
-        if(orderForm.getKilometersImp() != null) {
+        if (orderForm.getKilometersImp() != null) {
             optionalOrder.get().setKilometersImp(orderForm.getKilometersImp());
         }
-        if(orderForm.getCityCodesImp() != null) {
+        if (orderForm.getCityCodesImp() != null) {
             optionalOrder.get().setCityCodesImp(orderForm.getCityCodesImp());
         }
-        if(orderForm.getDocDateImp() != null) {
+        if (orderForm.getDocDateImp() != null) {
             optionalOrder.get().setDocDateImp(orderForm.getDocDateImp());
         }
-        if(orderForm.getNextLoadingCityImp() != null) {
+        if (orderForm.getNextLoadingCityImp() != null) {
             optionalOrder.get().setNextLoadingCityImp(orderForm.getNextLoadingCityImp());
         }
-        if(orderForm.getPriceImp() != null) {
+        if (orderForm.getPriceImp() != null) {
             optionalOrder.get().setPriceImp(orderForm.getPriceImp());
         }
-        if(orderForm.getUserImp() != null) {
+        if (orderForm.getUserImp() != null) {
             optionalOrder.get().setUserImp(orderForm.getUserImp());
         }
 
         optionalOrder.get().setQueryTimeImp(LocalDateTime.now());
         // update adresu ip
-     //   String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-       //         .getRequest().getRemoteAddr();
+        //   String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+        //         .getRequest().getRemoteAddr();
         optionalOrder.get().setIpaddressImp(loggedUser);
 
         orderRepository.save(optionalOrder.get());
@@ -537,9 +543,9 @@ public class OrderService {
         return orderRepository.soldByMtwCurrentMonth(date1);
     }
 
-    public List<Order> getMonthRaportByPerson(LocalDate loadDate, Integer person) {
-        return orderRepository.monthRaportByPerson(loadDate, person);
-    }
+    // public List<Order> getMonthRaportByPerson(LocalDate loadDate, Integer person) {
+    //  return orderRepository.monthRaportByPerson(loadDate, person);
+    //  }
 
     public List<Order> getMonthRaportByDriver(LocalDate loadDate1, LocalDate loadDate2, Integer person) {
         return orderRepository.monthRaportByDriver(loadDate1, loadDate2, person);
@@ -664,6 +670,25 @@ public class OrderService {
     }
 
 
+    //RAPORTY
+    public void getMonthRaportByPerson(LocalDate loadDate, String person, String reportFormat) throws FileNotFoundException, JRException {
+        String path = "C:\\Aplikacja_MTW\\raporty\\";
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        List<ReportMonthPerson> employees = orderRepository.monthRaportByPerson(loadDate, person);
+        //Load file an compiles it
+        File file = ResourceUtils.getFile("classpath:reports\\raportmiesieczny.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(employees);
+        Map<String, Object> map = new HashMap<>();
+        map.put("DATA_MIESIAC", loadDate.toString());
+        map.put("SPEDYTOR", person);
+          JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, dataSource);
+        if (reportFormat.equalsIgnoreCase("pdf")) {
+            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "raport_miesieczny_"+ person + "_" + loadDate.toString().substring(0, 7)+".pdf");
+          }
 
+        return;
+
+    }
 
 }

@@ -5,7 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import pl.lukabrasi.transportapp.dto.ReportMonthPerson;
+import pl.lukabrasi.transportapp.model.Freighter;
 import pl.lukabrasi.transportapp.model.Order;
+import pl.lukabrasi.transportapp.model.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -92,10 +95,23 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Integer> soldByMtwCurrentMonth(LocalDate date1);
 
 
-    @Query(value = "select * from orders\n" +
-            "where\n" +
-            "(month(date_load)  = month(?1)) and (year(date_load) = year(?1)) and fk_user=(?2) order by date_load asc", nativeQuery = true)
-    List<Order> monthRaportByPerson(LocalDate loadDate, Integer person);
+
+    @Query("SELECT new pl.lukabrasi.transportapp.dto.ReportMonthPerson( \n" +
+            "o.orderNumber, \n" +
+            "o.loadDate, \n" +
+            "o.ourNumber, \n" +
+            "o.loadingCity, \n" +
+            "o.cityCodes, \n" +
+            "o.price, \n" +
+            "o.freighterPrice,\n" +
+            "f.freighterName) \n" +
+            "from Order o \n" +
+            "LEFT JOIN o.freighter f \n" +
+            "where \n" +
+            "MONTH(o.loadDate) = MONTH((?1)) and YEAR(o.loadDate) = YEAR((?1)) and\n" +
+            "o.user.userName = (?2) \n" +
+            "order by o.loadDate asc")
+    List<ReportMonthPerson> monthRaportByPerson(LocalDate loadDate, String person);
 
 /*    @Query(value = "select * from orders\n" +
             "where\n" +

@@ -15,86 +15,29 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">MIESIĄC</div>
                         </div>
-                        <select class="custom-select mr-sm-2" id="inlineFormInputGroupUsername" required
-                                name="loadDate">
-                                <option selected value="">wybierz miesiąc...</option>
-                            <option th:each="u : ${range3}" th:value="${u.year}+'-'+${u.monthValue}+'-01'"
-                                    th:text="${u.month}+' '+${u.year}"
-                            ></option>
-                        </select>
-                    </div>
+                        <input required name="loadDate" type="date"  class="form-control" id="inlineFormInputGroupUsername">
+                                     </div>
                 </div>
                 <div class="col-auto my-1">
                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required name="person">
                         <option disabled selected>wybierz osobę...</option>
-                        <option th:if="${u.active}" th:each="u : ${users}" th:value="${u.id}"
+                        <option th:if="${u.active}" th:each="u : ${users}" th:value="${u.userName}"
                                 th:text="${u.userName}"></option>
                     </select>
                 </div>
                 <div class="col-auto my-1">
-                    <button type="submit" class="btn btn-danger">GENERUJ RAPORT</button>
-                </div>
-            </div>
-        </form>
-        <!-- tabela raportu miesiac/osoba -->
-        <table class="table-sm table-striped" id="export">
-            <thead>
-            <tr style="font-weight: bold">
-                <td>Lp.<span style="visibility: hidden"> </span></td>
-                <td>TURA</td>
-                <td>DATA ZAŁ.</td>
-                <td>NR</td>
-                <td>ZAŁADUNEK</td>
-                <td>ROZŁADUNKI</td>
-                <td>CENA NASZA</td>
-                <td>CENA PRZEW.</td>
-                <td>ZYSK</td>
-                <td>PRZEWOŹNIK</td>
-                <td>T/S</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="one,iterStat : ${orders}">
-                <td th:text="${iterStat.index}+1">LP</td>
-                <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
-                <td><span th:text="${one.loadDate}"></span></td>
-                <td><span
-                        th:text="${one.ourNumber!=null} ? ${one.ourNumber} : (${#strings.length(one.id)<3} ? ${one.id}+'.' : ${#strings.substring(one.id,0,3)}+'.')"></span>
-                </td>
-                <td>
-                    <span th:text="${one.loadingCity}"></span>
-                </td>
-                <td>
-                    <span th:if="${one.cityCodes!=null}" th:text="${one.cityCodes}"></span>
-                </td>
-                <td><span th:if="${one.price!=null}" th:text="${one.price}+' €'"></span></td>
-                <td><span th:if="${one.freighterPrice!=null}" th:text="${one.freighterPrice}+' €'"></span></td>
-                <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"
-                          th:text="${one.price}-${one.freighterPrice}+' €'"></span></td>
-                <td><span th:if="${one.freighter!=null}" th:text="${one.freighter.freighterName}"></span></td>
-                <td><span th:if="${one.user!=null}" th:text="${one.user.userName}"></span></td>
-            </tr>
-            </tbody>
-        </table>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect4" required name="reportFormat">
+                        <!--      <option  th:value="HTML"   th:text="HTML" selected></option>--->
+                              <option  th:value="PDF"    th:text="PDF" ></option>
+                          </select>
+                      </div>
+                      <div class="col-auto my-1">
+                          <button type="submit" class="btn btn-danger">GENERUJ RAPORT</button>
+                      </div>
+                  </div>
+              </form>
+              <!-- tabela raportu miesiac/osoba -->
     </div>
 </div>
-<script>
-    $("#export").sumtabletotal({
-        totalIndexArry: [8],
-         "colspan": 1,
-        "totalText": "SUMA",
-        "color": "#dc3545",
-        "placeholder": " ",
-        "significant": 2
-    });
-
-</script>
-<script>
-    $("#export").tableExport({
-        formats: ["csv"],
-        trimWhitespace: true
-    });
-
-</script>
 </body>
 </html>
