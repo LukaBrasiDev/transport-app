@@ -2,40 +2,32 @@ package pl.lukabrasi.transportapp.service;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRSaver;
+import net.sf.jasperreports.export.SimpleExporterInput;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
+
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import pl.lukabrasi.transportapp.auth.repositories.UserRepository;
-import pl.lukabrasi.transportapp.auth.services.UserSession;
 import pl.lukabrasi.transportapp.dto.ReportMonthPerson;
 import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
 
-import java.io.File;
+import javax.inject.Inject;
 import java.io.FileNotFoundException;
-import java.net.InetAddress;
-import javax.servlet.http.HttpServletRequest;
+import java.io.InputStream;
 import java.net.UnknownHostException;
 import java.sql.Timestamp;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.IsoFields;
-import java.time.temporal.TemporalAdjusters;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static java.util.stream.Collectors.toList;
 
@@ -58,6 +50,9 @@ public class OrderService {
         this.banRepository = banRepository;
         this.ourDriverRepository = ourDriverRepository;
     }
+
+
+
 
     public enum ActionResponse {
         SUCCESS,
@@ -676,13 +671,24 @@ public class OrderService {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         List<ReportMonthPerson> employees = orderRepository.monthRaportByPerson(loadDate, person);
         //Load file an compiles it
-        File file = ResourceUtils.getFile("classpath:reports\\raportmiesieczny.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        //File file = ResourceUtils.getFile("classpath:reports\\raportmiesieczny.jrxml");
+        //new ClassPathResource(filename).getInputStream();
+       // JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+
+        InputStream employeeReportStream
+                = getClass().getResourceAsStream("/reports/raportmiesieczny.jrxml");
+        JasperReport jasperReport
+                = JasperCompileManager.compileReport(employeeReportStream);
+        //JRSaver.saveObject(jasperReport, "raportmiesieczny.jasper");
+
+
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(employees);
         Map<String, Object> map = new HashMap<>();
         map.put("DATA_MIESIAC", loadDate.toString());
         map.put("SPEDYTOR", person);
-          JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, dataSource);
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, dataSource);
+
         if (reportFormat.equalsIgnoreCase("pdf")) {
             JasperExportManager.exportReportToPdfFile(jasperPrint, path + "raport_miesieczny_"+ person + "_" + loadDate.toString().substring(0, 7)+".pdf");
           }
@@ -690,5 +696,8 @@ public class OrderService {
         return;
 
     }
+
+
+
 
 }
