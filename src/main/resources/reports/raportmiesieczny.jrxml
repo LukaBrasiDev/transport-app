@@ -14,6 +14,7 @@
     </style>
     <parameter name="DATA_MIESIAC" class="java.lang.String"/>
     <parameter name="SPEDYTOR" class="java.lang.String"/>
+    <parameter name="LOGO" class="java.lang.String"/>
     <field name="orderNumber" class="java.lang.String">
     </field>
     <field name="loadDate" class="java.time.LocalDate">
@@ -46,7 +47,7 @@
         <band height="40" splitType="Stretch">
             <image>
                 <reportElement x="0" y="0" width="164" height="30" uuid="1c003177-754c-448f-8ce1-16868856f545"/>
-                <imageExpression><![CDATA["classpath:reports\\logo.png"]]></imageExpression>
+                <imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
             </image>
             <textField>
                 <reportElement style="SubTitle" x="352" y="5" width="100" height="25" forecolor="#000000" uuid="12513013-db38-4366-8009-dc8cf1a319d1"/>

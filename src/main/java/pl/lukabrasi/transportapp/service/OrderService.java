@@ -686,6 +686,7 @@ public class OrderService {
         Map<String, Object> map = new HashMap<>();
         map.put("DATA_MIESIAC", loadDate.toString());
         map.put("SPEDYTOR", person);
+        map.put("LOGO", ClassLoader.getSystemResourceAsStream("logo.png"));
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, dataSource);
 
