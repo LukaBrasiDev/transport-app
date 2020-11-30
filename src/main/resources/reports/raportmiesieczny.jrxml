@@ -14,7 +14,7 @@
     </style>
     <parameter name="DATA_MIESIAC" class="java.lang.String"/>
     <parameter name="SPEDYTOR" class="java.lang.String"/>
-    <parameter name="LOGO" class="java.lang.String"/>
+    <parameter name="LOGO" class="java.io.InputStream"/>
     <field name="orderNumber" class="java.lang.String">
     </field>
     <field name="loadDate" class="java.time.LocalDate">
