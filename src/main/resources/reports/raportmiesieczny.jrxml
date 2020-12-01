@@ -5,32 +5,24 @@
     <style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfEncoding="Cp1250"/>
     <style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18" pdfEncoding="Cp1250"/>
     <style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true" pdfEncoding="Cp1250"/>
-    <style name="Detail" fontName="Arial" fontSize="12" pdfEncoding="Cp1250" />
+    <style name="Detail" fontName="Arial" fontSize="12" pdfEncoding="Cp1250"/>
     <style name="Row" mode="Transparent" pdfEncoding="Cp1250">
         <conditionalStyle>
             <conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
-            <style backcolor="#E6DAC3"/>
+            <style backcolor="#FFFFFF"/>
         </conditionalStyle>
     </style>
     <parameter name="DATA_MIESIAC" class="java.lang.String"/>
     <parameter name="SPEDYTOR" class="java.lang.String"/>
     <parameter name="LOGO" class="java.io.InputStream"/>
-    <field name="orderNumber" class="java.lang.String">
-    </field>
-    <field name="loadDate" class="java.time.LocalDate">
-    </field>
-    <field name="ourNumber" class="java.lang.String">
-    </field>
-    <field name="loadingCity" class="java.lang.String">
-    </field>
-    <field name="cityCodes" class="java.lang.String">
-    </field>
-    <field name="price" class="java.math.BigDecimal">
-    </field>
-    <field name="freighterPrice" class="java.math.BigDecimal">
-    </field>
-    <field name="freighterName" class="java.lang.String">
-    </field>
+    <field name="orderNumber" class="java.lang.String"/>
+    <field name="loadDate" class="java.time.LocalDate"/>
+    <field name="ourNumber" class="java.lang.String"/>
+    <field name="loadingCity" class="java.lang.String"/>
+    <field name="cityCodes" class="java.lang.String"/>
+    <field name="price" class="java.math.BigDecimal"/>
+    <field name="freighterPrice" class="java.math.BigDecimal"/>
+    <field name="freighterName" class="java.lang.String"/>
     <variable name="ZYSK" class="java.math.BigDecimal" calculation="Sum">
         <variableExpression><![CDATA[$F{price}.subtract( $F{freighterPrice} )]]></variableExpression>
     </variable>
@@ -44,13 +36,22 @@
         <band splitType="Stretch"/>
     </background>
     <title>
-        <band height="40" splitType="Stretch">
+        <band height="65" splitType="Stretch">
+            <frame>
+                <reportElement mode="Opaque" x="-21" y="0" width="843" height="38" forecolor="#D0B48E" backcolor="#6495ED" uuid="a88ebd82-e710-4d3e-b3e5-3e70bf53cfce">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+            </frame>
             <image>
-                <reportElement x="0" y="0" width="164" height="30" uuid="1c003177-754c-448f-8ce1-16868856f545"/>
+                <reportElement x="0" y="5" width="164" height="30" uuid="1c003177-754c-448f-8ce1-16868856f545">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
                 <imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
             </image>
             <textField>
-                <reportElement style="SubTitle" x="352" y="5" width="100" height="25" forecolor="#000000" uuid="12513013-db38-4366-8009-dc8cf1a319d1"/>
+                <reportElement style="SubTitle" x="352" y="10" width="100" height="25" forecolor="#000000" uuid="12513013-db38-4366-8009-dc8cf1a319d1">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
                 <box>
                     <pen lineColor="#96C8FF"/>
                 </box>
@@ -60,7 +61,7 @@
                 <textFieldExpression><![CDATA[$P{SPEDYTOR}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement style="SubTitle" x="390" y="5" width="130" height="25" forecolor="#000000" uuid="499c022d-5c00-4212-94c4-d2b81a4d8164">
+                <reportElement style="SubTitle" x="390" y="10" width="130" height="25" forecolor="#000000" uuid="499c022d-5c00-4212-94c4-d2b81a4d8164">
                     <property name="com.jaspersoft.studio.unit.y" value="px"/>
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
                 </reportElement>
@@ -70,8 +71,7 @@
                 <textElement textAlignment="Right">
                     <font fontName="DejaVu Sans" size="16" isBold="true"/>
                 </textElement>
-                <textFieldExpression><![CDATA[
-$P{DATA_MIESIAC}.substring( 5,7 ).equals("01")?"Styczeń":
+                <textFieldExpression><![CDATA[$P{DATA_MIESIAC}.substring( 5,7 ).equals("01")?"Styczeń":
   $P{DATA_MIESIAC}.substring( 5,7 ).equals("02")?"Luty":
        $P{DATA_MIESIAC}.substring( 5,7 ).equals("03")?"Marzec":
            $P{DATA_MIESIAC}.substring( 5,7 ).equals("04")?"Kwiecień":
@@ -84,8 +84,9 @@ $P{DATA_MIESIAC}.substring( 5,7 ).equals("01")?"Styczeń":
                                     $P{DATA_MIESIAC}.substring( 5,7 ).equals("11")?"Listopad":"Grudzień";]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement style="SubTitle" x="520" y="5" width="120" height="25" forecolor="#000000" uuid="69a85bea-3914-4dd3-bc65-31c2009d8f07">
+                <reportElement style="SubTitle" x="520" y="10" width="120" height="25" forecolor="#000000" uuid="69a85bea-3914-4dd3-bc65-31c2009d8f07">
                     <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
                 </reportElement>
                 <box>
                     <pen lineColor="#96C8FF"/>
@@ -96,27 +97,19 @@ $P{DATA_MIESIAC}.substring( 5,7 ).equals("01")?"Styczeń":
                 <textFieldExpression><![CDATA["/"+$P{DATA_MIESIAC}.substring( 0,4 )]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement style="SubTitle" x="150" y="5" width="200" height="25" forecolor="#000000" uuid="06625660-e3b1-4295-a38b-cc47eb5fd164"/>
+                <reportElement style="SubTitle" x="150" y="10" width="200" height="25" forecolor="#000000" uuid="06625660-e3b1-4295-a38b-cc47eb5fd164">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
                 <box>
                     <pen lineColor="#96C8FF"/>
                 </box>
                 <textElement textAlignment="Right">
-                    <font fontName="DejaVu Sans" size="16" isBold="true"  pdfEncoding="Cp1250"/>
+                    <font fontName="DejaVu Sans" size="16" isBold="true" pdfEncoding="Cp1250"/>
                 </textElement>
                 <textFieldExpression><![CDATA["RAPORT SPRZEDAŻY: "]]></textFieldExpression>
             </textField>
         </band>
     </title>
-    <pageHeader>
-        <band height="36" splitType="Stretch">
-            <frame>
-                <reportElement mode="Opaque" x="-21" y="10" width="843" height="25" forecolor="#B89F7D" backcolor="#F2EBDF" uuid="a859e0e4-7a34-4dd5-bc03-3e2e64161e51">
-                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
-                    <property name="net.sf.jasperreports.export.character.encoding" value="Cp1252"/>
-                </reportElement>
-            </frame>
-        </band>
-    </pageHeader>
     <columnHeader>
         <band height="21" splitType="Stretch">
             <line>
@@ -327,7 +320,7 @@ $P{DATA_MIESIAC}.substring( 5,7 ).equals("01")?"Styczeń":
     <pageFooter>
         <band height="25" splitType="Stretch">
             <frame>
-                <reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="5d8169bd-4a75-48c8-8a68-6d3ad5ba9402"/>
+                <reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#FFFFFF" uuid="5d8169bd-4a75-48c8-8a68-6d3ad5ba9402"/>
                 <textField evaluationTime="Report">
                     <reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#000000" uuid="e5e27efa-b599-499b-9ca3-848cb511cb7b"/>
                     <textElement verticalAlignment="Middle">
@@ -355,65 +348,74 @@ $P{DATA_MIESIAC}.substring( 5,7 ).equals("01")?"Styczeń":
     <lastPageFooter>
         <band height="117">
             <property name="com.jaspersoft.studio.unit.height" value="px"/>
-            <staticText>
-                <reportElement style="Column header" x="0" y="10" width="320" height="23" forecolor="#000000" uuid="fcbca214-5ec1-47ae-b3d8-49934a8be39a">
-                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="83505930-5f46-4387-89f6-398f6ba26cec"/>
-                </reportElement>
-                <textElement textAlignment="Left"/>
-                <text><![CDATA[PODSUMOWANIE]]></text>
-            </staticText>
-            <textField pattern="#,###.00 €">
-                <reportElement x="160" y="55" width="138" height="30" uuid="503e318e-f449-406d-a846-e6d925289c96"/>
-                <textElement verticalAlignment="Top">
-                    <font fontName="Arial" size="12" pdfEncoding="Cp1250" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$V{ZYSK}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="160" y="35" width="138" height="20" uuid="032fb536-4d9e-4e0a-8549-9e81f1933428"/>
-                <textElement verticalAlignment="Top">
-                    <font fontName="Arial" pdfEncoding="Cp1250" size="12" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="0" y="35" width="150" height="20" uuid="c0772130-693a-4dd0-8b28-463141a74028"/>
-                <textElement textAlignment="Right">
-                    <font fontName="Arial" pdfEncoding="Cp1250"/>
-                </textElement>
-                <textFieldExpression><![CDATA["ILOŚĆ SPRZEDANYCH TUR: "]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="50" y="55" width="100" height="30" uuid="d779eb8f-0652-40f4-b3bb-37793fe733c3"/>
-                <textElement textAlignment="Right">
-                    <font fontName="Arial"/>
-                </textElement>
-                <textFieldExpression><![CDATA["ZYSK: "]]></textFieldExpression>
-            </textField>
             <frame>
-                <reportElement mode="Opaque" x="-20" y="84" width="843" height="25" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="cc69a263-ce24-4466-9bfc-dcd39ea2eeb2"/>
-                <textField evaluationTime="Report">
-                    <reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#000000" uuid="41c6a10a-d175-4ac9-b723-d9ec32c9b843"/>
-                    <textElement verticalAlignment="Middle">
-                        <font size="10" isBold="false"/>
+                <reportElement mode="Opaque" x="-20" y="10" width="843" height="50" forecolor="#D0B48E" backcolor="#6495ED" uuid="cc69a263-ce24-4466-9bfc-dcd39ea2eeb2">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <staticText>
+                    <reportElement style="Column header" x="22" y="5" width="320" height="23" forecolor="#000000" uuid="75623ae7-8261-4251-b25b-f6f2f49159e4">
+                        <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="83505930-5f46-4387-89f6-398f6ba26cec"/>
+                    </reportElement>
+                    <textElement textAlignment="Left"/>
+                    <text><![CDATA[PODSUMOWANIE]]></text>
+                </staticText>
+                <textField pattern="#,###.00 €">
+                    <reportElement x="185" y="50" width="138" height="20" uuid="d14845c6-267d-4cd3-bce0-05f221d71bc7"/>
+                    <textElement verticalAlignment="Top">
+                        <font fontName="Arial" size="12" isBold="true" pdfEncoding="Cp1250"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+                    <textFieldExpression><![CDATA[$V{ZYSK}]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#000000" uuid="d136e95c-5a84-4156-a34d-d3120ec858c0"/>
-                    <textElement textAlignment="Right" verticalAlignment="Middle">
-                        <font size="10" isBold="false"/>
+                    <reportElement x="185" y="30" width="138" height="20" uuid="be0ff7cd-e0f2-4739-b6bf-1924c4f3b899"/>
+                    <textElement verticalAlignment="Top">
+                        <font fontName="Arial" size="12" isBold="true" pdfEncoding="Cp1250"/>
                     </textElement>
-                    <textFieldExpression><![CDATA["Strona "+$V{PAGE_NUMBER}+" z"]]></textFieldExpression>
+                    <textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
                 </textField>
-                <textField pattern="EEEEE dd MMMMM yyyy">
-                    <reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#000000" uuid="fcdd6aa5-d233-4cf1-94e8-4176e49f0694"/>
-                    <textElement verticalAlignment="Middle">
-                        <font size="10" isBold="false"/>
+                <textField>
+                    <reportElement x="25" y="30" width="150" height="20" uuid="32bc1a66-1e00-4e63-a103-3ccfcb790206"/>
+                    <textElement textAlignment="Right">
+                        <font fontName="Arial" pdfEncoding="Cp1250"/>
                     </textElement>
-                    <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+                    <textFieldExpression><![CDATA["ILOŚĆ SPRZEDANYCH TUR: "]]></textFieldExpression>
+                </textField>
+                <textField>
+                    <reportElement x="75" y="50" width="100" height="20" uuid="d779eb8f-0652-40f4-b3bb-37793fe733c3">
+                        <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                        <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                    </reportElement>
+                    <textElement textAlignment="Right">
+                        <font fontName="Arial"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["ZYSK: "]]></textFieldExpression>
                 </textField>
             </frame>
+            <textField evaluationTime="Report">
+                <reportElement style="Column header" x="763" y="86" width="40" height="20" forecolor="#000000" uuid="024e5452-0577-4975-8600-0d4a80eb2a45">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement style="Column header" x="683" y="86" width="80" height="20" forecolor="#000000" uuid="bb64bd5d-3ca7-4be5-8ee7-ea048596d031">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="10" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Strona "+$V{PAGE_NUMBER}+" z"]]></textFieldExpression>
+            </textField>
+            <textField pattern="EEEEE dd MMMMM yyyy">
+                <reportElement style="Column header" x="2" y="86" width="197" height="20" forecolor="#000000" uuid="08942b26-8376-4480-ae78-dba958c579a5"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="10" isBold="false"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
         </band>
     </lastPageFooter>
 </jasperReport>

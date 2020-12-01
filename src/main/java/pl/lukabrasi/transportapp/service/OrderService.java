@@ -6,6 +6,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRSaver;
 import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.view.JasperViewer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 
@@ -666,7 +667,7 @@ public class OrderService {
 
 
     //RAPORTY
-    public void getMonthRaportByPerson(LocalDate loadDate, String person, String reportFormat) throws FileNotFoundException, JRException {
+    public JasperPrint getMonthRaportByPerson(LocalDate loadDate, String person, String reportFormat) throws FileNotFoundException, JRException {
         String path = "C:\\Aplikacja_MTW\\raporty\\";
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         List<ReportMonthPerson> employees = orderRepository.monthRaportByPerson(loadDate, person);
@@ -694,7 +695,9 @@ public class OrderService {
             JasperExportManager.exportReportToPdfFile(jasperPrint, path + "raport_miesieczny_"+ person + "_" + loadDate.toString().substring(0, 7)+".pdf");
           }
 
-        return;
+
+
+        return jasperPrint;
 
     }
 

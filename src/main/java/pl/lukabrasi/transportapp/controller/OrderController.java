@@ -1,6 +1,11 @@
 package pl.lukabrasi.transportapp.controller;
 
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.HtmlExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +21,11 @@ import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.model.User;
 import pl.lukabrasi.transportapp.service.OrderService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -580,12 +588,23 @@ public class OrderController {
     @PostMapping("/raporty/spedytorzy")
     public String getOrdersInWeekSped (@ModelAttribute
                                                ReportForm reportForm,
-                                  Model model) throws FileNotFoundException, JRException {
+                                  Model model, HttpServletResponse response) throws IOException, JRException {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
         if (reportForm.getReportFormat().equalsIgnoreCase("PDF")) {
             orderService.getMonthRaportByPerson(reportForm.getLoadDate(), reportForm.getPerson(), reportForm.getReportFormat());
+        }
+
+        if (reportForm.getReportFormat().equalsIgnoreCase("html")) {
+            response.setContentType("text/html");
+            JasperPrint jasperPrint = null;
+            jasperPrint = orderService.getMonthRaportByPerson(reportForm.getLoadDate(), reportForm.getPerson(), reportForm.getReportFormat());
+            HtmlExporter htmlExporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
+            htmlExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+            htmlExporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
+            htmlExporter.exportReport();
+
         }
 
         // model.addAttribute("loadDate", reportForm.);
@@ -594,6 +613,7 @@ public class OrderController {
 
         return "charts2";
     }
+
 
     @GetMapping("/raporty/kierowcy")
     public String getChartsMonthDrivers (Model model) {
