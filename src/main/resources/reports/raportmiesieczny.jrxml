@@ -2,10 +2,11 @@
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MTW_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df013db5-f76e-44d3-b0df-bcbc46d93160">
     <property name="net.sf.jasperreports.export.character.encoding" value="Cp1252"/>
-    <style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfEncoding="Cp1250"/>
-    <style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18" pdfEncoding="Cp1250"/>
-    <style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true" pdfEncoding="Cp1250"/>
-    <style name="Detail" fontName="Arial" fontSize="12" pdfEncoding="Cp1250"/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfEncoding="Cp1250"/>
+    <style name="SubTitle" forecolor="#736343" fontName="DejaVu Sans" fontSize="18" pdfEncoding="Cp1250"/>
+    <style name="Column header" forecolor="#666666" fontName="DejaVu Sans" fontSize="11" isBold="true" pdfEncoding="Cp1250"/>
+    <style name="Detail" fontName="DejaVu Sans" fontSize="10" pdfEncoding="Cp1250"/>
     <style name="Row" mode="Transparent" pdfEncoding="Cp1250">
         <conditionalStyle>
             <conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
@@ -123,7 +124,7 @@
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8646c564-ccde-4c0f-97da-369781a2fee1"/>
                 </reportElement>
                 <textElement>
-                    <font fontName="Arial" size="11"/>
+                    <font fontName="DejaVu Sans" size="11"/>
                 </textElement>
                 <text><![CDATA[ZAŁADUNEK]]></text>
             </staticText>
@@ -132,7 +133,7 @@
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="999c3062-b7bd-40da-80bc-8de13eb9999e"/>
                 </reportElement>
                 <textElement>
-                    <font fontName="Arial" size="11"/>
+                    <font fontName="DejaVu Sans" size="11"/>
                 </textElement>
                 <text><![CDATA[ROZŁADUNKI]]></text>
             </staticText>
@@ -141,7 +142,7 @@
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="625730ae-cc66-4529-b395-2a144a87cb22"/>
                 </reportElement>
                 <textElement textAlignment="Right">
-                    <font fontName="Arial" size="11"/>
+                    <font fontName="DejaVu Sans" size="11"/>
                 </textElement>
                 <text><![CDATA[CENA NASZA]]></text>
             </staticText>
@@ -150,7 +151,7 @@
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="83505930-5f46-4387-89f6-398f6ba26cec"/>
                 </reportElement>
                 <textElement textAlignment="Right">
-                    <font fontName="Arial" size="11"/>
+                    <font fontName="DejaVu Sans" size="11"/>
                 </textElement>
                 <text><![CDATA[CENA PRZEW.]]></text>
             </staticText>
@@ -159,7 +160,7 @@
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a6e4810-76f7-4166-8145-81f49a958ef3"/>
                 </reportElement>
                 <textElement>
-                    <font fontName="Arial" size="11"/>
+                    <font fontName="DejaVu Sans" size="11"/>
                 </textElement>
                 <text><![CDATA[PRZEWOŹNIK]]></text>
             </staticText>
@@ -168,7 +169,7 @@
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19647462-9cf4-4bf8-a3d8-ea5404a61cf3"/>
                 </reportElement>
                 <textElement>
-                    <font fontName="Arial" size="11"/>
+                    <font fontName="DejaVu Sans" size="11"/>
                 </textElement>
                 <text><![CDATA[Lp.]]></text>
             </staticText>
@@ -177,7 +178,7 @@
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a6e4810-76f7-4166-8145-81f49a958ef3"/>
                 </reportElement>
                 <textElement textAlignment="Right">
-                    <font fontName="Arial" size="11"/>
+                    <font fontName="DejaVu Sans" size="11"/>
                 </textElement>
                 <text><![CDATA[ZYSK]]></text>
             </staticText>
@@ -186,7 +187,7 @@
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9760e022-1c31-4270-9bc2-2ef560f22691"/>
                 </reportElement>
                 <textElement>
-                    <font fontName="Arial" size="11"/>
+                    <font fontName="DejaVu Sans" size="11"/>
                 </textElement>
                 <text><![CDATA[DATA ZAŁ.]]></text>
             </staticText>
@@ -195,7 +196,7 @@
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19647462-9cf4-4bf8-a3d8-ea5404a61cf3"/>
                 </reportElement>
                 <textElement>
-                    <font fontName="Arial" size="11"/>
+                    <font fontName="DejaVu Sans" size="11"/>
                 </textElement>
                 <text><![CDATA[TURA]]></text>
             </staticText>
@@ -204,7 +205,7 @@
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9760e022-1c31-4270-9bc2-2ef560f22691"/>
                 </reportElement>
                 <textElement>
-                    <font fontName="Arial" size="11"/>
+                    <font fontName="DejaVu Sans" size="11"/>
                 </textElement>
                 <text><![CDATA[NR]]></text>
             </staticText>
@@ -219,7 +220,7 @@
                         <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19647462-9cf4-4bf8-a3d8-ea5404a61cf3"/>
                     </reportElement>
                     <textElement>
-                        <font fontName="Arial" size="10"/>
+                        <font fontName="DejaVu Sans" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{orderNumber}]]></textFieldExpression>
                 </textField>
@@ -228,7 +229,7 @@
                         <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9760e022-1c31-4270-9bc2-2ef560f22691"/>
                     </reportElement>
                     <textElement>
-                        <font fontName="Arial" size="10"/>
+                        <font fontName="DejaVu Sans" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{ourNumber}]]></textFieldExpression>
                 </textField>
@@ -237,7 +238,7 @@
                         <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8646c564-ccde-4c0f-97da-369781a2fee1"/>
                     </reportElement>
                     <textElement>
-                        <font fontName="Arial" size="10"/>
+                        <font fontName="DejaVu Sans" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{loadingCity}]]></textFieldExpression>
                 </textField>
@@ -246,7 +247,7 @@
                         <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="999c3062-b7bd-40da-80bc-8de13eb9999e"/>
                     </reportElement>
                     <textElement>
-                        <font fontName="Arial" size="10"/>
+                        <font fontName="DejaVu Sans" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{cityCodes}]]></textFieldExpression>
                 </textField>
@@ -255,7 +256,7 @@
                         <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="625730ae-cc66-4529-b395-2a144a87cb22"/>
                     </reportElement>
                     <textElement textAlignment="Right">
-                        <font fontName="Arial" size="10"/>
+                        <font fontName="DejaVu Sans" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
                 </textField>
@@ -264,7 +265,7 @@
                         <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="83505930-5f46-4387-89f6-398f6ba26cec"/>
                     </reportElement>
                     <textElement textAlignment="Right">
-                        <font fontName="Arial" size="10"/>
+                        <font fontName="DejaVu Sans" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{freighterPrice}]]></textFieldExpression>
                 </textField>
@@ -273,7 +274,7 @@
                         <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a6e4810-76f7-4166-8145-81f49a958ef3"/>
                     </reportElement>
                     <textElement>
-                        <font fontName="Arial" size="10"/>
+                        <font fontName="DejaVu Sans" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{freighterName}]]></textFieldExpression>
                 </textField>
@@ -282,7 +283,7 @@
                         <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="19647462-9cf4-4bf8-a3d8-ea5404a61cf3"/>
                     </reportElement>
                     <textElement>
-                        <font fontName="Arial" size="10"/>
+                        <font fontName="DejaVu Sans" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
                 </textField>
@@ -291,7 +292,7 @@
                         <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="83505930-5f46-4387-89f6-398f6ba26cec"/>
                     </reportElement>
                     <textElement textAlignment="Right">
-                        <font fontName="Arial" size="10"/>
+                        <font fontName="DejaVu Sans" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{price}.subtract( $F{freighterPrice} )]]></textFieldExpression>
                 </textField>
@@ -300,7 +301,7 @@
                         <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9760e022-1c31-4270-9bc2-2ef560f22691"/>
                     </reportElement>
                     <textElement>
-                        <font fontName="Arial" size="10"/>
+                        <font fontName="DejaVu Sans" size="10"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$F{loadDate}]]></textFieldExpression>
                 </textField>
@@ -345,77 +346,52 @@
             </frame>
         </band>
     </pageFooter>
-    <lastPageFooter>
+    <summary>
         <band height="117">
             <property name="com.jaspersoft.studio.unit.height" value="px"/>
             <frame>
-                <reportElement mode="Opaque" x="-20" y="10" width="843" height="50" forecolor="#D0B48E" backcolor="#6495ED" uuid="cc69a263-ce24-4466-9bfc-dcd39ea2eeb2">
+                <reportElement mode="Opaque" x="-21" y="15" width="843" height="50" forecolor="#D0B48E" backcolor="#6495ED" uuid="79206cfe-4095-4c71-a1be-c52e4f372133">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <staticText>
-                    <reportElement style="Column header" x="22" y="5" width="320" height="23" forecolor="#000000" uuid="75623ae7-8261-4251-b25b-f6f2f49159e4">
+                    <reportElement style="Column header" x="22" y="5" width="320" height="23" forecolor="#000000" uuid="4cde1603-519e-482e-b076-59bf8c1ee058">
                         <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="83505930-5f46-4387-89f6-398f6ba26cec"/>
                     </reportElement>
                     <textElement textAlignment="Left"/>
                     <text><![CDATA[PODSUMOWANIE]]></text>
                 </staticText>
                 <textField pattern="#,###.00 €">
-                    <reportElement x="185" y="50" width="138" height="20" uuid="d14845c6-267d-4cd3-bce0-05f221d71bc7"/>
+                    <reportElement x="185" y="50" width="138" height="20" uuid="6e7d2672-9ef4-40c2-b2f6-441d7a795719"/>
                     <textElement verticalAlignment="Top">
-                        <font fontName="Arial" size="12" isBold="true" pdfEncoding="Cp1250"/>
+                        <font fontName="DejaVu Sans" size="12" isBold="true" pdfEncoding="Cp1250"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$V{ZYSK}]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="185" y="30" width="138" height="20" uuid="be0ff7cd-e0f2-4739-b6bf-1924c4f3b899"/>
+                    <reportElement x="185" y="30" width="138" height="20" uuid="fe0ba67d-ae9e-44fb-88da-6e9477f0bb4a"/>
                     <textElement verticalAlignment="Top">
-                        <font fontName="Arial" size="12" isBold="true" pdfEncoding="Cp1250"/>
+                        <font fontName="DejaVu Sans" size="12" isBold="true" pdfEncoding="Cp1250"/>
                     </textElement>
                     <textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="25" y="30" width="150" height="20" uuid="32bc1a66-1e00-4e63-a103-3ccfcb790206"/>
+                    <reportElement x="25" y="30" width="150" height="20" uuid="23111e13-67fe-43aa-80ef-a0b44041e280"/>
                     <textElement textAlignment="Right">
-                        <font fontName="Arial" pdfEncoding="Cp1250"/>
+                        <font fontName="DejaVu Sans" pdfEncoding="Cp1250"/>
                     </textElement>
                     <textFieldExpression><![CDATA["ILOŚĆ SPRZEDANYCH TUR: "]]></textFieldExpression>
                 </textField>
                 <textField>
-                    <reportElement x="75" y="50" width="100" height="20" uuid="d779eb8f-0652-40f4-b3bb-37793fe733c3">
+                    <reportElement x="75" y="50" width="100" height="20" uuid="14ff5bb5-67ed-40f9-b35b-26c44be496cf">
                         <property name="com.jaspersoft.studio.unit.x" value="px"/>
                         <property name="com.jaspersoft.studio.unit.y" value="px"/>
                     </reportElement>
                     <textElement textAlignment="Right">
-                        <font fontName="Arial"/>
+                        <font fontName="DejaVu Sans"/>
                     </textElement>
                     <textFieldExpression><![CDATA["ZYSK: "]]></textFieldExpression>
                 </textField>
             </frame>
-            <textField evaluationTime="Report">
-                <reportElement style="Column header" x="763" y="86" width="40" height="20" forecolor="#000000" uuid="024e5452-0577-4975-8600-0d4a80eb2a45">
-                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
-                </reportElement>
-                <textElement verticalAlignment="Middle">
-                    <font size="10" isBold="false"/>
-                </textElement>
-                <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement style="Column header" x="683" y="86" width="80" height="20" forecolor="#000000" uuid="bb64bd5d-3ca7-4be5-8ee7-ea048596d031">
-                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
-                </reportElement>
-                <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font size="10" isBold="false"/>
-                </textElement>
-                <textFieldExpression><![CDATA["Strona "+$V{PAGE_NUMBER}+" z"]]></textFieldExpression>
-            </textField>
-            <textField pattern="EEEEE dd MMMMM yyyy">
-                <reportElement style="Column header" x="2" y="86" width="197" height="20" forecolor="#000000" uuid="08942b26-8376-4480-ae78-dba958c579a5"/>
-                <textElement verticalAlignment="Middle">
-                    <font size="10" isBold="false"/>
-                </textElement>
-                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-            </textField>
         </band>
-    </lastPageFooter>
+    </summary>
 </jasperReport>

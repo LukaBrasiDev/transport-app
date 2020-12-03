@@ -575,11 +575,11 @@ public class OrderController {
     }
 
     @GetMapping("/raporty/spedytorzy")
-    public String getChartsSpedytors (Model model) {
+    public String getChartsSpedytors (   ReportForm reportForm,Model model) {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-
+        model.addAttribute("userForm", reportForm);
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("logged", userSession.getUserEntity());
         return "charts2";
@@ -606,8 +606,8 @@ public class OrderController {
             htmlExporter.exportReport();
 
         }
-
-        // model.addAttribute("loadDate", reportForm.);
+        model.addAttribute("selectedUser", reportForm.getPerson());
+        model.addAttribute("selectedLoadDate", reportForm.getLoadDate());
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("logged", userSession.getUserEntity());
 

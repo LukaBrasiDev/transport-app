@@ -7,7 +7,7 @@
     <div><br><br></div>
     <div class="row justify-content-md-center"><h4>Raport miesięczny - spedytorzy</h4></div>
     <div class="row justify-content-md-center">
-        <form th:action="@{/raporty/spedytorzy}" th:method="post">
+        <form th:action="@{/raporty/spedytorzy}" th:method="post" th:object="${reportForm}">
             <div class="form-row align-items-center">
                 <div class="col-auto my-1">
                     <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
@@ -15,12 +15,15 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">MIESIĄC</div>
                         </div>
-                        <input required name="loadDate" type="date"  class="form-control" id="inlineFormInputGroupUsername">
-                                     </div>
+                        <input required th:if="${reportForm}" th:value="${reportForm.getLoadDate()}" name="loadDate" type="date"  class="form-control" id="inlineFormInputGroupUsername">
+                        <input required th:if="!${reportForm}"name="loadDate" type="date"  class="form-control" id="inlineFormInputGroupUsername">
+
+                    </div>
                 </div>
                 <div class="col-auto my-1">
                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required name="person">
-                        <option disabled selected>wybierz osobę...</option>
+                        <option th:if="!${reportForm}" disabled >wybierz osobę...</option>
+                        <option th:if="${reportForm}" th:value="${reportForm.getPerson()}" th:text="${reportForm.getPerson()}"></option>
                         <option th:if="${u.active}" th:each="u : ${users}" th:value="${u.userName}"
                                 th:text="${u.userName}"></option>
                     </select>
