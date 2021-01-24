@@ -8,7 +8,7 @@
     <div class="alert">
         <th:block th:if="${info!=null}" th:switch="${info}">
             <span th:case="*{info.ZAKAZNOK}" th:text="#{Ban.info.zakaznok}" th:class="${'alert alert-danger'}"></span>
-            <span th:case="*{info.ZAKAZOK}" th:text="#{Ban.info.zakazok}"       th:class="${'alert alert-success'}"></span>
+            <span th:case="*{info.OK}" th:text="#{FreighterBase.info.ok}"       th:class="${'alert alert-success'}"></span>
         </th:block>
     </div>
 </div>
@@ -20,6 +20,7 @@
         <td>ADRES</td>
         <td>OSOBA KONTAKT.</td>
         <td>TELEFON</td>
+        <td>E-MAIL</td>
         <td>OPIEKUN</td>
         <td>UWAGI</td>
         <td></td>
@@ -31,6 +32,7 @@
         <td><span th:text="${f.address}"></span></td>
         <td><span th:text="${f.person}"></span></td>
         <td><span th:text="${f.telephone}"></span></td>
+        <td><span th:text="${f.email}"></span></td>
             <td><span th:if="${f.user!=null}" th:text="${f.user.userName}"></span></td>
         <td><span th:text="${f.info}"></span></td>
           <td>
@@ -75,6 +77,12 @@
                 <label for="inputEmail92" class="col-sm-2 col-form-label">TELEFON</label>
                 <div class="col-sm-2">
                     <input name="telephone" type="text" class="form-control" id="inputEmail92">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail926" class="col-sm-2 col-form-label">E-MAIL</label>
+                <div class="col-sm-2">
+                    <input name="email" type="email" class="form-control" id="inputEmail926">
                 </div>
             </div>
             <div class="form-group row">

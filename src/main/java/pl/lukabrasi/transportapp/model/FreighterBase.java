@@ -25,6 +25,8 @@ public class FreighterBase {
     String person;
     private @Column(name = "telephone")
     String telephone;
+    private @Column(name = "email")
+    String email;
     private @Column(name = "info")
     String info;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})

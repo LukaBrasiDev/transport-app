@@ -64,7 +64,8 @@ public class OrderService {
         EDIT,
         NOFACTORY,
         ZAKAZOK,
-        ZAKAZNOK
+        ZAKAZNOK,
+        OK
     }
 
     public Page<Order> getOrders(Pageable pageable) {
@@ -636,6 +637,7 @@ public class OrderService {
         freighterBaseNew.setAddress(freighterBaseForm.getAddress());
         freighterBaseNew.setPerson(freighterBaseForm.getPerson());
         freighterBaseNew.setTelephone(freighterBaseForm.getTelephone());
+        freighterBaseNew.setEmail(freighterBaseForm.getEmail());
         freighterBaseNew.setUser(freighterBaseForm.getUser());
         freighterBaseNew.setInfo(freighterBaseForm.getInfo());
         freighterBaseNew.setQueryTime(LocalDateTime.now());
@@ -643,7 +645,7 @@ public class OrderService {
         // userNew.setPassword(userForm.getFreighterPerson());
         if (!freighterBaseForm.getName().isEmpty()) {
             freighterBaseRepository.save(freighterBaseNew);
-            return ActionResponse.ZAKAZOK;
+            return ActionResponse.OK;
         }
         return ActionResponse.ZAKAZNOK;
     }
@@ -681,6 +683,7 @@ public class OrderService {
         optionalFreighterBase.get().setAddress(freighterBaseForm.getAddress());
         optionalFreighterBase.get().setPerson(freighterBaseForm.getPerson());
         optionalFreighterBase.get().setTelephone(freighterBaseForm.getTelephone());
+        optionalFreighterBase.get().setEmail(freighterBaseForm.getEmail());
         optionalFreighterBase.get().setUser(freighterBaseForm.getUser());
         optionalFreighterBase.get().setInfo(freighterBaseForm.getInfo());
         optionalFreighterBase.get().setQueryTime(LocalDateTime.now());

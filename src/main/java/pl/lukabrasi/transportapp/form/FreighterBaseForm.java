@@ -10,6 +10,7 @@ public class FreighterBaseForm {
     private String address;
     private String person;
     private String telephone;
+    private String email;
     private User user;
     private String info;
 }
