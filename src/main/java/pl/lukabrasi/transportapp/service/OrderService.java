@@ -590,8 +590,9 @@ public class OrderService {
     public List<Ban> getBansSorted() {
         return banRepository.findAllByOrderByStatusDescFreighterAsc();
     }
+
     public List<FreighterBase> getFreighterBaseSorted() {
-        return freighterBaseRepository.findAllByOrderByNameDesc();
+        return freighterBaseRepository.findAllByOrderByNameAsc();
     }
 
     public ActionResponse saveBan(BanForm banForm) {
