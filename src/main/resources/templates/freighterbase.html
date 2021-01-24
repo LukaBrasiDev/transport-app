@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<!--poczatek tabeli -->
+<div th:if="${info!=null}" style="display:flex;justify-content:center;align-items:center;background-color: #6495ED">
+    <div class="alert">
+        <th:block th:if="${info!=null}" th:switch="${info}">
+            <span th:case="*{info.ZAKAZNOK}" th:text="#{Ban.info.zakaznok}" th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.ZAKAZOK}" th:text="#{Ban.info.zakazok}"       th:class="${'alert alert-success'}"></span>
+        </th:block>
+    </div>
+</div>
+<table id="export" class="table table-bordered table-hover" style="font-family: Verdana">
+    <thead>
+    <tr style="font-weight: bold">
+        <td>Lp.</td>
+        <td>NAZWA FIRMY</td>
+        <td>ADRES</td>
+        <td>OSOBA KONTAKT.</td>
+        <td>TELEFON</td>
+        <td>OPIEKUN</td>
+        <td>UWAGI</td>
+        <td></td>
+    </tr>
+    </thead>
+    <tr th:each="f,iter : ${freighterbase}">
+        <td><span th:text="${iter.index}+1">Lp.</span></td>
+        <td><strong><span th:text="${f.name}"></span></strong></td>
+        <td><span th:text="${f.address}"></span></td>
+        <td><span th:text="${f.person}"></span></td>
+        <td><span th:text="${f.telephone}"></span></td>
+            <td><span th:if="${f.user!=null}" th:text="${f.user.userName}"></span></td>
+        <td><span th:text="${f.info}"></span></td>
+          <td>
+            <a class="btn btn-outline-success btn-sm" th:href="@{/bazaprzewoznikowedycja/{id}(id=${f.id})}" role="button">Edycja</a>
+            <a th:if="${logged.role} ==3" class="btn btn-outline-danger btn-sm" th:href="@{/bazaprzewoznikow/usun/{id}(id=${f.id})}" role="button"
+               onclick="return confirm('Czy na pewno chcesz usunąć ten wiersz?')">Usuń</a>
+        </td>
+    </tr>
+</table>
+<!-- koniec tabelki -->
+<!--<script>
+    $("table").tableExport({
+        formats: ["csv"],
+        trimWhitespace: true,
+        ignoreCols: [6,7]
+    });
+</script>-->
+<!--formularz start-->
+<div class="container-fluid" style="background-color: lightgrey">
+    <div style="padding-top: 25px;padding-bottom: 25px">
+        <p style="font-weight: bold">NOWY PRZEWOŹNIK</p>
+        <form th:action="@{/bazaprzewoznikow}" th:object="${freighterBase}" method="post">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">NAZWA FIRMY</label>
+                <div class="col-sm-2">
+                    <input name="name" type="text" class="form-control" id="inputEmail3">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail4" class="col-sm-2 col-form-label">ADRES</label>
+                <div class="col-sm-2">
+                    <input name="address" type="text" class="form-control" id="inputEmail4">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail9" class="col-sm-2 col-form-label">OSOBA KONTAKT.</label>
+                <div class="col-sm-2">
+                    <input name="person" type="text" class="form-control" id="inputEmail9">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail92" class="col-sm-2 col-form-label">TELEFON</label>
+                <div class="col-sm-2">
+                    <input name="telephone" type="text" class="form-control" id="inputEmail92">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">OPIEKUN</label>
+                <div class="col-sm-2" th:object="${users}">
+                    <select name="user" class="form-control" id="exampleFormControlSelect1" required>
+                        <option th:each="u : ${users}" th:value="${u.id}"
+                                th:text="${u.userName}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail6" class="col-sm-2 col-form-label">UWAGI</label>
+                <div class="col-sm-2">
+                    <textarea name="info" th:wrap="hard" class="form-control" id="inputEmail6"
+                              rows="4"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-danger">+ DODAJ PRZEWOŹNIKA</button>
+                </div>
+            </div>
+        </form>
+        <!--formularz end-->
+    </div>
+</div>
+</body>
+</html>

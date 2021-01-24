@@ -41,15 +41,17 @@ public class OrderService {
     final FactoryRepository factoryRepository;
     final BanRepository banRepository;
     final OurDriverRepository ourDriverRepository;
+    final FreighterBaseRepository freighterBaseRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, FreighterRepository freighterRepository, FactoryRepository factoryRepository, BanRepository banRepository, OurDriverRepository ourDriverRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, FreighterRepository freighterRepository, FactoryRepository factoryRepository, BanRepository banRepository, OurDriverRepository ourDriverRepository, FreighterBaseRepository ourFreighterBaseRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.freighterRepository = freighterRepository;
         this.factoryRepository = factoryRepository;
         this.banRepository = banRepository;
         this.ourDriverRepository = ourDriverRepository;
+        this.freighterBaseRepository = ourFreighterBaseRepository;
     }
 
 
@@ -588,6 +590,9 @@ public class OrderService {
     public List<Ban> getBansSorted() {
         return banRepository.findAllByOrderByStatusDescFreighterAsc();
     }
+    public List<FreighterBase> getFreighterBaseSorted() {
+        return freighterBaseRepository.findAllByOrderByNameDesc();
+    }
 
     public ActionResponse saveBan(BanForm banForm) {
         Ban banNew = new Ban();
@@ -615,6 +620,34 @@ public class OrderService {
         return ActionResponse.ZAKAZNOK;
     }
 
+    public ActionResponse saveFreighterBase(FreighterBaseForm freighterBaseForm) {
+        FreighterBase freighterBaseNew = new FreighterBase();
+
+
+        // Order orderNew = new Order();
+        String name = freighterBaseForm.getName()
+                .toUpperCase()
+                .trim();
+        if (freighterBaseRepository.existsByName(name)) {
+            return ActionResponse.ZAKAZNOK;
+        }
+        freighterBaseNew.setName(name);
+        freighterBaseNew.setAddress(freighterBaseForm.getAddress());
+        freighterBaseNew.setPerson(freighterBaseForm.getPerson());
+        freighterBaseNew.setTelephone(freighterBaseForm.getTelephone());
+        freighterBaseNew.setUser(freighterBaseForm.getUser());
+        freighterBaseNew.setInfo(freighterBaseForm.getInfo());
+        freighterBaseNew.setQueryTime(LocalDateTime.now());
+
+        // userNew.setPassword(userForm.getFreighterPerson());
+        if (!freighterBaseForm.getName().isEmpty()) {
+            freighterBaseRepository.save(freighterBaseNew);
+            return ActionResponse.ZAKAZOK;
+        }
+        return ActionResponse.ZAKAZNOK;
+    }
+
+
     public void updateBanStatus(Long id, BanForm banForm) {
 
         Optional<Ban> optionalBan = banRepository.findById(id);
@@ -639,6 +672,22 @@ public class OrderService {
         banRepository.save(optionalBan.get());
     }
 
+    public void updateFreighterBase(Long id, FreighterBaseForm freighterBaseForm) {
+
+        Optional<FreighterBase> optionalFreighterBase = freighterBaseRepository.findById(id);
+
+        optionalFreighterBase.get().setName(freighterBaseForm.getName());
+        optionalFreighterBase.get().setAddress(freighterBaseForm.getAddress());
+        optionalFreighterBase.get().setPerson(freighterBaseForm.getPerson());
+        optionalFreighterBase.get().setTelephone(freighterBaseForm.getTelephone());
+        optionalFreighterBase.get().setUser(freighterBaseForm.getUser());
+        optionalFreighterBase.get().setInfo(freighterBaseForm.getInfo());
+        optionalFreighterBase.get().setQueryTime(LocalDateTime.now());
+        //   optionalBan.get().setFreighterPhone(banForm.getFreighterPhone());
+
+        freighterBaseRepository.save(optionalFreighterBase.get());
+    }
+
     public Ban getBanById(Long id) {
         Optional<Ban> optionalBan = banRepository.findById(id);
         if (optionalBan.isPresent()) {
@@ -647,9 +696,23 @@ public class OrderService {
         return null;
     }
 
+    public FreighterBase getFreighterBaseById(Long id) {
+        Optional<FreighterBase> optionalFreighterBase = freighterBaseRepository.findById(id);
+        if (optionalFreighterBase.isPresent()) {
+            return optionalFreighterBase.get();
+        }
+        return null;
+    }
+
     public void deleteBanById(Long id) {
 
         banRepository.deleteById(id);
+
+    }
+
+    public void deleteFreighterBaseById(Long id) {
+
+        freighterBaseRepository.deleteById(id);
 
     }
 
