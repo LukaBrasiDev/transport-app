@@ -54,14 +54,30 @@ public class BanController {
         return "ban";
     }*/
 
-/*    @PostMapping("/zakazy/{id}")
-    public String updateStatus(
-            @PathVariable Long id,
-            @ModelAttribute BanForm banForm        ) {
-        orderService.updateBanStatus(id, banForm);
+    @GetMapping("/zakazyedycja/{id}")
+    public String editBan(@PathVariable Long id, Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
+        model.addAttribute("ban", orderService.getBanById(id));
+        model.addAttribute("banForm", new BanForm());
+        model.addAttribute("logged", userSession.getUserEntity());
+        model.addAttribute("users", orderService.getUsers());
+        return "editban";
+    }
 
-        return "redirect:/zakazy";
-    }*/
+    @PostMapping("/zakazyedycja/{id}")
+    public String updateBan(
+            @PathVariable Long id,
+            @ModelAttribute BanForm banForm, Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
+        model.addAttribute("ban", orderService.getBanById(id));
+        model.addAttribute("logged", userSession.getUserEntity());
+        orderService.updateBan(id, banForm);
+        return "editban";
+    }
 
 /*    @RequestMapping(value = "/zakazy/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable(value = "id") Long id) {
@@ -81,7 +97,7 @@ public class BanController {
         model.addAttribute("logged", userSession.getUserEntity());
         orderService.updateBanStatus(id, banForm);
 
-        return "redirect:/zakazy";
+        return "editban";
 
     }
 

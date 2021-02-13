@@ -633,6 +633,20 @@ public class OrderService {
         return ActionResponse.ZAKAZNOK;
     }
 
+    public void updateBan(Long id, BanForm banForm) {
+
+        Optional<Ban> optionalBan = banRepository.findById(id);
+     //   optionalBan.get().setFreighter(banForm.getFreighter());
+        optionalBan.get().setCity(banForm.getCity());
+        optionalBan.get().setNip(banForm.getNip());
+        optionalBan.get().setDescription(banForm.getDescription());
+
+       // optionalBan.get().setQueryTime(LocalDateTime.now());
+        //   optionalBan.get().setFreighterPhone(banForm.getFreighterPhone());
+
+        banRepository.save(optionalBan.get());
+    }
+
     public ActionResponse saveFreighterBase(FreighterBaseForm freighterBaseForm) {
         FreighterBase freighterBaseNew = new FreighterBase();
 

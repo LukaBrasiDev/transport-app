@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<!--navbar menu start-->
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<!--navbar menu koniec-->
+<!--poczatek tabeli tura-->
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr style="font-weight: bold">
+        <td>PRZEWOŹNIK</td>
+        <td>MIEJSCOWOŚĆ</td>
+        <td>NIP</td>
+        <td>POWÓD</td>
+        <td>STATUS</td>
+        <td>DATA</td>
+    </tr>
+    </thead>
+    <tr th:each="f : ${ban}">
+        <td><span th:text="${f.freighter}"></span></td>
+        <td><span th:text="${f.city}"></span></td>
+        <td><span th:text="${f.nip}"></span></td>
+        <td><span th:text="${f.description}"></span></td>
+        <td><span th:text="${f.status}"></span></td>
+        <td><span th:text="${f.queryTime}"></span></td>
+      </tr>
+</table>
+<!-- koniec tabelki -->
+<!--formularz EDYCJI start-->
+<div class="container-fluid" style="background-color: lightgrey">
+    <div style="padding-top: 25px;padding-bottom: 25px">
+        <p style="font-weight: bold">EDYCJA:</p>
+        <form  method="post" th:action="@{/zakazyedycja/{id}(id=${ban.id})}" th:object="${ban}">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">PRZEWOŹNIK</label>
+                <div class="col-sm-2">
+                    <input  th:value="${ban.getFreighter()}" name="freighter" type="text" class="form-control" id="inputEmail3"
+                           disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail4" class="col-sm-2 col-form-label">MIEJSCOWOŚĆ</label>
+                <div class="col-sm-2">
+                    <input th:value="${ban.getCity()}" name="city" type="text" class="form-control" id="inputEmail4">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail9" class="col-sm-2 col-form-label">NIP</label>
+                <div class="col-sm-2">
+                    <input th:value="${ban.getNip()}" name="nip" type="text" class="form-control" id="inputEmail9">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail91" class="col-sm-2 col-form-label">POWÓD</label>
+                <div class="col-sm-2">
+                    <textarea th:field="*{description}" th:wrap="hard" name="description" class="form-control"
+                              id="inputEmail91"
+                              rows="3" required></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
+
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-success btn-lg">ZAPISZ</button>
+                    <a href="/zakazy" class="btn btn-secondary btn-lg">WYJDŹ</a>
+                </div>
+            </div>
+        </form>
+        <!--formularz end-->
+
+    </div>
+</div>
+</body>
+</html>
