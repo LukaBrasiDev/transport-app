@@ -15,6 +15,7 @@
         <td th:if="${order != null}" th:text="'NR ZLEC.'"></td>
         <td th:if="${order != null}" th:text="'ZAŁADUNEK'"></td>
         <td th:if="${order != null}" th:text="'ROZŁADUNKI'"></td>
+        <td th:if="${order != null}" th:text="'UWAGI'"></td>
         <td th:if="${order != null}" th:text="'M'"></td>
         <td th:if="${order != null}" th:text="'KM'"></td>
         <td th:if="${order != null}" th:text="'CENA NASZA'"></td>
@@ -36,12 +37,13 @@
         </td>
         <td><span th:text="${order.loadingCity}"></span></td>
         <td><span th:if="${order.cityCodes!=null}" th:text="${order.cityCodes}"></span></td>
+        <td><span th:text="${order.comment}"></span></td>
         <td style="text-align:center">
             <a th:href="@{'https://www.google.pl/maps/dir/'+${order.loadingCity}+'/'+${#strings.replace(order.cityCodes,',',',europe/')}}"
                target="_blank" title="pokaż na mapie">
                 <img src="/images/earth.png" width=15 height=15></a></td>
         <td><span th:text="${order.kilometers}"></span></td>
-        <td><span th:text="${order.price}"></span></td>
+        <td><span th:text="${order.price}" th:style="${order.priceConfirmed} ? 'color:green;font-weight:bold' : 'color:grey'"></span></td>
         <td><span th:text="${order.freighterPrice}"></span></td>
         <td><span th:if="${order.freighter!=null}" th:text="${order.getFreighter().freighterName}"></span></td>
         <td><span th:if="${order.driver!=null}"
@@ -109,6 +111,14 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="inputEmail506" class="col-sm-2 col-form-label">UWAGI</label>
+                <div class="col-sm-2">
+                    <input name="comment" th:value="${order.getComment()}" type="text"
+                           class="form-control"
+                           id="inputEmail506">
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="inputEmail50" class="col-sm-2 col-form-label">KILOMETRY</label>
                 <div class="col-sm-2">
                     <input name="kilometers" th:value="${order.getKilometers()}" type="number" step="1"
@@ -121,6 +131,13 @@
                 <div class="col-sm-2">
                     <input name="price" th:value="${order.getPrice()}" type="number" step="1" class="form-control"
                            id="inputEmail5">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail519" class="col-sm-2 col-form-label">CENA POTWIERDZONA?</label>
+                <div class="col-sm-2">
+                    <input name="priceConfirmed" th:checked="${order.getPriceConfirmed()}" type="checkbox"  class="form-control"
+                           id="inputEmail519">
                 </div>
             </div>
             <div class="form-group row">

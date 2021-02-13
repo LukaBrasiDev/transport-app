@@ -36,6 +36,9 @@ public class Order {
 
     private BigDecimal price;
 
+    private @Column(name = "price_confirmed")
+    Boolean priceConfirmed;
+
     private @Column(name = "freighter_price")
     BigDecimal freighterPrice;
 
@@ -44,6 +47,8 @@ public class Order {
 
     @JoinColumn(name = "city_codes")
     private String cityCodes;
+
+    private String comment;
 
     private Integer kilometers;
 

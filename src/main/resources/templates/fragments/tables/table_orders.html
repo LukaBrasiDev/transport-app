@@ -9,6 +9,7 @@
         <td style="width: 3%">NR</td>
         <td style="width: 6%">ZAŁADUNEK</td>
         <td style="width: 21%">ROZŁADUNKI</td>
+        <td style="width: 6%">UWAGI</td>
         <td style="width: 2%"><img src="/images/earth.png" width=15 height=15> </td>
         <td style="width: 5%">KM</td>
         <td style="width: 4%">CENA NASZA</td>
@@ -35,13 +36,16 @@
         <td>
             <span th:if="${one.cityCodes!=null}" th:text="${one.cityCodes}"></span>
         </td>
+        <td>
+            <span th:if="${one.comment!=null}" th:text="${one.comment}"></span>
+        </td>
             <td style="text-align:center">
                 <a th:href="@{'https://www.google.pl/maps/dir/'+${one.loadingCity}+'/'+${#strings.replace(one.cityCodes,',',',europe/')}}" target="_blank" title="pokaż na mapie">
                 <img src="/images/earth.png" width=15 height=15></a></td>
         <td >
             <span th:if="${one.kilometers!=null}" th:text="${one.kilometers}+' km'"></span>
         </td>
-        <td><span th:if="${one.price!=null}" th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}+' €'"></span></td>
+        <td><span th:if="${one.price!=null}" th:style="${one.priceConfirmed} ? 'color:green;font-weight:bold' : 'color:grey'" th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}+' €'"></span></td>
         <td><span th:if="${one.freighterPrice!=null}" th:text="${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
         <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"
                   th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}-${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
