@@ -67,6 +67,25 @@ public class OrderController {
             return "order";
     }
 
+    @GetMapping("/zlecenia/ceny_niepotwierdzone")
+    public String getOrdersCeny (Model model,
+                            Pageable pageable) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
+        Page<Order> orderPage = orderService.getNotconfirmedPrices(pageable);
+        model.addAttribute("page", orderPage);
+        model.addAttribute("number", orderPage.getNumber());
+        model.addAttribute("totalPages", orderPage.getTotalPages());
+        model.addAttribute("totalElements", orderPage.getTotalElements());
+        model.addAttribute("size", orderPage.getSize());
+        model.addAttribute("orders", orderPage.getContent());
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
+        return "order";
+    }
+
     @GetMapping("/naszeauta")
     public String getOurCars(Model model,
                             Pageable pageable) {
@@ -421,6 +440,25 @@ public class OrderController {
         }
         Page<Order> orderPage = orderService.getOrders(pageable);
         model.addAttribute("info", actionResponse);
+        model.addAttribute("page", orderPage);
+        model.addAttribute("number", orderPage.getNumber());
+        model.addAttribute("totalPages", orderPage.getTotalPages());
+        model.addAttribute("totalElements", orderPage.getTotalElements());
+        model.addAttribute("size", orderPage.getSize());
+        model.addAttribute("orders", orderPage.getContent());
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
+        return "order";
+    }
+
+    @PostMapping("/zlecenia/ceny_niepotwierdzone")
+    public String createOrder(Model model,
+                              Pageable pageable) throws UnknownHostException {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
+        Page<Order> orderPage = orderService.getNotconfirmedPrices(pageable);
         model.addAttribute("page", orderPage);
         model.addAttribute("number", orderPage.getNumber());
         model.addAttribute("totalPages", orderPage.getTotalPages());

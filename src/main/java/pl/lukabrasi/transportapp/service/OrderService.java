@@ -73,6 +73,11 @@ public class OrderService {
         return orderRepository.findAllByOrderByLoadDateDescLoadingCityAsc(pageable);
     }
 
+    public Page<Order> getNotconfirmedPrices(Pageable pageable) {
+
+        return orderRepository.findNotConfirmedPrices(pageable);
+    }
+
     public Page<Order> getOrderById(Pageable pageable) {
 
         return orderRepository.findAllByOrderByIdDesc(pageable);
@@ -404,7 +409,9 @@ public class OrderService {
         optionalOrder.get().setComment(orderForm.getComment());
         optionalOrder.get().setKilometers(orderForm.getKilometers());
         optionalOrder.get().setPrice(orderForm.getPrice());
-        optionalOrder.get().setPriceConfirmed(orderForm.getPriceConfirmed());
+        if (orderForm.getPrice() != null) {
+            optionalOrder.get().setPriceConfirmed(orderForm.getPriceConfirmed());
+        }
         optionalOrder.get().setLoadHour(orderForm.getLoadHour());
         optionalOrder.get().setFreighterPrice(orderForm.getFreighterPrice());
 

@@ -42,7 +42,7 @@
             <a th:href="@{'https://www.google.pl/maps/dir/'+${order.loadingCity}+'/'+${#strings.replace(order.cityCodes,',',',europe/')}}"
                target="_blank" title="pokaż na mapie">
                 <img src="/images/earth.png" width=15 height=15></a></td>
-        <td><span th:text="${order.kilometers}"></span></td>
+        <td><span th:text="${order.kilometers + ' km'}"></span></td>
         <td><span th:text="${order.price}" th:style="${order.priceConfirmed} ? 'color:green;font-weight:bold' : 'color:grey'"></span></td>
         <td><span th:text="${order.freighterPrice}"></span></td>
         <td><span th:if="${order.freighter!=null}" th:text="${order.getFreighter().freighterName}"></span></td>
