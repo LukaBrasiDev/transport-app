@@ -33,5 +33,30 @@
         ignoreCols: [0, 1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     });
 </script>
+<script>
+    // iterate over each row
+var tableDate = $("#export tbody").parents('tr:first').find('td:eq(3)').text();
+var shouldColor = true
+$("#export tbody tr").each(function(i) {
+    // find the first td in the row
+    var value = $(this).find('td:eq(3)').text();
+    // display the value in console
+				if (value == tableDate) {
+        	if (shouldColor == true) {
+        		$('#export tbody tr:nth-child(' + (i + 1) + ')').addClass("alternate");
+            }
+
+        } else {
+        		if (shouldColor == false) {
+            	shouldColor = true
+              $('#export tbody tr:nth-child(' + (i + 1) + ')').addClass("alternate");
+            } else {
+            	shouldColor = false
+            }
+        }
+
+tableDate = value
+});
+</script>
 </body>
 </html>

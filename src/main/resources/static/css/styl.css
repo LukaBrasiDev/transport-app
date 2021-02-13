@@ -103,3 +103,11 @@ background-color: #dc3545;
 
 }
 
+
+#export .alternate {
+		background: #e0e7eb;
+	}
+
+	.table-hover tbody tr:hover td {
+        background: #9fcdff;
+    }
