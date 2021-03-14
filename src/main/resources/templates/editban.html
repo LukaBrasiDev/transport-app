@@ -56,7 +56,23 @@
                 <div class="col-sm-2">
                     <textarea th:field="*{description}" th:wrap="hard" name="description" class="form-control"
                               id="inputEmail91"
-                              rows="3" required></textarea>
+                              rows="3"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">STATUS</label>
+                <div class="col-sm-2" th:object="${ban}">
+                    <select name="status" class="form-control" id="exampleFormControlSelect1">
+                        <option th:if="${ban}!=null" th:value="${ban.id}"
+                                th:text="${ban.getStatus()}"
+                                th:selected="${ban.getStatus()}"></option>
+                        <option th:value="ZAKAZ"
+                                th:text="ZAKAZ"></option>
+                        <option th:value="UWAGA"
+                                th:text="UWAGA"></option>                        <option th:value="OK"
+                                                                                         th:text="OK"></option>
+
+                    </select>
                 </div>
             </div>
             <div class="form-group row">

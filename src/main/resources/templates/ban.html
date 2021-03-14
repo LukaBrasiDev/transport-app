@@ -31,12 +31,10 @@
         <td><span th:text="${f.city}"></span></td>
         <td><span th:text="${f.nip}"></span></td>
         <td><span th:text="${f.description}"></span></td>
-        <td th:style="${f.status}=='ZAKAZ'?'background-color:#ff3333':'background-color:#33cc33'"><span th:text="${f.status}"></span></td>
+        <td th:style="${f.status}=='ZAKAZ'?'background-color:#ff3333':(${f.status}=='UWAGA'?'background-color:#ffcc00':'background-color:#33cc33')"><span th:text="${f.status}"></span></td>
         <td><span th:text="${#temporals.format(f.queryTime, 'dd-MM-yyyy HH:mm')}"></span></td>
         <td>
             <a th:if="${logged.role} == 1 OR ${logged.role} ==3" class="btn btn-outline-success btn-sm" th:href="@{/zakazyedycja/{id}(id=${f.id})}" role="button">Edycja</a>
-            <a th:if="${logged.role} == 1 OR ${logged.role} ==3" class="btn btn-outline-success btn-sm" th:href="@{/zakazy/{id}(id=${f.id})}" role="button" onclick="return confirm('Czy na pewno chcesz zmienić status?')">Zmień
-                status</a>
             <a th:if="${logged.role} == 1 OR ${logged.role} ==3" class="btn btn-outline-danger btn-sm" th:href="@{/zakazy/usun/{id}(id=${f.id})}" role="button"
                onclick="return confirm('Czy na pewno chcesz usunąć ten wiersz?')">Usuń</a>
         </td>

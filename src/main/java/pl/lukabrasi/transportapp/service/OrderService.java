@@ -640,6 +640,7 @@ public class OrderService {
         optionalBan.get().setCity(banForm.getCity());
         optionalBan.get().setNip(banForm.getNip());
         optionalBan.get().setDescription(banForm.getDescription());
+        optionalBan.get().setStatus(banForm.getStatus());
 
        // optionalBan.get().setQueryTime(LocalDateTime.now());
         //   optionalBan.get().setFreighterPhone(banForm.getFreighterPhone());
@@ -676,7 +677,7 @@ public class OrderService {
     }
 
 
-    public void updateBanStatus(Long id, BanForm banForm) {
+   /* public void updateBanStatus(Long id, BanForm banForm) {
 
         Optional<Ban> optionalBan = banRepository.findById(id);
         // optionalBan.get().setFreighter(banForm.getFreighter());
@@ -698,7 +699,7 @@ public class OrderService {
         //   optionalBan.get().setFreighterPhone(banForm.getFreighterPhone());
 
         banRepository.save(optionalBan.get());
-    }
+    }*/
 
     public void updateFreighterBase(Long id, FreighterBaseForm freighterBaseForm) {
 

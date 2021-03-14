@@ -85,7 +85,7 @@ public class BanController {
         return "redirect:/zakazy";
     }*/
 
-    @GetMapping("/zakazy/{id}")
+/*    @GetMapping("/zakazy/{id}")
     public String register(
             @PathVariable Long id,
             @ModelAttribute BanForm banForm,
@@ -99,7 +99,7 @@ public class BanController {
 
         return "editban";
 
-    }
+    }*/
 
     @RequestMapping(value = "/zakazy/usun/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable(value = "id") Long id) {
