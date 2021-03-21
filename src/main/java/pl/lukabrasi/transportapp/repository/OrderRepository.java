@@ -21,7 +21,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     Page<Order> findAllByOrderByIdDesc(Pageable pageable);
 
-    @Query(value = "select * from orders where price_confirmed is not true order by date_load asc, loading_city asc", nativeQuery = true)
+    @Query(value = "select * from orders where fk_factory in (select id from factory where (factory_group = 'B' or factory_group = 'W')) and price_confirmed is not true order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNotConfirmedPrices(Pageable pageable);
 
     List<Order> findByLoadDateBetweenOrderByLoadDateAscLoadingCityAsc(LocalDate date1, LocalDate date2);

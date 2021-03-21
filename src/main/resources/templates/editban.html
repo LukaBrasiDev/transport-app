@@ -63,7 +63,7 @@
                 <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">STATUS</label>
                 <div class="col-sm-2" th:object="${ban}">
                     <select name="status" class="form-control" id="exampleFormControlSelect1">
-                        <option th:if="${ban}!=null" th:value="${ban.id}"
+                        <option th:if="${ban}!=null" th:value="${ban.status}"
                                 th:text="${ban.getStatus()}"
                                 th:selected="${ban.getStatus()}"></option>
                         <option th:value="ZAKAZ"
