@@ -2,13 +2,14 @@
        xmlns:th="http://www.thymeleaf.org/">
     <thead>
     <tr style="font-weight: bold">
-        <td id="nic1" colspan="8">EXPORT</td>
-        <td id="nic2" class="import" colspan="8">IMPORT</td>
+        <td id="nic1" colspan="9">EXPORT</td>
+        <td id="nic2" class="import" colspan="7">IMPORT</td>
     </tr>
     <tr style="font-weight: bold">
         <td style="width: 3%"></td>
         <td class="nic" style="width: 7%">TURA</td>
         <td style="width: 11%">KIEROWCA</td>
+        <td id="nic8" style="width: 5%">GDZIE SKOŃCZYŁ</td>
         <td style="width: 11%" class="noScreen">CIĄGNIK</td>
         <td style="width: 11%" class="noScreen">NACZEPA</td>
         <td class="nic" style="width: 6%">DATA ZAŁ.</td>
@@ -22,7 +23,6 @@
         <td id="nic5" class="import" style="width: 4%">STAWKA</td>
         <td id="nic6" class="import" style="width: 6%">KTO ZNALAZŁ</td>
         <td id="nic7" class="import" style="width: 6%">DATA DOK.</td>
-        <td id="nic8" class="import" style="width: 5%">NAST. ZAŁADUNEK</td>
         <td id="nic9" class="import" style="width: 4%"></td>
     </tr>
     </thead>
@@ -35,6 +35,10 @@
             <td class="nic"><strong><span th:text="${one.orderNumber}"></span></strong></td>
             <td><span th:if="${one.driver!=null}"
                       th:text="${one.driver.driverSurname}+' '+${one.driver.driverName}"></span>
+            </td>
+            <td class="nic">
+            <span th:if="${one.nextLoadingCityImp!=null}"
+                  th:text="${one.nextLoadingCityImp}"></span>
             </td>
             <td class="noScreen"><span th:if="${one.driver!=null}"
                       th:text="${one.driver.driverCar}"></span>
@@ -81,11 +85,7 @@
             <span th:if="${one.docDateImp!=null}"
                                th:text="${one.docDateImp}"></span>
             </td>
-            <td class="nic">
-            <span th:if="${one.nextLoadingCityImp!=null}"
-                  th:text="${one.nextLoadingCityImp}"></span>
-            </td>
-            <td class="nic">
+               <td class="nic">
                 <a th:if="${logged.role} == 2 OR ${logged.role} ==3 OR ${logged.role} ==1 OR ${logged.role} ==21" class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}"
                    role="button">Edycja</a>
             </td>
@@ -97,6 +97,7 @@
             </td>
             <td class="nic" ></td>
             <td th:text="${dr.driverSurname}+' '+${dr.driverName}"></td>
+            <td class="nic" ></td>
             <td class="noScreen" th:text="${dr.driverCar}"></td>
             <td class="noScreen" th:text="${dr.driverSemitrailer}"></td>
             <td class="nic" ></td>
@@ -107,7 +108,6 @@
             <td class="nic" ></td>
             <td class="nic" ></td>
             <td></td>
-            <td class="nic" ></td>
             <td class="nic" ></td>
             <td class="nic" ></td>
             <td class="nic" ></td>

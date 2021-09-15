@@ -15,6 +15,7 @@
     <tr style="font-weight: bold">
         <td style="width: 6%">TURA</td>
         <td style="width: 10%">KIEROWCA</td>
+        <td style="width: 9%">GDZIE SKOŃCZYŁ</td>
         <td style="width: 4%">DATA ZAŁ.</td>
         <td style="width: 9%">FABRYKA</td>
         <td style="width: 9%">OSTATNI ROZŁAD.</td>
@@ -27,7 +28,6 @@
         <td class="import" style="width: 9%">STAWKA</td>
         <td class="import" style="width: 9%">KTO ZNALAZŁ</td>
         <td class="import" style="width: 9%">DATA DOK.</td>
-        <td class="import" style="width: 9%">NAST. ZAŁADUNEK</td>
     </tr>
     </thead>
     <tbody>
@@ -35,6 +35,10 @@
         <td><strong><span th:text="${order.orderNumber}"></span></strong></td>
         <td><span th:if="${order.driver!=null}"
                   th:text="${#strings.substring(order.driver.driverName,0,1)}  + '.' + ${order.driver.driverSurname}"></span>
+        </td>
+        <td>
+            <span th:if="${order.nextLoadingCityImp!=null}"
+                  th:text="${order.nextLoadingCityImp}"></span>
         </td>
         <td><span th:text="${order.loadDate}"></span></td>
         <td><span th:if="${order.factory!=null}"
@@ -74,10 +78,6 @@
         <td>
             <span th:if="${order.docDateImp!=null}"
                   th:text="${order.docDateImp}"></span>
-        </td>
-        <td>
-            <span th:if="${order.nextLoadingCityImp!=null}"
-                  th:text="${order.nextLoadingCityImp}"></span>
         </td>
     </tr>
     </tbody>
@@ -124,6 +124,13 @@
                         <option th:if="${order.driver}==null and ${d.active}" th:each="d : ${drivers}" th:value="${d.id}"
                                 th:text="${d.driverSurname + ' ' + d.driverName}"></option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
+                <label for="inputEmail36778" class="col-sm-2 col-form-label">ROZŁADUNEK</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail36778" name="nextLoadingCityImp" type="text"
+                           th:value="${order.getNextLoadingCityImp()}" style="border:2px solid dodgerblue;">
                 </div>
             </div>
             <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
@@ -189,13 +196,6 @@
                 <div class="col-sm-2">
                     <input name="docDateImp" type="date" th:value="${order.getDocDateImp()}" class="form-control"
                            id="inputEmail48" style="border:2px solid dodgerblue;">
-                </div>
-            </div>
-            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
-                <label for="inputEmail36778" class="col-sm-2 col-form-label">NAST. ZAŁADUNEK</label>
-                <div class="col-sm-2">
-                    <input class="form-control" id="inputEmail36778" name="nextLoadingCityImp" type="text"
-                           th:value="${order.getNextLoadingCityImp()}" style="border:2px solid dodgerblue;">
                 </div>
             </div>
             <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
