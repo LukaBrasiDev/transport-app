@@ -9,8 +9,8 @@
        xmlns:th="http://www.thymeleaf.org/">
     <thead>
     <tr style="font-weight: bold">
-        <td colspan="7">EXPORT</td>
-        <td class="import" colspan="7">IMPORT</td>
+        <td colspan="8">EXPORT</td>
+        <td class="import" colspan="6">IMPORT</td>
     </tr>
     <tr style="font-weight: bold">
         <td style="width: 6%">TURA</td>
@@ -127,10 +127,10 @@
                 </div>
             </div>
             <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
-                <label for="inputEmail36778" class="col-sm-2 col-form-label">ROZŁADUNEK</label>
+                <label for="inputEmail36778" class="col-sm-2 col-form-label">GDZIE SKOŃCZYŁ</label>
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail36778" name="nextLoadingCityImp" type="text"
-                           th:value="${order.getNextLoadingCityImp()}" style="border:2px solid dodgerblue;">
+                           th:value="${order.getNextLoadingCityImp()}" style="border:2px solid tomato;">
                 </div>
             </div>
             <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
