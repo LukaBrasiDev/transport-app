@@ -2,19 +2,34 @@
     <div class="form-row align-items-center">
         <div class="col-auto">
             <div class="custom-control custom-radio">
-                <input type="radio" id="customRadio12" name="radioSelect" value="allweek" class="custom-control-input">
+                <input type="radio" id="customRadio12" name="radioSelect" th:checked="${allweek}" th:value="${allweek}" class="custom-control-input">
                 <label class="custom-control-label" for="customRadio12">wszystkie tury</label>
             </div>
             <div class="custom-control custom-radio">
-                <input type="radio" id="customRadio22" name="radioSelect" value="none" class="custom-control-input"
-                       checked>
+                <input type="radio" id="customRadio22" name="radioSelect"  th:checked="${none}" th:value="${none}" class="custom-control-input">
                 <label class="custom-control-label" for="customRadio22">tury do sprzedania</label>
             </div>
         </div>
         <div class="col-auto">
-            <button type="submit" title="poprzedni tydzień" formaction="/zlecenia/tydzien/poprzedni" class="btn btn-danger btn-sm"><<</button>
-            <button type="submit" class="btn btn-danger btn-lg">AKTUALNY TYDZIEŃ</button>
-            <button type="submit" title="następny tydzień" formaction="/zlecenia/tydzien/nastepny" class="btn btn-danger btn-sm">>></button>
+            <div class="row-auto">
+                <button type="submit" title="poprzedni tydzień" formaction="/zlecenia/tydzien/poprzedni"
+                        class="btn btn-danger btn-sm"><<
+                </button>
+                <button type="submit" class="btn btn-danger btn-lg">AKTUALNY TYDZIEŃ</button>
+                <button type="submit" title="następny tydzień" formaction="/zlecenia/tydzien/nastepny"
+                        class="btn btn-danger btn-sm">>>
+                </button>
+            </div>
+            <div class="row-auto">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" name="checkSelectM" type="checkbox" id="inlineCheckbox1" th:checked="${inter}" th:value="${inter}">
+                    <label class="form-check-label" for="inlineCheckbox1">Międzynarod.</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" name="checkSelectK" type="checkbox" id="inlineCheckbox2" th:checked="${country}" th:value="${country}">
+                    <label class="form-check-label" for="inlineCheckbox2">Kraj</label>
+                </div>
+            </div>
         </div>
     </div>
 </form>

@@ -12,5 +12,9 @@ public class RangeForm {
     private LocalDate date2;
     private String radioSelect;
     private String weekSelect;
+    private String checkSelectM;
+    private String checkSelectK;
+
+
 
 }

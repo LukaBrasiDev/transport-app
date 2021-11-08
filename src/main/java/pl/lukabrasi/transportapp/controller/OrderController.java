@@ -50,7 +50,8 @@ public class OrderController {
 
     @GetMapping("/zlecenia")
     public String getOrders(Model model,
-                            Pageable pageable) {
+                            Pageable pageable,
+                            RangeForm rangeForm) {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
@@ -64,6 +65,10 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+        model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+        model.addAttribute("inter", "inter");
+        model.addAttribute("country", "country");
+
             return "order";
     }
 
@@ -112,8 +117,8 @@ public class OrderController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-        String selection = rangeForm.getRadioSelect();
-        if (selection.equals("allweek")) {
+        String selection = rangeForm.getRadioSelect()+rangeForm.getCheckSelectM()+rangeForm.getCheckSelectK();
+        if (selection.equals("allweekintercountry") || selection.equals("allweek")) {
             Page<Order> orderPage = orderService.findCurrentWeekAll(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -124,8 +129,43 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("allweek", "allweek");
+            model.addAttribute("none", "none");
+            model.addAttribute("inter", "inter");
+            model.addAttribute("country", "country");
             return "order";
-        } else {
+        }
+        else if (selection.equals("allweekinternull")) {
+            Page<Order> orderPage = orderService.findCurrentWeekAllInter(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("inter", "inter");
+            model.addAttribute("country", "null");
+            return "order";
+        }
+        else if (selection.equals("allweeknullcountry")) {
+            Page<Order> orderPage = orderService.findCurrentWeekAllCountry(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("inter", "null");
+            model.addAttribute("country", "country");
+            return "order";
+        }
+        else {
             Page<Order> orderPage = orderService.findCurrentWeekNotSold(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -606,6 +646,14 @@ public class OrderController {
                     orderService.getMondiWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
         }
         model.addAttribute("weeklyMondi",soldMondiWeeklyList);
+
+        // tygodnie sprzedazy Kraj wstecz
+        List<Integer> soldCountryWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldCountryWeeklyList.add(
+                    orderService.getCountryWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyCountry",soldCountryWeeklyList);
 
         // tygodnie sprzedazy Inne wstecz
         List<Integer> soldOtherWeeklyList = new LinkedList<>();

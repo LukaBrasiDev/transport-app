@@ -92,6 +92,16 @@ public class OrderService {
         return orderRepository.findCurrentWeekAll(pageable);
     }
 
+    public Page<Order> findCurrentWeekAllInter(Pageable pageable) {
+
+        return orderRepository.findCurrentWeekAllInter(pageable);
+    }
+
+    public Page<Order> findCurrentWeekAllCountry(Pageable pageable) {
+
+        return orderRepository.findCurrentWeekAllCountry(pageable);
+    }
+
     public Page<Order> findCurrentWeekMTW(Pageable pageable) {
 
         return orderRepository.findCurrentWeekMTW(pageable);
@@ -595,6 +605,12 @@ public class OrderService {
     public Integer getMondiWeekly(LocalDate date1) {
         if (orderRepository.soldMondiGroupWeekly(date1) > 0) {
             return orderRepository.soldMondiGroupWeekly(date1);
+        } else return 0;
+    }
+
+    public Integer getCountryWeekly(LocalDate date1) {
+        if (orderRepository.soldCountryGroupWeekly(date1) > 0) {
+            return orderRepository.soldCountryGroupWeekly(date1);
         } else return 0;
     }
 
