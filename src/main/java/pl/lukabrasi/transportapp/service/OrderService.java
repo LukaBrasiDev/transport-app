@@ -579,17 +579,22 @@ public class OrderService {
     }
 
 
-    //trzy raporty tygodniowe
+    //cztery raporty tygodniowe
     public Integer getBegaWeekly(LocalDate date1) {
         if (orderRepository.soldBegaGroupWeekly(date1) > 0) {
             return orderRepository.soldBegaGroupWeekly(date1);
-
         } else return 0;
     }
 
     public Integer getWojcikWeekly(LocalDate date1) {
         if (orderRepository.soldWojcikGroupWeekly(date1) > 0) {
             return orderRepository.soldWojcikGroupWeekly(date1);
+        } else return 0;
+    }
+
+    public Integer getMondiWeekly(LocalDate date1) {
+        if (orderRepository.soldMondiGroupWeekly(date1) > 0) {
+            return orderRepository.soldMondiGroupWeekly(date1);
         } else return 0;
     }
 

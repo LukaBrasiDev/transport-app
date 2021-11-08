@@ -599,7 +599,15 @@ public class OrderController {
         }
        model.addAttribute("weeklyWojcik",soldWojcikWeeklyList);
 
-        // tygodnie sprzedazy Wojcik wstecz
+        // tygodnie sprzedazy Mondi wstecz
+        List<Integer> soldMondiWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldMondiWeeklyList.add(
+                    orderService.getMondiWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyMondi",soldMondiWeeklyList);
+
+        // tygodnie sprzedazy Inne wstecz
         List<Integer> soldOtherWeeklyList = new LinkedList<>();
         for (int i=0; i>-12;i--){
             soldOtherWeeklyList.add(
@@ -708,7 +716,15 @@ public class OrderController {
         }
         model.addAttribute("weeklyWojcik",soldWojcikWeeklyList);
 
-        // tygodnie sprzedazy Wojcik wstecz
+        // tygodnie sprzedazy Mondi wstecz
+        List<Integer> soldMondiWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldMondiWeeklyList.add(
+                    orderService.getMondiWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyMondi",soldMondiWeeklyList);
+
+        // tygodnie sprzedazy Inne wstecz
         List<Integer> soldOtherWeeklyList = new LinkedList<>();
         for (int i=0; i>-12;i--){
             soldOtherWeeklyList.add(
@@ -775,7 +791,15 @@ public class OrderController {
         }
         model.addAttribute("weeklyWojcik",soldWojcikWeeklyList);
 
-        // tygodnie sprzedazy Wojcik wstecz
+        // tygodnie sprzedazy Mondi wstecz
+        List<Integer> soldMondiWeeklyList = new LinkedList<>();
+        for (int i=0; i>-12;i--){
+            soldMondiWeeklyList.add(
+                    orderService.getMondiWeekly(LocalDate.from(dt.toInstant().atZone(ZoneId.of("UTC"))).plusWeeks(i)));
+        }
+        model.addAttribute("weeklyMondi",soldMondiWeeklyList);
+
+        // tygodnie sprzedazy Inne wstecz
         List<Integer> soldOtherWeeklyList = new LinkedList<>();
         for (int i=0; i>-12;i--){
             soldOtherWeeklyList.add(
