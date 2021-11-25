@@ -50,8 +50,7 @@ public class OrderController {
 
     @GetMapping("/zlecenia")
     public String getOrders(Model model,
-                            Pageable pageable,
-                            RangeForm rangeForm) {
+                            Pageable pageable) {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
@@ -65,9 +64,6 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
-        model.addAttribute("radioSelect", rangeForm.getRadioSelect());
-        model.addAttribute("inter", "inter");
-        model.addAttribute("country", "country");
 
             return "order";
     }
@@ -118,7 +114,7 @@ public class OrderController {
             return "redirect:/";
         }
         String selection = rangeForm.getRadioSelect()+rangeForm.getCheckSelectM()+rangeForm.getCheckSelectK();
-        if (selection.equals("allweekintercountry") || selection.equals("allweek")) {
+        if (selection.equals("allweekintercountry") || selection.equals("allweeknullnull")) {
             Page<Order> orderPage = orderService.findCurrentWeekAll(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -129,10 +125,6 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
-            model.addAttribute("allweek", "allweek");
-            model.addAttribute("none", "none");
-            model.addAttribute("inter", "inter");
-            model.addAttribute("country", "country");
             return "order";
         }
         else if (selection.equals("allweekinternull")) {
@@ -146,8 +138,6 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
-            model.addAttribute("inter", "inter");
-            model.addAttribute("country", "null");
             return "order";
         }
         else if (selection.equals("allweeknullcountry")) {
@@ -161,8 +151,32 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
-            model.addAttribute("inter", "null");
-            model.addAttribute("country", "country");
+            return "order";
+        }
+        else if (selection.equals("nonenullcountry")) {
+            Page<Order> orderPage = orderService.findCurrentWeekNotSoldCountry(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "order";
+        }
+        else if (selection.equals("noneinternull")) {
+            Page<Order> orderPage = orderService.findCurrentWeekNotSoldInter(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
             return "order";
         }
         else {
@@ -231,9 +245,9 @@ public class OrderController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-        String selection = rangeForm.getRadioSelect();
-        if (selection.equals("allweek")) {
-            Page<Order> orderPage = orderService.findPreviousWeekAll(pageable);
+        String selection = rangeForm.getRadioSelect()+rangeForm.getCheckSelectM()+rangeForm.getCheckSelectK();
+        if (selection.equals("allweekintercountry") || selection.equals("allweeknullnull")) {
+             Page<Order> orderPage = orderService.findPreviousWeekAll(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
             model.addAttribute("totalPages", orderPage.getTotalPages());
@@ -244,7 +258,65 @@ public class OrderController {
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
             return "order";
-        } else {
+        }
+
+        else if (selection.equals("allweekinternull")) {
+            Page<Order> orderPage = orderService.findPreviousWeekAllInter(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "order";
+        }
+
+        else if (selection.equals("allweeknullcountry")) {
+            Page<Order> orderPage = orderService.findPreviousWeekAllCountry(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "order";
+        }
+
+        else if (selection.equals("noneinternull")) {
+            Page<Order> orderPage = orderService.findPreviousWeekNotSoldInter(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "order";
+        }
+
+        else if (selection.equals("nonenullcountry")) {
+            Page<Order> orderPage = orderService.findPreviousWeekNotSoldCountry(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "order";
+        }
+
+        else {
             Page<Order> orderPage = orderService.findPreviousWeekNotSold(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -329,8 +401,8 @@ public class OrderController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-        String selection = rangeForm.getRadioSelect();
-        if (selection.equals("allweek")) {
+        String selection = rangeForm.getRadioSelect()+rangeForm.getCheckSelectM()+rangeForm.getCheckSelectK();
+        if (selection.equals("allweekintercountry") || selection.equals("allweeknullnull")) {
             Page<Order> orderPage = orderService.findNextWeekAll(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -342,7 +414,63 @@ public class OrderController {
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
             return "order";
-        } else {
+        }
+        else if (selection.equals("allweekinternull")) {
+            Page<Order> orderPage = orderService.findNextWeekAllInter(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "order";
+        }
+
+        else if (selection.equals("allweeknullcountry")) {
+            Page<Order> orderPage = orderService.findNextWeekAllCountry(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "order";
+        }
+
+        else if (selection.equals("noneinternull")) {
+            Page<Order> orderPage = orderService.findNextWeekNotSoldInter(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "order";
+        }
+        else if (selection.equals("nonenullcountry")) {
+            Page<Order> orderPage = orderService.findNextWeekNotSoldCountry(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "order";
+        }
+
+        else {
             Page<Order> orderPage = orderService.findNextWeekNotSold(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());

@@ -87,6 +87,14 @@ public class OrderService {
         return orderRepository.findCurrentWeekNotSold(pageable);
     }
 
+    public Page<Order> findCurrentWeekNotSoldInter(Pageable pageable) {
+        return orderRepository.findCurrentWeekNotSoldInter(pageable);
+    }
+
+    public Page<Order> findCurrentWeekNotSoldCountry(Pageable pageable) {
+        return orderRepository.findCurrentWeekNotSoldCountry(pageable);
+    }
+
     public Page<Order> findCurrentWeekAll(Pageable pageable) {
 
         return orderRepository.findCurrentWeekAll(pageable);
@@ -138,18 +146,54 @@ public class OrderService {
         return orderRepository.findPreviousWeekNotSold(pageable);
     }
 
+    public Page<Order> findPreviousWeekNotSoldInter(Pageable pageable) {
+        return orderRepository.findPreviousWeekNotSoldInter(pageable);
+    }
+
+    public Page<Order> findPreviousWeekNotSoldCountry(Pageable pageable) {
+        return orderRepository.findPreviousWeekNotSoldCountry(pageable);
+    }
+
     public Page<Order> findPreviousWeekAll(Pageable pageable) {
 
         return orderRepository.findPreviousWeekAll(pageable);
+    }
+
+    public Page<Order> findPreviousWeekAllInter(Pageable pageable) {
+
+        return orderRepository.findPreviousWeekAllInter(pageable);
+    }
+
+    public Page<Order> findPreviousWeekAllCountry(Pageable pageable) {
+
+        return orderRepository.findPreviousWeekAllCountry(pageable);
     }
 
     public Page<Order> findNextWeekNotSold(Pageable pageable) {
         return orderRepository.findNextWeekNotSold(pageable);
     }
 
+    public Page<Order> findNextWeekNotSoldInter(Pageable pageable) {
+        return orderRepository.findNextWeekNotSoldInter(pageable);
+    }
+
+    public Page<Order> findNextWeekNotSoldCountry(Pageable pageable) {
+        return orderRepository.findNextWeekNotSoldCountry(pageable);
+    }
+
     public Page<Order> findNextWeekAll(Pageable pageable) {
 
         return orderRepository.findNextWeekAll(pageable);
+    }
+
+    public Page<Order> findNextWeekAllInter(Pageable pageable) {
+
+        return orderRepository.findNextWeekAllInter(pageable);
+    }
+
+    public Page<Order> findNextWeekAllCountry(Pageable pageable) {
+
+        return orderRepository.findNextWeekAllCountry(pageable);
     }
 
 
