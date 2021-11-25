@@ -64,6 +64,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", "none");
+            model.addAttribute("checkSelectM", "inter");
+            model.addAttribute("checkSelectK", "country");
 
             return "order";
     }
@@ -84,6 +87,9 @@ public class OrderController {
         model.addAttribute("users", orderService.getUsers());
         model.addAttribute("freighters", orderService.getFreighters());
         model.addAttribute("logged", userSession.getUserEntity());
+        model.addAttribute("radioSelect", "none");
+        model.addAttribute("checkSelectM", "inter");
+        model.addAttribute("checkSelectK", "country");
         return "order";
     }
 
@@ -125,6 +131,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
         else if (selection.equals("allweekinternull")) {
@@ -138,6 +147,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
         else if (selection.equals("allweeknullcountry")) {
@@ -151,6 +163,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
         else if (selection.equals("nonenullcountry")) {
@@ -164,6 +179,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
         else if (selection.equals("noneinternull")) {
@@ -177,6 +195,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
         else {
@@ -190,6 +211,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
     }
@@ -257,6 +281,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
 
@@ -271,6 +298,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
 
@@ -285,6 +315,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
 
@@ -299,6 +332,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
 
@@ -313,6 +349,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
 
@@ -327,6 +366,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
     }
@@ -413,6 +455,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
         else if (selection.equals("allweekinternull")) {
@@ -426,6 +471,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
 
@@ -440,6 +488,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
 
@@ -454,6 +505,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
         else if (selection.equals("nonenullcountry")) {
@@ -467,6 +521,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
 
@@ -481,6 +538,9 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
             model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
             return "order";
         }
     }
@@ -573,6 +633,7 @@ public class OrderController {
             model.addAttribute("users", orderService.getUsers());
             model.addAttribute("freighters", orderService.getFreighters());
         model.addAttribute("logged", userSession.getUserEntity());
+        model.addAttribute("radioSelect", "none");
           //  model.addAttribute("range1", rangeForm.getDate1());
           //  model.addAttribute("range2", rangeForm.getDate2());
             return "order";
