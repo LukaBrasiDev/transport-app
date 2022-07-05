@@ -31,6 +31,16 @@ public class BanController {
         return "ban";
     }
 
+    @GetMapping("/zakazyspedycja")
+    public String getSped(Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
+        model.addAttribute("ban", orderService.getBansSpedSorted());
+        model.addAttribute("logged", userSession.getUserEntity());
+        return "bansped";
+    }
+
     @PostMapping("/zakazy")
     public String createFreighter(@ModelAttribute BanForm banForm, Model model) {
         if (!userSession.isLogin()) {
@@ -46,6 +56,23 @@ public class BanController {
         model.addAttribute("info", actionResponse);
         model.addAttribute("logged", userSession.getUserEntity());
         return "ban";
+    }
+
+    @PostMapping("/zakazyspedycja")
+    public String createBan(@ModelAttribute BanForm banForm, Model model) {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
+        OrderService.ActionResponse actionResponse = orderService.saveBanSped(banForm);
+       /* if (actionResponse == OrderService.ActionResponse.ZAKAZOK) {
+        orderService.saveBan(banForm);
+        model.addAttribute("ban", orderService.getBansSorted());
+            model.addAttribute("info", actionResponse);
+        return "ban";}*/
+        model.addAttribute("ban", orderService.getBansSpedSorted());
+        model.addAttribute("info", actionResponse);
+        model.addAttribute("logged", userSession.getUserEntity());
+        return "bansped";
     }
 
 /*    @GetMapping("/zakazy/{id}")

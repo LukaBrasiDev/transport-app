@@ -668,7 +668,11 @@ public class OrderService {
         return banRepository.findAllByOrderByStatusDescFreighterAsc();
     }
 
-    public List<FreighterBase> getFreighterBaseSorted() {
+    public List<Ban> getBansSpedSorted() {
+        return banRepository.findAllBanSped();
+    }
+
+     public List<FreighterBase> getFreighterBaseSorted() {
         return freighterBaseRepository.findAllByOrderByNameAsc();
     }
 
@@ -688,6 +692,34 @@ public class OrderService {
         banNew.setNip(banForm.getNip());
         banNew.setDescription(banForm.getDescription());
         banNew.setStatus("ZAKAZ");
+        banNew.setTransOrSped(true);
+        banNew.setQueryTime(LocalDateTime.now());
+
+        // userNew.setPassword(userForm.getFreighterPerson());
+        if (!banForm.getFreighter().isEmpty()) {
+            banRepository.save(banNew);
+            return ActionResponse.ZAKAZOK;
+        }
+        return ActionResponse.ZAKAZNOK;
+    }
+
+    public ActionResponse saveBanSped(BanForm banForm) {
+        Ban banNew = new Ban();
+
+
+        // Order orderNew = new Order();
+        String freighter = banForm.getFreighter()
+                .toUpperCase()
+                .trim();
+        if (banRepository.existsByFreighter(freighter)) {
+            return ActionResponse.ZAKAZNOK;
+        }
+        banNew.setFreighter(freighter);
+        banNew.setCity(banForm.getCity());
+        banNew.setNip(banForm.getNip());
+        banNew.setDescription(banForm.getDescription());
+        banNew.setStatus("ZAKAZ");
+        banNew.setTransOrSped(false);
         banNew.setQueryTime(LocalDateTime.now());
 
         // userNew.setPassword(userForm.getFreighterPerson());

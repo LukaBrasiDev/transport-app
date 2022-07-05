@@ -81,7 +81,9 @@
                 </div>
                 <div class="col-sm-2">
                     <button type="submit" class="btn btn-success btn-lg">ZAPISZ</button>
-                    <a href="/zakazy" class="btn btn-secondary btn-lg">WYJDŹ</a>
+
+                    <a th:href="${ban.transOrSped}? '/zakazy':'/zakazyspedycja'" class="btn btn-secondary btn-lg">WYJDŹ</a>
+
                 </div>
             </div>
         </form>

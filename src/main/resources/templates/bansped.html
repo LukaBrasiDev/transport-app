@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/" lang="en">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<!--poczatek tabeli -->
+<div th:if="${info!=null}" style="display:flex;justify-content:center;align-items:center;background-color: #6495ED">
+    <div class="alert">
+        <th:block th:if="${info!=null}" th:switch="${info}">
+            <span th:case="*{info.ZAKAZNOK}" th:text="#{Ban.info.zakaznok}" th:class="${'alert alert-danger'}"></span>
+            <span th:case="*{info.ZAKAZOK}" th:text="#{Ban.info.zakazok}"       th:class="${'alert alert-success'}"></span>
+        </th:block>
+    </div>
+</div>
+<table id="export" class="table table-bordered table-hover" style="font-family: Verdana">
+    <thead>
+    <tr style="font-weight: bold">ZAKAZY SPEDYCJA</tr>
+    <tr style="font-weight: bold">
+        <td>NR</td>
+        <td>PRZEWOŹNIK</td>
+        <td>MIEJSCOWOŚĆ</td>
+        <td>NIP</td>
+        <td>POWÓD</td>
+        <td>STATUS</td>
+        <td>DATA</td>
+        <td></td>
+    </tr>
+    </thead>
+    <tr th:each="f,iter : ${ban}">
+        <td><span th:text="${iter.index}+1">Lp.</span></td>
+        <td><strong><span th:text="${f.freighter}"></span></strong></td>
+        <td><span th:text="${f.city}"></span></td>
+        <td><span th:text="${f.nip}"></span></td>
+        <td><span th:text="${f.description}"></span></td>
+        <td th:style="${f.status}=='ZAKAZ'?'background-color:#ff3333':(${f.status}=='UWAGA'?'background-color:#ffcc00':'background-color:#33cc33')"><span th:text="${f.status}"></span></td>
+        <td><span th:text="${#temporals.format(f.queryTime, 'dd-MM-yyyy HH:mm')}"></span></td>
+        <td>
+            <a th:if="${logged.role} == 1 OR ${logged.role} ==3" class="btn btn-outline-success btn-sm" th:href="@{/zakazyedycja/{id}(id=${f.id})}" role="button">Edycja</a>
+            <a th:if="${logged.role} == 1 OR ${logged.role} ==3" class="btn btn-outline-danger btn-sm" th:href="@{/zakazy/usun/{id}(id=${f.id})}" role="button"
+               onclick="return confirm('Czy na pewno chcesz usunąć ten wiersz?')">Usuń</a>
+        </td>
+    </tr>
+</table>
+<!-- koniec tabelki -->
+<script>
+    $("table").tableExport({
+        formats: ["csv"],
+        trimWhitespace: true,
+        ignoreCols: [6,7]
+    });
+</script>
+<!--formularz start-->
+<div class="container-fluid" style="background-color: lightgrey">
+    <div style="padding-top: 25px;padding-bottom: 25px">
+        <p style="font-weight: bold">NOWY ZAKAZ</p>
+        <form th:action="@{/zakazyspedycja}" th:object="${ban}" method="post">
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">PRZEWOŹNIK</label>
+                <div class="col-sm-2">
+                    <input name="freighter" type="text" class="form-control" id="inputEmail3">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail4" class="col-sm-2 col-form-label">MIEJSCOWOŚĆ</label>
+                <div class="col-sm-2">
+                    <input name="city" type="text" class="form-control" id="inputEmail4">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail9" class="col-sm-2 col-form-label">NIP</label>
+                <div class="col-sm-2">
+                    <input name="nip" type="text" class="form-control" id="inputEmail9">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail6" class="col-sm-2 col-form-label">POWÓD</label>
+                <div class="col-sm-2">
+                    <textarea name="description" th:wrap="hard" class="form-control" id="inputEmail6"
+                              rows="4"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-danger">+ DODAJ ZAKAZ</button>
+                </div>
+            </div>
+        </form>
+        <!--formularz end-->
+    </div>
+</div>
+</body>
+</html>

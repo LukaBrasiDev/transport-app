@@ -14,6 +14,7 @@ public class BanForm {
     private String status;
     private LocalDateTime queryTime;
     private String ipAddress;
+    private Boolean transOrSped;
 }
 
 

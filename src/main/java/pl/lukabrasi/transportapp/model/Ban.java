@@ -28,5 +28,7 @@ public class Ban {
     LocalDateTime queryTime;
     private @Column(name = "ipaddress")
     String ipAddress;
+    private @Column(name = "transorsped")
+    boolean transOrSped;
 
 }
