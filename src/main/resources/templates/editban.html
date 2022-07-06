@@ -14,6 +14,7 @@
         <td>NIP</td>
         <td>POWÓD</td>
         <td>STATUS</td>
+        <td>DOTYCZY</td>
         <td>DATA</td>
     </tr>
     </thead>
@@ -23,6 +24,7 @@
         <td><span th:text="${f.nip}"></span></td>
         <td><span th:text="${f.description}"></span></td>
         <td><span th:text="${f.status}"></span></td>
+        <td><span th:text="${f.transOrSped}=='TS'?'WSZYSCY':(${f.transOrSped}=='T'?'TRANSPORT':'SPEDYCJA')"></span></td>
         <td><span th:text="${f.queryTime}"></span></td>
       </tr>
 </table>
@@ -76,13 +78,31 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="exampleFormControlSelect14" class="col-sm-2 col-form-label">ZAKAZ DOTYCZY:</label>
+                <div class="col-sm-2" th:object="${ban}">
+                    <select name="transOrSped" class="form-control" id="exampleFormControlSelect14">
+                        <option th:if="${ban}!=null" th:value="${ban.transOrSped}"
+                                th:text="${ban.transOrSped}=='TS'?'WSZYSCY':(${ban.transOrSped}=='T'?'TRANSPORT':'SPEDYCJA')"
+
+                              th:selected="${ban.getTransOrSped()}"></option>
+                        <option th:value="TS"
+                                th:text="WSZYSCY"></option>
+                        <option th:value="T"
+                                th:text="TRANSPORT"></option>
+                        <option th:value="S" th:text="SPEDYCJA"></option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
                 <div class="col-sm-2">
 
                 </div>
                 <div class="col-sm-2">
                     <button type="submit" class="btn btn-success btn-lg">ZAPISZ</button>
 
-                    <a th:href="${ban.transOrSped}? '/zakazy':'/zakazyspedycja'" class="btn btn-secondary btn-lg">WYJDŹ</a>
+                    <a href="/zakazy" class="btn btn-secondary btn-lg">ZAKAZY TRANSPORT</a>
+                    <a href="/zakazyspedycja" class="btn btn-secondary btn-lg">ZAKAZY SPEDYCJA</a>
 
                 </div>
             </div>

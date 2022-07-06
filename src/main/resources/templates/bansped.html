@@ -13,8 +13,7 @@
     </div>
 </div>
 <table id="export" class="table table-bordered table-hover" style="font-family: Verdana">
-    <thead>
-    <tr style="font-weight: bold">ZAKAZY SPEDYCJA</tr>
+    <thead><tr><td colspan="8">ZAKAZY SPEDYCJA</td></tr>
     <tr style="font-weight: bold">
         <td>NR</td>
         <td>PRZEWOŹNIK</td>
@@ -77,6 +76,16 @@
                 <div class="col-sm-2">
                     <textarea name="description" th:wrap="hard" class="form-control" id="inputEmail6"
                               rows="4"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleFormControlSelect16" class="col-sm-2 col-form-label">ZAKAZ DOTYCZY:</label>
+                <div class="col-sm-2">
+                    <select name="transOrSped" class="form-control" id="exampleFormControlSelect16">
+                        <option value="TS">WSZYSCY</option>
+                        <option value="T">TRANSPORT</option>
+                        <option value="S">SPEDYCJA</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">

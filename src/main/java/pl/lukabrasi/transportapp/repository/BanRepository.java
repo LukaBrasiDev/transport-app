@@ -10,12 +10,12 @@ import java.util.List;
 public interface BanRepository extends JpaRepository<Ban, Long> {
 
     @Query(value = "SELECT * FROM bans\n" +
-            "WHERE transorsped = true\n" +
+            "WHERE transorsped LIKE '%T%'\n" +
             "ORDER BY status desc, freighter asc;", nativeQuery = true)
     List<Ban> findAllByOrderByStatusDescFreighterAsc();
 
     @Query(value = "SELECT * FROM bans\n" +
-            "WHERE transorsped = false\n" +
+            "WHERE transorsped LIKE '%S%'\n" +
             "ORDER BY status desc, freighter asc;", nativeQuery = true)
     List<Ban> findAllBanSped();
 

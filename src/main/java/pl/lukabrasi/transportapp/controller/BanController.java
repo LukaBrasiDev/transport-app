@@ -63,7 +63,7 @@ public class BanController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-        OrderService.ActionResponse actionResponse = orderService.saveBanSped(banForm);
+        OrderService.ActionResponse actionResponse = orderService.saveBan(banForm);
        /* if (actionResponse == OrderService.ActionResponse.ZAKAZOK) {
         orderService.saveBan(banForm);
         model.addAttribute("ban", orderService.getBansSorted());

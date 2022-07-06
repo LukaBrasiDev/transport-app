@@ -692,7 +692,7 @@ public class OrderService {
         banNew.setNip(banForm.getNip());
         banNew.setDescription(banForm.getDescription());
         banNew.setStatus("ZAKAZ");
-        banNew.setTransOrSped(true);
+        banNew.setTransOrSped(banForm.getTransOrSped());
         banNew.setQueryTime(LocalDateTime.now());
 
         // userNew.setPassword(userForm.getFreighterPerson());
@@ -703,7 +703,7 @@ public class OrderService {
         return ActionResponse.ZAKAZNOK;
     }
 
-    public ActionResponse saveBanSped(BanForm banForm) {
+   /* public ActionResponse saveBanSped(BanForm banForm) {
         Ban banNew = new Ban();
 
 
@@ -729,7 +729,7 @@ public class OrderService {
         }
         return ActionResponse.ZAKAZNOK;
     }
-
+*/
     public void updateBan(Long id, BanForm banForm) {
 
         Optional<Ban> optionalBan = banRepository.findById(id);
@@ -738,6 +738,7 @@ public class OrderService {
         optionalBan.get().setNip(banForm.getNip());
         optionalBan.get().setDescription(banForm.getDescription());
         optionalBan.get().setStatus(banForm.getStatus());
+        optionalBan.get().setTransOrSped(banForm.getTransOrSped());
 
        // optionalBan.get().setQueryTime(LocalDateTime.now());
         //   optionalBan.get().setFreighterPhone(banForm.getFreighterPhone());
