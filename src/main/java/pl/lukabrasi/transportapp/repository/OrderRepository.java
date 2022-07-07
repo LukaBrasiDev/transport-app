@@ -265,7 +265,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT * \n" +
             "FROM orders o INNER JOIN freighter f ON o.fk_freighter = f.id\n" +
             "INNER JOIN user u ON o.fk_user = u.id\n" +
-            "INNER JOIN driver d ON o.fk_driver = d.id\n" +
+            "LEFT JOIN driver d ON o.fk_driver = d.id\n" +
             "where o.date_load between date_sub(curdate(), interval if(dayofweek(curdate())-5 >= 0, dayofweek(curdate())-5, dayofweek(curdate())-5+7) day)\n" +
             "and date_sub(curdate(), interval if(dayofweek(curdate())-5 >= 0, dayofweek(curdate())-5, dayofweek(curdate())-5+7) - 6 day)\n" +
             "and f.freighter_name = 'MTW'\n" +
