@@ -2,8 +2,8 @@
        xmlns:th="http://www.thymeleaf.org/">
     <thead>
     <tr style="font-weight: bold">
-        <td id="nic1" colspan="9">EXPORT</td>
-        <td id="nic2" class="import" colspan="7">IMPORT</td>
+        <td id="nic1" colspan="8">EXPORT</td>
+        <td id="nic2" class="import" colspan="5">IMPORT</td>
     </tr>
     <tr style="font-weight: bold">
         <td style="width: 3%"></td>
@@ -14,15 +14,15 @@
         <td style="width: 11%" class="noScreen">NACZEPA</td>
         <td class="nic" style="width: 6%">DATA ZAŁ.</td>
         <td class="nic" style="width: 6%">FABRYKA</td>
-        <td style="width: 8%">OSTATNI ROZŁAD.</td>
+        <td style="width: 8%">GDZIE KOŃCZY</td>
         <td style="width: 8%">KIEDY KOŃCZY</td>
-        <td class="nic" style="width: 6%">DATA DOK.</td>
-        <td id="nic3" class="import" style="width: 4%">DOJAZD</td>
-        <td id="nic4" class="import" style="width: 8%">SKĄD</td>
+        <!--<td class="nic" style="width: 6%">DATA DOK.</td>-->
+     <!--   <td id="nic3" class="import" style="width: 4%">DOJAZD</td>-->
+        <td  class="import" style="width: 8%">SKĄD</td> <!-- id="nic4 " -->
         <td class="import" style="width: 8%">DOKĄD</td>
         <td id="nic5" class="import" style="width: 4%">STAWKA</td>
-        <td id="nic6" class="import" style="width: 6%">KTO ZNALAZŁ</td>
-        <td id="nic7" class="import" style="width: 6%">DATA DOK.</td>
+        <td class="import" style="width: 6%">KTO ZNALAZŁ</td><!-- id="nic6"-->
+        <!--<td id="nic7" class="import" style="width: 6%">DATA DOK.</td>-->
         <td id="nic9" class="import" style="width: 4%"></td>
     </tr>
     </thead>
@@ -57,15 +57,15 @@
            <span th:if="${one.exportEnd!=null}"
                  th:text="${one.exportEnd}"></span>
             </td>
-            <td class="nic">
+           <!-- <td class="nic">
            <span th:if="${one.docDateExp!=null}"
                  th:text="${one.docDateExp}"></span>
-            </td>
-            <td class="nic">
+            </td>-->
+       <!--     <td class="nic">
             <span th:if="${one.kilometersImp!=null}"
                   th:text="${one.kilometersImp}+' km'"></span>
-            </td>
-            <td class="nic">
+            </td>-->
+            <td ><!--class="nic"-->
             <span th:if="${one.loadingCityImp!=null}"
                   th:text="${one.loadingCityImp}"></span>
             </td>
@@ -77,14 +77,14 @@
            <span th:if="${one.priceImp!=null}"
                  th:text="${#numbers.formatDecimal(one.priceImp,0,0,'COMMA')}+' €'"></span>
             </td>
-            <td class="nic">
+            <td ><!--class="nic"-->
            <span th:if="${one.userImp!=null}"
                  th:text="${one.userImp}"></span>
             </td>
-            <td class="nic">
+        <!--    <td class="nic">
             <span th:if="${one.docDateImp!=null}"
                                th:text="${one.docDateImp}"></span>
-            </td>
+            </td>-->
                <td class="nic">
                 <a th:if="${logged.role} == 2 OR ${logged.role} ==3 OR ${logged.role} ==1 OR ${logged.role} ==21" class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}"
                    role="button">Edycja</a>
@@ -104,13 +104,13 @@
             <td class="nic" ></td>
             <td></td>
             <td></td>
-            <td class="nic" ></td>
-            <td class="nic" ></td>
-            <td class="nic" ></td>
+           <!-- <td class="nic" ></td>-->
+           <!-- <td class="nic" ></td>--><!--class="nic"-->
+            <td ></td>
             <td></td>
             <td class="nic" ></td>
-            <td class="nic" ></td>
-            <td class="nic" ></td>
+            <td ></td><!--class="nic"-->
+            <!--<td class="nic" ></td>-->
             <td class="nic" ></td>
         </tr>
     </th:block>

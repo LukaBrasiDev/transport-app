@@ -9,8 +9,8 @@
        xmlns:th="http://www.thymeleaf.org/">
     <thead>
     <tr style="font-weight: bold">
-        <td colspan="8">EXPORT</td>
-        <td class="import" colspan="6">IMPORT</td>
+        <td colspan="7">EXPORT</td>
+        <td class="import" colspan="4">IMPORT</td>
     </tr>
     <tr style="font-weight: bold">
         <td style="width: 6%">TURA</td>
@@ -20,14 +20,14 @@
         <td style="width: 9%">FABRYKA</td>
         <td style="width: 9%">OSTATNI ROZŁAD.</td>
        <td style="width: 8%">KIEDY KOŃCZY</td>
-        <td style="width: 9%">DATA DOK.</td>
+  <!--      <td style="width: 9%">DATA DOK.</td>-->
 
-        <td class="import" style="width: 9%">DOJAZD KM</td>
+       <!-- <td class="import" style="width: 9%">DOJAZD KM</td>-->
         <td class="import" style="width: 9%">SKĄD</td>
         <td class="import" style="width: 9%">DOKĄD</td>
         <td class="import" style="width: 9%">STAWKA</td>
         <td class="import" style="width: 9%">KTO ZNALAZŁ</td>
-        <td class="import" style="width: 9%">DATA DOK.</td>
+<!--        <td class="import" style="width: 9%">DATA DOK.</td>-->
     </tr>
     </thead>
     <tbody>
@@ -51,14 +51,14 @@
             <span th:if="${order.exportEnd!=null}"
                   th:text="${order.exportEnd}"></span>
         </td>
-        <td>
+<!--        <td>
             <span th:if="${order.docDateExp!=null}"
                   th:text="${order.docDateExp}"></span>
-        </td>
-        <td>
+        </td>-->
+<!--        <td>
            <span th:if="${order.kilometersImp!=null}"
                  th:text="${order.kilometersImp}+ ' km'"></span>
-        </td>
+        </td>-->
         <td>
             <span th:if="${order.loadingCityImp!=null}"
                   th:text="${order.loadingCityImp}"></span>
@@ -75,10 +75,10 @@
            <span th:if="${order.userImp!=null}"
                  th:text="${order.userImp}"></span>
         </td>
-        <td>
+  <!--      <td>
             <span th:if="${order.docDateImp!=null}"
                   th:text="${order.docDateImp}"></span>
-        </td>
+        </td>-->
     </tr>
     </tbody>
 </table>
@@ -140,20 +140,20 @@
                            id="inputEmail47" style="border:2px solid tomato;">
                 </div>
             </div>
-            <div class="form-group row" th:if="${logged.role} == 1 OR ${logged.role} == 3">
+        <!--    <div class="form-group row" th:if="${logged.role} == 1 OR ${logged.role} == 3">
                 <label for="inputEmail4" class="col-sm-2 col-form-label">DATA DOK. EXP.</label>
                 <div class="col-sm-2">
                     <input name="docDateExp" type="date" th:value="${order.getDocDateExp()}" class="form-control"
                            id="inputEmail4" style="border:2px solid tomato;">
                 </div>
-            </div>
-            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
+            </div>-->
+<!--            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail367" class="col-sm-2 col-form-label">DOJAZD KM</label>
                 <div class="col-sm-2">
                     <input class="form-control" id="inputEmail367" name="kilometersImp" type="number"
                            th:value="${order.getKilometersImp()}" style="border:2px solid dodgerblue;">
                 </div>
-            </div>
+            </div>-->
             <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail36" class="col-sm-2 col-form-label">SKĄD</label>
                 <div class="col-sm-2">
@@ -191,13 +191,13 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row" th:if="${logged.role} == 1 OR ${logged.role} == 3">
+           <!-- <div class="form-group row" th:if="${logged.role} == 1 OR ${logged.role} == 3">
                 <label for="inputEmail48" class="col-sm-2 col-form-label">DATA DOK. IMP.</label>
                 <div class="col-sm-2">
                     <input name="docDateImp" type="date" th:value="${order.getDocDateImp()}" class="form-control"
                            id="inputEmail48" style="border:2px solid dodgerblue;">
                 </div>
-            </div>
+            </div>-->
             <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail667" class="col-sm-2 col-form-label">OSTATNIA MODYFIKACJA:</label>
                 <div class="col-sm-2">
