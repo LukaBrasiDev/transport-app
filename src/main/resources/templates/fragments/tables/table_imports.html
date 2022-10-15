@@ -6,24 +6,21 @@
         <td id="nic2" class="import" colspan="5">IMPORT</td>
     </tr>
     <tr style="font-weight: bold">
-        <td style="width: 3%"></td>
+        <td style="width: 4%"></td>
         <td class="nic" style="width: 7%">TURA</td>
-        <td style="width: 11%">KIEROWCA</td>
-        <td id="nic8" style="width: 5%">GDZIE SKOŃCZYŁ</td>
-        <td style="width: 11%" class="noScreen">CIĄGNIK</td>
-        <td style="width: 11%" class="noScreen">NACZEPA</td>
+        <td style="width: 12%">KIEROWCA</td>
+        <td id="nic8" style="width: 6%">GDZIE SKOŃCZYŁ</td>
+        <td class="noScreen">CIĄGNIK</td>
+        <td class="noScreen">NACZEPA</td>
         <td class="nic" style="width: 6%">DATA ZAŁ.</td>
         <td class="nic" style="width: 6%">FABRYKA</td>
-        <td style="width: 8%">GDZIE KOŃCZY</td>
-        <td style="width: 8%">KIEDY KOŃCZY</td>
-        <!--<td class="nic" style="width: 6%">DATA DOK.</td>-->
-     <!--   <td id="nic3" class="import" style="width: 4%">DOJAZD</td>-->
-        <td  class="import" style="width: 8%">SKĄD</td> <!-- id="nic4 " -->
-        <td class="import" style="width: 8%">DOKĄD</td>
-        <td id="nic5" class="import" style="width: 4%">STAWKA</td>
-        <td class="import" style="width: 6%">KTO ZNALAZŁ</td><!-- id="nic6"-->
-        <!--<td id="nic7" class="import" style="width: 6%">DATA DOK.</td>-->
-        <td id="nic9" class="import" style="width: 4%"></td>
+        <td style="width: 9%">GDZIE KOŃCZY</td>
+        <td style="width: 9%">KIEDY KOŃCZY</td>
+        <td class="import" style="width: 9%">SKĄD</td>
+        <td class="import" style="width: 9%">DOKĄD</td>
+        <td id="nic5" class="import" style="width: 5%">STAWKA</td>
+        <td class="import" style="width: 9%">KTO ZNALAZŁ</td>
+        <td id="nic9" class="import" style="width: 5%"></td>
     </tr>
     </thead>
     <tbody>
@@ -41,14 +38,14 @@
                   th:text="${one.nextLoadingCityImp}"></span>
             </td>
             <td class="noScreen"><span th:if="${one.driver!=null}"
-                      th:text="${one.driver.driverCar}"></span>
+                                       th:text="${one.driver.driverCar}"></span>
             </td>
             <td class="noScreen"><span th:if="${one.driver!=null}"
-                      th:text="${one.driver.driverSemitrailer}"></span>
+                                       th:text="${one.driver.driverSemitrailer}"></span>
             </td>
             <td class="nic"><span th:text="${one.loadDate}"></span></td>
             <td class="nic"><span th:if="${one.factory!=null}"
-                      th:text="${one.loadingCity}"></span></td>
+                                  th:text="${one.loadingCity}"></span></td>
             <td>
             <span th:if="${one.cityCodes!=null}"
                   th:text="${#strings.arraySplit(one.cityCodes, ',')[#arrays.length(#strings.arraySplit(one.cityCodes, ',')) - 1]}"></span>
@@ -57,15 +54,7 @@
            <span th:if="${one.exportEnd!=null}"
                  th:text="${one.exportEnd}"></span>
             </td>
-           <!-- <td class="nic">
-           <span th:if="${one.docDateExp!=null}"
-                 th:text="${one.docDateExp}"></span>
-            </td>-->
-       <!--     <td class="nic">
-            <span th:if="${one.kilometersImp!=null}"
-                  th:text="${one.kilometersImp}+' km'"></span>
-            </td>-->
-            <td ><!--class="nic"-->
+            <td>
             <span th:if="${one.loadingCityImp!=null}"
                   th:text="${one.loadingCityImp}"></span>
             </td>
@@ -77,41 +66,36 @@
            <span th:if="${one.priceImp!=null}"
                  th:text="${#numbers.formatDecimal(one.priceImp,0,0,'COMMA')}+' €'"></span>
             </td>
-            <td ><!--class="nic"-->
-           <span th:if="${one.userImp!=null}"
-                 th:text="${one.userImp}"></span>
+            <td>
+                <span th:if="${one.userImp!=null}"
+                      th:text="${one.userImp}"></span>
             </td>
-        <!--    <td class="nic">
-            <span th:if="${one.docDateImp!=null}"
-                               th:text="${one.docDateImp}"></span>
-            </td>-->
-               <td class="nic">
-                <a th:if="${logged.role} == 2 OR ${logged.role} ==3 OR ${logged.role} ==1 OR ${logged.role} ==21" class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}"
+            <td class="nic">
+                <a th:if="${logged.role} == 2 OR ${logged.role} ==3 OR ${logged.role} ==1 OR ${logged.role} ==21"
+                   class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}"
                    role="button">Edycja</a>
             </td>
         </tr>
-    </th:block><th:block th:if="${dr.active==true}" th:each="dr : ${driversFreeWeek}">
+    </th:block>
+    <th:block th:if="${dr.active==true}" th:each="dr : ${driversFreeWeek}">
         <tr>
             <td class="pion">
                 <div class="pion"><strong><span th:text="${dr.user.userName}"></span></strong></div>
             </td>
-            <td class="nic" ></td>
+            <td class="nic"></td>
             <td th:text="${dr.driverSurname}+' '+${dr.driverName}"></td>
-            <td class="nic" ></td>
+            <td class="nic"></td>
             <td class="noScreen" th:text="${dr.driverCar}"></td>
             <td class="noScreen" th:text="${dr.driverSemitrailer}"></td>
-            <td class="nic" ></td>
-            <td class="nic" ></td>
+            <td class="nic"></td>
+            <td class="nic"></td>
             <td></td>
             <td></td>
-           <!-- <td class="nic" ></td>-->
-           <!-- <td class="nic" ></td>--><!--class="nic"-->
-            <td ></td>
             <td></td>
-            <td class="nic" ></td>
-            <td ></td><!--class="nic"-->
-            <!--<td class="nic" ></td>-->
-            <td class="nic" ></td>
+            <td></td>
+            <td class="nic"></td>
+            <td></td>
+            <td class="nic"></td>
         </tr>
     </th:block>
     </tbody>
