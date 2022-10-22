@@ -6,11 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import pl.lukabrasi.transportapp.dto.ReportMonthPerson;
-import pl.lukabrasi.transportapp.dto.ReportOffer;
-import pl.lukabrasi.transportapp.model.Freighter;
 import pl.lukabrasi.transportapp.model.Order;
-import pl.lukabrasi.transportapp.model.User;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -322,9 +318,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "and f.freighter_name = 'MTW'\n" +
             "order by u.user_name asc, o.date_load desc", nativeQuery = true)
     Page<Order> findNextWeekMTW(Pageable pageable);
-
-
-
-
 
 }
