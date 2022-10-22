@@ -2,34 +2,30 @@ package pl.lukabrasi.transportapp.service;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRSaver;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
+import net.sf.jasperreports.export.Exporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import pl.lukabrasi.transportapp.auth.repositories.UserRepository;
 import pl.lukabrasi.transportapp.dto.ReportMonthPerson;
 import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
 import pl.lukabrasi.transportapp.repository.*;
-
-import javax.inject.Inject;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.UnknownHostException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -53,8 +49,6 @@ public class OrderService {
         this.ourDriverRepository = ourDriverRepository;
         this.freighterBaseRepository = ourFreighterBaseRepository;
     }
-
-
 
 
     public enum ActionResponse {
@@ -672,7 +666,7 @@ public class OrderService {
         return banRepository.findAllBanSped();
     }
 
-     public List<FreighterBase> getFreighterBaseSorted() {
+    public List<FreighterBase> getFreighterBaseSorted() {
         return freighterBaseRepository.findAllByOrderByNameAsc();
     }
 
@@ -703,44 +697,44 @@ public class OrderService {
         return ActionResponse.ZAKAZNOK;
     }
 
-   /* public ActionResponse saveBanSped(BanForm banForm) {
-        Ban banNew = new Ban();
+    /* public ActionResponse saveBanSped(BanForm banForm) {
+         Ban banNew = new Ban();
 
 
-        // Order orderNew = new Order();
-        String freighter = banForm.getFreighter()
-                .toUpperCase()
-                .trim();
-        if (banRepository.existsByFreighter(freighter)) {
-            return ActionResponse.ZAKAZNOK;
-        }
-        banNew.setFreighter(freighter);
-        banNew.setCity(banForm.getCity());
-        banNew.setNip(banForm.getNip());
-        banNew.setDescription(banForm.getDescription());
-        banNew.setStatus("ZAKAZ");
-        banNew.setTransOrSped(false);
-        banNew.setQueryTime(LocalDateTime.now());
+         // Order orderNew = new Order();
+         String freighter = banForm.getFreighter()
+                 .toUpperCase()
+                 .trim();
+         if (banRepository.existsByFreighter(freighter)) {
+             return ActionResponse.ZAKAZNOK;
+         }
+         banNew.setFreighter(freighter);
+         banNew.setCity(banForm.getCity());
+         banNew.setNip(banForm.getNip());
+         banNew.setDescription(banForm.getDescription());
+         banNew.setStatus("ZAKAZ");
+         banNew.setTransOrSped(false);
+         banNew.setQueryTime(LocalDateTime.now());
 
-        // userNew.setPassword(userForm.getFreighterPerson());
-        if (!banForm.getFreighter().isEmpty()) {
-            banRepository.save(banNew);
-            return ActionResponse.ZAKAZOK;
-        }
-        return ActionResponse.ZAKAZNOK;
-    }
-*/
+         // userNew.setPassword(userForm.getFreighterPerson());
+         if (!banForm.getFreighter().isEmpty()) {
+             banRepository.save(banNew);
+             return ActionResponse.ZAKAZOK;
+         }
+         return ActionResponse.ZAKAZNOK;
+     }
+ */
     public void updateBan(Long id, BanForm banForm) {
 
         Optional<Ban> optionalBan = banRepository.findById(id);
-     //   optionalBan.get().setFreighter(banForm.getFreighter());
+        //   optionalBan.get().setFreighter(banForm.getFreighter());
         optionalBan.get().setCity(banForm.getCity());
         optionalBan.get().setNip(banForm.getNip());
         optionalBan.get().setDescription(banForm.getDescription());
         optionalBan.get().setStatus(banForm.getStatus());
         optionalBan.get().setTransOrSped(banForm.getTransOrSped());
 
-       // optionalBan.get().setQueryTime(LocalDateTime.now());
+        // optionalBan.get().setQueryTime(LocalDateTime.now());
         //   optionalBan.get().setFreighterPhone(banForm.getFreighterPhone());
 
         banRepository.save(optionalBan.get());
@@ -865,7 +859,7 @@ public class OrderService {
         //Load file an compiles it
         //File file = ResourceUtils.getFile("classpath:reports\\raportmiesieczny.jrxml");
         //new ClassPathResource(filename).getInputStream();
-       // JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        // JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 
         InputStream employeeReportStream
                 = getClass().getResourceAsStream("/reports/raportmiesieczny.jrxml");
@@ -883,16 +877,79 @@ public class OrderService {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, dataSource);
 
         if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "raport_miesieczny_"+ person + "_" + loadDate.toString().substring(0, 7)+".pdf");
-          }
-
+            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "raport_miesieczny_" + person + "_" + loadDate.toString().substring(0, 7) + ".pdf");
+        }
 
 
         return jasperPrint;
 
     }
 
+    public JasperPrint getOfert() throws FileNotFoundException, JRException {
+        String path = "C:\\Aplikacja_MTW\\raporty\\";
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String s = new SimpleDateFormat("ddMMyyyy_hhmmss").format(timestamp);
+        //  List<ReportMonthPerson> employees = orderRepository.monthRaportByPerson(loadDate, person);
 
+        List<Order> offers = orderRepository.findCurrentWeekNotSoldList();
+     /*   model.addAttribute("page", orderPage);
+        model.addAttribute("number", orderPage.getNumber());
+        model.addAttribute("totalPages", orderPage.getTotalPages());
+        model.addAttribute("totalElements", orderPage.getTotalElements());
+        model.addAttribute("size", orderPage.getSize());
+        model.addAttribute("orders", orderPage.getContent());
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
+        model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+        model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+        model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+        return "order";*/
+
+
+        //Load file an compiles it
+        File file = ResourceUtils.getFile("classpath:reports\\raportoferty.jrxml");
+        //new ClassPathResource(filename).getInputStream();
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+
+      //  InputStream employeeReportStream
+           //     = getClass().getResourceAsStream("/reports/raportoferty.jrxml");
+      //  JasperReport jasperReport
+             //   = JasperCompileManager.compileReport(employeeReportStream);
+        //JRSaver.saveObject(jasperReport, "raportmiesieczny.jasper");
+
+
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(offers);
+        Map<String, Object> map = new HashMap<>();
+      //  map.put("DATA_MIESIAC", loadDate.toString());
+     //   map.put("SPEDYTOR", person);
+        map.put("LOGO", getClass().getResourceAsStream("/reports/logo.png"));
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, dataSource);
+
+
+       // JasperExportManager.exportReportToPdfFile(jasperPrint, path + "oferty_" +  "_" + timestamp.toString().substring(0,7) + ".docx");
+        Exporter exporter = new JRDocxExporter();
+        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+        File exportReportFile = new File("C:\\Aplikacja_MTW\\report_"+s+".docx");
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(exportReportFile));
+
+        exporter.exportReport();
+
+/*JasperPrint jasperPrint = JasperFillManager.fillReport("myReport.jasper", reportParameters, dataSource);
+
+Exporter exporter = new JRDocxExporter();
+exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+
+File exportReportFile = new File("D:\\Temp\\report.docx");
+
+exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(exportReportFile));
+
+exporter.exportReport();*/
+
+        return jasperPrint;
+
+    }
 
 
 }

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import pl.lukabrasi.transportapp.dto.ReportMonthPerson;
+import pl.lukabrasi.transportapp.dto.ReportOffer;
 import pl.lukabrasi.transportapp.model.Freighter;
 import pl.lukabrasi.transportapp.model.Order;
 import pl.lukabrasi.transportapp.model.User;
@@ -46,6 +47,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)<=YEARWEEK(curdate()) and fk_user is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findCurrentWeekNotSold(Pageable pageable);
+
+    @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)<=YEARWEEK(curdate()) and fk_user is null\n" +
+            "            order by date_load asc, loading_city asc", nativeQuery = true)
+    List<Order> findCurrentWeekNotSoldList();
 
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)<=YEARWEEK(curdate()) and fk_user is null and\n" +
             "fk_factory IN (Select id from factory where factory_group <>'K')\n" +

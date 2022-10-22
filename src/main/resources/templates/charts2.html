@@ -16,7 +16,7 @@
                             <div class="input-group-text">MIESIĄC</div>
                         </div>
                         <input required th:if="${reportForm}" th:value="${reportForm.getLoadDate()}" name="loadDate" type="date"  class="form-control" id="inlineFormInputGroupUsername">
-                        <input required th:if="!${reportForm}"name="loadDate" type="date"  class="form-control" id="inlineFormInputGroupUsername">
+                        <input required th:if="!${reportForm}"name="loadDate" type="date"  class="form-control" id="inlineFormInputGroupUsername2">
 
                     </div>
                 </div>
@@ -42,10 +42,10 @@
 
               <!-- tabela raportu miesiac/osoba -->
     </div>
-    <div class="row justify-content-md-center"> <p> </p><p> </p><p> </p>
+<!--    <div class="row justify-content-md-center"> <p> </p><p> </p><p> </p>
         <img th:src="@{/images/progress.png}" th:width=120px th:height=120px/>
 
-    </div>
+    </div>-->
 </div>
 </body>
 </html>

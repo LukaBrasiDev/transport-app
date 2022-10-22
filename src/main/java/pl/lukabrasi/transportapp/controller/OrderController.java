@@ -1060,4 +1060,20 @@ public class OrderController {
         return "charts3";
     }
 
+    @PostMapping("/oferta")
+    public String getOfert (@ModelAttribute
+                                               OrderForm orderForm,
+                                       Model model, HttpServletResponse response) throws IOException, JRException {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
+        orderService.getOfert();
+        model.addAttribute("kilometers", orderForm.getKilometers());
+        model.addAttribute("selectedLoadDate", orderForm.getLoadDate());
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("logged", userSession.getUserEntity());
+
+        return "order";
+    }
+
 }
