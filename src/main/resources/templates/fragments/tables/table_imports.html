@@ -25,7 +25,7 @@
     </thead>
     <tbody>
     <th:block th:each="one : ${orders}">
-        <tr th:if="${one.id!=null}">
+        <tr th:if="${one.id!=null}" th:class="${one.userImp!=null} ? 'alternate' : ''">
             <td class="pion" id="szer">
                 <div class="pion"><strong><span th:text="${one.user.userName}"></span></strong></div>
             </td>
@@ -78,7 +78,7 @@
         </tr>
     </th:block>
     <th:block th:if="${dr.active==true}" th:each="dr : ${driversFreeWeek}">
-        <tr>
+        <tr >
             <td class="pion">
                 <div class="pion"><strong><span th:text="${dr.user.userName}"></span></strong></div>
             </td>
