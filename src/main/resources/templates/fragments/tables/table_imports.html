@@ -25,7 +25,7 @@
     </thead>
     <tbody>
     <th:block th:each="one : ${orders}">
-        <tr th:if="${one.id!=null}" th:class="${one.userImp!=null} ? 'alternate' : ''">
+        <tr th:if="${one.id!=null}"  th:class="${one.userImp!=null} ?( ${one.userImp!=' '}?'alternate':''):''">
             <td class="pion" id="szer">
                 <div class="pion"><strong><span th:text="${one.user.userName}"></span></strong></div>
             </td>
@@ -66,10 +66,7 @@
            <span th:if="${one.priceImp!=null}"
                  th:text="${#numbers.formatDecimal(one.priceImp,0,0,'COMMA')}+' €'"></span>
             </td>
-            <td>
-                <span th:if="${one.userImp!=null}"
-                      th:text="${one.userImp}"></span>
-            </td>
+            <td  th:text="${one.userImp}"></td>
             <td class="nic">
                 <a th:if="${logged.role} == 2 OR ${logged.role} ==3 OR ${logged.role} ==1 OR ${logged.role} ==21"
                    class="btn btn-outline-primary btn-sm" th:href="@{/edycjaimport/{id}(id=${one.id})}"
