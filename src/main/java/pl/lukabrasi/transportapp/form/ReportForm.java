@@ -8,8 +8,8 @@ import java.time.LocalDate;
 @Data
 public class ReportForm {
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate loadDate;
+
+    private String loadDate;
     private String person;
     private String reportFormat;
 

@@ -28,6 +28,7 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -876,13 +877,13 @@ public class OrderController {
             return "redirect:/";
         }
         if (reportForm.getReportFormat().equalsIgnoreCase("PDF")) {
-            orderService.getMonthRaportByPerson(reportForm.getLoadDate(), reportForm.getPerson(), reportForm.getReportFormat());
+            orderService.getMonthRaportByPerson( LocalDate.parse(reportForm.getLoadDate()+"-01",  DateTimeFormatter.ofPattern("yyyy-MM-dd")), reportForm.getPerson(), reportForm.getReportFormat());
         }
 
         if (reportForm.getReportFormat().equalsIgnoreCase("html")) {
             response.setContentType("text/html");
             JasperPrint jasperPrint = null;
-            jasperPrint = orderService.getMonthRaportByPerson(reportForm.getLoadDate(), reportForm.getPerson(), reportForm.getReportFormat());
+            jasperPrint = orderService.getMonthRaportByPerson(LocalDate.parse(reportForm.getLoadDate()+"-01",  DateTimeFormatter.ofPattern("yyyy-MM-dd")), reportForm.getPerson(), reportForm.getReportFormat());
             HtmlExporter htmlExporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
             htmlExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
             htmlExporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));

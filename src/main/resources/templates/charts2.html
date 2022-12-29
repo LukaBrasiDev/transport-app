@@ -15,12 +15,12 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">MIESIĄC</div>
                         </div>
-                        <input required th:if="${reportForm}" th:value="${reportForm.getLoadDate()}" name="loadDate" type="date"  class="form-control" id="inlineFormInputGroupUsername">
-                        <input required th:if="!${reportForm}"name="loadDate" type="date"  class="form-control" id="inlineFormInputGroupUsername2">
+                        <input required th:if="${reportForm}" th:value="${reportForm.getLoadDate()}" name="loadDate" type="month"  class="form-control" id="inlineFormInputGroupUsername">
+                        <input required th:if="!${reportForm}"name="loadDate" type="month"  class="form-control" id="inlineFormInputGroupUsername2">
 
                     </div>
                 </div>
-                <div class="col-auto my-1">
+                <div class="col-auto my-1" th:if="${logged.role} == 3">
                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required name="person">
                         <option th:if="!${reportForm}" disabled >wybierz osobę...</option>
                         <option th:if="${reportForm}" th:value="${reportForm.getPerson()}" th:text="${reportForm.getPerson()}"></option>
@@ -28,12 +28,20 @@
                                 th:text="${u.userName}"></option>
                     </select>
                 </div>
+                <div class="col-auto my-1" th:if="${logged.role} != 3" hidden>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect2" required name="person">
+
+                        <option th:if="${reportForm}" th:value="${logged.getUserName()}" ></option>
+
+                    </select>
+                </div>
                 <div class="col-auto my-1">
                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect4" required name="reportFormat">
                               <option  th:value="HTML"   th:text="WIDOK" selected></option>
-                              <option  th:value="PDF"    th:text="PDF" ></option>
+                              <option th:if="${logged.role} == 3"  th:value="PDF"    th:text="PDF" ></option>
                           </select>
                       </div>
+
                       <div class="col-auto my-1">
                           <button type="submit" class="btn btn-danger">GENERUJ RAPORT</button>
                       </div>
