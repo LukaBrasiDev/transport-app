@@ -85,8 +85,20 @@ public class OrderService {
         return orderRepository.findCurrentWeekNotSoldInter(pageable);
     }
 
+    public Page<Order> findCurrentWeekNotSoldInterImport(Pageable pageable) {
+        return orderRepository.findCurrentWeekNotSoldInterImport(pageable);
+    }
+
     public Page<Order> findCurrentWeekNotSoldCountry(Pageable pageable) {
         return orderRepository.findCurrentWeekNotSoldCountry(pageable);
+    }
+
+    public Page<Order> findCurrentWeekNotSoldCountryImport(Pageable pageable) {
+        return orderRepository.findCurrentWeekNotSoldCountryImport(pageable);
+    }
+
+    public Page<Order> findCurrentWeekNotSoldImport(Pageable pageable) {
+        return orderRepository.findCurrentWeekNotSoldImport(pageable);
     }
 
     public Page<Order> findCurrentWeekAll(Pageable pageable) {
@@ -99,9 +111,24 @@ public class OrderService {
         return orderRepository.findCurrentWeekAllInter(pageable);
     }
 
+    public Page<Order> findCurrentWeekAllInterImport(Pageable pageable) {
+
+        return orderRepository.findCurrentWeekAllInterImport(pageable);
+    }
+
     public Page<Order> findCurrentWeekAllCountry(Pageable pageable) {
 
         return orderRepository.findCurrentWeekAllCountry(pageable);
+    }
+
+    public Page<Order> findCurrentWeekAllCountryImport(Pageable pageable) {
+
+        return orderRepository.findCurrentWeekAllCountryImport(pageable);
+    }
+
+    public Page<Order> findCurrentWeekAllImport(Pageable pageable) {
+
+        return orderRepository.findCurrentWeekAllImport(pageable);
     }
 
     public Page<Order> findCurrentWeekMTW(Pageable pageable) {
@@ -144,8 +171,20 @@ public class OrderService {
         return orderRepository.findPreviousWeekNotSoldInter(pageable);
     }
 
+    public Page<Order> findPreviousWeekNotSoldInterImport(Pageable pageable) {
+        return orderRepository.findPreviousWeekNotSoldInterImport(pageable);
+    }
+
     public Page<Order> findPreviousWeekNotSoldCountry(Pageable pageable) {
         return orderRepository.findPreviousWeekNotSoldCountry(pageable);
+    }
+
+    public Page<Order> findPreviousWeekNotSoldCountryImport(Pageable pageable) {
+        return orderRepository.findPreviousWeekNotSoldCountryImport(pageable);
+    }
+
+    public Page<Order> findPreviousWeekNotSoldImport(Pageable pageable) {
+        return orderRepository.findPreviousWeekNotSoldImport(pageable);
     }
 
     public Page<Order> findPreviousWeekAll(Pageable pageable) {
@@ -158,9 +197,24 @@ public class OrderService {
         return orderRepository.findPreviousWeekAllInter(pageable);
     }
 
+    public Page<Order> findPreviousWeekAllInterImport(Pageable pageable) {
+
+        return orderRepository.findPreviousWeekAllInterImport(pageable);
+    }
+
     public Page<Order> findPreviousWeekAllCountry(Pageable pageable) {
 
         return orderRepository.findPreviousWeekAllCountry(pageable);
+    }
+
+    public Page<Order> findPreviousWeekAllCountryImport(Pageable pageable) {
+
+        return orderRepository.findPreviousWeekAllCountryImport(pageable);
+    }
+
+    public Page<Order> findPreviousWeekAllImport(Pageable pageable) {
+
+        return orderRepository.findPreviousWeekAllImport(pageable);
     }
 
     public Page<Order> findNextWeekNotSold(Pageable pageable) {
@@ -171,8 +225,20 @@ public class OrderService {
         return orderRepository.findNextWeekNotSoldInter(pageable);
     }
 
+    public Page<Order> findNextWeekNotSoldInterImport(Pageable pageable) {
+        return orderRepository.findNextWeekNotSoldInterImport(pageable);
+    }
+
     public Page<Order> findNextWeekNotSoldCountry(Pageable pageable) {
         return orderRepository.findNextWeekNotSoldCountry(pageable);
+    }
+
+    public Page<Order> findNextWeekNotSoldCountryImport(Pageable pageable) {
+        return orderRepository.findNextWeekNotSoldCountryImport(pageable);
+    }
+
+    public Page<Order> findNextWeekNotSoldImport(Pageable pageable) {
+        return orderRepository.findNextWeekNotSoldImport(pageable);
     }
 
     public Page<Order> findNextWeekAll(Pageable pageable) {
@@ -185,11 +251,25 @@ public class OrderService {
         return orderRepository.findNextWeekAllInter(pageable);
     }
 
+    public Page<Order> findNextWeekAllInterImport(Pageable pageable) {
+
+        return orderRepository.findNextWeekAllInterImport(pageable);
+    }
+
     public Page<Order> findNextWeekAllCountry(Pageable pageable) {
 
         return orderRepository.findNextWeekAllCountry(pageable);
     }
 
+    public Page<Order> findNextWeekAllCountryImport(Pageable pageable) {
+
+        return orderRepository.findNextWeekAllCountryImport(pageable);
+    }
+
+    public Page<Order> findNextWeekAllImport(Pageable pageable) {
+
+        return orderRepository.findNextWeekAllImport(pageable);
+    }
 
     public List<Order> getOrdersInRange(LocalDate date1, LocalDate date2) {
 
@@ -320,6 +400,66 @@ public class OrderService {
         //orderNew.setOurNumber(orderForm.getOurNumber());
         orderNew.setComment(orderForm.getComment());
         orderNew.setKilometers(orderForm.getKilometers());
+        orderNew.setPriceExpected(orderForm.getPriceExpected());
+        orderNew.setPrice(orderForm.getPrice());
+        orderNew.setPriceConfirmed(orderForm.getPriceConfirmed());
+        orderNew.setFreighterPrice(orderForm.getFreighterPrice());
+        orderNew.setUser(orderForm.getUser());
+        orderNew.setQueryTime(LocalDateTime.now());
+//pobieranie adresu ip
+        //         InetAddress inetAddress = InetAddress.getLocalHost();
+        // String username = System.getProperty("user.name" ).toString();
+//String ipAddress = inetAddress.toString();
+        //orderNew.setIpaddress(System.getProperty("user.name" ));
+
+        // update adresu ip
+        //  String remoteAddress = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+        //       .getRequest().getRemoteAddr();
+        orderNew.setIpaddress(loggedUser);
+
+        orderRepository.save(orderNew);
+        return ActionResponse.SUCCESS;
+    }
+
+    public ActionResponse saveOrderImport(OrderForm orderForm, String loggedUser) throws UnknownHostException {
+
+        Order orderNew = new Order();
+        String orderNb = orderForm.getOrderNumber()
+                .toUpperCase()
+                .trim()
+                .replace(" ", "");
+        if (orderRepository.existsByOrderNumber(orderNb)) {
+            return ActionResponse.DUPLICAT;
+        }
+        orderNew.setLoadDate(orderForm.getLoadDate());
+        orderNew.setOrderNumber(orderNb);
+        // sprawdanie czy order number ma minimum 3 znaki
+        String orderPrefix = orderNb;
+        if (orderPrefix.length() >= 3) {
+            orderPrefix = orderPrefix.substring(0, 3);
+        } else {
+            return ActionResponse.ERROR;
+        }
+        // sprawdzenie czy istnieje prefix fabryki dla podanego order number
+        Optional<Factory> cityPrefix = factoryRepository.findFactoryByPrefixContains(orderPrefix);
+        if (cityPrefix.isPresent()) {
+            orderNew.setFactory(cityPrefix.get());
+            orderNew.setLoadingCity(orderForm.getLoadingCity());
+        } else {
+            return ActionResponse.NOFACTORY;
+        }
+        // splitowanie kodów po przecinku do linked listy
+        //List<String> codes = new LinkedList<>();
+       // String[] stringCodes = Arrays.asList(orderForm.getCityCodes().split("[,]")).stream().filter(str -> !str.trim().isEmpty()).collect(toList()).toArray(new String[0]);
+       // for (int i = 0; i < stringCodes.length; i++) {
+       //     codes.add(stringCodes[i]);
+       // }
+        orderNew.setCityCodes(cityPrefix.get().getFactoryCity());
+        //orderNew.setOurNumber(orderForm.getOurNumber());
+        orderNew.setIsImport(true);
+        orderNew.setComment(orderForm.getComment());
+        orderNew.setKilometers(orderForm.getKilometers());
+        orderNew.setPriceExpected(orderForm.getPriceExpected());
         orderNew.setPrice(orderForm.getPrice());
         orderNew.setPriceConfirmed(orderForm.getPriceConfirmed());
         orderNew.setFreighterPrice(orderForm.getFreighterPrice());
@@ -429,11 +569,11 @@ public class OrderService {
                 optionalOrder.get().setLoadingCity(cityPrefix.get().getFactoryCity());
             } else {
                 //tura inna niz z factory - nadpisz miasto
-                optionalOrder.get().setLoadingCity(orderForm.getLoadingCity().toUpperCase());
+                optionalOrder.get().setLoadingCity(orderForm.getLoadingCity());
             }
         } else {
             //brak tury
-            optionalOrder.get().setLoadingCity(orderForm.getLoadingCity().toUpperCase());
+            optionalOrder.get().setLoadingCity(orderForm.getLoadingCity());
         }
 
         optionalOrder.get().setLoadDate(orderForm.getLoadDate());
@@ -456,6 +596,7 @@ public class OrderService {
         }
         optionalOrder.get().setComment(orderForm.getComment());
         optionalOrder.get().setKilometers(orderForm.getKilometers());
+        optionalOrder.get().setPriceExpected(orderForm.getPriceExpected());
         optionalOrder.get().setPrice(orderForm.getPrice());
         if (orderForm.getPrice() != null) {
             optionalOrder.get().setPriceConfirmed(orderForm.getPriceConfirmed());
@@ -532,6 +673,9 @@ public class OrderService {
         }
         if (orderForm.getCityCodesImp() != null) {
             optionalOrder.get().setCityCodesImp(orderForm.getCityCodesImp());
+        }
+        if (orderForm.getCabotage() != null) {
+            optionalOrder.get().setCabotage(orderForm.getCabotage());
         }
         if (orderForm.getDocDateImp() != null) {
             optionalOrder.get().setDocDateImp(orderForm.getDocDateImp());

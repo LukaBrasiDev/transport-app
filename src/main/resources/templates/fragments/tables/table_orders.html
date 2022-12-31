@@ -12,6 +12,7 @@
         <td style="width: 6%">UWAGI</td>
         <td style="width: 5%"><img src="/images/earth.png" width=15 height=15> </td>
         <td style="width: 5%">KM</td>
+        <td style="width: 4%">CENA HANDEL</td>
         <td style="width: 4%">CENA NASZA</td>
         <td style="width: 4%">CENA PRZEW.</td>
         <td style="width: 4%">ZYSK</td>
@@ -45,6 +46,7 @@
         <td >
             <span th:if="${one.kilometers!=null}" th:text="${one.kilometers}+' km'"></span>
         </td>
+        <td><span th:if="${one.priceExpected!=null}" th:text="${#numbers.formatDecimal(one.priceExpected,0,0,'COMMA')}+' €'"></span></td>
         <td><span th:if="${one.price!=null}" th:style="${one.priceConfirmed} ? 'background-color:lightgreen' : 'color:grey'" th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}+' €'"></span></td>
         <td><span th:if="${one.freighterPrice!=null}" th:text="${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
         <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"

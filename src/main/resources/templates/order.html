@@ -25,13 +25,18 @@
 <nav th:replace="fragments/offers :: oferta"></nav>
 <div th:replace="fragments/selection :: selection"></div>
 <!--formularz dodania tury start-->
-<div th:replace="fragments/forms/form_ordernew :: ordernew"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" style="background-color: #f98686;border-radius: 10px"><div th:replace="fragments/forms/form_ordernew :: ordernew"></div></div>
+        <div class="col" style="background-color: lightblue;border-radius: 10px"><div th:replace="fragments/forms/form_ordernewimport :: ordernewimport"></div></div>
+    </div>
+</div>
 <!--formularz dodania tury koniec-->
 <script>
     $("table").tableExport({
         formats: ["csv", "txt"],
         trimWhitespace: true,
-        ignoreCols: [0, 1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+        ignoreCols: [0, 1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
     });
 </script>
 <script>

@@ -3,22 +3,22 @@
     <div style="padding-top: 25px;padding-bottom: 20px">
         <div class="container-fluid">
             <div class="row" style="padding-top: 5px;padding-bottom: 15px">
-                <div class="col-5"style="background-color:#3ca1c3" >
+                <div class="col-5"style="background-color:#3ca1c3;border-radius: 10px" >
                     <p>Wyszukiwanie tur według zakresu dat:</p>
                     <form th:replace="fragments/formrange :: formrange"></form>
                 </div>
 
-                <div class="col-3" style="background-color:lightblue">
+                <div class="col-3" style="background-color:lightblue;border-radius: 10px">
                     <p>Wyszukiwanie tur według tygodni:</p>
                     <form th:replace="fragments/formweek :: formweek"></form>
                 </div>
-                <div class="col-2" style="background-color:#3ca1c3">
+                <div class="col-2" style="background-color:#3ca1c3;border-radius: 10px">
                     <p>Wyszukiwanie po numerze tury:</p>
                     <form th:action="@{/zlecenia/tura}" th:object="${orders}" method="get">
                         <input placeholder="wpisz nr tury..." name="searchStr" type="text" th:value="${searchStr}" class="form-control">
                     </form>
                 </div>
-                <div class="col-2"style="background-color:lightblue">
+                <div class="col-2"style="background-color:lightblue;border-radius: 10px">
                     <p>Wyszukiwanie niepotwierdzonych cen:</p>
                     <form th:replace="fragments/formprice :: formprice"></form>
                 </div>

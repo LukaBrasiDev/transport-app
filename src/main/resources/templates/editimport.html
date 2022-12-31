@@ -23,6 +23,7 @@
   <!--      <td style="width: 9%">DATA DOK.</td>-->
 
        <!-- <td class="import" style="width: 9%">DOJAZD KM</td>-->
+        <td class="import" style="width: 9%">KABOTAŻ</td>
         <td class="import" style="width: 9%">SKĄD</td>
         <td class="import" style="width: 9%">DOKĄD</td>
         <td class="import" style="width: 9%">STAWKA</td>
@@ -41,6 +42,7 @@
                   th:text="${order.nextLoadingCityImp}"></span>
         </td>
         <td><span th:text="${order.loadDate}"></span></td>
+        <td><span th:text="${order.cabotage}"></span></td>
         <td><span th:if="${order.factory!=null}"
                   th:text="${order.loadingCity}"></span></td>
         <td>
@@ -154,6 +156,13 @@
                            th:value="${order.getKilometersImp()}" style="border:2px solid dodgerblue;">
                 </div>
             </div>-->
+            <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
+                <label for="inputEmail367" class="col-sm-2 col-form-label">KABOTAŻ</label>
+                <div class="col-sm-2">
+                    <input class="form-control" id="inputEmail367" name="cabotage" type="number" step="1"
+                           th:value="${order.getCabotage()}" style="border:2px solid dodgerblue;">
+                </div>
+            </div>
             <div class="form-group row" th:if="${logged.role} == 2 OR ${logged.role} == 3 OR ${logged.role} == 21">
                 <label for="inputEmail36" class="col-sm-2 col-form-label">SKĄD</label>
                 <div class="col-sm-2">

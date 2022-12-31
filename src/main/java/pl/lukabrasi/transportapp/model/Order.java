@@ -34,6 +34,9 @@ public class Order {
     private @Column(name = "our_number")
     String ourNumber;
 
+    private @Column(name = "price_expected")
+    BigDecimal priceExpected;
+
     private BigDecimal price;
 
     private @Column(name = "price_confirmed")
@@ -74,7 +77,13 @@ public class Order {
     @JoinColumn(name = "fk_driver")
     private OurDriver driver;
 
+    //is IMPORT or EXPORT
+    private @Column(name = "is_import")
+    Boolean isImport;
+
     //IMPORT
+    private @Column(name = "cabotage")
+    BigDecimal cabotage;
 
     private @Column(name = "doc_date_exp")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -111,5 +120,6 @@ public class Order {
     private @Column(name = "ipaddress_imp")
     String ipaddressImp;
 
-
+    private @Column(name = "turnover")
+    BigDecimal turnover;
 }

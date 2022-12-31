@@ -68,6 +68,7 @@ public class OrderController {
             model.addAttribute("radioSelect", "none");
             model.addAttribute("checkSelectM", "inter");
             model.addAttribute("checkSelectK", "country");
+            model.addAttribute("checkSelectI", "import");
 
             return "order";
     }
@@ -120,8 +121,8 @@ public class OrderController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-        String selection = rangeForm.getRadioSelect()+rangeForm.getCheckSelectM()+rangeForm.getCheckSelectK();
-        if (selection.equals("allweekintercountry") || selection.equals("allweeknullnull")) {
+        String selection = rangeForm.getRadioSelect()+rangeForm.getCheckSelectM()+rangeForm.getCheckSelectK()+rangeForm.getCheckSelectI();
+        if (selection.equals("allweekintercountryimport") || selection.equals("allweeknullnullnull")) {
             Page<Order> orderPage = orderService.findCurrentWeekAll(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -135,9 +136,10 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
-        else if (selection.equals("allweekinternull")) {
+        else if (selection.equals("allweekinternullnull")) {
             Page<Order> orderPage = orderService.findCurrentWeekAllInter(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -151,9 +153,27 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
-        else if (selection.equals("allweeknullcountry")) {
+        else if (selection.equals("allweekinternullimport")) {
+            Page<Order> orderPage = orderService.findCurrentWeekAllInterImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+        else if (selection.equals("allweeknullcountrynull")) {
             Page<Order> orderPage = orderService.findCurrentWeekAllCountry(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -167,9 +187,44 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
-        else if (selection.equals("nonenullcountry")) {
+        else if (selection.equals("allweeknullcountryimport")) {
+            Page<Order> orderPage = orderService.findCurrentWeekAllCountryImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+        else if (selection.equals("allweeknullnullimport")) {
+            Page<Order> orderPage = orderService.findCurrentWeekAllImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+        else if (selection.equals("nonenullcountrynull")) {
             Page<Order> orderPage = orderService.findCurrentWeekNotSoldCountry(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -183,9 +238,27 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
-        else if (selection.equals("noneinternull")) {
+        else if (selection.equals("nonenullcountryimport")) {
+            Page<Order> orderPage = orderService.findCurrentWeekNotSoldCountryImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+        else if (selection.equals("noneinternullnull")) {
             Page<Order> orderPage = orderService.findCurrentWeekNotSoldInter(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -199,6 +272,41 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+        else if (selection.equals("noneinternullimport")) {
+            Page<Order> orderPage = orderService.findCurrentWeekNotSoldInterImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+        else if (selection.equals("nonenullnullimport")) {
+            Page<Order> orderPage = orderService.findCurrentWeekNotSoldImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
         else {
@@ -215,6 +323,7 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
     }
@@ -270,8 +379,8 @@ public class OrderController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-        String selection = rangeForm.getRadioSelect()+rangeForm.getCheckSelectM()+rangeForm.getCheckSelectK();
-        if (selection.equals("allweekintercountry") || selection.equals("allweeknullnull")) {
+        String selection = rangeForm.getRadioSelect()+rangeForm.getCheckSelectM()+rangeForm.getCheckSelectK()+rangeForm.getCheckSelectI();
+        if (selection.equals("allweekintercountryimport") || selection.equals("allweeknullnullnull")) {
              Page<Order> orderPage = orderService.findPreviousWeekAll(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -285,10 +394,11 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
 
-        else if (selection.equals("allweekinternull")) {
+        else if (selection.equals("allweekinternullnull")) {
             Page<Order> orderPage = orderService.findPreviousWeekAllInter(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -302,10 +412,30 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
 
-        else if (selection.equals("allweeknullcountry")) {
+        else if (selection.equals("allweekinternullimport")) {
+            Page<Order> orderPage = orderService.findPreviousWeekAllInterImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+
+
+        else if (selection.equals("allweeknullcountrynull")) {
             Page<Order> orderPage = orderService.findPreviousWeekAllCountry(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -319,10 +449,47 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
 
-        else if (selection.equals("noneinternull")) {
+        else if (selection.equals("allweeknullcountryimport")) {
+            Page<Order> orderPage = orderService.findPreviousWeekAllCountryImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+
+        else if (selection.equals("allweeknullnullimport")) {
+            Page<Order> orderPage = orderService.findPreviousWeekAllImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+
+        else if (selection.equals("noneinternullnull")) {
             Page<Order> orderPage = orderService.findPreviousWeekNotSoldInter(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -336,10 +503,29 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
 
-        else if (selection.equals("nonenullcountry")) {
+        else if (selection.equals("noneinternullimport")) {
+            Page<Order> orderPage = orderService.findPreviousWeekNotSoldInterImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+
+        else if (selection.equals("nonenullcountrynull")) {
             Page<Order> orderPage = orderService.findPreviousWeekNotSoldCountry(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -353,6 +539,42 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+        else if (selection.equals("nonenullcountryimport")) {
+            Page<Order> orderPage = orderService.findPreviousWeekNotSoldCountryImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+
+        else if (selection.equals("nonenullnullimport")) {
+            Page<Order> orderPage = orderService.findPreviousWeekNotSoldImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
 
@@ -370,6 +592,7 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
     }
@@ -444,8 +667,8 @@ public class OrderController {
         if (!userSession.isLogin()) {
             return "redirect:/";
         }
-        String selection = rangeForm.getRadioSelect()+rangeForm.getCheckSelectM()+rangeForm.getCheckSelectK();
-        if (selection.equals("allweekintercountry") || selection.equals("allweeknullnull")) {
+        String selection = rangeForm.getRadioSelect()+rangeForm.getCheckSelectM()+rangeForm.getCheckSelectK()+rangeForm.getCheckSelectI();
+        if (selection.equals("allweekintercountryimport") || selection.equals("allweeknullnullnull")) {
             Page<Order> orderPage = orderService.findNextWeekAll(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -459,9 +682,10 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
-        else if (selection.equals("allweekinternull")) {
+        else if (selection.equals("allweekinternullnull")) {
             Page<Order> orderPage = orderService.findNextWeekAllInter(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -475,10 +699,29 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
 
-        else if (selection.equals("allweeknullcountry")) {
+        else if (selection.equals("allweekinternullimport")) {
+            Page<Order> orderPage = orderService.findNextWeekAllInterImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+
+        else if (selection.equals("allweeknullcountrynull")) {
             Page<Order> orderPage = orderService.findNextWeekAllCountry(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -492,10 +735,47 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
 
-        else if (selection.equals("noneinternull")) {
+        else if (selection.equals("allweeknullcountryimport")) {
+            Page<Order> orderPage = orderService.findNextWeekAllCountryImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+
+        else if (selection.equals("allweeknullnullimport")) {
+            Page<Order> orderPage = orderService.findNextWeekAllImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+
+        else if (selection.equals("noneinternullnull")) {
             Page<Order> orderPage = orderService.findNextWeekNotSoldInter(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -509,9 +789,29 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
-        else if (selection.equals("nonenullcountry")) {
+
+        else if (selection.equals("noneinternullimport")) {
+            Page<Order> orderPage = orderService.findNextWeekNotSoldInterImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+
+        else if (selection.equals("nonenullcountrynull")) {
             Page<Order> orderPage = orderService.findNextWeekNotSoldCountry(pageable);
             model.addAttribute("page", orderPage);
             model.addAttribute("number", orderPage.getNumber());
@@ -525,6 +825,43 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+
+        else if (selection.equals("nonenullcountryimport")) {
+            Page<Order> orderPage = orderService.findNextWeekNotSoldCountryImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
+            return "order";
+        }
+
+        else if (selection.equals("nonenullnullimport")) {
+            Page<Order> orderPage = orderService.findNextWeekNotSoldImport(pageable);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("logged", userSession.getUserEntity());
+            model.addAttribute("radioSelect", rangeForm.getRadioSelect());
+            model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
+            model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
 
@@ -542,6 +879,7 @@ public class OrderController {
             model.addAttribute("radioSelect", rangeForm.getRadioSelect());
             model.addAttribute("checkSelectM", rangeForm.getCheckSelectM());
             model.addAttribute("checkSelectK", rangeForm.getCheckSelectK());
+            model.addAttribute("checkSelectI", rangeForm.getCheckSelectI());
             return "order";
         }
     }
@@ -652,6 +990,45 @@ public class OrderController {
         }
         String loggedUser = userSession.getUserEntity().getUserName();
         OrderService.ActionResponse actionResponse = orderService.saveOrder(orderForm, loggedUser);
+        if (actionResponse == OrderService.ActionResponse.SUCCESS) {
+            Page<Order> orderPage = orderService.getOrderById(pageable);
+            model.addAttribute("info", actionResponse);
+            model.addAttribute("page", orderPage);
+            model.addAttribute("number", orderPage.getNumber());
+            model.addAttribute("totalPages", orderPage.getTotalPages());
+            model.addAttribute("totalElements", orderPage.getTotalElements());
+            model.addAttribute("size", orderPage.getSize());
+            // model.addAttribute("orders", orderPage.getContent());
+            model.addAttribute("users", orderService.getUsers());
+            model.addAttribute("freighters", orderService.getFreighters());
+            model.addAttribute("orders", orderService.getOrderById(orderPage.getContent().get(0).getId()));
+            model.addAttribute("logged", userSession.getUserEntity());
+            return "order";
+
+        }
+        Page<Order> orderPage = orderService.getOrders(pageable);
+        model.addAttribute("info", actionResponse);
+        model.addAttribute("page", orderPage);
+        model.addAttribute("number", orderPage.getNumber());
+        model.addAttribute("totalPages", orderPage.getTotalPages());
+        model.addAttribute("totalElements", orderPage.getTotalElements());
+        model.addAttribute("size", orderPage.getSize());
+        model.addAttribute("orders", orderPage.getContent());
+        model.addAttribute("users", orderService.getUsers());
+        model.addAttribute("freighters", orderService.getFreighters());
+        model.addAttribute("logged", userSession.getUserEntity());
+        return "order";
+    }
+
+    @PostMapping("/zleceniaimport")
+    public String createOrderImport(@ModelAttribute OrderForm orderForm,
+                              Model model,
+                              Pageable pageable) throws UnknownHostException {
+        if (!userSession.isLogin()) {
+            return "redirect:/";
+        }
+        String loggedUser = userSession.getUserEntity().getUserName();
+        OrderService.ActionResponse actionResponse = orderService.saveOrderImport(orderForm, loggedUser);
         if (actionResponse == OrderService.ActionResponse.SUCCESS) {
             Page<Order> orderPage = orderService.getOrderById(pageable);
             model.addAttribute("info", actionResponse);

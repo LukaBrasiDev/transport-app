@@ -14,6 +14,8 @@ public class RangeForm {
     private String weekSelect;
     private String checkSelectM;
     private String checkSelectK;
+    private String checkSelectI;
+
 
 
 

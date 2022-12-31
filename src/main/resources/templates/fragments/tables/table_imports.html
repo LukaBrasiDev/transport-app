@@ -2,11 +2,11 @@
        xmlns:th="http://www.thymeleaf.org/">
     <thead>
     <tr style="font-weight: bold">
-        <td id="nic1" colspan="8">EXPORT</td>
-        <td id="nic2" class="import" colspan="5">IMPORT</td>
+        <td id="nic1" colspan="9">EXPORT</td>
+        <td id="nic2" class="import" colspan="7">IMPORT</td>
     </tr>
     <tr style="font-weight: bold">
-        <td style="width: 4%"></td>
+        <td class="nic" style="width: 4%"></td>
         <td class="nic" style="width: 7%">TURA</td>
         <td style="width: 12%">KIEROWCA</td>
         <td id="nic8" style="width: 6%">GDZIE SKOŃCZYŁ</td>
@@ -16,9 +16,12 @@
         <td class="nic" style="width: 6%">FABRYKA</td>
         <td style="width: 9%">GDZIE KOŃCZY</td>
         <td style="width: 9%">KIEDY KOŃCZY</td>
+        <td class="nic" style="width: 4%">STAWKA EXP.</td>
+        <td id="nic11" class="import" style="width: 4%">KABOTAŻ</td>
         <td class="import" style="width: 9%">SKĄD</td>
         <td class="import" style="width: 9%">DOKĄD</td>
-        <td id="nic5" class="import" style="width: 5%">STAWKA</td>
+        <td id="nic5" class="import" style="width: 4%">STAWKA IMP.</td>
+        <td id="nic10" class="import" style="width: 6%">OBRÓT</td>
         <td class="import" style="width: 9%">KTO ZNALAZŁ</td>
         <td id="nic9" class="import" style="width: 5%"></td>
     </tr>
@@ -26,7 +29,7 @@
     <tbody>
     <th:block th:each="one : ${orders}">
         <tr th:if="${one.id!=null}"  th:class="${one.userImp!=null} ?( ${one.userImp!=' '}?'alternate':''):''">
-            <td class="pion" id="szer">
+            <td class="pion"  id="nic12">
                 <div class="pion"><strong><span th:text="${one.user.userName}"></span></strong></div>
             </td>
             <td class="nic"><strong><span th:text="${one.orderNumber}"></span></strong></td>
@@ -54,6 +57,14 @@
            <span th:if="${one.exportEnd!=null}"
                  th:text="${one.exportEnd}"></span>
             </td>
+            <td class="nic">
+          <span th:if="${one.price!=null}"
+                th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}"></span>
+            </td>
+                <td class="nic">
+                        <span th:if="${one.cabotage!=null}"
+                          th:text="${#numbers.formatDecimal(one.cabotage,0,0,'COMMA')}"></span>
+            </td>
             <td>
             <span th:if="${one.loadingCityImp!=null}"
                   th:text="${one.loadingCityImp}"></span>
@@ -64,8 +75,11 @@
             </td>
             <td class="nic">
            <span th:if="${one.priceImp!=null}"
-                 th:text="${#numbers.formatDecimal(one.priceImp,0,0,'COMMA')}+' €'"></span>
+                 th:text="${#numbers.formatDecimal(one.priceImp,0,0,'COMMA')}"></span>
             </td>
+            <td class="nic" th:with="price=${one.price}?:0,cabotage=${one.cabotage}?:0,priceImp=${one.priceImp}?:0">
+                <span
+                        th:style="${price+cabotage+priceImp<2900} ? 'color:red' : ''" th:text="${#numbers.formatDecimal(price+cabotage+priceImp,0,0,'COMMA')} +' €'"></span></td>
             <td  th:text="${one.userImp}"></td>
             <td class="nic">
                 <a th:if="${logged.role} == 2 OR ${logged.role} ==3 OR ${logged.role} ==1 OR ${logged.role} ==21"
@@ -88,8 +102,11 @@
             <td class="nic"></td>
             <td></td>
             <td></td>
+            <td class="nic"></td>
+            <td class="nic"></td>
             <td></td>
             <td></td>
+            <td class="nic"></td>
             <td class="nic"></td>
             <td></td>
             <td class="nic"></td>

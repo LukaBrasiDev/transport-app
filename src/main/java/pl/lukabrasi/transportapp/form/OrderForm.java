@@ -26,6 +26,7 @@ public class OrderForm {
     private String cityCodes;
     private String comment;
     private Integer kilometers;
+    private BigDecimal priceExpected;
     private BigDecimal price;
     private Boolean priceConfirmed;
     private BigDecimal freighterPrice;
@@ -38,6 +39,7 @@ public class OrderForm {
     private String exportEnd;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate docDateImp;
+    private BigDecimal cabotage;
     private String loadingCityImp;
     private String nextLoadingCityImp;
     private String cityCodesImp;

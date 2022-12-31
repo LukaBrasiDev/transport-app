@@ -1,7 +1,7 @@
-<div th:fragment="ordernew">
+<div th:fragment="ordernewimport"  >
     <div class="container-fluid" style="padding-top: 25px;padding-bottom: 25px">
-        <p style="font-weight: bold">NOWA TURA EKSPORT</p>
-        <form th:action="@{/zlecenia}" th:object="${orders}" method="post">
+        <p style="font-weight: bold">NOWA TURA IMPORT</p>
+        <form th:action="@{/zleceniaimport}" th:object="${orders}" method="post">
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-4 col-form-label">TURA:</label>
                 <div class="col-sm-4">
@@ -9,18 +9,23 @@
                            placeholder="Numer tury">
                 </div>
             </div>
+          <!--  <div class="form-group row">
+                <label for="inputEmail34" class="col-sm-3 col-form-label">NR ZLECENIA:</label>
+                <div class="col-sm-3">
+                    <input name="id" type="text" class="form-control" id="inputEmail34"
+                           placeholder="numer zlecenia">
+                </div>
+            </div>-->
             <div class="form-group row">
                 <label for="inputEmail4" class="col-sm-4 col-form-label">DATA ZAŁADUNKU:</label>
                 <div class="col-sm-4">
-                    <input name="loadDate" type="date" class="form-control" id="inputEmail4" placeholder="wybierz datę">
+                    <input name="loadDate" type="date" class="form-control" id="inputEmail4" placeholder="wybierz datę" required>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label">ROZŁADUNKI:</label>
+                <label for="inputEmail3093" class="col-sm-4 col-form-label">ZAŁADUNEK:</label>
                 <div class="col-sm-4">
-                    <textarea placeholder="Wpisz kody rozładunków oddzielone przecinkami..." name="cityCodes"
-                              class="form-control"
-                              id="validationTextarea" rows="5" required></textarea>
+                    <input name="loadingCity" type="text" class="form-control" id="inputEmail3093" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -36,9 +41,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="inputEmail301" class="col-sm-4 col-form-label">CENA HANDEL:</label>
+                <label for="inputEmail302" class="col-sm-4 col-form-label">CENA HANDEL:</label>
                 <div class="col-sm-4">
-                    <input name="priceExpected" type="number" class="form-control" id="inputEmail301">
+                    <input name="priceExpected" type="number" class="form-control" id="inputEmail302">
                 </div>
             </div>
             <div class="form-group row">
