@@ -784,9 +784,15 @@ public class OrderService {
         } else return 0;
     }
 
-    public Integer getMondiWeekly(LocalDate date1) {
-        if (orderRepository.soldMondiGroupWeekly(date1) > 0) {
-            return orderRepository.soldMondiGroupWeekly(date1);
+    public Integer getMondiExportWeekly(LocalDate date1) {
+        if (orderRepository.soldMondiGroupExportWeekly(date1) > 0) {
+            return orderRepository.soldMondiGroupExportWeekly(date1);
+        } else return 0;
+    }
+
+    public Integer getMondiImportWeekly(LocalDate date1) {
+        if (orderRepository.soldMondiGroupImportWeekly(date1) > 0) {
+            return orderRepository.soldMondiGroupImportWeekly(date1);
         } else return 0;
     }
 

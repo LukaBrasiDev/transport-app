@@ -35,7 +35,7 @@
 
                     </select>
                 </div>
-                <div class="col-auto my-1">
+                <div class="col-auto my-1"  th:hidden="${logged.role} != 3">
                     <select class="custom-select mr-sm-2" id="inlineFormCustomSelect4" required name="reportFormat">
                               <option  th:value="HTML"   th:text="WIDOK" selected></option>
                               <option th:if="${logged.role} == 3"  th:value="PDF"    th:text="PDF" ></option>

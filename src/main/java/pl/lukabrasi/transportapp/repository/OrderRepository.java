@@ -373,7 +373,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "select * from orders\n" +
             "where\n" +
-            "date_load >= ?1 and date_load <= ?2 and fk_driver=(?3) order by date_load asc", nativeQuery = true)
+            "date_load >= ?1 and date_load <= ?2 and fk_driver=(?3) and is_import is not true order by date_load asc", nativeQuery = true)
     List<Order> monthRaportByDriver(LocalDate loadDate1, LocalDate loadDate2, Integer person);
 
   /*  @Query(value = "SELECT * FROM orders o where fk_freighter = 1 and date_load >= ?1 and date_load <= ?2 order by date_load desc, fk_user asc", nativeQuery = true)
@@ -383,7 +383,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "select * from orders o, driver d\n" +
             "where o.fk_driver = d.id and\n" +
-            "o.date_load >= ?1 and o.date_load <= ?2 order by d.driver_surname asc, o.date_load asc", nativeQuery = true)
+            "o.date_load >= ?1 and o.date_load <= ?2 and is_import is not true order by d.driver_surname asc, o.date_load asc", nativeQuery = true)
     List<Order> monthRaportByAllDrivers(LocalDate loadDate1, LocalDate loadDate2);
 
     @Query(value = "SELECT distinct concat(1,'-',month(date_load),'-', year(date_load)) as data FROM orders order by date_load desc;", nativeQuery = true)
@@ -402,8 +402,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT count(o.id) as Inne from orders o INNER JOIN factory f ON o.fk_factory = f.id where YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >1 and f.factory_group = 'I'", nativeQuery = true)
     Integer soldOtherGroupWeekly(LocalDate date1);
 
-    @Query(value = "SELECT count(o.id) as Inne from orders o INNER JOIN factory f ON o.fk_factory = f.id where YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >1 and f.factory_group = 'M'", nativeQuery = true)
-    Integer soldMondiGroupWeekly(LocalDate date1);
+    @Query(value = "SELECT count(o.id) as Inne from orders o INNER JOIN factory f ON o.fk_factory = f.id where YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >1 and f.factory_group = 'M' and o.is_import is not true", nativeQuery = true)
+    Integer soldMondiGroupExportWeekly(LocalDate date1);
+
+    @Query(value = "SELECT count(o.id) as Inne from orders o INNER JOIN factory f ON o.fk_factory = f.id where YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >1 and f.factory_group = 'M' and o.is_import is true", nativeQuery = true)
+    Integer soldMondiGroupImportWeekly(LocalDate date1);
 
     @Query(value = "SELECT count(o.id) as Inne from orders o INNER JOIN factory f ON o.fk_factory = f.id where YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >1 and f.factory_group = 'K'", nativeQuery = true)
     Integer soldCountryGroupWeekly(LocalDate date1);

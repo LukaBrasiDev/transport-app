@@ -23,7 +23,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="one : ${orders}"  th:style="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null} ? 'color:red' : ''">
+    <tr th:each="one : ${orders}"  th:style="${#dates.format(#dates.createNow(), 'yyyy-MM-dd') > #temporals.format(one.loadDate, 'yyyy-MM-dd')} and ${one.user==null} ? 'color:red' : (${one.isImport==true}?'color:blue':'')">
         <td><strong><span th:text="${one.orderNumber}"></span></strong></td>
         <td><span th:text="${one.loadHour}"></span></td>
         <td><span th:if="${one.factory!=null}"
@@ -46,7 +46,7 @@
         <td >
             <span th:if="${one.kilometers!=null}" th:text="${one.kilometers}+' km'"></span>
         </td>
-        <td><span th:if="${one.priceExpected!=null}" th:text="${#numbers.formatDecimal(one.priceExpected,0,0,'COMMA')}+' €'"></span></td>
+        <td><span th:if="${one.priceExpected!=null}" th:text="${#numbers.formatDecimal(one.priceExpected,0,0,'COMMA')}"></span></td>
         <td><span th:if="${one.price!=null}" th:style="${one.priceConfirmed} ? 'background-color:lightgreen' : 'color:grey'" th:text="${#numbers.formatDecimal(one.price,0,0,'COMMA')}+' €'"></span></td>
         <td><span th:if="${one.freighterPrice!=null}" th:text="${#numbers.formatDecimal(one.freighterPrice,0,0,'COMMA')}+' €'"></span></td>
         <td><span th:if="${one.price!=null} and ${one.freighterPrice!=null}"
