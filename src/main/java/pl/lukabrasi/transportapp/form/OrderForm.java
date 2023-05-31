@@ -26,7 +26,7 @@ public class OrderForm {
     private String cityCodes;
     private String comment;
     private Integer kilometers;
-    private BigDecimal priceExpected;
+    private String priceExpected;
     private BigDecimal price;
     private Boolean priceConfirmed;
     private BigDecimal freighterPrice;

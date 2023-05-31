@@ -111,3 +111,6 @@ background-color: #dc3545;
 	.table-hover tbody tr:hover td {
         background: #9fcdff;
     }
+#export {
+ word-break:break-all;
+}

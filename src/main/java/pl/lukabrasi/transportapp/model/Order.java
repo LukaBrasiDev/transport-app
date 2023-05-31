@@ -35,7 +35,7 @@ public class Order {
     String ourNumber;
 
     private @Column(name = "price_expected")
-    BigDecimal priceExpected;
+    String priceExpected;
 
     private BigDecimal price;
 
