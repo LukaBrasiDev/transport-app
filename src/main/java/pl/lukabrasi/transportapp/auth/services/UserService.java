@@ -80,8 +80,8 @@ public class UserService {
 
         optionalUser.get().setEmail(userForm.getEmail());
         optionalUser.get().setTelephone(userForm.getTelephone());
-        if(userForm.getActive() != null){
-        optionalUser.get().setActive(userForm.getActive());}
+       /* if(userForm.getActive() != null){*/
+        optionalUser.get().setActive(userForm.getActive());/*}*/
         if(userForm.getRole() != null) {
             optionalUser.get().setRole(userForm.getRole());
         }

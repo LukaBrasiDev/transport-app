@@ -36,7 +36,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
          List<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2, Pageable pageable);*/
 
     //updated
-    @Query(value = "SELECT * FROM orders o where is_import IS NOT true and fk_freighter = 1 and date_load >= ?1 and date_load <= ?2 order by date_load desc, fk_user asc", nativeQuery = true)
+    @Query(value = "SELECT * FROM orders o where is_import IS NULL and fk_freighter = 1 and date_load >= ?1 and date_load <= ?2 order by date_load desc, fk_user asc", nativeQuery = true)
     List<Order> findMTWOrdersInRange(LocalDate date1, LocalDate date2);
 
     //CURRENT WEEK START
@@ -49,7 +49,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findCurrentWeekNotSoldList();
 
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)<=YEARWEEK(curdate()) and fk_user is null and\n" +
-            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findCurrentWeekNotSoldInter(Pageable pageable);
 
@@ -59,12 +59,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findCurrentWeekNotSoldInterImport(Pageable pageable);
 
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)<=YEARWEEK(curdate()) and fk_user is null and\n" +
-            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findCurrentWeekNotSoldCountry(Pageable pageable);
 
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)<=YEARWEEK(curdate()) and fk_user is null and\n" +
-            "(fk_factory IN (Select id from factory where factory_group ='K') or is_import is not true)\n" +
+            "(fk_factory IN (Select id from factory where factory_group ='K') or is_import is null)\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findCurrentWeekNotSoldCountryImport(Pageable pageable);
 
@@ -73,7 +73,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findPreviousWeekNotSold(Pageable pageable);
 
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=yearweek(SUBDATE(curdate(), INTERVAL 7 DAY)) and fk_user is null and\n" +
-            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findPreviousWeekNotSoldInter(Pageable pageable);
 
@@ -83,7 +83,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findPreviousWeekNotSoldInterImport(Pageable pageable);
 
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=yearweek(SUBDATE(curdate(), INTERVAL 7 DAY)) and fk_user is null and\n" +
-            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findPreviousWeekNotSoldCountry(Pageable pageable);
 
@@ -107,7 +107,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findNextWeekNotSold(Pageable pageable);
 
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=yearweek(DATE_ADD(curdate(), INTERVAL 7 DAY)) and fk_user is null and\n" +
-            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNextWeekNotSoldInter(Pageable pageable);
 
@@ -117,7 +117,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findNextWeekNotSoldInterImport(Pageable pageable);
 
     @Query(value = "SELECT * FROM orders where YEARWEEK(date_load)=yearweek(DATE_ADD(curdate(), INTERVAL 7 DAY)) and fk_user is null and\n" +
-            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is null\n" +
             "            order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNextWeekNotSoldCountry(Pageable pageable);
 
@@ -142,12 +142,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "SELECT * FROM orders\n" +
             "where YEARWEEK(date_load)=YEARWEEK(curdate()) and\n" +
-            "is_import is not true and\n"+
+            "is_import is null and\n"+
             "fk_factory IN (Select id from factory where factory_group <>'K')\n" +
             "UNION\n" +
             "select * from orders\n" +
             "where YEARWEEK(date_load)<YEARWEEK(curdate()) and fk_user is null and\n" +
-            "is_import is not true and\n"+
+            "is_import is null and\n"+
             "fk_factory IN (Select id from factory where factory_group <>'K')\n" +
             "order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findCurrentWeekAllInter(Pageable pageable);
@@ -166,7 +166,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "SELECT * FROM orders\n" +
             "where YEARWEEK(date_load)=YEARWEEK(curdate()) and\n" +
-            "is_import is not true and\n"+
+            "is_import is null and\n"+
             "fk_factory IN (Select id from factory where factory_group ='K')\n" +
             "UNION\n" +
             "select * from orders\n" +
@@ -210,12 +210,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT * \n" +
             "FROM orders \n" +
             "where YEARWEEK(date_load)=yearweek(SUBDATE(curdate(), INTERVAL 7 DAY))and\n" +
-            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is null\n" +
             "UNION\n" +
             "select * \n" +
             "from orders \n" +
             "where YEARWEEK(date_load)=yearweek(SUBDATE(curdate(), INTERVAL 7 DAY)) and fk_user is null and\n" +
-            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is null\n" +
             "order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findPreviousWeekAllInter(Pageable pageable);
 
@@ -234,12 +234,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT * \n" +
             "FROM orders \n" +
             "where YEARWEEK(date_load)=yearweek(SUBDATE(curdate(), INTERVAL 7 DAY))and\n" +
-            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is null\n" +
             "UNION\n" +
             "select * \n" +
             "from orders \n" +
             "where YEARWEEK(date_load)=yearweek(SUBDATE(curdate(), INTERVAL 7 DAY)) and fk_user is null and\n" +
-            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is null\n" +
             "order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findPreviousWeekAllCountry(Pageable pageable);
 
@@ -279,11 +279,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT *\n" +
             "FROM orders\n" +
             "where YEARWEEK(date_load)=yearweek(DATE_ADD(curdate(), INTERVAL 7 DAY))and\n" +
-            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is null\n" +
             "UNION  select * \n" +
             "from orders \n" +
             "where YEARWEEK(date_load)=yearweek(DATE_ADD(curdate(), INTERVAL 7 DAY)) and fk_user is null and\n" +
-            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group <>'K') and is_import is null\n" +
             "order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNextWeekAllInter(Pageable pageable);
 
@@ -301,11 +301,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT *\n" +
             "FROM orders\n" +
             "where YEARWEEK(date_load)=yearweek(DATE_ADD(curdate(), INTERVAL 7 DAY))and\n" +
-            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is null\n" +
             "UNION  select * \n" +
             "from orders \n" +
             "where YEARWEEK(date_load)=yearweek(DATE_ADD(curdate(), INTERVAL 7 DAY)) and fk_user is null and\n" +
-            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is not true\n" +
+            "fk_factory IN (Select id from factory where factory_group ='K') and is_import is null\n" +
             "order by date_load asc, loading_city asc", nativeQuery = true)
     Page<Order> findNextWeekAllCountry(Pageable pageable);
 
@@ -373,7 +373,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "select * from orders\n" +
             "where\n" +
-            "date_load >= ?1 and date_load <= ?2 and fk_driver=(?3) and is_import is not true order by date_load asc", nativeQuery = true)
+            "date_load >= ?1 and date_load <= ?2 and fk_driver=(?3) and is_import is null order by date_load asc", nativeQuery = true)
     List<Order> monthRaportByDriver(LocalDate loadDate1, LocalDate loadDate2, Integer person);
 
   /*  @Query(value = "SELECT * FROM orders o where fk_freighter = 1 and date_load >= ?1 and date_load <= ?2 order by date_load desc, fk_user asc", nativeQuery = true)
@@ -383,7 +383,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "select * from orders o, driver d\n" +
             "where o.fk_driver = d.id and\n" +
-            "o.date_load >= ?1 and o.date_load <= ?2 and is_import is not true order by d.driver_surname asc, o.date_load asc", nativeQuery = true)
+            "o.date_load >= ?1 and o.date_load <= ?2 and o.is_import is null order by d.driver_surname asc, o.date_load asc", nativeQuery = true)
     List<Order> monthRaportByAllDrivers(LocalDate loadDate1, LocalDate loadDate2);
 
     @Query(value = "SELECT distinct concat(1,'-',month(date_load),'-', year(date_load)) as data FROM orders order by date_load desc;", nativeQuery = true)
@@ -402,7 +402,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT count(o.id) as Inne from orders o INNER JOIN factory f ON o.fk_factory = f.id where YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >1 and f.factory_group = 'I'", nativeQuery = true)
     Integer soldOtherGroupWeekly(LocalDate date1);
 
-    @Query(value = "SELECT count(o.id) as Inne from orders o INNER JOIN factory f ON o.fk_factory = f.id where YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >1 and f.factory_group = 'M' and o.is_import is not true", nativeQuery = true)
+    @Query(value = "SELECT count(o.id) as Inne from orders o INNER JOIN factory f ON o.fk_factory = f.id where YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >1 and f.factory_group = 'M' and o.is_import is null", nativeQuery = true)
     Integer soldMondiGroupExportWeekly(LocalDate date1);
 
     @Query(value = "SELECT count(o.id) as Inne from orders o INNER JOIN factory f ON o.fk_factory = f.id where YEARWEEK(o.date_load)=YEARWEEK(?1) and o.fk_user >1 and f.factory_group = 'M' and o.is_import is true", nativeQuery = true)
@@ -412,7 +412,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Integer soldCountryGroupWeekly(LocalDate date1);
 
     //updated
-    @Query(value = "SELECT * FROM orders o where is_import IS NOT true and fk_freighter = 1 order by date_load desc, fk_user asc", nativeQuery = true)
+    @Query(value = "SELECT * FROM orders o where is_import IS null and fk_freighter = 1 order by date_load desc, fk_user asc", nativeQuery = true)
     Page<Order> findAllMTW(Pageable pageable);
 
 
@@ -423,7 +423,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "LEFT JOIN driver d ON o.fk_driver = d.id\n" +
             "where o.date_load between date_sub(curdate(), interval if(dayofweek(curdate())-5 >= 0, dayofweek(curdate())-5, dayofweek(curdate())-5+7) day)\n" +
             "and date_sub(curdate(), interval if(dayofweek(curdate())-5 >= 0, dayofweek(curdate())-5, dayofweek(curdate())-5+7) - 6 day)\n" +
-            "and f.freighter_name = 'MTW' and o.is_import IS NOT true\n" +
+            "and f.freighter_name = 'MTW' and o.is_import IS NULL\n" + //
             "order by u.user_name asc, d.driver_surname asc", nativeQuery = true)
     Page<Order> findCurrentWeekMTW(Pageable pageable);
 
@@ -443,7 +443,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "LEFT JOIN driver d ON o.fk_driver = d.id\n" +
             "where  o.date_load between date_sub((date_sub(curdate(), interval 7 day)), interval if(dayofweek((date_sub(curdate(), interval 7 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 7 day)))-5, dayofweek((date_sub(curdate(), interval 7 day)))-5+7) day)\n" +
             "and date_sub((date_sub(curdate(), interval 7 day)), interval if(dayofweek((date_sub(curdate(), interval 7 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 7 day)))-5, dayofweek((date_sub(curdate(), interval 7 day)))-5+7) - 6 day)\n" +
-            "and f.freighter_name = 'MTW' and o.is_import IS NOT true\n" +
+            "and f.freighter_name = 'MTW' and o.is_import IS NULL\n" + //and o.is_import IS NOT true
             "order by u.user_name asc, d.driver_surname asc", nativeQuery = true)
     Page<Order> findPreviousWeekMTW(Pageable pageable);
 
@@ -454,7 +454,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "LEFT JOIN driver d ON o.fk_driver = d.id\n" +
             "where o.date_load between date_sub((date_sub(curdate(), interval 14 day)), interval if(dayofweek((date_sub(curdate(), interval 14 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 14 day)))-5, dayofweek((date_sub(curdate(), interval 14 day)))-5+7) day)\n" +
             "and date_sub((date_sub(curdate(), interval 14 day)), interval if(dayofweek((date_sub(curdate(), interval 14 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 14 day)))-5, dayofweek((date_sub(curdate(), interval 14 day)))-5+7) - 6 day)\n" +
-            "and f.freighter_name = 'MTW' and o.is_import IS NOT true\n" +
+            "and f.freighter_name = 'MTW' and o.is_import IS NULL\n" + //and o.is_import IS NOT true
             "order by u.user_name asc, d.driver_surname asc", nativeQuery = true)
     Page<Order> find2PreviousWeekMTW(Pageable pageable);
 
@@ -464,7 +464,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "LEFT JOIN driver d ON o.fk_driver = d.id\n" +
             "where o.date_load between date_sub((date_sub(curdate(), interval 21 day)), interval if(dayofweek((date_sub(curdate(), interval 21 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 21 day)))-5, dayofweek((date_sub(curdate(), interval 21 day)))-5+7) day)\n" +
             "and date_sub((date_sub(curdate(), interval 21 day)), interval if(dayofweek((date_sub(curdate(), interval 21 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 21 day)))-5, dayofweek((date_sub(curdate(), interval 21 day)))-5+7) - 6 day)\n" +
-            "and f.freighter_name = 'MTW' and o.is_import IS NOT true\n" +
+            "and f.freighter_name = 'MTW' and o.is_import IS NULL\n" + //
             "order by u.user_name asc, d.driver_surname asc", nativeQuery = true)
     Page<Order> find3PreviousWeekMTW(Pageable pageable);
 
@@ -474,7 +474,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "LEFT JOIN driver d ON o.fk_driver = d.id\n" +
             "where o.date_load between date_sub((DATE_ADD(curdate(), INTERVAL 7 DAY)), interval if(dayofweek((DATE_ADD(curdate(), INTERVAL 7 DAY)))-5 >= 0, dayofweek((DATE_ADD(curdate(), INTERVAL 7 DAY)))-5, dayofweek((DATE_ADD(curdate(), INTERVAL 7 DAY)))-5+7) day)\n" +
             "and date_sub((DATE_ADD(curdate(), INTERVAL 7 DAY)), interval if(dayofweek((DATE_ADD(curdate(), INTERVAL 7 DAY)))-5 >= 0, dayofweek((DATE_ADD(curdate(), INTERVAL 7 DAY)))-5, dayofweek((DATE_ADD(curdate(), INTERVAL 7 DAY)))-5+7) - 6 day)\n" +
-            "and f.freighter_name = 'MTW' and o.is_import IS NOT true\n" +
+            "and f.freighter_name = 'MTW' and o.is_import IS NULL\n" +
             "order by u.user_name asc, d.driver_surname asc", nativeQuery = true)
     Page<Order> findNextWeekMTW(Pageable pageable);
 

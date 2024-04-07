@@ -883,8 +883,7 @@ public class OrderService {
         optionalBan.get().setDescription(banForm.getDescription());
         optionalBan.get().setStatus(banForm.getStatus());
         optionalBan.get().setTransOrSped(banForm.getTransOrSped());
-
-        // optionalBan.get().setQueryTime(LocalDateTime.now());
+        optionalBan.get().setQueryTime(LocalDateTime.now());
         //   optionalBan.get().setFreighterPhone(banForm.getFreighterPhone());
 
         banRepository.save(optionalBan.get());

@@ -23,7 +23,7 @@ public interface OurDriverRepository extends JpaRepository<OurDriver, Long> {
             "            and date_sub(curdate(), interval if(dayofweek(curdate())-5 >= 0, dayofweek(curdate())-5, dayofweek(curdate())-5+7) - 6 day)\n" +
             "            left JOIN freighter f ON o.fk_freighter = f.id\n" +
             "            left JOIN user u ON d.fk_user = u.id\n" +
-            "            where d.id is true and o.id is null and d.fk_user is not null\n" +
+            "            where d.active is true and (o.id is null or o.is_import is true) and d.fk_user is not null\n" +
             "       order by d.driver_surname asc", nativeQuery = true)
     List<OurDriver> findDriversFreeWeek();
 
@@ -35,7 +35,7 @@ public interface OurDriverRepository extends JpaRepository<OurDriver, Long> {
             "and date_sub((DATE_ADD(curdate(), INTERVAL 7 DAY)), interval if(dayofweek((DATE_ADD(curdate(), INTERVAL 7 DAY)))-5 >= 0, dayofweek((DATE_ADD(curdate(), INTERVAL 7 DAY)))-5, dayofweek((DATE_ADD(curdate(), INTERVAL 7 DAY)))-5+7) - 6 day)\n" +
             "            left JOIN freighter f ON o.fk_freighter = f.id\n" +
             "            left JOIN user u ON d.fk_user = u.id\n" +
-            "            where d.id is true and o.id is null and d.fk_user is not null\n" +
+            "            where d.active is true and (o.id is null or o.is_import is true) and d.fk_user is not null\n" +
             "       order by d.driver_surname asc", nativeQuery = true)
     List<OurDriver> findDriversFreeNextWeek();
 
@@ -47,7 +47,7 @@ public interface OurDriverRepository extends JpaRepository<OurDriver, Long> {
             "and date_sub((date_sub(curdate(), interval 7 day)), interval if(dayofweek((date_sub(curdate(), interval 7 day)))-5 >= 0, dayofweek((date_sub(curdate(), interval 7 day)))-5, dayofweek((date_sub(curdate(), interval 7 day)))-5+7) - 6 day)\n" +
             "            left JOIN freighter f ON o.fk_freighter = f.id\n" +
             "            left JOIN user u ON d.fk_user = u.id\n" +
-            "            where d.id is true and o.id is null and d.fk_user is not null\n" +
+            "            where d.active is true and (o.id is null or o.is_import is true) and d.fk_user is not null\n" +
             "       order by d.driver_surname asc", nativeQuery = true)
     List<OurDriver> findDriversFreePreviousWeek();
 
