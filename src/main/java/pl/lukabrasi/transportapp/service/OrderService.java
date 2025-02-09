@@ -7,11 +7,14 @@ import net.sf.jasperreports.export.Exporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 import pl.lukabrasi.transportapp.auth.repositories.UserRepository;
+import pl.lukabrasi.transportapp.dto.DatabaseChangeEvent;
 import pl.lukabrasi.transportapp.dto.ReportMonthPerson;
 import pl.lukabrasi.transportapp.form.*;
 import pl.lukabrasi.transportapp.model.*;
@@ -49,6 +52,9 @@ public class OrderService {
         this.ourDriverRepository = ourDriverRepository;
         this.freighterBaseRepository = ourFreighterBaseRepository;
     }
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
 
     public enum ActionResponse {
@@ -355,7 +361,7 @@ public class OrderService {
         }
         return null;
     }
-
+    @Transactional
     public ActionResponse saveOrder(OrderForm orderForm, String loggedUser) throws UnknownHostException {
 
         Order orderNew = new Order();
@@ -418,6 +424,7 @@ public class OrderService {
         orderNew.setIpaddress(loggedUser);
 
         orderRepository.save(orderNew);
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderNew.getOrderNumber() +" została dodana przez " + loggedUser));
         return ActionResponse.SUCCESS;
     }
 
@@ -477,6 +484,7 @@ public class OrderService {
         orderNew.setIpaddress(loggedUser);
 
         orderRepository.save(orderNew);
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderNew.getOrderNumber() +" została zmieniona przez " + loggedUser));
         return ActionResponse.SUCCESS;
     }
 
@@ -548,7 +556,7 @@ public class OrderService {
         ourDriverRepository.save(ourDriverNew);
         return ActionResponse.SUCCESS;
     }
-
+    @Transactional
     public ActionResponse updateOrder(Long id, OrderForm orderForm, String loggedUser) throws UnknownHostException {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
@@ -648,6 +656,7 @@ public class OrderService {
         optionalOrder.get().setIpaddress(loggedUser);
 
         orderRepository.save(optionalOrder.get());
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + id +" została zmieniona przez " + loggedUser));
         return ActionResponse.EDIT;
     }
 
