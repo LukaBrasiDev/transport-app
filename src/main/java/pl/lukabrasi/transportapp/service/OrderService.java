@@ -424,10 +424,11 @@ public class OrderService {
         orderNew.setIpaddress(loggedUser);
 
         orderRepository.save(orderNew);
-        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderNew.getOrderNumber() +" została dodana przez " + loggedUser));
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderNb +" została DODANA przez " + loggedUser));
         return ActionResponse.SUCCESS;
     }
 
+    @Transactional
     public ActionResponse saveOrderImport(OrderForm orderForm, String loggedUser) throws UnknownHostException {
 
         Order orderNew = new Order();
@@ -484,7 +485,7 @@ public class OrderService {
         orderNew.setIpaddress(loggedUser);
 
         orderRepository.save(orderNew);
-        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderNew.getOrderNumber() +" została zmieniona przez " + loggedUser));
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderNb +" została DODANA przez " + loggedUser));
         return ActionResponse.SUCCESS;
     }
 
@@ -656,10 +657,10 @@ public class OrderService {
         optionalOrder.get().setIpaddress(loggedUser);
 
         orderRepository.save(optionalOrder.get());
-        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + id +" została zmieniona przez " + loggedUser));
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderForm.getOrderNumber() +" została zmieniona przez " + loggedUser));
         return ActionResponse.EDIT;
     }
-
+    @Transactional
     public ActionResponse updateOrderImport(Long id, OrderForm orderForm, String loggedUser) throws UnknownHostException {
 
         Optional<Order> optionalOrder = orderRepository.findById(id);
@@ -706,6 +707,8 @@ public class OrderService {
         optionalOrder.get().setIpaddressImp(loggedUser);
 
         orderRepository.save(optionalOrder.get());
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderForm.getOrderNumber() +" została zmieniona przez " + loggedUser));
+
         return ActionResponse.EDIT;
     }
 
