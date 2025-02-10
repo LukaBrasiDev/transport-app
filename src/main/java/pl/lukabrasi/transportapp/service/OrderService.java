@@ -424,7 +424,7 @@ public class OrderService {
         orderNew.setIpaddress(loggedUser);
 
         orderRepository.save(orderNew);
-        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderNb +" została DODANA przez: " + loggedUser));
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderNb +" została DODANA przez " + loggedUser));
         return ActionResponse.SUCCESS;
     }
 
@@ -485,7 +485,7 @@ public class OrderService {
         orderNew.setIpaddress(loggedUser);
 
         orderRepository.save(orderNew);
-        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderNb +" została DODANA przez: " + loggedUser));
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderNb +" została DODANA przez " + loggedUser));
         return ActionResponse.SUCCESS;
     }
 
@@ -657,7 +657,7 @@ public class OrderService {
         optionalOrder.get().setIpaddress(loggedUser);
 
         orderRepository.save(optionalOrder.get());
-        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderForm.getOrderNumber() +" została zmieniona przez: " + loggedUser));
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderForm.getOrderNumber() +" została zmieniona przez " + loggedUser));
         return ActionResponse.EDIT;
     }
     @Transactional
@@ -707,7 +707,7 @@ public class OrderService {
         optionalOrder.get().setIpaddressImp(loggedUser);
 
         orderRepository.save(optionalOrder.get());
-        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + optionalOrder.get().getOrderNumber() +" została zmieniona przez: " + loggedUser));
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + optionalOrder.get().getOrderNumber() +" została zmieniona przez " + loggedUser));
 
         return ActionResponse.EDIT;
     }
