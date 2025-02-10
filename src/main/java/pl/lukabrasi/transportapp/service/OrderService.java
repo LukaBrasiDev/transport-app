@@ -485,7 +485,7 @@ public class OrderService {
         orderNew.setIpaddress(loggedUser);
 
         orderRepository.save(orderNew);
-        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + orderNb +" została DODANA przez " + loggedUser));
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Import nr " + orderNb +" został DODANY przez " + loggedUser));
         return ActionResponse.SUCCESS;
     }
 
@@ -707,7 +707,7 @@ public class OrderService {
         optionalOrder.get().setIpaddressImp(loggedUser);
 
         orderRepository.save(optionalOrder.get());
-        eventPublisher.publishEvent(new DatabaseChangeEvent("Tura nr " + optionalOrder.get().getOrderNumber() +" została zmieniona przez " + loggedUser));
+        eventPublisher.publishEvent(new DatabaseChangeEvent("Import nr " + optionalOrder.get().getOrderNumber() +" został zmieniony przez " + loggedUser));
 
         return ActionResponse.EDIT;
     }
