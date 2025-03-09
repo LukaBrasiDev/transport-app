@@ -79,7 +79,7 @@
             </td>
             <td class="nic" th:with="price=${one.price}?:0,cabotage=${one.cabotage}?:0,priceImp=${one.priceImp}?:0">
                 <span
-                        th:style="${price+cabotage+priceImp<2900} ? 'color:red' : ''" th:text="${#numbers.formatDecimal(price+cabotage+priceImp,0,0,'COMMA')} +' €'"></span></td>
+                        th:style="${price+cabotage+priceImp<3300} ? 'color:red' : ''" th:text="${#numbers.formatDecimal(price+cabotage+priceImp,0,0,'COMMA')} +' €'"></span></td>
             <td  th:text="${one.userImp}"></td>
             <td class="nic">
                 <a th:if="${logged.role} == 2 OR ${logged.role} ==3 OR ${logged.role} ==1 OR ${logged.role} ==21"
